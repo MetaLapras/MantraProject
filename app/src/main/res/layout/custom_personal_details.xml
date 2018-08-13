@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:layout_height="wrap_content">
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/edtPhone"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Phone No"
-        android:text="0123456789"
+        android:textSize="25sp"
+        android:text="@string/personal_details"
+        android:textAlignment="center"/>
+
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/edt_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name_of_worker"
         android:textColorHint="@color/colorAccent"
         android:textColor="@android:color/black"
         app:met_floatingLabel="highlight"
@@ -22,5 +34,143 @@
         app:met_singleLineEllipsis="true"
         />
 
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/edt_aadharCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/aadhar_card_no"
+        android:textColorHint="@color/colorAccent"
+        android:textColor="@android:color/black"
+        app:met_floatingLabel="highlight"
+        app:met_maxCharacters="10"
+        app:met_baseColor="@android:color/black"
+        app:met_primaryColor="@color/colorAccent"
+        app:met_singleLineEllipsis="true"
+        />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/edt_dob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date of Birth"
+        android:textColorHint="@color/colorAccent"
+        android:textColor="@android:color/black"
+        app:met_floatingLabel="highlight"
+        app:met_maxCharacters="10"
+        app:met_baseColor="@android:color/black"
+        app:met_primaryColor="@color/colorAccent"
+        app:met_singleLineEllipsis="true"
+        />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/edt_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        android:textColorHint="@color/colorAccent"
+        android:textColor="@android:color/black"
+        app:met_floatingLabel="highlight"
+        app:met_maxCharacters="10"
+        app:met_baseColor="@android:color/black"
+        app:met_primaryColor="@color/colorAccent"
+        app:met_singleLineEllipsis="true"
+        />
+
+    <fr.ganfra.materialspinner.MaterialSpinner
+        android:id="@+id/spinner_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:ms_enableErrorLabel="true"
+        app:ms_enableFloatingLabel="true"
+        app:ms_dropDownHintView="@layout/dropdown_hint_item"
+        app:ms_hintView="@layout/hint_item"
+        app:ms_hint="Gender"
+        app:ms_floatingLabelColor="#f8b4b6b4"
+        app:ms_floatingLabelText="Gender"
+        app:ms_hintColor="#efb4b6b4"
+        android:entries="@array/array_gender" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Scan Finger Print" />
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/fingerprint1"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="10dp"
+                android:src="@drawable/ic_fingerprint_1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/left_thumb"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:layout_margin="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="10dp"
+                android:id="@+id/fingerprint2"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_fingerprint_1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/right_thumb"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="@string/next"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="right"
+        />
+
 
 </LinearLayout>
+
+    </ScrollView>

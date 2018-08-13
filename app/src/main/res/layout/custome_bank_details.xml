@@ -1,9 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bank Details"
+        android:textSize="30dp"
+       android:layout_gravity="center"
+        android:fontFamily="@font/normal"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_margin="10dp"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/edt_Bank_Holder_Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/Bank_HOlder_Name"
+        android:textSize="20sp"
+        android:inputType="text"
+        android:textColorHint="@color/colorAccent"
+        android:textColor="@android:color/black"
+        app:met_floatingLabel="highlight"
+        app:met_maxCharacters="10"
+        app:met_baseColor="@android:color/black"
+        app:met_primaryColor="@color/colorAccent"
+        app:met_singleLineEllipsis="true"
+        />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/edt_Bank_Ifsc_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint=" Bank IFSC Code"
+        android:textSize="20sp"
+        android:inputType="text|number"
+        android:textColorHint="@color/colorAccent"
+        android:textColor="@android:color/black"
+        app:met_floatingLabel="highlight"
+        app:met_maxCharacters="10"
+        app:met_baseColor="@android:color/black"
+        app:met_primaryColor="@color/colorAccent"
+        app:met_singleLineEllipsis="true"
+        />
+
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/edt_Bank_Account_Number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint=" Bank Account Number"
+        android:textSize="20sp"
+        android:textColorHint="@color/colorAccent"
+        android:textColor="@android:color/black"
+        app:met_floatingLabel="highlight"
+        app:met_maxCharacters="10"
+        android:inputType="text|number"
+        app:met_baseColor="@android:color/black"
+        app:met_primaryColor="@color/colorAccent"
+        app:met_singleLineEllipsis="true"
+        />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/edt_Bank_Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint=" Bank Name"
+        android:textSize="20sp"
+        android:inputType="text|number"
+        android:textColorHint="@color/colorAccent"
+        android:textColor="@android:color/black"
+        app:met_floatingLabel="highlight"
+        app:met_maxCharacters="10"
+        app:met_baseColor="@android:color/black"
+        app:met_primaryColor="@color/colorAccent"
+        app:met_singleLineEllipsis="true"
+        />
+
+   
 
 
 </LinearLayout>

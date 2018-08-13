@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.util.Log;
 
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
@@ -12,9 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Database extends SQLiteAssetHelper {
-    private static final String DB_NAME = "foodorderingdb.db";
+    private static final String DB_NAME = "mantra_database.db";
     private static final int DB_VERSION = 1;
     private int countCart;
+    public static final String TAG = "Database-->";
 
     public Database(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -48,6 +50,8 @@ public class Database extends SQLiteAssetHelper {
         workerModel.getImageUrl());
 
         db.execSQL(query);
+
+        Log.e(TAG, "Database inserted Successfully");
     }
     public List<WorkerModel> getAllWorkers(){
         SQLiteDatabase db = getReadableDatabase();

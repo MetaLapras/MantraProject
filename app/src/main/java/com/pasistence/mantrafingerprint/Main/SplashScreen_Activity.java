@@ -1,10 +1,12 @@
-package com.pasistence.mantrafingerprint;
+package com.pasistence.mantrafingerprint.Main;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SplashScreen_Activity extends AppCompatActivity {
+import com.pasistence.mantrafingerprint.R;
+
+public class SplashScreen_Activity extends AppCompatActivity  {
     Context mContext;
 
     @Override
@@ -19,4 +21,6 @@ public class SplashScreen_Activity extends AppCompatActivity {
     private void mInit() {
         mContext = SplashScreen_Activity.this;
     }
+
+
 }

@@ -1,4 +1,4 @@
-package com.pasistence.mantrafingerprint;
+package com.pasistence.mantrafingerprint.Main;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.mantra.mfs100.FingerData;
 import com.mantra.mfs100.MFS100;
 import com.mantra.mfs100.MFS100Event;
+import com.pasistence.mantrafingerprint.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -59,6 +60,7 @@ public class MFS100TestActivity extends AppCompatActivity implements MFS100Event
         setContentView(R.layout.activity_mfs100_test);
 
         FindFormControls();
+
         try {
             this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         } catch (Exception e) {

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".BankDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:layout_weight="1">
+            <EditText
+                android:id="@+id/bank_name"
+                android:inputType="text"
+                android:lines="2"
+                android:minLines="2"
+                android:gravity="top|left"
+                android:hint="Bank Name"
+                android:maxLines="10"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:scrollbars="vertical" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:layout_weight="1">
+            <EditText
+                android:id="@+id/account_name"
+                android:inputType="text"
+                android:lines="2"
+                android:minLines="2"
+                android:gravity="top|left"
+                android:hint="Account Name"
+                android:maxLines="10"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:scrollbars="vertical"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:layout_weight="1">
+            <EditText
+                android:id="@+id/account_number"
+                android:inputType="number"
+                android:lines="2"
+                android:minLines="2"
+                android:gravity="top|left"
+                android:hint="Account Number"
+                android:maxLines="10"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:scrollbars="vertical"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:layout_weight="1">
+            <EditText
+                android:id="@+id/ifsc_code"
+                android:inputType="number|text"
+                android:lines="2"
+                android:minLines="2"
+                android:gravity="top|left"
+                android:hint="IFSC Code"
+                android:maxLines="10"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:scrollbars="vertical"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:textSize="20dp"
+            android:layout_margin="10dp"
+            android:textStyle="normal"
+            android:background="#0091EA"/>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -25,15 +25,49 @@
     <!--LoginScreen-->
     <string name="login">Login</string>
     <string name="SignUp">SignUp</string>
-    <string name="SignIn">SignIn</string>
+    <string name="SignIn">LogIn</string>
     <string name="submit">Submit</string>
-    <string name="username">UserName</string>
-    <string name="password">Password</string>
+    <string name="username">Enter User Name</string>
+    <string name="password">Enter Password</string>
     <string name="Server">Server</string>
     <string name="Select">Select</string>
-    <string name="welcome">Welcome</string>
+    <string name="welcome">Project Login</string>
     <string name="Upload">Upload</string>
     <string name="Success">Success</string>
     <string name="Loading">Loading</string>
+    <string name="array_marital_status" />
+
+
+    <!--Dashboard-->
+    <string name="logout">Logout</string>
+
+    <string-array name="array_gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Unknown</item>
+    </string-array>
+
+    <string-array name="array_marital_status">
+        <item>Single</item>
+        <item>Engaged</item>
+        <item>Married</item>
+        <item>Unknown</item>
+    </string-array>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+
+    <string-array name="array_technology">
+        <item>Android</item>
+        <item>Java</item>
+        <item>Php</item>
+        <item>Hadoop</item>
+        <item>Sap</item>
+        <item>Python</item>
+        <item>Ajax</item>
+        <item>C++</item>
+        <item>Ruby</item>
+        <item>Rails</item>
+        <item>.Net</item>
+        <item>Perl</item>
+    </string-array>
 
 </resources>

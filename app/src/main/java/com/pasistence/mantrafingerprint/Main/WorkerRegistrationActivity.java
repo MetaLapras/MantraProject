@@ -3,25 +3,17 @@ package com.pasistence.mantrafingerprint.Main;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
-import com.pasistence.mantrafingerprint.database.Database;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class WorkerRegistrationActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button btnLayer1Next,btnLayer2Next,btnLayer3Next,btnLayer2Previous,btnLayer3Previous,btnLayer4previous,btnSubmit;
     Context mContext;
     View layer1,layer2,layer3,layer4;
-    MaterialEditText edtName,edtAadharCard,edtDob,edtEmail;
-    Database database;
-    public static final String TAG = "wrokerReg-->";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +34,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         btnLayer2Previous.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
 
-
     }
 
     private void mInit() {
@@ -62,13 +53,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
          layer3 = findViewById(R.id.layer3);
          layer4 = findViewById(R.id.layer4);
 
-        //Material Spinners
-        edtName = (MaterialEditText)findViewById(R.id.edt_name);
-        edtAadharCard = (MaterialEditText)findViewById(R.id.edt_aadharCard);
-        edtDob = (MaterialEditText)findViewById(R.id.edt_dob);
-        edtEmail = (MaterialEditText)findViewById(R.id.edt_email);
 
-        database = new Database(mContext);
 
     }
 
@@ -76,31 +61,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     public void onClick(View view) {
         if(view == btnLayer1Next)
         {
-           /* WorkerModel workerModel = new WorkerModel("101",
-                    edtName.getText().toString(),
-                    edtAadharCard.getText().toString(),
-                    "male",
-                    edtDob.getText().toString(),
-                    "",
-                    "",
-                    edtEmail.getText().toString(),
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "");
-
-            database.addToWorkers(workerModel);
-
-            Log.e(TAG, workerModel.toString() );*/
-
-
             layer1.setVisibility(View.INVISIBLE);
             layer2.setVisibility(View.VISIBLE);
         }

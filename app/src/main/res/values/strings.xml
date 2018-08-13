@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MantraFingerPrint</string>
     <string name="Bank_HOlder_Name">Name of Account Holder Name as per Bank Passbook </string>
+    <string name="welcome_tag">Please Set Your Profile Picture</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

@@ -15,8 +15,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
+    }
 
-    private static final String TAG = "database-->";
+    @Override
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+
+    }
+
+ /*   private static final String TAG = "database-->";
     private static final String DATABASE_NAME = "database.db";
     private static final int DB_VER=1;
 
@@ -39,13 +52,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String MEMBER_COL_15 = "fingerprint1";
     public static final String MEMBER_COL_16 = "fingerprint2";
    public static final String MEMBER_COL_17 = "bankname";
-   /* public static final String MEMBER_COL_18 = "accountholder";
+   *//* public static final String MEMBER_COL_18 = "accountholder";
     public static final String MEMBER_COL_19 = "accountnumber";
     public static final String MEMBER_COL_20 = "ifsccode";
     public static final String MEMBER_COL_21 = "status";
     public static final String MEMBER_COL_22 = "created_at";
     public static final String MEMBER_COL_23 = "updated_at";
-    public static final String MEMBER_COL_24 = "photourl";*/
+    public static final String MEMBER_COL_24 = "photourl";*//*
 
     public static final String CREATE_TABLE_MEMBER =
             "CREATE TABLE " + MEMBERS_TABLE + "("
@@ -66,13 +79,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + MEMBER_COL_15 + " TEXT,"
                     + MEMBER_COL_16 + " TEXT,"
                     + MEMBER_COL_17 + " TEXT"
-                    /*+ MEMBER_COL_18 + " TEXT,"
+                    *//*+ MEMBER_COL_18 + " TEXT,"
                     + MEMBER_COL_19 + " TEXT,"
                     + MEMBER_COL_20 + " TEXT,"
                     + MEMBER_COL_21 + " TEXT,"
                     + MEMBER_COL_22 + " TEXT,"
                     + MEMBER_COL_23 + " TEXT,"
-                    + MEMBER_COL_24 + " TEXT"*/
+                    + MEMBER_COL_24 + " TEXT"*//*
                     + ")";
 
     public DatabaseHelper(Context context) {
@@ -183,7 +196,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(MEMBER_COL_2, member.getMemberId());
+        *//*values.put(MEMBER_COL_2, member.getMemberId());
         values.put(MEMBER_COL_3, member.getAdminId());
         values.put(MEMBER_COL_4, member.getStatusId());
         values.put(MEMBER_COL_5, member.getFirstName());
@@ -198,14 +211,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(MEMBER_COL_14, member.getCurrentAddress());
         values.put(MEMBER_COL_15, member.getFingerprintOne());
         values.put(MEMBER_COL_16, member.getFingerprintTwo());
-        values.put(MEMBER_COL_17, member.getBankName());
-        /*values.put(MEMBER_COL_18, member.getAccountHolder());
+        values.put(MEMBER_COL_17, member.getBankName());*//*
+        *//*values.put(MEMBER_COL_18, member.getAccountHolder());
         values.put(MEMBER_COL_19, member.getAccountNumber());
         values.put(MEMBER_COL_20, member.getIFSCCode());
         values.put(MEMBER_COL_21, member.getStatus());
         values.put(MEMBER_COL_22, member.getCreated_at());
         values.put(MEMBER_COL_23, member.getUpdated_at());
-        values.put(MEMBER_COL_24, member.getPhotourl());*/
+        values.put(MEMBER_COL_24, member.getPhotourl());*//*
 
         long result = db.insert(MEMBERS_TABLE, null, values);
 
@@ -217,7 +230,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-   /* //Function get All Worker List
+   *//* //Function get All Worker List
     public List<WorkerList> getWorkerList() {
         SQLiteDatabase db =getReadableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
@@ -296,10 +309,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return result;
     }
-*/
+*//*
 
 
-    /*public List<MemberPOJO> getSerachMember(String str) {
+    *//*public List<MemberPOJO> getSerachMember(String str) {
         List<MemberPOJO> members = new ArrayList<MemberPOJO>();
         String selectQuery = "SELECT  * FROM " + MEMBERS_TABLE + " WHERE " + MEMBER_COL_4 + " LIKE '" + str + "%'"
                 + " OR " + MEMBER_COL_6 + " LIKE '" + str + "%'";
@@ -338,7 +351,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         db.close();
         return members;
-    }*/
+    }*//*
     public List<WorkerModel> getAllMembers(WorkerModel workerModel) {
         List<WorkerModel> members = new ArrayList<WorkerModel>();
 
@@ -368,13 +381,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 member.setFingerprintOne(cursor.getString(cursor.getColumnIndex(MEMBER_COL_15)));
                 member.setFingerprintTwo(cursor.getString(cursor.getColumnIndex(MEMBER_COL_16)));
                 member.setBankName(cursor.getString(cursor.getColumnIndex(MEMBER_COL_17)));
-              /* member.setFingerprintTwo(cursor.getString(cursor.getColumnIndex(MEMBER_COL_18)));
+              *//* member.setFingerprintTwo(cursor.getString(cursor.getColumnIndex(MEMBER_COL_18)));
                 member.setBankName(cursor.getString(cursor.getColumnIndex(MEMBER_COL_19)));
                 member.setFingerPrint1(cursor.getString(cursor.getColumnIndex(MEMBER_COL_20)));
                 member.setRollNo(cursor.getString(cursor.getColumnIndex(MEMBER_COL_21)));
                 member.setCreateAt(cursor.getString(cursor.getColumnIndex(MEMBER_COL_22)));
                 member.setUpdateAt(cursor.getString(cursor.getColumnIndex(MEMBER_COL_23)));
-*/
+*//*
                 members.add(member);
             } while (cursor.moveToNext());
         }
@@ -406,16 +419,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         member.setFingerprintOne(cursor.getString(cursor.getColumnIndex(MEMBER_COL_15)));
         member.setFingerprintTwo(cursor.getString(cursor.getColumnIndex(MEMBER_COL_16)));
         member.setBankName(cursor.getString(cursor.getColumnIndex(MEMBER_COL_17)));
-       /* member.setPhotoLocalPath(cursor.getString(cursor.getColumnIndex(MEMBER_COL_18)));
+       *//* member.setPhotoLocalPath(cursor.getString(cursor.getColumnIndex(MEMBER_COL_18)));
         member.setFingerPrint(cursor.getString(cursor.getColumnIndex(MEMBER_COL_19)));
         member.setFingerPrint1(cursor.getString(cursor.getColumnIndex(MEMBER_COL_20)));
         member.setRollNo(cursor.getString(cursor.getColumnIndex(MEMBER_COL_21)));
         member.setCreateAt(cursor.getString(cursor.getColumnIndex(MEMBER_COL_22)));
-        member.setUpdateAt(cursor.getString(cursor.getColumnIndex(MEMBER_COL_23)));*/
+        member.setUpdateAt(cursor.getString(cursor.getColumnIndex(MEMBER_COL_23)));*//*
 
         return member;
     }
-    /*public void deleteAllMembers() {
+    *//*public void deleteAllMembers() {
         try {
             String selectQuery = "DELETE FROM " + MEMBERS_TABLE;
             SQLiteDatabase db = this.getWritableDatabase();

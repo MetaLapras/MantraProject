@@ -60,7 +60,7 @@ public class WorkerModel implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -36,7 +36,7 @@ public class WorkerDetails extends AppCompatActivity {
         context = WorkerDetails.this;
         mContext = WorkerDetails.this;
 
-        dataBaseHelper = new DatabaseHelper(this);
+        //dataBaseHelper = new DatabaseHelper(this);
 
 
     }

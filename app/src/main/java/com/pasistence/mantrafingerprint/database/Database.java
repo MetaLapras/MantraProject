@@ -64,7 +64,7 @@ public class Database extends SQLiteAssetHelper {
         {
             do {
                 WorkerModel workerModel = new WorkerModel();
-                workerModel.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                workerModel.setId(cursor.getString(cursor.getColumnIndex("id")));
                 workerModel.setWorkerId(cursor.getString(cursor.getColumnIndex("worker_id")));
                 workerModel.setName(cursor.getString(cursor.getColumnIndex("name")));
                 workerModel.setAdharcardId(cursor.getString(cursor.getColumnIndex("adharcard_id")));

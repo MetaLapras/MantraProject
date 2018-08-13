@@ -45,7 +45,7 @@ public class MemberListActivity extends AppCompatActivity {
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.search_bar);
 
         //Init DB
-        databaseHelper = new DatabaseHelper(this);
+       // databaseHelper = new DatabaseHelper(this);
 
 
         //Setup search bar
@@ -97,7 +97,7 @@ public class MemberListActivity extends AppCompatActivity {
         });
 
         //Init Adapter default set all result
-        adapter = new SearchAdapter(this,databaseHelper.getWorkerList());
+        //adapter = new SearchAdapter(this,databaseHelper.getWorkerList());
         recyclerView.setAdapter(adapter);
 
     }
@@ -105,12 +105,12 @@ public class MemberListActivity extends AppCompatActivity {
 
 
     private void startSearch(String text) {
-        adapter = new SearchAdapter(this,databaseHelper.getWorkerListByName(text));
+        //adapter = new SearchAdapter(this,databaseHelper.getWorkerListByName(text));
         recyclerView.setAdapter(adapter);
     }
 
     private void loadSuggestList() {
-        suggestList = databaseHelper.getNames();
+        //suggestList = databaseHelper.getNames();
         materialSearchBar.setLastSuggestions(suggestList);
     }
 

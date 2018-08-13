@@ -3,13 +3,12 @@ package com.pasistence.mantrafingerprint.Main;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-<<<<<<< HEAD
+
 import android.widget.EditText;
-=======
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
->>>>>>> 3949ebc28460b5b3b4d35f54a5647f2cb949fc5d
 
 import com.pasistence.mantrafingerprint.R;
 
@@ -24,8 +23,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worker_registration);
 
-<<<<<<< HEAD
-=======
+
         mInit();
         mOnclick();
 
@@ -99,6 +97,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         {
             Toast.makeText(mContext, "Data Submitted successfully", Toast.LENGTH_SHORT).show();
         }
->>>>>>> 3949ebc28460b5b3b4d35f54a5647f2cb949fc5d
+
     }
 }

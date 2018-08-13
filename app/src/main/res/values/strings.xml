@@ -55,6 +55,13 @@
         <item>Unknown</item>
     </string-array>
     <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="email">Email</string>
+    <string name="aadhar_card_no">Aadhar Card No</string>
+    <string name="name_of_worker">Name of Worker</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="left_thumb">left Thumb</string>
+    <string name="right_thumb">Right Thumb</string>
+    <string name="next">Next</string>
 
     <string-array name="array_technology">
         <item>Android</item>

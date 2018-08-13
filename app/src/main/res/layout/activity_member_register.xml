@@ -347,51 +347,51 @@
             </LinearLayout>
 
             <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <LinearLayout
+
+                <ImageView
+                    android:layout_margin="10dp"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="10dp"
+                    android:id="@+id/fingerprint1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_height="200dp"
+                    android:padding="10dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:src="@drawable/ic_fingerprint_1" />
 
-
-                    <ImageView
-                        android:layout_margin="10dp"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="10dp"
-                        android:id="@+id/fingerprint1"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:padding="10dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_fingerprint_1" />
-
-                </LinearLayout>
-               <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-
-                    <ImageView
-                        android:layout_margin="10dp"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="10dp"
-                        android:id="@+id/fingerprint2"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:padding="10dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_fingerprint_1" />
-
-                </LinearLayout>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_margin="10dp"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="10dp"
+                    android:id="@+id/fingerprint2"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_fingerprint_1" />
+
+            </LinearLayout>
+        </LinearLayout>
            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

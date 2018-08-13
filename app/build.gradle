@@ -51,4 +51,8 @@ dependencies {
 
     //image choosing /croping library
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.+'
+
+    //material Edit Text
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+
 }

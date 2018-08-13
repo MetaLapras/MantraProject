@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:text="@string/Contact_details"
+                android:textAlignment="center"/>
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_address1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Address Line 1"
+                android:inputType="textMultiLine"
+                android:textColorHint="@color/colorAccent"
+                android:textColor="@android:color/black"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="10"
+                app:met_baseColor="@android:color/black"
+                app:met_primaryColor="@color/colorAccent"
+                />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_address2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Address Line 2"
+                android:inputType="textMultiLine"
+                android:textColorHint="@color/colorAccent"
+                android:textColor="@android:color/black"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="10"
+                app:met_baseColor="@android:color/black"
+                app:met_primaryColor="@color/colorAccent"
+                app:met_singleLineEllipsis="true"
+                />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_contact1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mobile Number"
+                android:inputType="number"
+                android:textColorHint="@color/colorAccent"
+                android:textColor="@android:color/black"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="10"
+                app:met_baseColor="@android:color/black"
+                app:met_primaryColor="@color/colorAccent"
+                app:met_singleLineEllipsis="true"
+                />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_contact2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Alternate Number"
+                android:inputType="number"
+                android:textColorHint="@color/colorAccent"
+                android:textColor="@android:color/black"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="10"
+                app:met_baseColor="@android:color/black"
+                app:met_primaryColor="@color/colorAccent"
+                app:met_singleLineEllipsis="true"
+                />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="City"
+                android:textColorHint="@color/colorAccent"
+                android:textColor="@android:color/black"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="10"
+                app:met_baseColor="@android:color/black"
+                app:met_primaryColor="@color/colorAccent"
+                app:met_singleLineEllipsis="true"
+                />
+
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/spn_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:ms_enableErrorLabel="true"
+                app:ms_enableFloatingLabel="true"
+                app:ms_dropDownHintView="@layout/dropdown_hint_item"
+                app:ms_hintView="@layout/hint_item"
+                app:ms_hint="State"
+                app:ms_floatingLabelColor="#f8b4b6b4"
+                app:ms_floatingLabelText="Gender"
+                app:ms_hintColor="#efb4b6b4"
+                android:entries="@array/array_gender" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_pincode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="pincode"
+                android:inputType="number"
+                android:textColorHint="@color/colorAccent"
+                android:textColor="@android:color/black"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="10"
+                app:met_baseColor="@android:color/black"
+                app:met_primaryColor="@color/colorAccent"
+                app:met_singleLineEllipsis="true"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/previous" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/next" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>

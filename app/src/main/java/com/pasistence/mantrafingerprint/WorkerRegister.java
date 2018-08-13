@@ -45,7 +45,7 @@ public class WorkerRegister extends AppCompatActivity {
        actionBar.setTitle("New Record");
 */
         mEdtName = findViewById(R.id.edtName);
-        mEdtAge = findViewById( R.id.edtage);
+      //  mEdtAge = findViewById( R.id.edtage);
         mEdtPhone = findViewById(R.id.edtPhone);
 
         mBtnadd = findViewById(R.id.btn_submit);

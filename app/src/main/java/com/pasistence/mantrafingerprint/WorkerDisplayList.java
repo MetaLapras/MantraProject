@@ -52,7 +52,7 @@ public class WorkerDisplayList extends AppCompatActivity {
 */
         mlistView = findViewById(R.id.listView);
         mList= new ArrayList<>();
-       // mAdapter = new WorkerListAdapter(this,R.layout.raw,mList);
+        //mAdapter = new WorkerListAdapter(this,R.layout.raw,mList);
         mlistView.setAdapter(mAdapter);
 
         //get all data from SQlite
@@ -199,7 +199,6 @@ public class WorkerDisplayList extends AppCompatActivity {
                             edtPhone.getText().toString().trim(),
                            WorkerDisplayList.imageViewToByte(imageViewIcon),
                             position*/
-
                     dialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Update Successfully", Toast.LENGTH_SHORT).show();
                 }
@@ -225,7 +224,7 @@ public class WorkerDisplayList extends AppCompatActivity {
             String phone = cursor.getString(3);
             byte[] image = cursor.getBlob(4);
 
-           // mList.add(new ModelWorker(id,name,age,phone,image));
+            //mList.add(new ModelWorker(id,name,age,phone,image));
         }
         mAdapter.notifyDataSetChanged();
     }

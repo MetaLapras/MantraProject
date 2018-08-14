@@ -3,9 +3,9 @@ package com.pasistence.mantrafingerprint.Models;
 import java.io.Serializable;
 
 public class WorkerModel implements Serializable {
-    public String id, workerId, name, adharcardId, gender, dob, fingerprint1, fingerprint2, email, permanentAddressId, currentAddressId, contact1, contact2, salary, createdAt, updatedAt, bankId, projectId, activation, imageUrl, permanent_address, current_address, bank_name, holder_name, ifsc_code, account_number;
+    public String id, workerId, name, adharcardId, gender, dob, fingerprint1, fingerprint2, email, permanentAddressId, currentAddressId, contact1, contact2, salary, createdAt, updatedAt, bankId, projectId, activation, imageUrl, permanent_address, current_address, bank_name, holder_name, ifsc_code, account_number, city,pincode;
 
-    public WorkerModel(String id, String workerId, String name, String adharcardId, String gender, String dob, String fingerprint1, String fingerprint2, String email, String permanentAddressId, String currentAddressId, String contact1, String contact2, String salary, String createdAt, String updatedAt, String bankId, String projectId, String activation, String imageUrl, String permanent_address, String current_address, String bank_name, String holder_name, String ifsc_code, String account_number) {
+    public WorkerModel(String id, String workerId, String name, String adharcardId, String gender, String dob, String fingerprint1, String fingerprint2, String email, String permanentAddressId, String currentAddressId, String contact1, String contact2, String salary, String createdAt, String updatedAt, String bankId, String projectId, String activation, String imageUrl, String permanent_address, String current_address, String bank_name, String holder_name, String ifsc_code, String account_number, String city, String pincode) {
         this.id = id;
         this.workerId = workerId;
         this.name = name;
@@ -32,6 +32,8 @@ public class WorkerModel implements Serializable {
         this.holder_name = holder_name;
         this.ifsc_code = ifsc_code;
         this.account_number = account_number;
+        this.city = city;
+        this.pincode = pincode;
     }
 
     public WorkerModel() {
@@ -66,6 +68,8 @@ public class WorkerModel implements Serializable {
                 ", holder_name='" + holder_name + '\'' +
                 ", ifsc_code='" + ifsc_code + '\'' +
                 ", account_number='" + account_number + '\'' +
+                ", city='" + city + '\'' +
+                ", pincode='" + pincode + '\'' +
                 '}';
     }
 
@@ -275,5 +279,21 @@ public class WorkerModel implements Serializable {
 
     public void setAccount_number(String account_number) {
         this.account_number = account_number;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPincode() {
+        return pincode;
+    }
+
+    public void setPincode(String pincode) {
+        this.pincode = pincode;
     }
 }

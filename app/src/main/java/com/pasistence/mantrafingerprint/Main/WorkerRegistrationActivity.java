@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.database.Database;
+import com.pasistence.mantrafingerprint.database.DatabaseHelper;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class WorkerRegistrationActivity extends AppCompatActivity implements View.OnClickListener{
@@ -133,16 +134,27 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     }
 
     private void WorkerRegistrationBtn() {
-        workerModel.setName(edt_name.getText().toString());
-        workerModel.setId(edt_Id.getText().toString());
-        workerModel.setAdharcardId(edt_aadhar_num.getText().toString());
-        workerModel.setDob(edt_dob.getText().toString());
-        workerModel.setEmail(edt_email.getText().toString());
-        //workerModel.setGender(spn_gende);
-        workerModel.setPermanent_address(edt_address_line1.getText().toString());
-        workerModel.setCurrent_address(edt_address_line2.getText().toString());
-       workerModel.setContact1(edt_mobile_num.getText().toString());
-       workerModel.setContact2(edt_alternate_num.getText().toString());
+            workerModel.setName(edt_name.getText().toString());
+            workerModel.setId(edt_Id.getText().toString());
+            workerModel.setAdharcardId(edt_aadhar_num.getText().toString());
+            workerModel.setDob(edt_dob.getText().toString());
+            workerModel.setEmail(edt_email.getText().toString());
+            workerModel.setGender(spn_gender.getSelectedItem().toString().trim());
+            workerModel.setPermanent_address(edt_address_line1.getText().toString());
+            workerModel.setCurrent_address(edt_address_line2.getText().toString());
+            workerModel.setContact1(edt_mobile_num.getText().toString());
+            workerModel.setContact2(edt_alternate_num.getText().toString());
+            workerModel.setCity(edt_city.getText().toString());
+            workerModel.setPincode(edt_pincode.getText().toString());
+            workerModel.setHolder_name(edt_holder_name.getText().toString());
+            workerModel.setIfsc_code(edt_bank_ifsc_code.getText().toString());
+            workerModel.setAccount_number(edt_bank_account_number.getText().toString());
+            workerModel.setBank_name(edt_bank_name.getText().toString());
+
+        WorkerModel workerModel=new WorkerModel();
+        Database database=new Database(mContext);
+        database.addToWorkers(workerModel);
+
 
 
     }

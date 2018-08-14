@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -15,16 +16,20 @@ import com.pasistence.mantrafingerprint.database.Database;
 import com.pasistence.mantrafingerprint.database.DatabaseHelper;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+import fr.ganfra.materialspinner.MaterialSpinner;
+
 public class WorkerRegistrationActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button btnLayer1Next,btnLayer2Next,btnLayer3Next,btnLayer2Previous,btnLayer3Previous,btnLayer4previous,btnSubmit;
     Context mContext;
     View layer1,layer2,layer3,layer4;
     WorkerModel workerModel;
-    MaterialEditText edt_Id,edt_name,edt_aadhar_num,edt_dob,edt_email,edt_address_line1,edt_address_line2,edt_mobile_num,edt_alternate_num,edt_city,edt_pincode,edt_holder_name,
-    edt_bank_ifsc_code,edt_bank_account_number,edt_bank_name;
-    ImageView profile_image,img_fingerprint1,img_fingerprint2;
-    Spinner spn_gender,spn_state;
+    MaterialEditText edtname,edtaadharnum,edtdob,edtemail,edtaddressline1,edtaddressline2,edtmobilenum,edtalternatenum,edtcity,edtpincode,edtholdername,
+    edtbankifsccode,edtbankaccountnumber,edtbankname;
+    CircleImageView profileimage;
+    ImageView imgfingerprint1,imgfingerprint2;
+    MaterialSpinner spngender,spnstate;
 
     Database database;
 
@@ -47,6 +52,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         btnLayer2Previous.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
 
+
+
     }
 
     private void mInit() {
@@ -67,27 +74,27 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
          layer4 = findViewById(R.id.layer4);
 
          //initialsing the Component
-        edt_name = findViewById(R.id.edt_name);
-        edt_aadhar_num = findViewById(R.id.edt_aadharCard);
-        edt_dob = findViewById(R.id.edt_dob);
-        edt_email = findViewById(R.id.edt_email);
-        spn_gender = findViewById(R.id.spinner_gender);
-        img_fingerprint1= findViewById(R.id.fingerprint1);
-        img_fingerprint2 = findViewById(R.id.fingerprint2);
-        edt_address_line1 = findViewById(R.id.edt_address1);
-        edt_address_line2 = findViewById(R.id.edt_address2);
-        edt_mobile_num = findViewById(R.id.edt_contact_number);
-        edt_alternate_num = findViewById(R.id.edt_alternate_number);
-        edt_city = findViewById(R.id.edt_city);
-        spn_state = findViewById(R.id.spn_state);
-        edt_pincode = findViewById(R.id.edt_pincode);
-        edt_holder_name = findViewById(R.id.edt_Bank_Holder_Name);
-        edt_bank_ifsc_code = findViewById(R.id.edt_Bank_Ifsc_code);
-        edt_bank_account_number = findViewById(R.id.edt_Bank_Account_Number);
-        edt_bank_name = findViewById(R.id.edt_Bank_Name);
-        profile_image = findViewById(R.id.profile_image);
+        edtname                = (MaterialEditText) findViewById(R.id.edt_name);
+        edtaadharnum          = (MaterialEditText)findViewById(R.id.edt_aadharCard);
+        edtdob                 = (MaterialEditText)findViewById(R.id.edt_dob);
+        edtemail               = (MaterialEditText)findViewById(R.id.edt_email);
+        spngender              = (MaterialSpinner)findViewById(R.id.spinner_gender);
+        imgfingerprint1        = findViewById(R.id.fingerprint1);
+        imgfingerprint2        = findViewById(R.id.fingerprint2);
+        edtaddressline1       = (MaterialEditText)findViewById(R.id.edt_address1);
+        edtaddressline2       = (MaterialEditText)findViewById(R.id.edt_address2);
+        edtmobilenum          = (MaterialEditText)findViewById(R.id.edt_contact1);
+        edtalternatenum       = (MaterialEditText)findViewById(R.id.edt_contact2);
+        edtcity                = (MaterialEditText)findViewById(R.id.edt_city);
+        spnstate               = (MaterialSpinner)findViewById(R.id.spn_state);
+        edtpincode             = (MaterialEditText)findViewById(R.id.edt_pincode);
+        edtholdername         = (MaterialEditText)findViewById(R.id.edt_Bank_Holder_Name);
+        edtbankifsccode      = (MaterialEditText)findViewById(R.id.edt_Bank_Ifsc_code);
+        edtbankaccountnumber = (MaterialEditText)findViewById(R.id.edt_Bank_Account_Number);
+        edtbankname           = (MaterialEditText)findViewById(R.id.edt_Bank_Name);
+        profileimage           = (CircleImageView) findViewById(R.id.profile_image);
 
-
+        database = new Database(mContext);
 
     }
 
@@ -134,26 +141,25 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     }
 
     private void WorkerRegistrationBtn() {
-            workerModel.setName(edt_name.getText().toString());
-            workerModel.setId(edt_Id.getText().toString());
-            workerModel.setAdharcardId(edt_aadhar_num.getText().toString());
-            workerModel.setDob(edt_dob.getText().toString());
-            workerModel.setEmail(edt_email.getText().toString());
-            workerModel.setGender(spn_gender.getSelectedItem().toString().trim());
-            workerModel.setPermanent_address(edt_address_line1.getText().toString());
-            workerModel.setCurrent_address(edt_address_line2.getText().toString());
-            workerModel.setContact1(edt_mobile_num.getText().toString());
-            workerModel.setContact2(edt_alternate_num.getText().toString());
-            workerModel.setCity(edt_city.getText().toString());
-            workerModel.setPincode(edt_pincode.getText().toString());
-            workerModel.setHolder_name(edt_holder_name.getText().toString());
-            workerModel.setIfsc_code(edt_bank_ifsc_code.getText().toString());
-            workerModel.setAccount_number(edt_bank_account_number.getText().toString());
-            workerModel.setBank_name(edt_bank_name.getText().toString());
+        workerModel=new WorkerModel();
+            workerModel.setName(edtname.getText().toString());
+           // workerModel.setId(edt_Id.getText().toString());
+            workerModel.setAdharcardId(edtaadharnum.getText().toString());
+            workerModel.setDob(edtdob.getText().toString());
+            workerModel.setEmail(edtemail.getText().toString());
+          //  workerModel.setGender(spn_gender.getSelectedItem().toString().trim());
+            workerModel.setPermanent_address(edtaddressline1.getText().toString());
+            workerModel.setCurrent_address(edtaddressline2.getText().toString());
+            workerModel.setContact1(edtmobilenum.getText().toString());
+            workerModel.setContact2(edtalternatenum.getText().toString());
+            workerModel.setCity(edtcity.getText().toString());
+            workerModel.setPincode(edtpincode.getText().toString());
+            workerModel.setHolder_name(edtholdername.getText().toString());
+            workerModel.setIfsc_code(edtbankifsccode.getText().toString());
+            workerModel.setAccount_number(edtbankaccountnumber.getText().toString());
+            workerModel.setBank_name(edtbankname.getText().toString());
 
-        WorkerModel workerModel=new WorkerModel();
-        Database database=new Database(mContext);
-        database.addToWorkers(workerModel);
+            database.addToWorkers(workerModel);
 
 
 

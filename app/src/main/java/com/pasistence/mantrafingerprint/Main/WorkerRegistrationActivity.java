@@ -1,6 +1,8 @@
 package com.pasistence.mantrafingerprint.Main;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,8 @@ import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.database.Database;
 import com.pasistence.mantrafingerprint.database.DatabaseHelper;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -30,6 +34,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     CircleImageView profileimage;
     ImageView imgfingerprint1,imgfingerprint2;
     MaterialSpinner spngender,spnstate;
+    String ImagePath;
 
     Database database;
 
@@ -51,8 +56,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         btnLayer3Previous.setOnClickListener(this);
         btnLayer2Previous.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
-
-
+        profileimage.setOnClickListener(this);
 
     }
 
@@ -92,11 +96,13 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         edtbankifsccode      = (MaterialEditText)findViewById(R.id.edt_Bank_Ifsc_code);
         edtbankaccountnumber = (MaterialEditText)findViewById(R.id.edt_Bank_Account_Number);
         edtbankname           = (MaterialEditText)findViewById(R.id.edt_Bank_Name);
-        profileimage           = (CircleImageView) findViewById(R.id.profile_image);
+        profileimage           = (CircleImageView) findViewById(R.id.img_profile_image);
 
         database = new Database(mContext);
 
     }
+
+
 
     @Override
     public void onClick(View view) {
@@ -104,9 +110,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         {
             layer1.setVisibility(View.INVISIBLE);
             layer2.setVisibility(View.VISIBLE);
-
-
-
         }
         if(view == btnLayer2Next)
         {
@@ -137,6 +140,14 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         {
             WorkerRegistrationBtn();
             Toast.makeText(mContext, "Data Submitted successfully", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        if(view == profileimage)
+        {
+            CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.ON)//enable image guidlines
+                    .setAspectRatio(1,1)  //image will be suqare//
+                    .start(this);
         }
     }
 
@@ -158,11 +169,41 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             workerModel.setIfsc_code(edtbankifsccode.getText().toString());
             workerModel.setAccount_number(edtbankaccountnumber.getText().toString());
             workerModel.setBank_name(edtbankname.getText().toString());
+            workerModel.setImageUrl(getImagePath());
 
             database.addToWorkers(workerModel);
 
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Uri imageUri = data.getData();
+        if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
+        {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if(resultCode == RESULT_OK)
+            {
+                Uri resultUri = result.getUri();
+                //set image choosed from gallery to image view
+                profileimage.setImageURI(resultUri);
+                setImagePath(resultUri.getPath());
 
+            }
+            else if(resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE)
+            {
+                Exception error = result.getError();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public String getImagePath() {
+        workerModel.setImageUrl(ImagePath);
+        return ImagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        ImagePath = imagePath;
     }
 
 }

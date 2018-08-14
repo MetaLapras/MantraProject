@@ -259,6 +259,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         edtbankaccountnumber.setText(workerModel.getAccount_number());
         edtbankname.setText(workerModel.getBank_name());
         profileimage.setImageURI(Uri.parse(workerModel.getImageUrl()));
+        setImagePath(workerModel.getImageUrl());
     }
 
     @Override

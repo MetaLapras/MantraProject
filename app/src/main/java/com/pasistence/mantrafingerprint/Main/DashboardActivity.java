@@ -33,22 +33,23 @@ public class DashboardActivity extends AppCompatActivity
         member_transfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this,WorkerRegister.class);
-                startActivity(intent);
+              /*  Intent intent = new Intent(DashboardActivity.this,WorkerRegister.class);
+                startActivity(intent);*/
             }
         });
         member_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this,MemberListActivity.class);
-                startActivity(intent);
+               /* Intent intent = new Intent(DashboardActivity.this,MemberListActivity.class);
+                startActivity(intent);*/
+                startActivity(new Intent(DashboardActivity.this,WorkerDisplayList.class));
             }
         });
 
         member_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this,MemberRegisterActivity.class);
+                Intent intent = new Intent(DashboardActivity.this,WorkerRegistrationActivity.class);
                 startActivity(intent);
             }
         });

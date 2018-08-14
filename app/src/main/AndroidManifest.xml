@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Main.WorkerRegistrationActivity">
+        <activity android:name=".Main.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,7 +47,7 @@
             android:name=".Main.WorkerDisplayList"
             android:parentActivityName=".Main.WorkerRegister" />
         <activity android:name=".Main.WorkerDetails" />
-        <activity android:name=".Main.LoginActivity"></activity>
+        <activity android:name=".Main.WorkerRegistrationActivity"></activity>
     </application>
 
 </manifest>

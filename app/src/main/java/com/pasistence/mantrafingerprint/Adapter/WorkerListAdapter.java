@@ -47,6 +47,8 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
 
      //   holder.circleImageViewPhoto.setImageURI(Uri.parse(workers.getImageUrl().toString()));
 
+
+
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

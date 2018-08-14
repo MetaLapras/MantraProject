@@ -85,7 +85,8 @@ public class Database extends SQLiteAssetHelper {
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb =  new SQLiteQueryBuilder();
 
-        String[] sqlSelect = {"id",
+        String[] sqlSelect = {
+                "id",
                 "worker_id",
                 "name",
                 "adharcard_id",

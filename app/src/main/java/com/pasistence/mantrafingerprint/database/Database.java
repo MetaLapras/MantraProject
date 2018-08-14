@@ -232,6 +232,7 @@ public class Database extends SQLiteAssetHelper {
 
         SQLiteDatabase db = getReadableDatabase();
         ContentValues values = new ContentValues();
+
         values.put("name",workerModel.getName());
         values.put("adharcard_id",workerModel.getAdharcardId());
         values.put("gender",workerModel.getGender());
@@ -258,7 +259,6 @@ public class Database extends SQLiteAssetHelper {
         values.put("account_number",workerModel.getAccount_number());
         values.put("city",workerModel.getCity());
         values.put("pincode",workerModel.getPincode());
-
 
                 /*workerModel.getWorkerId()/*Add Later on when Webservices*/
 

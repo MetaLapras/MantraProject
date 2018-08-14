@@ -27,8 +27,26 @@ public class Database extends SQLiteAssetHelper {
     public void addToWorkers(WorkerModel workerModel){
         // SQLiteDatabase db = getReadableDatabase();
         SQLiteDatabase db = getWritableDatabase();
-        String query = String.format("INSERT OR REPLACE INTO worker_master(worker_id,name,adharcard_id,gender,dob,fingerprint1,fingerprint2,email,permanent_address_id,current_address_id,contact1,contact2,salary,created_at,updated_at,bank_id,project_id,activation,image_url)" +
-                        " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
+        String query = String.format("INSERT OR REPLACE INTO worker_master(worker_id," +
+                        "name," +
+                        "adharcard_id," +
+                        "gender,dob," +
+                        "fingerprint1," +
+                        "fingerprint2," +
+                        "email," +
+                        "permanent_address_id," +
+                        "current_address_id," +
+                        "contact1," +
+                        "contact2," +
+                        "salary," +
+                        "created_at," +
+                        "updated_at," +
+                        "bank_id," +
+                        "project_id," +
+                        "activation," +
+                        "image_url,permanent_address,current_address,bank_name,holder_name,ifsc_code,account_number,city,pincode" +
+                        ")" +
+                        " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
         workerModel.getWorkerId(),
         workerModel.getName(),
         workerModel.getAdharcardId(),
@@ -47,7 +65,16 @@ public class Database extends SQLiteAssetHelper {
         workerModel.getBankId(),
         workerModel.getProjectId(),
         workerModel.getActivation(),
-        workerModel.getImageUrl());
+        workerModel.getImageUrl(),
+        workerModel.getPermanent_address(),
+        workerModel.getCurrent_address(),
+        workerModel.getBank_name(),
+        workerModel.getHolder_name(),
+        workerModel.getIfsc_code(),
+        workerModel.getAccount_number(),
+        workerModel.getCity(),
+        workerModel.getPincode());
+
 
         db.execSQL(query);
 

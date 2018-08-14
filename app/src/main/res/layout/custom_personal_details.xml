@@ -160,7 +160,7 @@
         </LinearLayout>
     </LinearLayout>
 
-<!--    <Button
+    <Button
         android:id="@+id/btn_layer1_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -169,9 +169,9 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:layout_gravity="right"
-        />-->
+        />
 
-    <info.hoang8f.widget.FButton
+ <!--   <info.hoang8f.widget.FButton
         android:id="@+id/btn_layer1_next"
         android:text="@string/next"
         android:textColor="@android:color/white"
@@ -184,7 +184,7 @@
         app:shadowHeight="5dp"
         app:cornerRadius="4dp"
         app:shadowColor="@android:color/black"
-        />
+        />-->
 
 </LinearLayout>
 

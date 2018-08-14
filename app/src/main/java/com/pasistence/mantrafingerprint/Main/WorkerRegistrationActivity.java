@@ -171,9 +171,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         }
         if(view == btnSubmit)
         {
-            WorkerRegistrationBtn();
-            Toast.makeText(mContext, "Data Submitted successfully", Toast.LENGTH_SHORT).show();
-            finish();
+                WorkerRegistrationBtn();
         }
         if(view == profileimage)
         {
@@ -190,6 +188,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
     private void WorkerRegistrationBtn() {
         workerModel=new WorkerModel();
+
+
             workerModel.setName(edtname.getText().toString());
            // workerModel.setId(edt_Id.getText().toString());
             workerModel.setAdharcardId(edtaadharnum.getText().toString());
@@ -208,7 +208,19 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             workerModel.setBank_name(edtbankname.getText().toString());
             workerModel.setImageUrl(getImagePath());
 
+
+
+        if(type.equals("edit"))
+        {
+            database.updateToWorkers(workerModel);
+            Toast.makeText(mContext, "Worker Updated successfully", Toast.LENGTH_SHORT).show();
+            finish();
+        }else
+        {
             database.addToWorkers(workerModel);
+            Toast.makeText(mContext, "Worker Registred successfully", Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
 
     }
@@ -341,8 +353,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     }
 
     //validation for Bank details
-    public boolean validationChekLayer3()
-    {
+    public boolean validationChekLayer3() {
         boolean cancle = false;
         View focusView = null;
         if(TextUtils.isEmpty(edtholdername.getError()))

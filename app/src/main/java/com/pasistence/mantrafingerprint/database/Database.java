@@ -84,8 +84,38 @@ public class Database extends SQLiteAssetHelper {
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb =  new SQLiteQueryBuilder();
 
-        String[] sqlSelect = {"id","worker_id","name","adharcard_id","gender","dob","fingerprint1","fingerprint2","email","permanent_address_id","current_address_id","contact1","contact2","salary","created_at","updated_at","bank_id","project_id","activation","image_url"};
+        String[] sqlSelect = {"id",
+                "worker_id",
+                "name",
+                "adharcard_id",
+                "gender",
+                "dob",
+                "fingerprint1",
+                "fingerprint2",
+                "email",
+                "permanent_address_id",
+                "current_address_id",
+                "contact1",
+                "contact2",
+                "salary",
+                "created_at",
+                "updated_at",
+                "bank_id",
+                "project_id",
+                "activation",
+                "image_url",
+                "permanent_address",
+                "current_address",
+                "bank_name",
+                "holder_name",
+                "ifsc_code",
+                "account_number",
+                "city",
+                "pincode"
+        };
         String sqlTable = "worker_master";
+
+        String selectQuery = "SELECT  * FROM  worker_master ";
 
         qb.setTables(sqlTable);
         Cursor cursor = qb.query(db,sqlSelect,null,null,null,null,null);
@@ -115,7 +145,14 @@ public class Database extends SQLiteAssetHelper {
                 workerModel.setProjectId(cursor.getString(cursor.getColumnIndex("project_id")));
                 workerModel.setActivation(cursor.getString(cursor.getColumnIndex("activation")));
                 workerModel.setImageUrl(cursor.getString(cursor.getColumnIndex("image_url")));
-
+                workerModel.setPermanent_address(cursor.getString(cursor.getColumnIndex("permanent_address")));
+                workerModel.setCurrent_address(cursor.getString(cursor.getColumnIndex("current_address")));
+                workerModel.setBank_name(cursor.getString(cursor.getColumnIndex("bank_name")));
+                workerModel.setHolder_name(cursor.getString(cursor.getColumnIndex("holder_name")));
+                workerModel.setIfsc_code(cursor.getString(cursor.getColumnIndex("ifsc_code")));
+                workerModel.setAccount_number(cursor.getString(cursor.getColumnIndex("account_number")));
+                workerModel.setCity(cursor.getString(cursor.getColumnIndex("city")));
+                workerModel.setPincode(cursor.getString(cursor.getColumnIndex("pincode")));
 
                 result.add(workerModel);
 

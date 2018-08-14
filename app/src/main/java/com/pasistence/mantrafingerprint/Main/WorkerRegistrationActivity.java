@@ -109,7 +109,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     public void onClick(View view) {
         if(view == btnLayer1Next)
         {
-            if(!utilsCheckLayer1())
+            if(!validationCheckLayer1())
             {
                 layer1.setVisibility(View.INVISIBLE);
                 layer2.setVisibility(View.VISIBLE);
@@ -121,13 +121,27 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         }
         if(view == btnLayer2Next)
         {
-            layer2.setVisibility(View.INVISIBLE);
-            layer3.setVisibility(View.VISIBLE);
+            if (!validationCheckLayer2())
+            {
+                layer2.setVisibility(View.INVISIBLE);
+                layer3.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                Toast.makeText(mContext,"something is missing",Toast.LENGTH_LONG).show();
+            }
+
         }
         if(view == btnLayer3Next)
         {
-            layer3.setVisibility(View.INVISIBLE);
-            layer4.setVisibility(View.VISIBLE);
+            if(!validationChekLayer3())
+            {
+                layer3.setVisibility(View.INVISIBLE);
+                layer4.setVisibility(View.VISIBLE);
+            } else
+            {
+                Toast.makeText(mContext,"something is missing",Toast.LENGTH_LONG).show();
+            }
         }
         if(view == btnLayer4previous)
         {
@@ -215,24 +229,25 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         ImagePath = imagePath;
     }
 
-    public boolean utilsCheckLayer1(){
+    //validation for custome personal details
+    public boolean validationCheckLayer1(){
 
         boolean cancel = false;
         View focusView = null;
 
         if (TextUtils.isEmpty(edtname.getText())){
-            edtname.setError("Please enter Name");
+            edtname.setError("Please enter Name * ");
             focusView=edtname;
             cancel=true;
         }
 
         if (TextUtils.isEmpty(edtaadharnum.getText())){
-            edtaadharnum.setError("Please enter Last Name");
+            edtaadharnum.setError("Please enter Last Name * ");
             focusView=edtaadharnum;
             cancel=true;
         }
         if(spngender.getSelectedItemPosition()==0){
-            spngender.setError("Please Select Gender");
+            spngender.setError("Please Select Gender * ");
             focusView=spngender;
             cancel=true;
         }
@@ -261,7 +276,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         return cancel;
     }
 
-    public boolean utilsCheckLayer2(){
+    //validation for custome contact detail
+    public boolean validationCheckLayer2(){
         boolean cancle  =false;
         View focusView = null;
 
@@ -270,11 +286,55 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             edtaddressline2.setError("Please Enter current Address * ");
             focusView=edtname;
             cancle=true;
-        }return true;
+        }
+        if(TextUtils.isEmpty(edtmobilenum.getError()))
+        {
+            edtmobilenum.setError("Please Enter Mobile Number * ");
+            focusView = edtmobilenum;
+            cancle = true;
+        }
 
+        if(TextUtils.isEmpty(edtcity.getError()))
+        {
+            edtcity.setError("Please select city * ");
+            focusView = edtcity;
+            cancle = true;
 
+        }
+        return cancle;
+    }
 
+    //validation for Bank details
+    public boolean validationChekLayer3()
+    {
+        boolean cancle = false;
+        View focusView = null;
+        if(TextUtils.isEmpty(edtholdername.getError()))
+        {
+            edtholdername.setError("Please select Account Holder name * ");
+            focusView = edtholdername;
+            cancle = true;
+        }
 
+        if(TextUtils.isEmpty(edtbankifsccode.getError()))
+        {
+            edtbankifsccode.setError("Please select IFSC Code * ");
+            focusView = edtbankifsccode;
+            cancle = true;
+        }
+        if(TextUtils.isEmpty(edtbankaccountnumber.getError()))
+        {
+            edtbankaccountnumber.setError("Please select Bank Account Number * ");
+            focusView = edtbankaccountnumber;
+            cancle = true;
+        }
+        if(TextUtils.isEmpty(edtbankname.getError()))
+        {
+            edtbankname.setError("Please select Bank Name * ");
+            focusView = edtbankname;
+            cancle = true;
+        }
+            return cancle;
     }
 
     private void dateDialog(){

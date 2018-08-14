@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="10dp"
-    tools:context=".Main.WorkerDisplayList">
+    tools:context=".Main.WorkerDisplayList"
+    android:background="@drawable/ic_loginbackground">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_worker"

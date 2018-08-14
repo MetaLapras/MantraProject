@@ -140,7 +140,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         }
         if(view == btnLayer2Next)
         {
-            if (!validationCheckLayer2())
+            if (!validationCheckLayer4())
             {
                 layer2.setVisibility(View.INVISIBLE);
                 layer3.setVisibility(View.VISIBLE);
@@ -335,6 +335,29 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
         }*/
 
+        return cancel;
+    }
+    public boolean validationCheckLayer4(){
+
+        boolean cancel = false;
+        View focusView = null;
+
+        if (TextUtils.isEmpty(edtaddressline2.getText())){
+            edtaddressline2.setError("Please enter Name * ");
+            focusView=edtaddressline2;
+            cancel=true;
+        }
+
+        if (TextUtils.isEmpty(edtmobilenum.getText())){
+            edtmobilenum.setError("Please enter Last Name * ");
+            focusView=edtmobilenum;
+            cancel=true;
+        }
+        if (TextUtils.isEmpty(edtcity.getText())){
+            edtcity.setError("Please enter Last Name * ");
+            focusView=edtcity;
+            cancel=true;
+        }
         return cancel;
     }
 

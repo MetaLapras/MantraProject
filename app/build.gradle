@@ -25,6 +25,7 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:design:27.1.1'
 
+
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
@@ -54,10 +55,7 @@ dependencies {
 
     //material Edit Text
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
-    //Buttons
-    implementation  'info.hoang8f:fbutton:1.0.5'
-    //Fancy Button
-    implementation 'com.github.medyo:fancybuttons:1.8.4'
+
 
 
 

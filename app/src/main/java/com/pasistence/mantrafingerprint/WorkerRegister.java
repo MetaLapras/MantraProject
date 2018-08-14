@@ -110,7 +110,7 @@ public class WorkerRegister extends AppCompatActivity {
         mBtnList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(WorkerRegister.this,WorkerDisplayList.class));
+                //code here
             }
         });
 

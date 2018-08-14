@@ -85,9 +85,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         edt_bank_account_number = findViewById(R.id.edt_Bank_Account_Number);
         edt_bank_name = findViewById(R.id.edt_Bank_Name);
         profile_image = findViewById(R.id.profile_image);
-
-
-
     }
 
     @Override
@@ -133,33 +130,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     }
 
     private void WorkerRegistrationBtn() {
-        workerModel = new WorkerModel(
-                "",
-                "workerId",
-                "name",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "");
+
     }
 
 }

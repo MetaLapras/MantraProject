@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,6 +18,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pasistence.mantrafingerprint.Adapter.WorkerListAdapter;
@@ -39,14 +43,32 @@ import java.util.ArrayList;
 
 public class WorkerDisplayList extends AppCompatActivity {
 
-    ListView mlistView;
-    ArrayList<WorkerModel> mList;
-    WorkerListAdapter mAdapter = null;
+    RecyclerView WorkerListRecyclerView;
+    RecyclerView.LayoutManager layoutManager ;
+
+
+    Context mContext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worker_display_list);
+
+        mInit();
+
+    }
+
+    private void mInit() {
+
+        mContext = WorkerDisplayList.this;
+
+        WorkerListRecyclerView = (RecyclerView)findViewById(R.id.recycler_worker);
+        WorkerListRecyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        WorkerListRecyclerView.setLayoutManager(layoutManager);
+
+
 
     }
 }

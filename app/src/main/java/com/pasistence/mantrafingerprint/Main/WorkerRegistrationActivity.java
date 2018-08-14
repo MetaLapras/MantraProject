@@ -1,12 +1,15 @@
 package com.pasistence.mantrafingerprint.Main;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -19,6 +22,8 @@ import com.pasistence.mantrafingerprint.database.DatabaseHelper;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+
+import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -35,8 +40,9 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     ImageView imgfingerprint1,imgfingerprint2;
     MaterialSpinner spngender,spnstate;
     String ImagePath;
-
     Database database;
+
+    private int mYear, mMonth, mDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +53,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         mOnclick();
 
     }
-
     private void mOnclick() {
         btnLayer1Next.setOnClickListener(this);
         btnLayer2Next.setOnClickListener(this);
@@ -57,9 +62,9 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         btnLayer2Previous.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
         profileimage.setOnClickListener(this);
+        edtdob.setOnClickListener(this);
 
     }
-
     private void mInit() {
 
         mContext = WorkerRegistrationActivity.this;
@@ -99,17 +104,20 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         profileimage           = (CircleImageView) findViewById(R.id.img_profile_image);
 
         database = new Database(mContext);
-
     }
-
-
-
     @Override
     public void onClick(View view) {
         if(view == btnLayer1Next)
         {
-            layer1.setVisibility(View.INVISIBLE);
-            layer2.setVisibility(View.VISIBLE);
+            if(!utilsCheckLayer1())
+            {
+                layer1.setVisibility(View.INVISIBLE);
+                layer2.setVisibility(View.VISIBLE);
+            }else
+            {
+                Toast.makeText(mContext,"something is missing",Toast.LENGTH_LONG).show();
+            }
+
         }
         if(view == btnLayer2Next)
         {
@@ -149,8 +157,11 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                     .setAspectRatio(1,1)  //image will be suqare//
                     .start(this);
         }
+        if(view == edtdob)
+        {
+            dateDialog();
+        }
     }
-
     private void WorkerRegistrationBtn() {
         workerModel=new WorkerModel();
             workerModel.setName(edtname.getText().toString());
@@ -158,7 +169,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             workerModel.setAdharcardId(edtaadharnum.getText().toString());
             workerModel.setDob(edtdob.getText().toString());
             workerModel.setEmail(edtemail.getText().toString());
-          //  workerModel.setGender(spn_gender.getSelectedItem().toString().trim());
+            workerModel.setGender(spngender.getSelectedItem().toString().trim());
             workerModel.setPermanent_address(edtaddressline1.getText().toString());
             workerModel.setCurrent_address(edtaddressline2.getText().toString());
             workerModel.setContact1(edtmobilenum.getText().toString());
@@ -196,14 +207,96 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
     public String getImagePath() {
         workerModel.setImageUrl(ImagePath);
         return ImagePath;
     }
-
     public void setImagePath(String imagePath) {
         ImagePath = imagePath;
+    }
+
+    public boolean utilsCheckLayer1(){
+
+        boolean cancel = false;
+        View focusView = null;
+
+        if (TextUtils.isEmpty(edtname.getText())){
+            edtname.setError("Please enter Name");
+            focusView=edtname;
+            cancel=true;
+        }
+
+        if (TextUtils.isEmpty(edtaadharnum.getText())){
+            edtaadharnum.setError("Please enter Last Name");
+            focusView=edtaadharnum;
+            cancel=true;
+        }
+        if(spngender.getSelectedItemPosition()==0){
+            spngender.setError("Please Select Gender");
+            focusView=spngender;
+            cancel=true;
+        }
+
+        /*if(!isEnroll1){
+            imageViewFingerPrint1.setColorFilter(getResources().getColor(R.color.red));
+            cancel=true;
+        }
+        if(!isEnroll2){
+            imageViewFingerPrint3.setColorFilter(getResources().getColor(R.color.red));
+            cancel=true;
+        }*/
+
+     /*   switch (type) {
+            case"edit":
+                break;
+            case "register":
+                if (getImagePath() == "" || getImagePath() == null) {
+                    imageViewFingerPrint2.setBackgroundColor(getResources().getColor(R.color.red));
+                    cancel = true;
+                }
+                break;
+
+        }*/
+
+        return cancel;
+    }
+
+    public boolean utilsCheckLayer2(){
+        boolean cancle  =false;
+        View focusView = null;
+
+        if (TextUtils.isEmpty(edtaddressline2.getError()))
+        {
+            edtaddressline2.setError("Please Enter current Address * ");
+            focusView=edtname;
+            cancle=true;
+        }return true;
+
+
+
+
+    }
+
+    private void dateDialog(){
+        // Get Current Date
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,R.style.DialogTheme,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+                       // edtdob.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
+                        edtdob.setText(dayOfMonth  + "/" + (monthOfYear + 1) + "/" + year );
+
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.show();
     }
 
 }

@@ -156,6 +156,8 @@ public class Database extends SQLiteAssetHelper {
 
                 result.add(workerModel);
 
+                Log.e(TAG, result.toString() );
+
             }while (cursor.moveToNext());
         }
         return result;

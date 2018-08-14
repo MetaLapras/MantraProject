@@ -63,4 +63,9 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <!-- Theme.AppCompat.Light is not a dialog theme -->
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">#FF5252</item>
+    </style>
+
 </resources>

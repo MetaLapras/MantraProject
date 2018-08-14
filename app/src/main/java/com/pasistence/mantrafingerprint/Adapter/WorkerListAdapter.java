@@ -2,6 +2,7 @@ package com.pasistence.mantrafingerprint.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -17,14 +18,15 @@ import com.pasistence.mantrafingerprint.ViewHolder.WorkerViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
 
     Context mContext;
-    ArrayList<WorkerModel> workerList ;
+    List<WorkerModel> workerList ;
 
 
-    public WorkerListAdapter(Context mContext, ArrayList<WorkerModel> workerList) {
+    public WorkerListAdapter(Context mContext, List<WorkerModel> workerList) {
         this.mContext = mContext;
         this.workerList = workerList;
     }
@@ -46,9 +48,15 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
         holder.txtWorkerNumber.setText("Mobile No :- " + workers.getContact1().toString());
         holder.txtWorkerNumber2.setText("Alternate No :- " + workers.getContact2().toString());
 
-     //   holder.circleImageViewPhoto.setImageURI(Uri.parse(workers.getImageUrl().toString()));
+        if(workers.getImageUrl().toString().equals("null")||workers.getImageUrl().toString().equals(""))
+        {
+            holder.circleImageViewPhoto.setImageResource(R.drawable.images);
+        }else
+        {
+            holder.circleImageViewPhoto.setImageURI(Uri.parse(workers.getImageUrl().toString()));
+        }
 
-        Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(holder.circleImageViewPhoto);
+      //  Picasso.get().load(workers.getImageUrl().toString()).into(holder.circleImageViewPhoto);
 
 
 

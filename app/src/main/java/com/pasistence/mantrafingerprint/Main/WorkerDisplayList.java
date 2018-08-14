@@ -42,9 +42,11 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class WorkerDisplayList extends AppCompatActivity {
 
+    private static final String TAG = "workerdetails -->" ;
     RecyclerView WorkerListRecyclerView;
     RecyclerView.LayoutManager layoutManager ;
 
@@ -52,7 +54,7 @@ public class WorkerDisplayList extends AppCompatActivity {
     WorkerListAdapter workerListAdapter ;
     Database database;
 
-    ArrayList<WorkerModel> WorkerDetails = new ArrayList<WorkerModel>();
+    List<WorkerModel> WorkerDetails ;
 
 
     @Override
@@ -62,7 +64,7 @@ public class WorkerDisplayList extends AppCompatActivity {
 
         mInit();
 
-        WorkerDetails = (ArrayList<WorkerModel>) database.getAllWorkers();
+        WorkerDetails = new Database(mContext).getAllWorkers();
 
         workerListAdapter = new WorkerListAdapter(mContext, WorkerDetails);
         WorkerListRecyclerView.setAdapter(workerListAdapter);
@@ -75,10 +77,8 @@ public class WorkerDisplayList extends AppCompatActivity {
 
         WorkerListRecyclerView = (RecyclerView)findViewById(R.id.recycler_worker);
         WorkerListRecyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(mContext);
         WorkerListRecyclerView.setLayoutManager(layoutManager);
-
-        database = new Database(mContext);
 
     }
 }

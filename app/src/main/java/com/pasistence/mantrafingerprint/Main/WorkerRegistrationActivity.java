@@ -221,8 +221,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             Toast.makeText(mContext, "Worker Registred successfully", Toast.LENGTH_SHORT).show();
             finish();
         }
-
-
     }
 
     private void setWorkerDetails() {

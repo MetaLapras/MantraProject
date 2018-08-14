@@ -160,5 +160,68 @@ public class Database extends SQLiteAssetHelper {
         }
         return result;
     }
+    public void updateToWorkers(WorkerModel workerModel) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("UPDATE " +
+                "worker_master " +
+                "SET name = %s, " +
+                "adharcard_id = %s," +
+                "gender = %s," +
+                "dob = %s," +
+                "fingerprint1 = %s," +
+                "fingerprint2 = %s," +
+                "email = %s," +
+                "permanent_address_id = %s," +
+                "current_address_id = %s," +
+                "contact1 = %s," +
+                "contact2 = %s," +
+                "salary = %s," +
+                "created_at = %s," +
+                "updated_at = %s," +
+                "bank_id = %s," +
+                "project_id = %s," +
+                "activation = %s," +
+                "image_url = %s," +
+                "permanent_address = %s," +
+                "current_address = %s," +
+                "bank_name = %s," +
+                "holder_name = %s," +
+                "ifsc_code = %s," +
+                "account_number = %s," +
+                "city = %s," +
+                "pincode = %s" +
+                /*"WHERE worker_id = %s",*/
+                "WHERE id = %d",
+                workerModel.getName(),
+                workerModel.getAdharcardId(),
+                workerModel.getGender(),
+                workerModel.getDob(),
+                workerModel.getFingerprint1(),
+                workerModel.getFingerprint2(),
+                workerModel.getEmail(),
+                workerModel.getPermanentAddressId(),
+                workerModel.getCurrentAddressId(),
+                workerModel.getContact1(),
+                workerModel.getContact2(),
+                workerModel.getSalary(),
+                workerModel.getCreatedAt(),
+                workerModel.getUpdatedAt(),
+                workerModel.getBankId(),
+                workerModel.getProjectId(),
+                workerModel.getActivation(),
+                workerModel.getImageUrl(),
+                workerModel.getPermanent_address(),
+                workerModel.getCurrent_address(),
+                workerModel.getBank_name(),
+                workerModel.getHolder_name(),
+                workerModel.getIfsc_code(),
+                workerModel.getAccount_number(),
+                workerModel.getCity(),
+                workerModel.getPincode(),
+                workerModel.getId()
+                /*workerModel.getWorkerId()/*Add Later on when Webservices*/);
+
+        db.execSQL(query);
+    }
 
 }

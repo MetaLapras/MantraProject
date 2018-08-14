@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Toast;
 
+import com.pasistence.mantrafingerprint.Main.WorkerRegistrationActivity;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.ViewHolder.WorkerViewHolder;
@@ -55,6 +56,9 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent UpdateWokerIntent = new Intent(mContext, WorkerRegistrationActivity.class);
+                UpdateWokerIntent.putExtra("type","edit");
+                UpdateWokerIntent.putExtra("member",workers);
                 Toast.makeText(mContext,workerList.get(position).getWorkerId().toString()+"EDIT", Toast.LENGTH_SHORT).show();
             }
         });

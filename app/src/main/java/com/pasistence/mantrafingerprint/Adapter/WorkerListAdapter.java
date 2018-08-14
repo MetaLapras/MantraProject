@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.ViewHolder.WorkerViewHolder;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -46,6 +47,8 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
         holder.txtWorkerNumber2.setText("Alternate No :- " + workers.getContact2().toString());
 
      //   holder.circleImageViewPhoto.setImageURI(Uri.parse(workers.getImageUrl().toString()));
+
+        Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(holder.circleImageViewPhoto);
 
 
 

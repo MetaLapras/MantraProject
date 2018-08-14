@@ -48,6 +48,7 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
         holder.txtWorkerGender.setText("Gender :- " + workers.getGender().toString());
         holder.txtWorkerNumber.setText("Mobile No :- " + workers.getContact1().toString());
         holder.txtWorkerNumber2.setText("Alternate No :- " + workers.getContact2().toString());
+        workers.setId(String.valueOf(position+1));
 
         holder.circleImageViewPhoto.setImageURI(Uri.parse(workers.getImageUrl().toString()));
 

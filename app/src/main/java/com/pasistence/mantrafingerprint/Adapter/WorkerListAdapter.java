@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.pasistence.mantrafingerprint.Main.WorkerDisplayList;
 import com.pasistence.mantrafingerprint.Main.WorkerRegistrationActivity;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
@@ -46,6 +47,7 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
                 .inflate(R.layout.custom_worker_template,parent,false);
         mContext = activity;
         return new WorkerViewHolder(itemView);
+
     }
 
     @Override
@@ -59,7 +61,12 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
 
         workers.setId(workerList.get(position).getId());
 
-        holder.circleImageViewPhoto.setImageURI(Uri.parse(workers.getImageUrl().toString()));
+     //   holder.circleImageViewPhoto.setImageURI(Uri.parse(workers.getImageUrl().toString()));
+
+        Glide
+                .with(mContext)
+                .load(workers.getImageUrl().toString())
+                .into(holder.circleImageViewPhoto);
 
       //  Picasso.get().load(workers.getImageUrl().toString()).into(holder.circleImageViewPhoto);
 

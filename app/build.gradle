@@ -54,6 +54,11 @@ dependencies {
 
     //material Edit Text
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    //Buttons
+    implementation  'info.hoang8f:fbutton:1.0.5'
+    //Fancy Button
+    implementation 'com.github.medyo:fancybuttons:1.8.4'
+
 
 
 }

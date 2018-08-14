@@ -3,9 +3,6 @@ package com.pasistence.mantrafingerprint.Main;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import android.widget.EditText;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -34,7 +31,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worker_registration);
-
 
         mInit();
         mOnclick();
@@ -134,7 +130,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             WorkerRegistrationBtn();
             Toast.makeText(mContext, "Data Submitted successfully", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private void WorkerRegistrationBtn() {

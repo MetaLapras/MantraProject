@@ -32,8 +32,10 @@ import android.widget.Toast;
 
 import com.pasistence.mantrafingerprint.Adapter.WorkerListAdapter;
 import com.pasistence.mantrafingerprint.Models.ModelWorker;
+import com.pasistence.mantrafingerprint.Models.WorkerList;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
+import com.pasistence.mantrafingerprint.database.Database;
 import com.pasistence.mantrafingerprint.database.DatabaseHelper;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -46,8 +48,11 @@ public class WorkerDisplayList extends AppCompatActivity {
     RecyclerView WorkerListRecyclerView;
     RecyclerView.LayoutManager layoutManager ;
 
-
     Context mContext;
+    WorkerListAdapter workerListAdapter ;
+    Database database;
+
+    ArrayList<WorkerModel> WorkerDetails = new ArrayList<WorkerModel>();
 
 
     @Override
@@ -57,6 +62,11 @@ public class WorkerDisplayList extends AppCompatActivity {
 
         mInit();
 
+        WorkerDetails = (ArrayList<WorkerModel>) database.getAllWorkers();
+
+        workerListAdapter = new WorkerListAdapter(mContext, WorkerDetails);
+        WorkerListRecyclerView.setAdapter(workerListAdapter);
+        workerListAdapter.notifyDataSetChanged();
     }
 
     private void mInit() {
@@ -68,7 +78,7 @@ public class WorkerDisplayList extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         WorkerListRecyclerView.setLayoutManager(layoutManager);
 
-
+        database = new Database(mContext);
 
     }
 }

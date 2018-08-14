@@ -25,6 +25,10 @@ public class WorkerViewHolder extends RecyclerView.ViewHolder {
         txtWorkerId             = (TextView)itemView.findViewById(R.id.txt_worker_id);
         txtWorkerName           = (TextView)itemView.findViewById(R.id.txt_worker_name);
         txtWorkerNumber         = (TextView)itemView.findViewById(R.id.txt_worker_number);
-        txtWorkerNumber2         = (TextView)itemView.findViewById(R.id.txt_worker_number2);
+        txtWorkerNumber2        = (TextView)itemView.findViewById(R.id.txt_worker_number2);
+
+        btnEdit                 = (Button)itemView.findViewById(R.id.btn_worker_edit);
+        btnDelete               = (Button)itemView.findViewById(R.id.btn_worker_Delete);
+        btnDetails              = (Button)itemView.findViewById(R.id.btn_worker_Details);
     }
 }

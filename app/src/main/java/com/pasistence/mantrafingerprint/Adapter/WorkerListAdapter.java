@@ -68,7 +68,6 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
             @Override
             public void onClick(View v) {
                 //Gettting Details Activity
-
             }
         });
 

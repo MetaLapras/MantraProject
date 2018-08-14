@@ -225,5 +225,10 @@ public class Database extends SQLiteAssetHelper {
 
         db.execSQL(query);
     }
+    public void deleteToWorkers(String workerId) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("DELETE FROM worker_master WHERE id = '%s'",workerId);
+        db.execSQL(query);
+    }
 
 }

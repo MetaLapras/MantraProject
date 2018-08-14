@@ -16,6 +16,7 @@ import com.pasistence.mantrafingerprint.Main.WorkerRegistrationActivity;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.ViewHolder.WorkerViewHolder;
+import com.pasistence.mantrafingerprint.database.Database;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -76,6 +77,7 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                new Database(mContext).deleteToWorkers(String.valueOf(workerList.get(position)));
                 Toast.makeText(mContext,workerList.get(position).getWorkerId().toString()+"Delete", Toast.LENGTH_SHORT).show();
             }
         });

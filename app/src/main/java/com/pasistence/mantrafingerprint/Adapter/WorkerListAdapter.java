@@ -67,8 +67,9 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
                 Intent UpdateWokerIntent = new Intent(mContext, WorkerRegistrationActivity.class);
                 UpdateWokerIntent.putExtra("type","edit");
                 UpdateWokerIntent.putExtra("workers",workers);
+                mContext.startActivity(UpdateWokerIntent);
 
-                Toast.makeText(mContext,workerList.get(position).getWorkerId().toString()+"EDIT", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(mContext,workerList.get(position).getWorkerId().toString()+"EDIT", Toast.LENGTH_SHORT).show();
             }
         });
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {

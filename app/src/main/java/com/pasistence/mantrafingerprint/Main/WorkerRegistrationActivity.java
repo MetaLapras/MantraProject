@@ -23,7 +23,9 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -43,6 +45,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     Database database;
 
     private int mYear, mMonth, mDay;
+    String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,14 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         mInit();
         mOnclick();
 
+        if(!getIntent().equals(null))
+        {
+            type = (String)getIntent().getStringExtra("type");
+            setWorkerDetails();
+        }
+
     }
+
     private void mOnclick() {
         btnLayer1Next.setOnClickListener(this);
         btnLayer2Next.setOnClickListener(this);
@@ -65,6 +75,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         edtdob.setOnClickListener(this);
 
     }
+
     private void mInit() {
 
         mContext = WorkerRegistrationActivity.this;
@@ -176,6 +187,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             dateDialog();
         }
     }
+
     private void WorkerRegistrationBtn() {
         workerModel=new WorkerModel();
             workerModel.setName(edtname.getText().toString());
@@ -200,6 +212,30 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
 
     }
+
+    private void setWorkerDetails() {
+
+        workerModel = (WorkerModel) getIntent().getSerializableExtra("workers");
+
+        edtname.setText(workerModel.getName());
+        // workerModel.setId(edt_Id.setText();
+        edtaadharnum.setText(workerModel.getAdharcardId());
+        edtdob.setText(workerModel.getDob());
+        edtemail.setText(workerModel.getEmail());
+        getGender(workerModel.getGender());
+        edtaddressline1.setText(workerModel.getCurrent_address());
+        edtaddressline2.setText(workerModel.getPermanent_address());
+        edtmobilenum.setText(workerModel.getContact1());
+        edtalternatenum.setText(workerModel.getContact2());
+        edtcity.setText(workerModel.getCity());
+        edtpincode.setText(workerModel.getPincode());
+        edtholdername.setText(workerModel.getHolder_name());
+        edtbankifsccode.setText(workerModel.getIfsc_code());
+        edtbankaccountnumber.setText(workerModel.getAccount_number());
+        edtbankname.setText(workerModel.getBank_name());
+        profileimage.setImageURI(Uri.parse(workerModel.getImageUrl()));
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Uri imageUri = data.getData();
@@ -357,6 +393,15 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
+    }
+
+    public void getGender(String str) {
+        List<String> l = Arrays.asList(getResources().getStringArray(R.array.array_gender));
+        for (int i=0; i<l.size();i++){
+            if(l.get(i).toLowerCase().equals(str.toLowerCase())){
+                spngender.setSelection(i+1);
+            }
+        }
     }
 
 }

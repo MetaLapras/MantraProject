@@ -278,63 +278,63 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
     //validation for custome contact detail
     public boolean validationCheckLayer2(){
-        boolean cancle  =false;
+        boolean cancle2  =false;
         View focusView = null;
 
-        if (TextUtils.isEmpty(edtaddressline2.getError()))
+        if (TextUtils.isEmpty(edtaddressline2.getText()))
         {
             edtaddressline2.setError("Please Enter current Address * ");
-            focusView=edtname;
-            cancle=true;
+            focusView=edtaddressline2;
+            cancle2=true;
         }
-        if(TextUtils.isEmpty(edtmobilenum.getError()))
+        if(TextUtils.isEmpty(edtmobilenum.getText()))
         {
             edtmobilenum.setError("Please Enter Mobile Number * ");
             focusView = edtmobilenum;
-            cancle = true;
+            cancle2 = true;
         }
 
-        if(TextUtils.isEmpty(edtcity.getError()))
+        if(TextUtils.isEmpty(edtcity.getText()))
         {
             edtcity.setError("Please select city * ");
             focusView = edtcity;
-            cancle = true;
+            cancle2 = true;
 
         }
-        return cancle;
+        return cancle2;
     }
 
     //validation for Bank details
     public boolean validationChekLayer3()
     {
-        boolean cancle = false;
+        boolean cancle3 = false;
         View focusView = null;
-        if(TextUtils.isEmpty(edtholdername.getError()))
+        if(TextUtils.isEmpty(edtholdername.getText()))
         {
             edtholdername.setError("Please select Account Holder name * ");
             focusView = edtholdername;
-            cancle = true;
+            cancle3 = true;
         }
 
-        if(TextUtils.isEmpty(edtbankifsccode.getError()))
+        if(TextUtils.isEmpty(edtbankifsccode.getText()))
         {
             edtbankifsccode.setError("Please select IFSC Code * ");
             focusView = edtbankifsccode;
-            cancle = true;
+            cancle3 = true;
         }
-        if(TextUtils.isEmpty(edtbankaccountnumber.getError()))
+        if(TextUtils.isEmpty(edtbankaccountnumber.getText()))
         {
             edtbankaccountnumber.setError("Please select Bank Account Number * ");
             focusView = edtbankaccountnumber;
-            cancle = true;
+            cancle3 = true;
         }
-        if(TextUtils.isEmpty(edtbankname.getError()))
+        if(TextUtils.isEmpty(edtbankname.getText()))
         {
             edtbankname.setError("Please select Bank Name * ");
             focusView = edtbankname;
-            cancle = true;
+            cancle3 = true;
         }
-            return cancle;
+            return cancle3;
     }
 
     private void dateDialog(){

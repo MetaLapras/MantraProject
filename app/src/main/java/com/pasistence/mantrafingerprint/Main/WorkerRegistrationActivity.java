@@ -143,7 +143,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         workerModel.setCurrent_address(edt_address_line2.getText().toString());
        workerModel.setContact1(edt_mobile_num.getText().toString());
        workerModel.setContact2(edt_alternate_num.getText().toString());
-      workerModel.setC
+
 
     }
 

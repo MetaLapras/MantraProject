@@ -13,9 +13,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class WorkerViewHolder extends RecyclerView.ViewHolder {
 
-    CircleImageView circleImageViewPhoto;
-    TextView txtWorkerName,txtWorkerId,txtWorkerNumber,txtWorkerGender;
-    Button btnEdit,btnDelete,btnDetails;
+    public CircleImageView circleImageViewPhoto;
+    public TextView txtWorkerName,txtWorkerId,txtWorkerNumber,txtWorkerGender,txtWorkerNumber2;
+    public Button btnEdit,btnDelete,btnDetails;
 
     public WorkerViewHolder(View itemView) {
         super(itemView);
@@ -25,5 +25,6 @@ public class WorkerViewHolder extends RecyclerView.ViewHolder {
         txtWorkerId             = (TextView)itemView.findViewById(R.id.txt_worker_id);
         txtWorkerName           = (TextView)itemView.findViewById(R.id.txt_worker_name);
         txtWorkerNumber         = (TextView)itemView.findViewById(R.id.txt_worker_number);
+        txtWorkerNumber2         = (TextView)itemView.findViewById(R.id.txt_worker_number2);
     }
 }

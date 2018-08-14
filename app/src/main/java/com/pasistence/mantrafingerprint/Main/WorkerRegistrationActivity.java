@@ -133,33 +133,18 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     }
 
     private void WorkerRegistrationBtn() {
-        workerModel = new WorkerModel(
-                "",
-                "workerId",
-                "name",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "");
+        workerModel.setName(edt_name.getText().toString());
+        workerModel.setId(edt_Id.getText().toString());
+        workerModel.setAdharcardId(edt_aadhar_num.getText().toString());
+        workerModel.setDob(edt_dob.getText().toString());
+        workerModel.setEmail(edt_email.getText().toString());
+        //workerModel.setGender(spn_gende);
+        workerModel.setPermanent_address(edt_address_line1.getText().toString());
+        workerModel.setCurrent_address(edt_address_line2.getText().toString());
+       workerModel.setContact1(edt_mobile_num.getText().toString());
+       workerModel.setContact2(edt_alternate_num.getText().toString());
+      workerModel.setC
+
     }
 
 }

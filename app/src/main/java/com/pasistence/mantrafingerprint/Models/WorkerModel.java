@@ -3,12 +3,10 @@ package com.pasistence.mantrafingerprint.Models;
 import java.io.Serializable;
 
 public class WorkerModel implements Serializable {
-    public String id,workerId, name, adharcardId, gender, dob, fingerprint1, fingerprint2, email, permanentAddressId, currentAddressId, contact1, contact2, salary, createdAt, updatedAt, bankId, projectId, activation, imageUrl;
+    public String id, workerId, name, adharcardId, gender, dob, fingerprint1, fingerprint2, email, permanentAddressId, currentAddressId, contact1, contact2, salary, createdAt, updatedAt, bankId, projectId, activation, imageUrl, permanent_address, current_address, bank_name, holder_name, ifsc_code, account_number;
 
-    public WorkerModel() {
-    }
-
-    public WorkerModel(String workerId, String name, String adharcardId, String gender, String dob, String fingerprint1, String fingerprint2, String email, String permanentAddressId, String currentAddressId, String contact1, String contact2, String salary, String createdAt, String updatedAt, String bankId, String projectId, String activation, String imageUrl) {
+    public WorkerModel(String id, String workerId, String name, String adharcardId, String gender, String dob, String fingerprint1, String fingerprint2, String email, String permanentAddressId, String currentAddressId, String contact1, String contact2, String salary, String createdAt, String updatedAt, String bankId, String projectId, String activation, String imageUrl, String permanent_address, String current_address, String bank_name, String holder_name, String ifsc_code, String account_number) {
+        this.id = id;
         this.workerId = workerId;
         this.name = name;
         this.adharcardId = adharcardId;
@@ -28,6 +26,15 @@ public class WorkerModel implements Serializable {
         this.projectId = projectId;
         this.activation = activation;
         this.imageUrl = imageUrl;
+        this.permanent_address = permanent_address;
+        this.current_address = current_address;
+        this.bank_name = bank_name;
+        this.holder_name = holder_name;
+        this.ifsc_code = ifsc_code;
+        this.account_number = account_number;
+    }
+
+    public WorkerModel() {
     }
 
     @Override
@@ -53,6 +60,12 @@ public class WorkerModel implements Serializable {
                 ", projectId='" + projectId + '\'' +
                 ", activation='" + activation + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", permanent_address='" + permanent_address + '\'' +
+                ", current_address='" + current_address + '\'' +
+                ", bank_name='" + bank_name + '\'' +
+                ", holder_name='" + holder_name + '\'' +
+                ", ifsc_code='" + ifsc_code + '\'' +
+                ", account_number='" + account_number + '\'' +
                 '}';
     }
 
@@ -214,5 +227,53 @@ public class WorkerModel implements Serializable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getPermanent_address() {
+        return permanent_address;
+    }
+
+    public void setPermanent_address(String permanent_address) {
+        this.permanent_address = permanent_address;
+    }
+
+    public String getCurrent_address() {
+        return current_address;
+    }
+
+    public void setCurrent_address(String current_address) {
+        this.current_address = current_address;
+    }
+
+    public String getBank_name() {
+        return bank_name;
+    }
+
+    public void setBank_name(String bank_name) {
+        this.bank_name = bank_name;
+    }
+
+    public String getHolder_name() {
+        return holder_name;
+    }
+
+    public void setHolder_name(String holder_name) {
+        this.holder_name = holder_name;
+    }
+
+    public String getIfsc_code() {
+        return ifsc_code;
+    }
+
+    public void setIfsc_code(String ifsc_code) {
+        this.ifsc_code = ifsc_code;
+    }
+
+    public String getAccount_number() {
+        return account_number;
+    }
+
+    public void setAccount_number(String account_number) {
+        this.account_number = account_number;
     }
 }

@@ -51,13 +51,7 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
         holder.txtWorkerNumber2.setText("Alternate No :- " + workers.getContact2().toString());
         workers.setId(String.valueOf(position+1));
 
-        if(workers.getImageUrl().toString().equals("null")||workers.getImageUrl().toString().equals(""))
-        {
-            holder.circleImageViewPhoto.setImageResource(R.drawable.images);
-        }else
-        {
-            holder.circleImageViewPhoto.setImageURI(Uri.parse(workers.getImageUrl().toString()));
-        }
+        holder.circleImageViewPhoto.setImageURI(Uri.parse(workers.getImageUrl().toString()));
 
       //  Picasso.get().load(workers.getImageUrl().toString()).into(holder.circleImageViewPhoto);
 
@@ -68,6 +62,7 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
             public void onClick(View v) {
                 Intent UpdateWokerIntent = new Intent(mContext, WorkerRegistrationActivity.class);
                 UpdateWokerIntent.putExtra("type","edit");
+                UpdateWokerIntent.putExtra("id",position);
                 UpdateWokerIntent.putExtra("workers",workers);
                 mContext.startActivity(UpdateWokerIntent);
 

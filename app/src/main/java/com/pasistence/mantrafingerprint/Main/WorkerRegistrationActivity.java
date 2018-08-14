@@ -45,7 +45,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     Database database;
 
     private int mYear, mMonth, mDay;
-    String type;
+    String type ;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +56,19 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         mInit();
         mOnclick();
 
-        if(!getIntent().equals(null))
-        {
-            type = (String)getIntent().getStringExtra("type");
-            setWorkerDetails();
-        }
+       try{
+           if(getIntent()!= null)
+           {
+               type = (String)getIntent().getStringExtra("type");
+               id = (Integer) getIntent().getIntExtra("id",1);
+                setWorkerDetails();
+           }
 
+
+       }catch (Exception e)
+       {
+           e.printStackTrace();
+       }
     }
 
     private void mOnclick() {
@@ -207,20 +215,27 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             workerModel.setAccount_number(edtbankaccountnumber.getText().toString());
             workerModel.setBank_name(edtbankname.getText().toString());
             workerModel.setImageUrl(getImagePath());
+            workerModel.setId(String.valueOf(id+1));
 
 
+            try{
+                if(type.equals("edit"))
+                {
+                    database.updateToWorkersMaster(workerModel);
+                    Toast.makeText(mContext, "Worker Updated successfully", Toast.LENGTH_SHORT).show();
+                    finish();
+                }else if(type.equals("register"))
+                {
+                    database.addToWorkers(workerModel);
+                    Toast.makeText(mContext, "Worker Registred successfully", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
 
-        if(type.equals("edit"))
-        {
-            database.updateToWorkers(workerModel);
-            Toast.makeText(mContext, "Worker Updated successfully", Toast.LENGTH_SHORT).show();
-            finish();
-        }else
-        {
-            database.addToWorkers(workerModel);
-            Toast.makeText(mContext, "Worker Registred successfully", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+            }catch (NullPointerException e)
+            {
+                e.printStackTrace();
+                Toast.makeText(mContext, "Something Went Wrong", Toast.LENGTH_SHORT).show();
+            }
     }
 
     private void setWorkerDetails() {
@@ -345,7 +360,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             edtcity.setError("Please select city * ");
             focusView = edtcity;
             cancle = true;
-
         }
         return cancle;
     }

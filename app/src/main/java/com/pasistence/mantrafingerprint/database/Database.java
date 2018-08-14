@@ -1,5 +1,6 @@
 package com.pasistence.mantrafingerprint.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -193,7 +194,7 @@ public class Database extends SQLiteAssetHelper {
                 "city = %s," +
                 "pincode = %s" +
                 /*"WHERE worker_id = %s",*/
-                "WHERE id = %d",
+                " WHERE id = %s",
                 workerModel.getName(),
                 workerModel.getAdharcardId(),
                 workerModel.getGender(),
@@ -224,6 +225,43 @@ public class Database extends SQLiteAssetHelper {
                 /*workerModel.getWorkerId()/*Add Later on when Webservices*/);
 
         db.execSQL(query);
+    }
+    public void updateToWorkersMaster(WorkerModel workerModel) {
+        SQLiteDatabase db = getReadableDatabase();
+        ContentValues values = new ContentValues();
+        String sqlTable = "worker_master";
+
+        values.put("name",workerModel.getName());
+        values.put("adharcard_id",workerModel.getAdharcardId());
+        values.put("gender",workerModel.getGender());
+        values.put("dob",workerModel.getDob());
+        values.put("fingerprint1",workerModel.getFingerprint1());
+        values.put("fingerprint2",workerModel.getFingerprint2());
+        values.put("email",workerModel.getEmail());
+        values.put("permanent_address_id",workerModel.getPermanentAddressId());
+        values.put("current_address_id",workerModel.getCurrentAddressId());
+        values.put("contact1",workerModel.getContact1());
+        values.put("contact2",workerModel.getContact2());
+        values.put("salary",workerModel.getSalary());
+        values.put("created_at",workerModel.getCreatedAt());
+        values.put("updated_at",workerModel.getUpdatedAt());
+        values.put("bank_id",workerModel.getBankId());
+        values.put("project_id",workerModel.getProjectId());
+        values.put("activation",workerModel.getActivation());
+        values.put("image_url",workerModel.getImageUrl());
+        values.put("permanent_address",workerModel.getPermanent_address());
+        values.put("current_address",workerModel.getCurrent_address());
+        values.put("bank_name",workerModel.getBank_name());
+        values.put("holder_name",workerModel.getHolder_name());
+        values.put("ifsc_code",workerModel.getIfsc_code());
+        values.put("account_number",workerModel.getAccount_number());
+        values.put("city",workerModel.getCity());
+        values.put("pincode",workerModel.getPincode());
+
+                /*workerModel.getWorkerId()/*Add Later on when Webservices*/;
+        db.update(sqlTable,values,"id = ? ",new String[]{workerModel.getId()});
+        Log.e(TAG, "Database Updated Successfully");
+        Log.e(TAG, workerModel.toString());
     }
 
 }

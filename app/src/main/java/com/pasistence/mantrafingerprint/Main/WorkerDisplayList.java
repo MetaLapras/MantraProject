@@ -67,8 +67,9 @@ public class WorkerDisplayList extends AppCompatActivity {
         WorkerDetails = new Database(mContext).getAllWorkers();
 
         workerListAdapter = new WorkerListAdapter(mContext, WorkerDetails);
-        WorkerListRecyclerView.setAdapter(workerListAdapter);
         workerListAdapter.notifyDataSetChanged();
+        WorkerListRecyclerView.setAdapter(workerListAdapter);
+
     }
 
     private void mInit() {

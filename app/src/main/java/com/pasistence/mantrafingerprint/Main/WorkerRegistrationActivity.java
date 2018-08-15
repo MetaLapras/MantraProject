@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -32,6 +33,7 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 
 public class WorkerRegistrationActivity extends AppCompatActivity implements View.OnClickListener{
 
+    public static final String TAG ="reg -->";
     Button btnLayer1Next,btnLayer2Next,btnLayer3Next,btnLayer2Previous,btnLayer3Previous,btnLayer4previous,btnSubmit;
     Context mContext;
     View layer1,layer2,layer3,layer4;
@@ -45,8 +47,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     Database database;
 
     private int mYear, mMonth, mDay;
-    String type ;
-    int id;
+    String type,id ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
            if(getIntent()!= null)
            {
                type = (String)getIntent().getStringExtra("type");
-               id = (Integer) getIntent().getIntExtra("id",1);
+               id = (String)getIntent().getStringExtra("id");
+               Log.e(TAG, "type"+type+" "+"id"+id );
                 setWorkerDetails();
            }
 
@@ -140,7 +142,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         }
         if(view == btnLayer2Next)
         {
-            if (!validationCheckLayer4())
+            if (!validationCheckLayer2())
             {
                 layer2.setVisibility(View.INVISIBLE);
                 layer3.setVisibility(View.VISIBLE);
@@ -149,7 +151,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             {
                 Toast.makeText(mContext,"something is missing",Toast.LENGTH_LONG).show();
             }
-
         }
         if(view == btnLayer3Next)
         {
@@ -215,7 +216,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             workerModel.setAccount_number(edtbankaccountnumber.getText().toString());
             workerModel.setBank_name(edtbankname.getText().toString());
             workerModel.setImageUrl(getImagePath());
-            workerModel.setId(String.valueOf(id+1));
+            workerModel.setId(id);
 
 
             try{
@@ -337,7 +338,9 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
         return cancel;
     }
-    public boolean validationCheckLayer4(){
+
+    //validation for custome contact detail
+    public boolean validationCheckLayer2(){
 
         boolean cancel = false;
         View focusView = null;
@@ -361,57 +364,33 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         return cancel;
     }
 
-    //validation for custome contact detail
-    public boolean validationCheckLayer2(){
-        boolean cancle  =false;
-        View focusView = null;
 
-        if (TextUtils.isEmpty(edtaddressline2.getError()))
-        {
-            edtaddressline2.setError("Please Enter current Address * ");
-            focusView=edtname;
-            cancle=true;
-        }
-        if(TextUtils.isEmpty(edtmobilenum.getError()))
-        {
-            edtmobilenum.setError("Please Enter Mobile Number * ");
-            focusView = edtmobilenum;
-            cancle = true;
-        }
 
-        if(TextUtils.isEmpty(edtcity.getError()))
-        {
-            edtcity.setError("Please select city * ");
-            focusView = edtcity;
-            cancle = true;
-        }
-        return cancle;
-    }
 
     //validation for Bank details
     public boolean validationChekLayer3() {
         boolean cancle = false;
         View focusView = null;
-        if(TextUtils.isEmpty(edtholdername.getError()))
+        if(TextUtils.isEmpty(edtholdername.getText()))
         {
             edtholdername.setError("Please select Account Holder name * ");
             focusView = edtholdername;
             cancle = true;
         }
 
-        if(TextUtils.isEmpty(edtbankifsccode.getError()))
+        if(TextUtils.isEmpty(edtbankifsccode.getText()))
         {
             edtbankifsccode.setError("Please select IFSC Code * ");
             focusView = edtbankifsccode;
             cancle = true;
         }
-        if(TextUtils.isEmpty(edtbankaccountnumber.getError()))
+        if(TextUtils.isEmpty(edtbankaccountnumber.getText()))
         {
             edtbankaccountnumber.setError("Please select Bank Account Number * ");
             focusView = edtbankaccountnumber;
             cancle = true;
         }
-        if(TextUtils.isEmpty(edtbankname.getError()))
+        if(TextUtils.isEmpty(edtbankname.getText()))
         {
             edtbankname.setError("Please select Bank Name * ");
             focusView = edtbankname;

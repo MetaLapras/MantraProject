@@ -64,8 +64,7 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
 
      //   holder.circleImageViewPhoto.setImageURI(Uri.parse(workers.getImageUrl().toString()));
 
-        Glide
-                .with(mContext)
+        Glide.with(mContext)
                 .load(workers.getImageUrl().toString())
                 .into(holder.circleImageViewPhoto);
 

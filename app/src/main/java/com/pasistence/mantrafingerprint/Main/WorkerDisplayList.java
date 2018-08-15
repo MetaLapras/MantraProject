@@ -80,6 +80,8 @@ public class WorkerDisplayList extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(mContext);
         WorkerListRecyclerView.setLayoutManager(layoutManager);
 
+
+
     }
 }
 

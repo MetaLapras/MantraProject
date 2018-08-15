@@ -47,7 +47,10 @@
             android:name=".Main.WorkerDisplayList"
             android:parentActivityName=".Main.WorkerRegister" />
         <activity android:name=".Main.WorkerDetails" />
-        <activity android:name=".Main.WorkerRegistrationActivity"></activity>
+        <activity android:name=".Main.WorkerRegistrationActivity" />
+        <activity
+            android:name=".Main.ShowDetailsActivity"
+            android:label="@string/title_activity_show_details"></activity>
     </application>
 
 </manifest>

@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Main.LoginActivity">
+        <activity android:name=".Main.MFS100TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,26 +26,22 @@
         <activity
             android:name=".Main.SplashScreen_Activity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".Main.MFS100TestActivity" />
+        <activity android:name=".Main.LoginActivity" />
         <activity
             android:name=".Main.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme" />
         <activity android:name=".Main.MainActivity" />
-        <activity android:name=".Main2Activity" />
-        <activity android:name=".Main.MemberRegisterActivity" />
         <activity
             android:name=".Main.DashboardActivity"
             android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme" />
         <activity android:name=".Main.MemberListActivity" />
-        <activity android:name=".Main.WorkerRegister" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
-            android:name=".Main.WorkerDisplayList"
-            android:parentActivityName=".Main.WorkerRegister" />
+            android:name=".Main.WorkerDisplayList" />
         <activity android:name=".Main.WorkerDetails" />
         <activity android:name=".Main.WorkerRegistrationActivity" />
         <activity

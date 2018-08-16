@@ -25,7 +25,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase database = getWritableDatabase();
         //query to insert record in database table
-        String sql = "INSERT INTO RECORD VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  //where "RECORD" is table name in database we will create in WorkerRegister Activity
+        String sql = "INSERT INTO RECORD VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  //where "RECORD" is table name in database we will create in Worker Register Activity
 
         SQLiteStatement statement = database.compileStatement(sql);
 

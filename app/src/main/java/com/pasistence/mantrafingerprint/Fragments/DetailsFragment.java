@@ -11,12 +11,15 @@ import android.widget.TextView;
 
 import com.pasistence.mantrafingerprint.R;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
 
+=======
+>>>>>>> 2ec711afa92b37fe3a3a8764a6ca83b31b0a8b34
 public class DetailsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

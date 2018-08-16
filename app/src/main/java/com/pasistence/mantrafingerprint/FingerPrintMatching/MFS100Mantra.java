@@ -14,10 +14,12 @@ import com.mantra.mfs100.MFS100;
 import com.mantra.mfs100.MFS100Event;
 import com.pasistence.mantrafingerprint.Main.MFS100TestActivity;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
+import com.pasistence.mantrafingerprint.database.Database;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MFS100Mantra implements MFS100Event {
 
@@ -40,7 +42,7 @@ public class MFS100Mantra implements MFS100Event {
     MFS100 mfs100 = null;
 
     private boolean isCaptureRunning = false;
-    ArrayList<WorkerModel> fingerprint = new ArrayList<WorkerModel>();
+    List<WorkerModel> fingerprint ;
 
     WorkerModel workerModel ;
 
@@ -220,6 +222,7 @@ public class MFS100Mantra implements MFS100Event {
 
             Log.e("verify-->", Verify_Template.toString());
 
+            fingerprint = new Database(activity).getAllWorkers();
 
            for(WorkerModel workerModel : fingerprint)
             {

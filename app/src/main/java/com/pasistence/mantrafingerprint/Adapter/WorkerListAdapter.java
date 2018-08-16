@@ -16,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.pasistence.mantrafingerprint.Main.ShowDetailsActivity;
 import com.pasistence.mantrafingerprint.Main.WorkerDisplayList;
 import com.pasistence.mantrafingerprint.Main.WorkerRegistrationActivity;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
@@ -103,6 +104,9 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
             @Override
             public void onClick(View v) {
                 //Gettting Details Activity
+
+                Intent workerDetails = new Intent(activity, ShowDetailsActivity.class);
+                activity.startActivity(workerDetails);
             }
         });
 

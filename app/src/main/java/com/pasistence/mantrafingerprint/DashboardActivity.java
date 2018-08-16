@@ -33,8 +33,7 @@ public class DashboardActivity extends AppCompatActivity
         member_transfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this,WorkerRegister.class);
-                startActivity(intent);
+
             }
         });
         member_list.setOnClickListener(new View.OnClickListener() {
@@ -48,8 +47,7 @@ public class DashboardActivity extends AppCompatActivity
         member_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this,MemberRegisterActivity.class);
-                startActivity(intent);
+
             }
         });
 

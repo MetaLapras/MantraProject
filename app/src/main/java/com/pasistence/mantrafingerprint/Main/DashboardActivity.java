@@ -33,6 +33,7 @@ public class DashboardActivity extends AppCompatActivity
         member_transfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(DashboardActivity.this,MatchingActivity.class));
 
             }
         });

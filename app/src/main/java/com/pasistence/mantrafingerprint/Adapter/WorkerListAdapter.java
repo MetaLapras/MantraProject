@@ -106,6 +106,8 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
                 //Gettting Details Activity
 
                 Intent workerDetails = new Intent(activity, ShowDetailsActivity.class);
+                workerDetails.putExtra("id",workers.getId());
+                workerDetails.putExtra("workers",workers);
                 activity.startActivity(workerDetails);
             }
         });

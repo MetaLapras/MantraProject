@@ -17,6 +17,8 @@ import com.pasistence.mantrafingerprint.Fragments.DetailsFragment;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 
+import java.util.ArrayList;
+
 public class ShowDetailsActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
@@ -29,6 +31,8 @@ public class ShowDetailsActivity extends AppCompatActivity {
 
 
     Context mContext;
+    String id ;
+    WorkerModel workerModel ;
 
 
     @Override
@@ -37,6 +41,17 @@ public class ShowDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_details);
 
         mInit();
+
+        try{
+            if(getIntent()!= null)
+            {
+                id = (String)getIntent().getStringExtra("id");
+                workerModel = (WorkerModel) getIntent().getSerializableExtra("workers");
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -92,6 +107,7 @@ public class ShowDetailsActivity extends AppCompatActivity {
         WorkerViewPager = (ViewPager)findViewById(R.id.worker_view_pager);
         //Initializing the bottomNavigationView
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        workerModel = new WorkerModel();
     }
 
 
@@ -99,7 +115,7 @@ public class ShowDetailsActivity extends AppCompatActivity {
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         attendanceFragment=new AttendanceFragment();
-        detailsFragment=new DetailsFragment();
+        detailsFragment=new DetailsFragment(workerModel);
         //notificationFragment=new NotificationFragment();
 
         mViewPagerAdapter.addFragment(detailsFragment);

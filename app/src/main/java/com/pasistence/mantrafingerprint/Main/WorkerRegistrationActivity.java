@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.pasistence.mantrafingerprint.FingerPrintMatching.MFS100Mantra;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.database.Database;
@@ -49,6 +50,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     private int mYear, mMonth, mDay;
     String type,id ;
 
+    MFS100Mantra mfs100Mantra;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +61,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         mOnclick();
 
        try{
+
            if(getIntent()!= null)
            {
                type = (String)getIntent().getStringExtra("type");
@@ -65,7 +69,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                Log.e(TAG, "type"+type+" "+"id"+id );
                 setWorkerDetails();
            }
-
 
        }catch (Exception e)
        {
@@ -83,6 +86,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         btnSubmit.setOnClickListener(this);
         profileimage.setOnClickListener(this);
         edtdob.setOnClickListener(this);
+        imgfingerprint1.setOnClickListener(this);
+        imgfingerprint2.setOnClickListener(this);
 
     }
 
@@ -104,25 +109,25 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
          layer4 = findViewById(R.id.layer4);
 
          //initialsing the Component
-        edtname                = (MaterialEditText) findViewById(R.id.edt_name);
-        edtaadharnum          = (MaterialEditText)findViewById(R.id.edt_aadharCard);
-        edtdob                 = (MaterialEditText)findViewById(R.id.edt_dob);
-        edtemail               = (MaterialEditText)findViewById(R.id.edt_email);
-        spngender              = (MaterialSpinner)findViewById(R.id.spinner_gender);
-        imgfingerprint1        = findViewById(R.id.fingerprint1);
-        imgfingerprint2        = findViewById(R.id.fingerprint2);
-        edtaddressline1       = (MaterialEditText)findViewById(R.id.edt_address1);
-        edtaddressline2       = (MaterialEditText)findViewById(R.id.edt_address2);
-        edtmobilenum          = (MaterialEditText)findViewById(R.id.edt_contact1);
-        edtalternatenum       = (MaterialEditText)findViewById(R.id.edt_contact2);
-        edtcity                = (MaterialEditText)findViewById(R.id.edt_city);
-        spnstate               = (MaterialSpinner)findViewById(R.id.spn_state);
-        edtpincode             = (MaterialEditText)findViewById(R.id.edt_pincode);
-        edtholdername         = (MaterialEditText)findViewById(R.id.edt_Bank_Holder_Name);
-        edtbankifsccode      = (MaterialEditText)findViewById(R.id.edt_Bank_Ifsc_code);
-        edtbankaccountnumber = (MaterialEditText)findViewById(R.id.edt_Bank_Account_Number);
-        edtbankname           = (MaterialEditText)findViewById(R.id.edt_Bank_Name);
-        profileimage           = (CircleImageView) findViewById(R.id.img_profile_image);
+        edtname                 = (MaterialEditText) findViewById(R.id.edt_name);
+        edtaadharnum            = (MaterialEditText)findViewById(R.id.edt_aadharCard);
+        edtdob                  = (MaterialEditText)findViewById(R.id.edt_dob);
+        edtemail                = (MaterialEditText)findViewById(R.id.edt_email);
+        spngender               = (MaterialSpinner)findViewById(R.id.spinner_gender);
+        imgfingerprint1         = (ImageView) findViewById(R.id.fingerprint1);
+        imgfingerprint2         = (ImageView) findViewById(R.id.fingerprint2);
+        edtaddressline1         = (MaterialEditText)findViewById(R.id.edt_address1);
+        edtaddressline2         = (MaterialEditText)findViewById(R.id.edt_address2);
+        edtmobilenum            = (MaterialEditText)findViewById(R.id.edt_contact1);
+        edtalternatenum         = (MaterialEditText)findViewById(R.id.edt_contact2);
+        edtcity                 = (MaterialEditText)findViewById(R.id.edt_city);
+        spnstate                = (MaterialSpinner)findViewById(R.id.spn_state);
+        edtpincode              = (MaterialEditText)findViewById(R.id.edt_pincode);
+        edtholdername           = (MaterialEditText)findViewById(R.id.edt_Bank_Holder_Name);
+        edtbankifsccode         = (MaterialEditText)findViewById(R.id.edt_Bank_Ifsc_code);
+        edtbankaccountnumber    = (MaterialEditText)findViewById(R.id.edt_Bank_Account_Number);
+        edtbankname             = (MaterialEditText)findViewById(R.id.edt_Bank_Name);
+        profileimage            = (CircleImageView) findViewById(R.id.img_profile_image);
 
         database = new Database(mContext);
     }
@@ -134,6 +139,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             {
                 layer1.setVisibility(View.INVISIBLE);
                 layer2.setVisibility(View.VISIBLE);
+                mfs100Mantra.onStop();
+
             }else
             {
                 Toast.makeText(mContext,"something is missing",Toast.LENGTH_LONG).show();
@@ -192,6 +199,15 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         if(view == edtdob)
         {
             dateDialog();
+        }
+        if(view == imgfingerprint1){
+
+            mfs100Mantra = new MFS100Mantra(WorkerRegistrationActivity.this,imgfingerprint1);
+            mfs100Mantra.onStart();
+            mfs100Mantra.startCapturing();
+            workerModel.setFingerprint1(mfs100Mantra.getScanFingerprint());
+            Log.e(TAG, mfs100Mantra.getScanFingerprint().toString());
+            mfs100Mantra.onStop();
         }
     }
 
@@ -363,9 +379,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         }
         return cancel;
     }
-
-
-
 
     //validation for Bank details
     public boolean validationChekLayer3() {

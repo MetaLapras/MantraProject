@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -22,6 +23,7 @@ import com.pasistence.mantrafingerprint.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 public class MFS100TestActivity extends AppCompatActivity implements MFS100Event {
 
@@ -38,6 +40,7 @@ public class MFS100TestActivity extends AppCompatActivity implements MFS100Event
     EditText txtEventLog;
     ImageView imgFinger;
     CheckBox cbFastDetection;
+    ArrayList<String> fingerprint = new ArrayList<String>();
 
     private enum ScannerAction {
         Capture, Verify
@@ -373,10 +376,38 @@ public class MFS100TestActivity extends AppCompatActivity implements MFS100Event
             Enroll_Template = new byte[fingerData.ISOTemplate().length];
             System.arraycopy(fingerData.ISOTemplate(), 0, Enroll_Template, 0,
                     fingerData.ISOTemplate().length);
+            Log.e("verify-->", Enroll_Template.toString());
+            String fp1 = Base64.encodeToString(Enroll_Template,Base64.DEFAULT);
+
+            fingerprint.add(fp1);
+
+            Log.e("-->", fingerprint.toString() );
+
+
         } else if (scannerAction.equals(ScannerAction.Verify)) {
             Verify_Template = new byte[fingerData.ISOTemplate().length];
             System.arraycopy(fingerData.ISOTemplate(), 0, Verify_Template, 0,
                     fingerData.ISOTemplate().length);
+            Log.e("verify-->", Verify_Template.toString());
+
+
+
+            for(String fp : fingerprint)
+            {
+                byte[] byt2= Base64.decode(fp,Base64.DEFAULT);
+                int ret = mfs100.MatchISO(byt2, Verify_Template);
+                if (ret < 0) {
+                    SetTextOnUIThread("Error: " + ret + "(" + mfs100.GetErrorMsg(ret) + ")");
+                } else {
+                    if (ret >= 1400) {
+                        SetTextOnUIThread("Finger matched with score: " + ret);
+                        break;
+                    } else {
+                        SetTextOnUIThread("Finger not matched, score: " + ret);
+                    }
+                }
+            }
+/*
             int ret = mfs100.MatchISO(Enroll_Template, Verify_Template);
             if (ret < 0) {
                 SetTextOnUIThread("Error: " + ret + "(" + mfs100.GetErrorMsg(ret) + ")");
@@ -386,7 +417,7 @@ public class MFS100TestActivity extends AppCompatActivity implements MFS100Event
                 } else {
                     SetTextOnUIThread("Finger not matched, score: " + ret);
                 }
-            }
+            }*/
         }
 
         WriteFile("Raw.raw", fingerData.RawData());

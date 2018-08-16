@@ -31,13 +31,12 @@ public class MatchingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching);
         mInit();
+        mfs100Mantra = new MFS100Mantra(MatchingActivity.this,imgfinger,workerModel);
+        mfs100Mantra.onStart();
         statrMatchingbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mfs100Mantra = new MFS100Mantra(MatchingActivity.this,imgfinger,workerModel);
-                mfs100Mantra.onStart();
                 mfs100Mantra.startMatching();
-
             }
         });
     }

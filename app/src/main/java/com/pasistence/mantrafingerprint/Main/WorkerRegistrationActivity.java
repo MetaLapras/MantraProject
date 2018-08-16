@@ -25,6 +25,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -49,6 +50,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
     private int mYear, mMonth, mDay;
     String type,id ;
+    ArrayList<String> finger;
 
     MFS100Mantra mfs100Mantra;
 
@@ -69,6 +71,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                Log.e(TAG, "type"+type+" "+"id"+id );
                 setWorkerDetails();
            }
+
+
 
        }catch (Exception e)
        {
@@ -130,6 +134,9 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         profileimage            = (CircleImageView) findViewById(R.id.img_profile_image);
 
         database = new Database(mContext);
+
+        mfs100Mantra = new MFS100Mantra(WorkerRegistrationActivity.this);
+        mfs100Mantra.onStart();
     }
     @Override
     public void onClick(View view) {
@@ -202,18 +209,28 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         }
         if(view == imgfingerprint1){
 
-            mfs100Mantra = new MFS100Mantra(WorkerRegistrationActivity.this,imgfingerprint1);
-            mfs100Mantra.onStart();
-            mfs100Mantra.startCapturing();
-            workerModel.setFingerprint1(mfs100Mantra.getScanFingerprint());
-            Log.e(TAG, mfs100Mantra.getScanFingerprint().toString());
-            mfs100Mantra.onStop();
+            mfs100Mantra.startCapturing(imgfingerprint1);
+            // workerModel.setFingerprint1(mfs100Mantra.getScanFingerprint());
+            if(mfs100Mantra.getScanFingerprint()!= null)
+            {
+                Log.e(TAG, mfs100Mantra.getScanFingerprint().toString());
+            }
+            //  mfs100Mantra.onStop();
+        }
+        if(view == imgfingerprint2){
+            mfs100Mantra.startCapturing(imgfingerprint2);
+            if(mfs100Mantra.getScanFingerprint()!= null)
+            {
+                Log.e(TAG, mfs100Mantra.getScanFingerprint().toString());
+            }
+            // workerModel.setFingerprint1(mfs100Mantra.getScanFingerprint());
+            // Log.e(TAG, mfs100Mantra.getScanFingerprint().toString());
+            //  mfs100Mantra.onStop();
         }
     }
 
     private void WorkerRegistrationBtn() {
         workerModel=new WorkerModel();
-
 
             workerModel.setName(edtname.getText().toString());
            // workerModel.setId(edt_Id.getText().toString());
@@ -235,16 +252,24 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             workerModel.setId(id);
 
 
+            finger = mfs100Mantra.getList();
+
+            workerModel.setFingerprint1(finger.get(0).toString());
+            workerModel.setFingerprint2(finger.get(1).toString());
+
+
             try{
                 if(type.equals("edit"))
                 {
                     database.updateToWorkersMaster(workerModel);
                     Toast.makeText(mContext, "Worker Updated successfully", Toast.LENGTH_SHORT).show();
+                    mfs100Mantra.onDestroy();
                     finish();
                 }else if(type.equals("register"))
                 {
                     database.addToWorkers(workerModel);
                     Toast.makeText(mContext, "Worker Registred successfully", Toast.LENGTH_SHORT).show();
+                    mfs100Mantra.onDestroy();
                     finish();
                 }
 

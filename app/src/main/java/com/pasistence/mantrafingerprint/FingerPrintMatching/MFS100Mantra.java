@@ -27,6 +27,7 @@ public class MFS100Mantra implements MFS100Event {
 
     ImageView imgFinger;
     String scanFingerprint;
+    ArrayList<String> list = new ArrayList<String>();
 
     private enum ScannerAction {
         Capture, Verify
@@ -46,9 +47,10 @@ public class MFS100Mantra implements MFS100Event {
 
     WorkerModel workerModel ;
 
-    public MFS100Mantra(Activity activity,ImageView imgFinger) {
+
+    public MFS100Mantra(Activity activity ) {
         this.activity = activity;
-        this.imgFinger = imgFinger;
+
     }
 
     public MFS100Mantra(Activity activity,ImageView imgFinger,WorkerModel workerModel) {
@@ -113,14 +115,14 @@ public class MFS100Mantra implements MFS100Event {
         UnInitScanner();
     }
 
-    protected void onDestroy() {
+    public void onDestroy() {
         if (mfs100 != null) {
             mfs100.Dispose();
         }
     }
 
-    public void startCapturing(){
-
+    public void startCapturing(ImageView imgFinger){
+        this.imgFinger = imgFinger;
         scannerAction = ScannerAction.Capture;
         //if false then go..
         if (!isCaptureRunning) {
@@ -187,7 +189,7 @@ public class MFS100Mantra implements MFS100Event {
 
                     }
                 } catch (Exception ex) {
-                    SetTextOnUIThread("Error");
+                    SetTextOnUIThread(ex.toString());
                 } finally {
                     isCaptureRunning = false;
                 }
@@ -203,14 +205,15 @@ public class MFS100Mantra implements MFS100Event {
 
             System.arraycopy(fingerData.ISOTemplate(), 0, Enroll_Template, 0,
                     fingerData.ISOTemplate().length);
-            Log.e("verify-->", Enroll_Template.toString());
+            Log.e("capture-->", Enroll_Template.toString());
+
             String fp1 = Base64.encodeToString(Enroll_Template,Base64.DEFAULT);
 
             //Adding finger print
-            //fingerprint.add(fp1);
+            list.add(fp1);
             setScanFingerprint(fp1);
-
             Log.e("-->", fp1.toString() );
+            Log.e("-->", list.toString() );
 
 
         } else if (scannerAction.equals(ScannerAction.Verify)) {
@@ -232,22 +235,20 @@ public class MFS100Mantra implements MFS100Event {
                 //for first finger print matching
                 int ret = mfs100.MatchISO(byt1, Verify_Template);
                 if (ret < 0) {
-                    SetTextOnUIThread("Error: " + ret + "(" + mfs100.GetErrorMsg(ret) + ")");
+                    SetTextOnUIThread("Error1: " + ret + "(" + mfs100.GetErrorMsg(ret) + ")");
                 } else {
                     //if first finger print match
                     if (ret >= 1400) {
-                        SetTextOnUIThread("Finger matched with score: " + ret);
+                        SetTextOnUIThread("Finger1 matched with score: " + ret);
                         break;
-
                     } else {
                         //if second finger print match
                         int ret1 = mfs100.MatchISO(byt2, Verify_Template);
-
                         if (ret1 < 0) {
-                            SetTextOnUIThread("Error: " + ret1 + "(" + mfs100.GetErrorMsg(ret1) + ")");
+                            SetTextOnUIThread("Error2: " + ret1 + "(" + mfs100.GetErrorMsg(ret1) + ")");
                         } else {
-                            if (ret >= 1400) {
-                                SetTextOnUIThread("Finger matched with score: " + ret1);
+                            if (ret1 >= 1400) {
+                                SetTextOnUIThread("Finger2 matched with score: " + ret1);
                                 break;
                             } else {
                                 SetTextOnUIThread("Finger not matched, score: " + ret1);
@@ -271,7 +272,8 @@ public class MFS100Mantra implements MFS100Event {
         WriteFile("Raw.raw", fingerData.RawData());
         WriteFile("Bitmap.bmp", fingerData.FingerImage());
         WriteFile("ISOTemplate.iso", fingerData.ISOTemplate());
-    }
+
+ }
 
     private void WriteFile(String filename, byte[] bytes) {
         try {
@@ -362,5 +364,7 @@ public class MFS100Mantra implements MFS100Event {
         this.scanFingerprint = scanFingerprint;
     }
 
-
+    public ArrayList<String> getList() {
+        return list;
+    }
 }

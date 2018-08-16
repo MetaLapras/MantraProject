@@ -56,7 +56,6 @@ public class MFS100TestActivity extends AppCompatActivity implements MFS100Event
 
     private boolean isCaptureRunning = false;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +73,7 @@ public class MFS100TestActivity extends AppCompatActivity implements MFS100Event
 
     @Override
     protected void onStart() {
+
         if (mfs100 == null) {
             mfs100 = new MFS100(this);
             mfs100.SetApplicationContext(MFS100TestActivity.this);

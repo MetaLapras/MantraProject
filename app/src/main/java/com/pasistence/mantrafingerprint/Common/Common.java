@@ -5,7 +5,7 @@ import com.pasistence.mantrafingerprint.Remote.RetrofitClient;
 
 public class Common {
 
-    public static final String BASE_URL = "http://192.168.0.108/mantra/";
+    public static final String BASE_URL = "http://192.168.0.105/mantra/";
     // public static final String BASE_URL = "http://localhost/myapi/";
 
     public static IMyAPI getApi(){

@@ -2,20 +2,28 @@ package com.pasistence.mantrafingerprint.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.pasistence.mantrafingerprint.Main.WorkerRegistrationActivity;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -26,6 +34,7 @@ public class DetailsFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     CircleImageView circleImageView;
+    ImageView imgPersonal,imgAddress,imgBank;
     TextView txtPersonalName,
             txtPersonalMobileNum,
             txtAdharNumber,
@@ -84,6 +93,19 @@ public class DetailsFragment extends Fragment {
         txtHolderName = view.findViewById(R.id.txt_BankHolderName);
         txtAccoountNumber = view.findViewById(R.id.txt_AccountNum);
         txtIfscCode = view.findViewById(R.id.txt_ifsc);
+
+        imgPersonal = view.findViewById(R.id.edt_personal_details);
+        imgAddress = view.findViewById(R.id.edt_address_details);
+        imgBank =view.findViewById(R.id.edt_bank_details);
+
+
+        imgPersonal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Personal Details", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
 

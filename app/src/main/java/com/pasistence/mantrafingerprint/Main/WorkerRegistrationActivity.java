@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.pasistence.mantrafingerprint.FingerPrintMatching.MFS100Mantra;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
@@ -300,7 +301,11 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         edtbankifsccode.setText(workerModel.getIfsc_code());
         edtbankaccountnumber.setText(workerModel.getAccount_number());
         edtbankname.setText(workerModel.getBank_name());
-        profileimage.setImageURI(Uri.parse(workerModel.getImageUrl()));
+       // profileimage.setImageURI(Uri.parse(workerModel.getImageUrl().toString()));
+
+        Glide.with(mContext)
+                .load(workerModel.getImageUrl().toString())
+                .into(profileimage);
         setImagePath(workerModel.getImageUrl());
     }
 
@@ -314,7 +319,10 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             {
                 Uri resultUri = result.getUri();
                 //set image choosed from gallery to image view
-                profileimage.setImageURI(resultUri);
+               // profileimage.setImageURI(resultUri);
+                Glide.with(mContext)
+                        .load(workerModel.getImageUrl().toString())
+                        .into(profileimage);
                 setImagePath(resultUri.getPath());
 
             }

@@ -72,12 +72,13 @@
                         android:layout_centerInParent="true"
                         android:layout_margin="15dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/transfer" />
+                        android:src="@drawable/attendence" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text=" Daily Atendence"
+                        android:text=" Daily Attendence"
+                        android:textAllCaps="true"
                         android:textAlignment="center"
                         android:textSize="25dp" />
                 </LinearLayout>
@@ -100,7 +101,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="REGISTER"
+                        android:text="Register"
+                        android:textAllCaps="true"
                         android:textAlignment="center"
                         android:textSize="25dp" />
 
@@ -129,6 +131,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="List"
+                        android:textAllCaps="true"
                         android:textAlignment="center"
                         android:textSize="25dp" />
                 </LinearLayout>
@@ -154,7 +157,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text=" TRANSFER"
+                        android:text=" Transfer"
+                        android:textAllCaps="true"
                         android:textAlignment="center"
                         android:textSize="25dp" />
                 </LinearLayout>

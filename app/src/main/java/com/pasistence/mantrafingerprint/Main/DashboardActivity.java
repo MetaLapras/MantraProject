@@ -11,13 +11,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.appolica.flubber.Flubber;
 import com.pasistence.mantrafingerprint.R;
 
 public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    LinearLayout member_register,member_list,member_transfer;
+    LinearLayout member_register, member_list, member_transfer, member_dailyAttendence;
+    Animation animation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +32,57 @@ public class DashboardActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        member_register = findViewById(R.id.cardView_MemberRegister);
-        member_list = findViewById(R.id.cardView_MemberList);
-        member_transfer =findViewById(R.id.cardView_MemberTransfer);
+
+       member_register = (LinearLayout) findViewById(R.id.cardView_MemberRegister);
+        member_list = (LinearLayout) findViewById(R.id.cardView_MemberList);
+       member_transfer = (LinearLayout) findViewById(R.id.cardView_MemberTransfer);
+        member_dailyAttendence = (LinearLayout) findViewById(R.id.cardView_DailyAtendence);
+
+      /* //animation = AnimationUtils.makeInAnimation(getApplicationContext(),true);
+       animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.right_to_left_animation);
+       member_transfer.setAnimation(animation);*/
+
+        Flubber.with()
+                .animation(Flubber.AnimationPreset.SLIDE_RIGHT) // Slide up animation
+                .repeatCount(0)                              // Repeat once
+                .duration(1000)                              // Last for 1000 milliseconds(1 second)
+                .createFor(member_dailyAttendence)                             // Apply it to the view
+                .start();
+        Flubber.with()
+                .animation(Flubber.AnimationPreset.SLIDE_RIGHT) // Slide up animation
+                .repeatCount(0)                              // Repeat once
+                .duration(1200)                              // Last for 1000 milliseconds(1 second)
+                .createFor(member_register)                             // Apply it to the view
+                .start();
+        Flubber.with()
+                .animation(Flubber.AnimationPreset.SLIDE_RIGHT) // Slide up animation
+                .repeatCount(0)                              // Repeat once
+                .duration(2000)                              // Last for 1000 milliseconds(1 second)
+                .createFor(member_list)                             // Apply it to the view
+                .start();
+        Flubber.with()
+                .animation(Flubber.AnimationPreset.SLIDE_RIGHT) // Slide up animation
+                .repeatCount(0)                              // Repeat once
+                .duration(3000)                              // Last for 1000 milliseconds(1 second)
+                .createFor(member_transfer)                             // Apply it to the view
+                .start();
+
+
+       member_dailyAttendence.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+
+               Intent intent = new Intent(DashboardActivity.this,MatchingActivity.class);
+               startActivity(intent);
+           }
+       });
+
 
         member_transfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DashboardActivity.this,MatchingActivity.class));
+
+                startActivity(new Intent(DashboardActivity.this, MatchingActivity.class));
 
             }
         });
@@ -42,15 +91,17 @@ public class DashboardActivity extends AppCompatActivity
             public void onClick(View view) {
                /* Intent intent = new Intent(DashboardActivity.this,MemberListActivity.class);
                 startActivity(intent);*/
-                startActivity(new Intent(DashboardActivity.this,WorkerDisplayList.class));
+
+                startActivity(new Intent(DashboardActivity.this, WorkerDisplayList.class));
             }
         });
 
         member_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this,WorkerRegistrationActivity.class);
-                intent.putExtra("type","register");
+
+                Intent intent = new Intent(DashboardActivity.this, WorkerRegistrationActivity.class);
+                intent.putExtra("type", "register");
                 startActivity(intent);
             }
         });
@@ -83,12 +134,14 @@ public class DashboardActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.dashboard, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -128,4 +181,7 @@ public class DashboardActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-}
+
+    }
+
+

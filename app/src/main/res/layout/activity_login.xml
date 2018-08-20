@@ -56,12 +56,11 @@
                 android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/edt_project_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textSize="20dp"
-                android:background="@drawable/rounded_border"
                 android:fontFamily="@font/normal"
                 android:hint="@string/username"
                 android:paddingLeft="10dp"
@@ -70,6 +69,26 @@
                 android:shadowColor="@color/accent"
                 android:inputType="text"
                 android:textAlignment="center" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edt_employee_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/normal"
+                    android:hint="@string/username"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/accent"
+                    android:textColorHint="@color/accent"
+                    android:shadowColor="@color/accent"
+                    android:inputType="text"
+                    android:textAlignment="center" />
             </android.support.design.widget.TextInputLayout>
 
 
@@ -83,7 +102,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textSize="20dp"
-                android:background="@drawable/rounded_border"
                 android:fontFamily="@font/normal"
                 android:inputType="textPassword"
                 android:textColor="@color/accent"

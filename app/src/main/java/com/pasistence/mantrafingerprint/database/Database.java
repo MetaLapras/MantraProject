@@ -48,7 +48,7 @@ public class Database extends SQLiteAssetHelper {
                         "image_url,permanent_address,current_address,bank_name,holder_name,ifsc_code,account_number,city,pincode" +
                         ")" +
                         " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
-        workerModel.getWorkerId(),
+        workerModel.getId(),
         workerModel.getName(),
         workerModel.getAdharcardId(),
         workerModel.getGender(),
@@ -80,6 +80,7 @@ public class Database extends SQLiteAssetHelper {
         db.execSQL(query);
 
         Log.e(TAG, "Database inserted Successfully");
+        Log.e(TAG, workerModel.toString());
     }
     public List<WorkerModel> getAllWorkers(){
         SQLiteDatabase db = getReadableDatabase();

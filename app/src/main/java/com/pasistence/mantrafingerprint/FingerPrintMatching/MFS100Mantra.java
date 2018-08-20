@@ -240,6 +240,7 @@ public class MFS100Mantra implements MFS100Event {
                     //if first finger print match
                     if (ret >= 1400) {
                         SetTextOnUIThread("Finger1 matched with score: " + ret);
+                        setWorkModel(workerModel);
                         break;
                     } else {
                         //if second finger print match
@@ -249,6 +250,8 @@ public class MFS100Mantra implements MFS100Event {
                         } else {
                             if (ret1 >= 1400) {
                                 SetTextOnUIThread("Finger2 matched with score: " + ret1);
+
+                                setWorkModel(workerModel);
                                 break;
                             } else {
                                 SetTextOnUIThread("Finger not matched, score: " + ret1);
@@ -366,5 +369,14 @@ public class MFS100Mantra implements MFS100Event {
 
     public ArrayList<String> getList() {
         return list;
+    }
+
+    public WorkerModel getWorkerModel() {
+        return workerModel;
+    }
+
+    public WorkerModel setWorkModel(WorkerModel workerModel)
+    {
+        return workerModel;
     }
 }

@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.EmployeeDetails;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.Projectdetails;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -24,11 +26,12 @@ public class Database extends SQLiteAssetHelper {
     }
 
 
-    //insert into Worker table
+    //Table Worker Details
     public void addToWorkers(WorkerModel workerModel){
         // SQLiteDatabase db = getReadableDatabase();
         SQLiteDatabase db = getWritableDatabase();
-        String query = String.format("INSERT OR REPLACE INTO worker_master(worker_id," +
+        String query = String.format("INSERT OR REPLACE INTO worker_master(" +
+                        "worker_id," +
                         "name," +
                         "adharcard_id," +
                         "gender,dob," +
@@ -266,11 +269,213 @@ public class Database extends SQLiteAssetHelper {
         db.update(sqlTable, values, "id = ?",
                 new String[]{workerModel.getId()});
     }
-
     public void deleteToWorkers(String workerId) {
         SQLiteDatabase db = getReadableDatabase();
         String query = String.format("DELETE FROM worker_master WHERE id = '%s'",workerId);
         db.execSQL(query);
     }
+    public void deleteToWorkers() {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("DELETE FROM worker_master");
+        db.execSQL(query);
+      //  db.delete("worker_master",null,null);
+
+    }
+
+
+    //Table Project Details
+    public void addToPorject(Projectdetails projectdetails){
+        // SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
+        String query = String.format(
+                "INSERT OR REPLACE INTO project_master(" +
+                        "project_id," +
+                        "project_name," +
+                        "location," +
+                        "password," +
+                        "created_at," +
+                        "updated_at," +
+                        "activation," +
+                        "admin_id," +
+                        "employee_id," +
+                        ")" +
+                        " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
+                projectdetails.getProject_id(),
+                projectdetails.getProject_name(),
+                projectdetails.getLocation(),
+                projectdetails.getPassword(),
+                projectdetails.getCreated_at(),
+                projectdetails.getUpdated_at(),
+                projectdetails.getActivation(),
+                projectdetails.getAdmin_id(),
+                projectdetails.getEmployee_id());
+
+        db.execSQL(query);
+
+        Log.e(TAG, "Database inserted Successfully");
+        Log.e(TAG, projectdetails.toString());
+    }
+    public List<Projectdetails> getAllProject(){
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb =  new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {
+                "id",
+                "project_id",
+                "project_name",
+                "location",
+                "password",
+                "created_at",
+                "updated_at",
+                "activation",
+                "admin_id",
+                "employee_id"
+        };
+        String sqlTable = "project_master";
+
+        String selectQuery = "SELECT  * FROM  project_master ";
+
+        qb.setTables(sqlTable);
+        Cursor cursor = qb.query(db,sqlSelect,null,null,null,null,null);
+
+        final List<Projectdetails> result = new ArrayList<Projectdetails>();
+        if(cursor.moveToFirst())
+        {
+            do {
+                Projectdetails projectdetails = new Projectdetails();
+                projectdetails.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                projectdetails.setProject_id(cursor.getInt(cursor.getColumnIndex("project_id")));
+                projectdetails.setProject_name(cursor.getString(cursor.getColumnIndex("project_name")));
+                projectdetails.setLocation(cursor.getString(cursor.getColumnIndex("location")));
+                projectdetails.setPassword(cursor.getString(cursor.getColumnIndex("password")));
+                projectdetails.setCreated_at(cursor.getString(cursor.getColumnIndex("created_at")));
+                projectdetails.setUpdated_at(cursor.getString(cursor.getColumnIndex("updated_at")));
+                projectdetails.setActivation(cursor.getString(cursor.getColumnIndex("activation")));
+                projectdetails.setAdmin_id(cursor.getInt(cursor.getColumnIndex("admin_id")));
+                projectdetails.setEmployee_id(cursor.getInt(cursor.getColumnIndex("employee_id")));
+
+                result.add(projectdetails);
+
+                Log.e(TAG, result.toString() );
+
+            }while (cursor.moveToNext());
+        }
+        return result;
+    }
+    public void deleteToPorjects() {
+        SQLiteDatabase db = getReadableDatabase();
+       // String query = String.format("DELETE FROM worker_master WHERE id = '%s'",workerId);
+        String query = String.format("DELETE FROM project_master");
+        db.execSQL(query);
+      //  db.delete("project_master",null,null);
+    }
+
+
+    //Table Employee Details
+    public void addToEmployee(EmployeeDetails employeeDetails){
+        // SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
+        String query = String.format("INSERT OR REPLACE INTO employee_master(" +
+                        "employee_id," +
+                        "name," +
+                        "email," +
+                        "adharcard_id," +
+                        "gender," +
+                        "dob," +
+                        "permanent_address_id," +
+                        "current_address_id," +
+                        "contact1," +
+                        "contact2," +
+                        "salary," +
+                        "password," +
+                        "created_at," +
+                        "updated_at" +
+                        ")" +
+                        " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
+                employeeDetails.getId(),
+                employeeDetails.getName(),
+                employeeDetails.getEmail(),
+                employeeDetails.getAdharcard_id(),
+                employeeDetails.getGender(),
+                employeeDetails.getDob(),
+                employeeDetails.getPermanent_address_id(),
+                employeeDetails.getCurrent_address_id(),
+                employeeDetails.getContact1(),
+                employeeDetails.getContact2(),
+                employeeDetails.getSalary(),
+                employeeDetails.getPassword(),
+                employeeDetails.getCreated_at(),
+                employeeDetails.getUpdated_at()
+                );
+
+        db.execSQL(query);
+
+        Log.e(TAG, "Database inserted Successfully");
+        Log.e(TAG, employeeDetails.toString());
+    }
+    public List<EmployeeDetails> getAllEmployee(){
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb =  new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {
+                "employee_id",
+                        "name" ,
+                        "email" ,
+                        "adharcard_id" ,
+                        "gender" ,
+                        "dob",
+                        "permanent_address_id",
+                        "current_address_id",
+                        "contact1",
+                        "contact2",
+                        "salary",
+                        "password",
+                        "created_at" ,
+                        "updated_at"
+        };
+        String sqlTable = "employee_master";
+
+        String selectQuery = "SELECT  * FROM  employee_master ";
+
+        qb.setTables(sqlTable);
+        Cursor cursor = qb.query(db,sqlSelect,null,null,null,null,null);
+
+        final List<EmployeeDetails> result = new ArrayList<EmployeeDetails>();
+        if(cursor.moveToFirst())
+        {
+            do {
+                EmployeeDetails employeeDetails = new EmployeeDetails();
+                employeeDetails.setId(cursor.getInt(cursor.getColumnIndex("employee_id")));
+                employeeDetails.setName(cursor.getString(cursor.getColumnIndex("name")));
+                employeeDetails.setEmail(cursor.getString(cursor.getColumnIndex("email")));
+                employeeDetails.setAdharcard_id(cursor.getString(cursor.getColumnIndex("adharcard_id")));
+                employeeDetails.setGender(cursor.getString(cursor.getColumnIndex("gender")));
+                employeeDetails.setDob(cursor.getString(cursor.getColumnIndex("dob")));
+                employeeDetails.setPermanent_address_id(cursor.getString(cursor.getColumnIndex("permanent_address_id")));
+                employeeDetails.setCurrent_address_id(cursor.getString(cursor.getColumnIndex("current_address_id")));
+                employeeDetails.setContact1(cursor.getString(cursor.getColumnIndex("contact1")));
+                employeeDetails.setContact2(cursor.getString(cursor.getColumnIndex("contact2")));
+                employeeDetails.setSalary(cursor.getString(cursor.getColumnIndex("salary")));
+                employeeDetails.setPassword(cursor.getString(cursor.getColumnIndex("password")));
+                employeeDetails.setCreated_at(cursor.getString(cursor.getColumnIndex("created_at")));
+                employeeDetails.setUpdated_at(cursor.getString(cursor.getColumnIndex("updated_at")));
+
+
+                result.add(employeeDetails);
+
+                Log.e(TAG, result.toString() );
+
+            }while (cursor.moveToNext());
+        }
+        return result;
+    }
+    public void deleteToEmployee() {
+        SQLiteDatabase db = getReadableDatabase();
+        // String query = String.format("DELETE FROM worker_master WHERE id = '%s'",workerId);
+        String query = String.format("DELETE FROM employee_master");
+        db.execSQL(query);
+        //  db.delete("project_master",null,null);
+    }
+
 
 }

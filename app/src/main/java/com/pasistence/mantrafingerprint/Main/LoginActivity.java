@@ -117,14 +117,19 @@ public class LoginActivity extends AppCompatActivity
                             projectdetails = result.getProjectdetails();
                             Log.e("prj",projectdetails.toString());
 
+                            database.deleteToPorjects();
+                            database.addToPorject(projectdetails);
+
                             employeeDetails = projectdetails.getEmployee_details();
                             Log.e("emp",employeeDetails.toString() );
+                            database.deleteToEmployee();
+                            database.addToEmployee(employeeDetails);
 
                             for(WorkerModel worker : projectdetails.getWorker_list())
                             {
                                // workerList = worker;
-
                                 Log.e("wrk",worker.toString() );
+                                database.deleteToWorkers();
                                 database.addToWorkers(worker);
                             }
 

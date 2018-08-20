@@ -18,6 +18,9 @@ public class EmployeeDetails implements Serializable {
     public String created_at ;
     public String updated_at ;
 
+    public EmployeeDetails() {
+    }
+
     public EmployeeDetails(int id, String name, String email, String adharcard_id, String gender, String dob, String permanent_address_id, String current_address_id, String contact1, String contact2, String salary, String password, String created_at, String updated_at) {
         this.id = id;
         this.name = name;

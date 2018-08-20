@@ -20,6 +20,9 @@ public class Projectdetails implements Serializable {
     public List<WorkerModel> worker_list ;
 
 
+    public Projectdetails() {
+    }
+
     public Projectdetails(int id, int project_id, String project_name, String location, String password, String created_at, String updated_at, String activation, int admin_id, int employee_id, EmployeeDetails employee_details, List<WorkerModel> worker_list) {
         this.id = id;
         this.project_id = project_id;

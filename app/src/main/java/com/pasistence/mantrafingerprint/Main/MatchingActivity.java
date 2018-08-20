@@ -1,7 +1,9 @@
 package com.pasistence.mantrafingerprint.Main;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.provider.FontsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -71,20 +73,23 @@ public class MatchingActivity extends AppCompatActivity {
         ROutTime = findViewById(R.id.radio_Out_Time);
         RHalfDay = findViewById(R.id.radio_Half_Day);
 
+        RInTime.setSelected(true);
+
        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
            @Override
            public void onCheckedChanged(RadioGroup radioGroup, int i) {
                if(RInTime.isChecked())
                {
-                 linearLayout.setBackgroundColor(Color.GREEN);
+                 //linearLayout.setBackgroundColor(Color.GREEN);
+
                }
                if(ROutTime.isChecked())
                {
-                   linearLayout.setBackgroundColor(Color.RED);
+                       //linearLayout.setBackground(getDrawable(R.drawable.gradient_routtime_worker));
                }
                if(RHalfDay.isChecked())
                {
-                   linearLayout.setBackgroundColor(Color.YELLOW);
+                      // linearLayout.setBackground(getDrawable(R.drawable.gradient_rhalfday_worker));
                }
            }
        });

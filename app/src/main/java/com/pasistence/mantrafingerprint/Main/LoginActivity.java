@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity
         edtPassword         = (EditText)findViewById(R.id.edt_password);
         btn_signin          = (Button) findViewById(R.id.btnSignIn);
         //btnSignIn = (ActionProcessButton) findViewById(R.id.btnSignIn);
-<<<<<<< HEAD
+
         btn_signin = findViewById(R.id.btnSignIn);
         btn_signin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +71,7 @@ public class LoginActivity extends AppCompatActivity
             }
 
         });
-=======
->>>>>>> 6fda31973cdc1e217cc8bd2d519ef9201aa7e757
+
 
         //Init Service
         mService = Common.getApi();
@@ -94,8 +93,7 @@ public class LoginActivity extends AppCompatActivity
         }
     }
 
-<<<<<<< HEAD
-=======
+
     //Check user Authentication of User
     private void authenticatUser(final String projectname, String employeeId, String password) {
 
@@ -172,5 +170,4 @@ public class LoginActivity extends AppCompatActivity
         return cancle;
     }
 
->>>>>>> 6fda31973cdc1e217cc8bd2d519ef9201aa7e757
 }

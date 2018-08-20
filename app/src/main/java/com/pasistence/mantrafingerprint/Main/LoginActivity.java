@@ -137,6 +137,8 @@ public class LoginActivity extends AppCompatActivity
                     @Override
                     public void onFailure(Call<ApiProjectResponse> call, Throwable t) {
                         Toast.makeText(mContext, "Connection Failed !", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+
                     }
                 });
     }

@@ -297,9 +297,9 @@ public class Database extends SQLiteAssetHelper {
                         "updated_at," +
                         "activation," +
                         "admin_id," +
-                        "employee_id," +
+                        "employee_id" +
                         ")" +
-                        " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
+                        " VALUES('%d','%s','%s','%s','%s','%s','%s','%d','%d');",
                 projectdetails.getProject_id(),
                 projectdetails.getProject_name(),
                 projectdetails.getLocation(),

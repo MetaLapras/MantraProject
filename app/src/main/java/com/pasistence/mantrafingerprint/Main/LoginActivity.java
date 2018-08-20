@@ -59,7 +59,10 @@ public class LoginActivity extends AppCompatActivity
         edtPassword         = (EditText)findViewById(R.id.edt_password);
         btn_signin          = (Button) findViewById(R.id.btnSignIn);
         //btnSignIn = (ActionProcessButton) findViewById(R.id.btnSignIn);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 79e63420a7f08e8c6da79ba0017a2ba6bab98b0d
         btn_signin = findViewById(R.id.btnSignIn);
         btn_signin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +74,10 @@ public class LoginActivity extends AppCompatActivity
             }
 
         });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 79e63420a7f08e8c6da79ba0017a2ba6bab98b0d
 
         //Init Service
         mService = Common.getApi();
@@ -93,7 +99,10 @@ public class LoginActivity extends AppCompatActivity
         }
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 79e63420a7f08e8c6da79ba0017a2ba6bab98b0d
     //Check user Authentication of User
     private void authenticatUser(final String projectname, String employeeId, String password) {
 
@@ -140,6 +149,8 @@ public class LoginActivity extends AppCompatActivity
                     @Override
                     public void onFailure(Call<ApiProjectResponse> call, Throwable t) {
                         Toast.makeText(mContext, "Connection Failed !", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+
                     }
                 });
     }
@@ -169,5 +180,8 @@ public class LoginActivity extends AppCompatActivity
         }
         return cancle;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 79e63420a7f08e8c6da79ba0017a2ba6bab98b0d
 }

@@ -81,11 +81,16 @@ public class DashboardActivity extends AppCompatActivity
         member_transfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+<<<<<<< HEAD
 
 
                 startActivity(new Intent(DashboardActivity.this, MatchingActivity.class));
 
 
+=======
+
+                //startActivity(new Intent(DashboardActivity.this, MatchingActivity.class));
+>>>>>>> 79e63420a7f08e8c6da79ba0017a2ba6bab98b0d
                 startActivity(new Intent(DashboardActivity.this,MatchingActivity.class));
 
             }
@@ -185,7 +190,6 @@ public class DashboardActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    }
+}
 
 

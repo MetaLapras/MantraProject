@@ -39,6 +39,8 @@ public class MFS100Mantra implements MFS100Event {
     ScannerAction scannerAction = ScannerAction.Capture;
     private static final String TAG = "MFS-->";
 
+    public boolean isVerfiy = false;
+
     int timeout = 10000;
     MFS100 mfs100 = null;
 
@@ -240,6 +242,7 @@ public class MFS100Mantra implements MFS100Event {
                     //if first finger print match
                     if (ret >= 1400) {
                         SetTextOnUIThread("Finger1 matched with score: " + ret);
+                        setVerfiy(true);
                         setWorkModel(workerModel);
                         break;
                     } else {
@@ -250,7 +253,7 @@ public class MFS100Mantra implements MFS100Event {
                         } else {
                             if (ret1 >= 1400) {
                                 SetTextOnUIThread("Finger2 matched with score: " + ret1);
-
+                                setVerfiy(true);
                                 setWorkModel(workerModel);
                                 break;
                             } else {
@@ -378,5 +381,13 @@ public class MFS100Mantra implements MFS100Event {
     public WorkerModel setWorkModel(WorkerModel workerModel)
     {
         return workerModel;
+    }
+
+    public boolean isVerfiy() {
+        return isVerfiy;
+    }
+
+    public void setVerfiy(boolean verfiy) {
+        isVerfiy = verfiy;
     }
 }

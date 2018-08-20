@@ -69,9 +69,17 @@ public class LoginActivity extends AppCompatActivity
     }
     @Override
     public void onClick(View view) {
-        authenticatUser(edtProjectName.getText().toString(),edtEmployeeName.getText().toString(),edtPassword.getText().toString());
+        if (!validationCheck())
+        {
+            authenticatUser(edtProjectName.getText().toString(),edtEmployeeName.getText().toString(),edtPassword.getText().toString());
+        }
+        else
+        {
+            Toast.makeText(mContext,"something is missing",Toast.LENGTH_LONG).show();
+        }
     }
 
+    //Check user Authentication of User
     private void authenticatUser(final String projectname, String employeeId, String password) {
 
         final AlertDialog dialog = new SpotsDialog(mContext);
@@ -88,6 +96,7 @@ public class LoginActivity extends AppCompatActivity
                         {
                             Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
                             Log.e("-->",result.getError_msg() );
+                            dialog.dismiss();
                         }else
                         {
                             Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
@@ -115,13 +124,13 @@ public class LoginActivity extends AppCompatActivity
 
                     @Override
                     public void onFailure(Call<ApiProjectResponse> call, Throwable t) {
-
+                        Toast.makeText(mContext, "Connection Failed !", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    //validation for Bank details
-    public boolean validationChekLayer3() {
+    //validation for Login details
+    public boolean validationCheck() {
         boolean cancle = false;
         View focusView = null;
         if(TextUtils.isEmpty(edtProjectName.getText()))
@@ -133,13 +142,13 @@ public class LoginActivity extends AppCompatActivity
 
         if(TextUtils.isEmpty(edtEmployeeName.getText()))
         {
-            edtEmployeeName.setError("Please select IFSC Code * ");
+            edtEmployeeName.setError("Please Enter Employee Id * ");
             focusView = edtEmployeeName;
             cancle = true;
         }
         if(TextUtils.isEmpty(edtPassword.getText()))
         {
-            edtPassword.setError("Please select Bank Account Number * ");
+            edtPassword.setError("Please Enter Password * ");
             focusView = edtPassword;
             cancle = true;
         }

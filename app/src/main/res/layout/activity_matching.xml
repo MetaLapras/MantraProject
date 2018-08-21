@@ -156,6 +156,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:orientation="vertical">
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/matching_ProfileImg"
                 android:layout_width="100dp"
@@ -163,6 +164,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:src="@drawable/images" />
+
             <ImageView
                 android:id="@+id/matching_fingerPrint"
                 android:layout_width="130dp"
@@ -170,9 +172,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:padding="7dp"
-                android:scaleType="centerInside"
-                android:background="@drawable/image_border"
-                android:src="@drawable/finger" />
+                android:scaleType="fitXY"/>
 
             <TextView
                 android:id="@+id/txt_matchingWorkerName"

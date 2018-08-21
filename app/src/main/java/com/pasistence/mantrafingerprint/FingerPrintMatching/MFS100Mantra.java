@@ -48,6 +48,7 @@ public class MFS100Mantra implements MFS100Event {
     List<WorkerModel> fingerprint ;
 
     WorkerModel workerModel ;
+    public boolean checkDevice;
 
 
     public MFS100Mantra(Activity activity ) {
@@ -84,7 +85,6 @@ public class MFS100Mantra implements MFS100Event {
                 } else {
                     SetTextOnUIThread(mfs100.GetErrorMsg(ret));
                 }
-
             }
         }
     }
@@ -390,4 +390,6 @@ public class MFS100Mantra implements MFS100Event {
     public void setVerfiy(boolean verfiy) {
         isVerfiy = verfiy;
     }
+
+
 }

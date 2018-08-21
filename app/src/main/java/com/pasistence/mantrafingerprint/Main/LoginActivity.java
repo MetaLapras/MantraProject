@@ -59,12 +59,11 @@ public class LoginActivity extends AppCompatActivity
         edtPassword         = (EditText)findViewById(R.id.edt_password);
         btn_signin          = (Button) findViewById(R.id.btnSignIn);
         //btnSignIn = (ActionProcessButton) findViewById(R.id.btnSignIn);
-<<<<<<< HEAD
 
+        edtProjectName.setText("mantra1");
+        edtEmployeeName.setText("1");
+        edtPassword.setText("123");
 
-
-=======
->>>>>>> b8aa88e523c29248c2a8979764b9a097efae46e7
         btn_signin = findViewById(R.id.btnSignIn);
         btn_signin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +149,6 @@ public class LoginActivity extends AppCompatActivity
                     public void onFailure(Call<ApiProjectResponse> call, Throwable t) {
                         Toast.makeText(mContext, "Connection Failed !", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
-
                     }
                 });
     }
@@ -180,8 +178,4 @@ public class LoginActivity extends AppCompatActivity
         }
         return cancle;
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> b8aa88e523c29248c2a8979764b9a097efae46e7
 }

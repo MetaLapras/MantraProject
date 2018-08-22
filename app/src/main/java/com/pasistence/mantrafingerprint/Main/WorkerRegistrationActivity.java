@@ -143,7 +143,10 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     public void onClick(View view) {
         if(view == btnLayer1Next)
         {
-            if(!validationCheckLayer1())
+            layer1.setVisibility(View.INVISIBLE);
+            layer2.setVisibility(View.VISIBLE);
+            mfs100Mantra.onStop();
+            /*if(!validationCheckLayer1())
             {
                 layer1.setVisibility(View.INVISIBLE);
                 layer2.setVisibility(View.VISIBLE);
@@ -152,12 +155,14 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             }else
             {
                 Toast.makeText(mContext,"something is missing",Toast.LENGTH_LONG).show();
-            }
-
+            }*/
         }
         if(view == btnLayer2Next)
         {
-            if (!validationCheckLayer2())
+            layer2.setVisibility(View.INVISIBLE);
+            layer3.setVisibility(View.VISIBLE);
+        }
+            /*if (!validationCheckLayer2())
             {
                 layer2.setVisibility(View.INVISIBLE);
                 layer3.setVisibility(View.VISIBLE);
@@ -165,18 +170,19 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             else
             {
                 Toast.makeText(mContext,"something is missing",Toast.LENGTH_LONG).show();
-            }
-        }
+            }*/
         if(view == btnLayer3Next)
         {
-            if(!validationChekLayer3())
+            layer3.setVisibility(View.INVISIBLE);
+            layer4.setVisibility(View.VISIBLE);
+            /*if(!validationChekLayer3())
             {
                 layer3.setVisibility(View.INVISIBLE);
                 layer4.setVisibility(View.VISIBLE);
             } else
             {
                 Toast.makeText(mContext,"something is missing",Toast.LENGTH_LONG).show();
-            }
+            }*/
         }
         if(view == btnLayer4previous)
         {
@@ -282,6 +288,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     }
 
     private void setWorkerDetails() {
+        workerModel=new WorkerModel();
 
         workerModel = (WorkerModel) getIntent().getSerializableExtra("workers");
 
@@ -342,7 +349,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     }
 
     //validation for custome personal details
-    public boolean validationCheckLayer1(){
+   /* public boolean validationCheckLayer1(){
 
         boolean cancel = false;
         View focusView = null;
@@ -364,16 +371,16 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             cancel=true;
         }
 
-        /*if(!isEnroll1){
+        *//*if(!isEnroll1){
             imageViewFingerPrint1.setColorFilter(getResources().getColor(R.color.red));
             cancel=true;
         }
         if(!isEnroll2){
             imageViewFingerPrint3.setColorFilter(getResources().getColor(R.color.red));
             cancel=true;
-        }*/
+        }*//*
 
-     /*   switch (type) {
+     *//*   switch (type) {
             case"edit":
                 break;
             case "register":
@@ -383,13 +390,13 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                 }
                 break;
 
-        }*/
+        }*//*
 
         return cancel;
-    }
+    }*/
 
     //validation for custome contact detail
-    public boolean validationCheckLayer2(){
+    /*public boolean validationCheckLayer2(){
 
         boolean cancel = false;
         View focusView = null;
@@ -411,10 +418,10 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             cancel=true;
         }
         return cancel;
-    }
+    }*/
 
     //validation for Bank details
-    public boolean validationChekLayer3() {
+   /* public boolean validationChekLayer3() {
         boolean cancle = false;
         View focusView = null;
         if(TextUtils.isEmpty(edtholdername.getText()))
@@ -443,7 +450,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             cancle = true;
         }
             return cancle;
-    }
+    }*/
 
     private void dateDialog(){
         // Get Current Date

@@ -11,6 +11,7 @@ import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.pasistence.mantrafingerprint.Adapter.SearchAdapter;
 import com.pasistence.mantrafingerprint.Models.WorkerList;
 import com.pasistence.mantrafingerprint.R;
+import com.pasistence.mantrafingerprint.database.Database;
 import com.pasistence.mantrafingerprint.database.DatabaseHelper;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class MemberListActivity extends AppCompatActivity {
 
     MaterialSearchBar materialSearchBar;
     List<String> suggestList = new ArrayList<>();
-    DatabaseHelper databaseHelper;
+    Database database;
 
 
     @Override
@@ -38,15 +39,11 @@ public class MemberListActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        
-
-
 
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.search_bar);
 
         //Init DB
-       // databaseHelper = new DatabaseHelper(this);
-
+       database = new Database(this);
 
         //Setup search bar
         materialSearchBar.setHint("Search");
@@ -97,7 +94,7 @@ public class MemberListActivity extends AppCompatActivity {
         });
 
         //Init Adapter default set all result
-        //adapter = new SearchAdapter(this,databaseHelper.getWorkerList());
+        adapter = new SearchAdapter(this,database.getAllWorkers());
         recyclerView.setAdapter(adapter);
 
     }
@@ -105,12 +102,12 @@ public class MemberListActivity extends AppCompatActivity {
 
 
     private void startSearch(String text) {
-        //adapter = new SearchAdapter(this,databaseHelper.getWorkerListByName(text));
+        adapter = new SearchAdapter(this,database.getWorkerName(text));
         recyclerView.setAdapter(adapter);
     }
 
     private void loadSuggestList() {
-        //suggestList = databaseHelper.getNames();
+        suggestList = database.getNames();
         materialSearchBar.setLastSuggestions(suggestList);
     }
 

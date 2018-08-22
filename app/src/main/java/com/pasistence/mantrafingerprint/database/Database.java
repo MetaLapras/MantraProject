@@ -168,6 +168,126 @@ public class Database extends SQLiteAssetHelper {
         }
         return result;
     }
+
+   // function get all worker's name
+    public List <String> getNames()
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb =  new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {"name"};
+        String sqlTable = "worker_master";
+
+        String selectQuery = "SELECT  * FROM  worker_master ";
+
+        qb.setTables(sqlTable);
+        Cursor cursor = qb.query(db,sqlSelect,null,null,null,null,null);
+
+        final List<String> result = new ArrayList<>();
+        if(cursor.moveToFirst())
+        {
+            do {
+                result.add(cursor.getString(cursor.getColumnIndex("name")));
+
+                Log.e(TAG, result.toString() );
+
+            }while (cursor.moveToNext());
+        }
+        return result;
+
+    }
+
+    //Function get worker by name
+    public List<WorkerModel> getWorkerName(String name)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb =  new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {
+                "id",
+                "worker_id",
+                "name",
+                "adharcard_id",
+                "gender",
+                "dob",
+                "fingerprint1",
+                "fingerprint2",
+                "email",
+                "permanent_address_id",
+                "current_address_id",
+                "contact1",
+                "contact2",
+                "salary",
+                "created_at",
+                "updated_at",
+                "bank_id",
+                "project_id",
+                "activation",
+                "image_url",
+                "permanent_address",
+                "current_address",
+                "bank_name",
+                "holder_name",
+                "ifsc_code",
+                "account_number",
+                "city",
+                "pincode"
+        };
+        String sqlTable = "worker_master";
+
+        String selectQuery = "SELECT  * FROM  worker_master ";
+
+        qb.setTables(sqlTable);
+        //Cursor cursor = qb.query(db,sqlSelect,"name = ?",new String[]{name},null,null,null);
+        Cursor cursor = qb.query(db,sqlSelect,"name LIKE ?",new String[]{"%"+name+"%"},null,null,null);
+
+        final List<WorkerModel> result = new ArrayList<WorkerModel>();
+        if(cursor.moveToFirst())
+        {
+            do {
+                WorkerModel workerModel = new WorkerModel();
+                workerModel.setId(cursor.getString(cursor.getColumnIndex("id")));
+                workerModel.setWorkerId(cursor.getString(cursor.getColumnIndex("worker_id")));
+                workerModel.setName(cursor.getString(cursor.getColumnIndex("name")));
+                workerModel.setAdharcardId(cursor.getString(cursor.getColumnIndex("adharcard_id")));
+                workerModel.setGender(cursor.getString(cursor.getColumnIndex("gender")));
+                workerModel.setDob(cursor.getString(cursor.getColumnIndex("dob")));
+                workerModel.setFingerprint1(cursor.getString(cursor.getColumnIndex("fingerprint1")));
+                workerModel.setFingerprint2(cursor.getString(cursor.getColumnIndex("fingerprint2")));
+                workerModel.setEmail(cursor.getString(cursor.getColumnIndex("email")));
+                workerModel.setPermanentAddressId(cursor.getString(cursor.getColumnIndex("permanent_address_id")));
+                workerModel.setCurrentAddressId(cursor.getString(cursor.getColumnIndex("current_address_id")));
+                workerModel.setContact1(cursor.getString(cursor.getColumnIndex("contact1")));
+                workerModel.setContact2(cursor.getString(cursor.getColumnIndex("contact2")));
+                workerModel.setSalary(cursor.getString(cursor.getColumnIndex("salary")));
+                workerModel.setCreatedAt(cursor.getString(cursor.getColumnIndex("created_at")));
+                workerModel.setUpdatedAt(cursor.getString(cursor.getColumnIndex("updated_at")));
+                workerModel.setBankId(cursor.getString(cursor.getColumnIndex("bank_id")));
+                workerModel.setProjectId(cursor.getString(cursor.getColumnIndex("project_id")));
+                workerModel.setActivation(cursor.getString(cursor.getColumnIndex("activation")));
+                workerModel.setImageUrl(cursor.getString(cursor.getColumnIndex("image_url")));
+                workerModel.setPermanent_address(cursor.getString(cursor.getColumnIndex("permanent_address")));
+                workerModel.setCurrent_address(cursor.getString(cursor.getColumnIndex("current_address")));
+                workerModel.setBank_name(cursor.getString(cursor.getColumnIndex("bank_name")));
+                workerModel.setHolder_name(cursor.getString(cursor.getColumnIndex("holder_name")));
+                workerModel.setIfsc_code(cursor.getString(cursor.getColumnIndex("ifsc_code")));
+                workerModel.setAccount_number(cursor.getString(cursor.getColumnIndex("account_number")));
+                workerModel.setCity(cursor.getString(cursor.getColumnIndex("city")));
+                workerModel.setPincode(cursor.getString(cursor.getColumnIndex("pincode")));
+
+                result.add(workerModel);
+
+                Log.e(TAG, result.toString() );
+
+            }while (cursor.moveToNext());
+        }
+        return result;
+
+    }
+
+
+
+
     public void updateToWorkers(WorkerModel workerModel) {
         SQLiteDatabase db = getReadableDatabase();
         String query = String.format("UPDATE " +

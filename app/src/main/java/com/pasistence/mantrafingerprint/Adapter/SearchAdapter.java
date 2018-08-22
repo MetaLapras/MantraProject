@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.pasistence.mantrafingerprint.Interface.ItemClickListener;
 import com.pasistence.mantrafingerprint.Models.WorkerList;
+import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.Main.WorkerDetails;
 
@@ -19,16 +20,16 @@ import java.util.List;
 
 class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
-    public TextView name, address, email, phone;
+    public TextView name, number1, number2, gender;
     private ItemClickListener itemClickListener;
 
     public SearchViewHolder(View itemView) {
         super(itemView);
 
-        name = (TextView) itemView.findViewById(R.id.name);
-        address = (TextView) itemView.findViewById(R.id.address);
-        email = (TextView) itemView.findViewById(R.id.email);
-        phone = (TextView) itemView.findViewById(R.id.phone);
+        name = (TextView) itemView.findViewById(R.id.txt_worker_name);
+        number1 = (TextView) itemView.findViewById(R.id.txt_worker_number);
+        number2 = (TextView) itemView.findViewById(R.id.txt_worker_number2);
+        gender = (TextView) itemView.findViewById(R.id.txt_worker_gender);
 
 
         itemView.setOnClickListener(this);
@@ -60,12 +61,12 @@ class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickLi
 
        // private final List<String> suggestList;
         private Context context;
-        private List<WorkerList> workerLists;
+        private List<WorkerModel> workerModels;
         
 
-        public SearchAdapter(Context context, List<WorkerList> workerLists) {
+        public SearchAdapter(Context context, List<WorkerModel> workerModels) {
             this.context = context;
-            this.workerLists = workerLists;
+            this.workerModels = workerModels;
         }
 
 
@@ -74,16 +75,16 @@ class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickLi
         @Override
         public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            View itemView = inflater.inflate(R.layout.activity_item_member_list, parent, false);
+            View itemView = inflater.inflate(R.layout.custom_worker_template, parent, false);
             return new SearchViewHolder(itemView);
         }
 
         @Override
         public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
-            holder.name.setText(workerLists.get(position).getFirstName());
-            holder.address.setText(workerLists.get(position).getEmpId());
-            holder.email.setText(workerLists.get(position).getContactNo());
-            holder.phone.setText(workerLists.get(position).getEmpId());
+            holder.name.setText(workerModels.get(position).getName());
+            holder.number1.setText(workerModels.get(position).getContact1());
+            holder.number2.setText(workerModels.get(position).getContact2());
+            holder.gender.setText(workerModels.get(position).getGender());
 
 
             holder.setItemClickListener(new ItemClickListener() {
@@ -91,14 +92,15 @@ class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickLi
                 public void onClick(View view, int position, boolean isLongClick) {
                     if (isLongClick) {
                         Context context = view.getContext();
-                        Intent intent = new Intent(context, WorkerDetails.class);
-                        context.startActivity(intent);
+
+                    /*    Intent intent = new Intent(context, WorkerDetails.class);
+                        context.startActivity(intent);*/
 
                         Toast.makeText(context, "Long Click : ", Toast.LENGTH_SHORT).show();
                     }
 
                     else
-                        Toast.makeText(context, "  "+workerLists.get(position), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "  "+workerModels.get(position), Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -108,7 +110,7 @@ class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickLi
 
         @Override
         public int getItemCount() {
-            return workerLists.size();
+            return workerModels.size();
         }
     }
 

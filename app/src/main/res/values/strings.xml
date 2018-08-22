@@ -29,7 +29,8 @@
     <string name="SignUp">SignUp</string>
     <string name="SignIn">LogIn</string>
     <string name="submit">Submit</string>
-    <string name="username">Enter User Name</string>
+    <string name="projectname">Enter Project Name</string>
+    <string name="employeeId">Enter Employee Id </string>
     <string name="password">Enter Password</string>
     <string name="Server">Server</string>
     <string name="Select">Select</string>

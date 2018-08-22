@@ -65,13 +65,6 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
 
-<<<<<<< HEAD
-
-
-
-
-=======
->>>>>>> b8aa88e523c29248c2a8979764b9a097efae46e7
     implementation 'com.appolica:flubber:1.0.1'
 
     // Retrofit & OkHttp
@@ -86,14 +79,5 @@ dependencies {
     //spot dialogue
    // implementation 'com.github.d-max:spots-dialog:1.1@aar'
     implementation 'com.github.d-max:spots-dialog:0.7@aar'
-
-
-<<<<<<< HEAD
-
-
-
-
-=======
->>>>>>> b8aa88e523c29248c2a8979764b9a097efae46e7
 
 }

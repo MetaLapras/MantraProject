@@ -1,7 +1,10 @@
 package com.pasistence.mantrafingerprint.Main;
 
+import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,6 +26,8 @@ public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     LinearLayout member_register, member_list, member_transfer, member_dailyAttendence;
     Animation animation;
+    MenuItem logout;
+
 
 
     @Override
@@ -33,10 +38,12 @@ public class DashboardActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
+        logout = (MenuItem)findViewById(R.id.action_logout);
        member_register = (LinearLayout) findViewById(R.id.cardView_MemberRegister);
         member_list = (LinearLayout) findViewById(R.id.cardView_MemberList);
        member_transfer = (LinearLayout) findViewById(R.id.cardView_MemberTransfer);
         member_dailyAttendence = (LinearLayout) findViewById(R.id.cardView_DailyAtendence);
+
 
       /* //animation = AnimationUtils.makeInAnimation(getApplicationContext(),true);
        animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.right_to_left_animation);
@@ -115,6 +122,8 @@ public class DashboardActivity extends AppCompatActivity
             }
         });
 
+
+        
        /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +142,32 @@ public class DashboardActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+/*
+    private void mLogout() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Are you sure, You wanted to make decision");
+                alertDialogBuilder.setPositiveButton("yes",
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                Toast.makeText(DashboardActivity.this,"You clicked yes button",Toast.LENGTH_LONG).show();
+                            }
+                        });
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+
+                 public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+
+    }
+*/
+
 
     @Override
     public void onBackPressed() {
@@ -158,6 +193,13 @@ public class DashboardActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        if (id == R.id.action_logout) {
+            Toast.makeText(this, "Logout From Activity and goes to Login Activity", Toast.LENGTH_SHORT).show();
+            Intent intent1 = new Intent(this,LoginActivity.class);
+            this.startActivity(intent1);
+            return true;
+        }
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
@@ -179,10 +221,22 @@ public class DashboardActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
+            Intent intent1 = new Intent(this,LoginActivity.class);
+            this.startActivity(intent1);
+            return true;
 
         } else if (id == R.id.nav_share) {
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String shareBodyText = "Check it out. Your message goes here";
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Subject here");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
+            startActivity(Intent.createChooser(sharingIntent, "Shearing Option"));
+            return true;
+
 
         } else if (id == R.id.nav_send) {
+
 
         }
 
@@ -190,6 +244,8 @@ public class DashboardActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
 
 

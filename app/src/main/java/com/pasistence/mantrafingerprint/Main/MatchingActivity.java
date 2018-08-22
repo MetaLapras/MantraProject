@@ -21,6 +21,11 @@ import com.pasistence.mantrafingerprint.FingerPrintMatching.MFS100Mantra;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MatchingActivity extends AppCompatActivity {
@@ -42,6 +47,7 @@ public class MatchingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching);
         mInit();
+        
         mfs100Mantra = new MFS100Mantra(MatchingActivity.this,imgfinger,workerModel);
         mfs100Mantra.onStart();
         statrMatchingbtn.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +79,8 @@ public class MatchingActivity extends AppCompatActivity {
         ROutTime = findViewById(R.id.radio_Out_Time);
         RHalfDay = findViewById(R.id.radio_Half_Day);
 
-        RInTime.setSelected(true);
+        mCurrentate();
+
 
        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
            @Override
@@ -93,5 +100,16 @@ public class MatchingActivity extends AppCompatActivity {
                }
            }
        });
+    }
+
+    private void mCurrentate() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat(" dd/ MM / yyyy ");
+        String strDate = "" + mdformat.format(calendar.getTime());
+        display(strDate);
+    }
+
+    private void display(String strDate) {
+        txtDate.setText(strDate);
     }
 }

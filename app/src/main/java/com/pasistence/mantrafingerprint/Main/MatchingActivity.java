@@ -53,31 +53,31 @@ public class MatchingActivity extends AppCompatActivity {
         statrMatchingbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mfs100Mantra.startMatching();
+                    mfs100Mantra.startMatching();
             }
         });
     }
 
     private void mInit() {
         mContext = MatchingActivity.this;
-        txtProjectName = findViewById(R.id.txt_ProjectName);
-        txtEmployeeId = findViewById(R.id.txt_matching_EmpId);
-        txtDate= findViewById(R.id.txt_Date);
-        txtTime = findViewById(R.id.txt_time);
-        txtWorkerName = findViewById(R.id.txt_matchingWorkerName);
-        txtWorkerId  = findViewById(R.id.txt_matchingWorkerId);
+        txtProjectName              = (TextView) findViewById(R.id.txt_ProjectName);
+        txtEmployeeId               = (TextView)findViewById(R.id.txt_matching_EmpId);
+        txtDate                     = (TextView)findViewById(R.id.txt_Date);
+        txtTime                     = (TextView)findViewById(R.id.txt_time);
+        txtWorkerName               = (TextView)findViewById(R.id.txt_matchingWorkerName);
+        txtWorkerId                 = (TextView)findViewById(R.id.txt_matchingWorkerId);
+
+        imgfinger                   = (ImageView)findViewById(R.id.matching_fingerPrint);
+        CircularImage               = (CircleImageView) findViewById(R.id.matching_ProfileImg);
+
+        statrMatchingbtn            = (Button) findViewById(R.id.matchingBtn);
+        linearLayout                = (ScrollView) findViewById(R.id.Matching_Layout);
 
 
-        imgfinger = findViewById(R.id.matching_fingerPrint);
-        CircularImage = findViewById(R.id.matching_ProfileImg);
-
-        statrMatchingbtn = findViewById(R.id.matchingBtn);
-        linearLayout = (ScrollView) findViewById(R.id.Matching_Layout);
-
-        radioGroup = findViewById(R.id.radio_group);
-        RInTime = findViewById(R.id.radio_In_Time);
-        ROutTime = findViewById(R.id.radio_Out_Time);
-        RHalfDay = findViewById(R.id.radio_Half_Day);
+        radioGroup                  = (RadioGroup) findViewById(R.id.radio_group);
+        RInTime                     = (RadioButton) findViewById(R.id.radio_In_Time);
+        ROutTime                    = (RadioButton) findViewById(R.id.radio_Out_Time);
+        RHalfDay                    = (RadioButton) findViewById(R.id.radio_Half_Day);
 
         mCurrentate();
 
@@ -88,15 +88,18 @@ public class MatchingActivity extends AppCompatActivity {
                if(RInTime.isChecked())
                {
                  //linearLayout.setBackgroundColor(Color.GREEN);
-
+                   linearLayout.setBackgroundResource(R.drawable.gradient_rintime_worker);
                }
                if(ROutTime.isChecked())
                {
-                       //linearLayout.setBackground(getDrawable(R.drawable.gradient_routtime_worker));
+                //linearLayout.setBackground(getDrawable(R.drawable.gradient_routtime_worker));
+                   linearLayout.setBackgroundResource(R.drawable.gradient_routtime_worker);
+
                }
                if(RHalfDay.isChecked())
                {
                       // linearLayout.setBackground(getDrawable(R.drawable.gradient_rhalfday_worker));
+                   linearLayout.setBackgroundResource(R.drawable.gradient_rhalfday_worker);
                }
            }
        });

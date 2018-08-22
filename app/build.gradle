@@ -80,4 +80,12 @@ dependencies {
    // implementation 'com.github.d-max:spots-dialog:1.1@aar'
     implementation 'com.github.d-max:spots-dialog:0.7@aar'
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+>>>>>>> 0cb81ebe12b0aca0ff21ebd6eed7c2b8e9e64b92
 }

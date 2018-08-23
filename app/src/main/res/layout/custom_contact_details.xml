@@ -92,7 +92,7 @@
                 app:met_singleLineEllipsis="true"
                 />
 
-            <fr.ganfra.materialspinner.MaterialSpinner
+        <!--    <fr.ganfra.materialspinner.MaterialSpinner
                 android:id="@+id/spn_state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,7 +105,14 @@
                 app:ms_floatingLabelColor="#f8b4b6b4"
                 app:ms_floatingLabelText="Gender"
                 app:ms_hintColor="#efb4b6b4"
-                android:entries="@array/array_gender" />
+                android:entries="@array/array_gender" />-->
+
+            <Spinner
+                android:id="@+id/spn_state"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:entries="@array/array_marital_status"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/edt_pincode"

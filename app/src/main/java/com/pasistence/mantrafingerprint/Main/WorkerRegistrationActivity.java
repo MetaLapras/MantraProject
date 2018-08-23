@@ -244,7 +244,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             workerModel.setAdharcardId(edtaadharnum.getText().toString());
             workerModel.setDob(edtdob.getText().toString());
             workerModel.setEmail(edtemail.getText().toString());
-            workerModel.setGender(spngender.getSelectedItem().toString().trim());
+         //   workerModel.setGender(spngender.getSelectedItem().toString().trim());
             workerModel.setPermanent_address(edtaddressline1.getText().toString());
             workerModel.setCurrent_address(edtaddressline2.getText().toString());
             workerModel.setContact1(edtmobilenum.getText().toString());
@@ -297,7 +297,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         edtaadharnum.setText(workerModel.getAdharcardId());
         edtdob.setText(workerModel.getDob());
         edtemail.setText(workerModel.getEmail());
-        getGender(workerModel.getGender());
+        //getGender(workerModel.getGender());
         edtaddressline1.setText(workerModel.getCurrent_address());
         edtaddressline2.setText(workerModel.getPermanent_address());
         edtmobilenum.setText(workerModel.getContact1());
@@ -474,7 +474,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         datePickerDialog.show();
     }
 
-    public void getGender(String str) {
+   /* public void getGender(String str) {
         List<String> l = Arrays.asList(getResources().getStringArray(R.array.array_gender));
         for (int i=0; i<l.size();i++){
             if(l.get(i).toLowerCase().equals(str.toLowerCase())){
@@ -482,5 +482,5 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             }
         }
     }
-
+*/
 }

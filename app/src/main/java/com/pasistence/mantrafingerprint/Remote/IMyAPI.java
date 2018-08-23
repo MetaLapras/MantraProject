@@ -11,5 +11,4 @@ public interface IMyAPI {
     @FormUrlEncoded
     @POST("project_login_details.php")
     Call<ApiProjectResponse> loginUser(@Field("employee_id") String employeeId, @Field("project_name") String projectName, @Field("password") String password);
-
 }

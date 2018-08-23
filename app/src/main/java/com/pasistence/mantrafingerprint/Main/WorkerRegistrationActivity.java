@@ -72,7 +72,12 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                type = (String)getIntent().getStringExtra("type");
                id = (String)getIntent().getStringExtra("id");
                Log.e(TAG, "type"+type+" "+"id"+id );
-                setWorkerDetails();
+
+               if(!type.equals("register"))
+               {
+                   setWorkerDetails();
+               }
+                //setWorkerDetails();
            }
 
 
@@ -250,24 +255,25 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             workerModel.setName(common.isNull(edtname.getText().toString(),""));
            // workerModel.setId(edt_Id.getText().toString());
             workerModel.setAdharcardId(common.isNull(edtaadharnum.getText().toString(),""));
-            workerModel.setDob(edtdob.getText().toString());
-            workerModel.setEmail(edtemail.getText().toString());
-         //   workerModel.setGender(spngender.getSelectedItem().toString().trim());
-            workerModel.setPermanent_address(edtaddressline1.getText().toString());
-            workerModel.setCurrent_address(edtaddressline2.getText().toString());
-            workerModel.setContact1(edtmobilenum.getText().toString());
-            workerModel.setContact2(edtalternatenum.getText().toString());
-            workerModel.setCity(edtcity.getText().toString());
-            workerModel.setPincode(edtpincode.getText().toString());
-            workerModel.setHolder_name(edtholdername.getText().toString());
-            workerModel.setIfsc_code(edtbankifsccode.getText().toString());
-            workerModel.setAccount_number(edtbankaccountnumber.getText().toString());
-            workerModel.setBank_name(edtbankname.getText().toString());
-            workerModel.setImageUrl(getImagePath());
+            workerModel.setDob(common.isNull(edtdob.getText().toString(),""));
+            workerModel.setEmail(common.isNull(edtemail.getText().toString(),""));
+            workerModel.setGender(common.isNull(spngender.getSelectedItem().toString().trim(),"unknown"));
+            workerModel.setPermanent_address(common.isNull(edtaddressline1.getText().toString(),""));
+            workerModel.setCurrent_address(common.isNull(edtaddressline2.getText().toString(),""));
+            workerModel.setContact1(common.isNull(edtmobilenum.getText().toString(),""));
+            workerModel.setContact2(common.isNull(edtalternatenum.getText().toString(),""));
+            workerModel.setCity(common.isNull(edtcity.getText().toString(),""));
+            workerModel.setPincode(common.isNull(edtpincode.getText().toString(),""));
+            workerModel.setHolder_name(common.isNull(edtholdername.getText().toString(),""));
+            workerModel.setIfsc_code(common.isNull(edtbankifsccode.getText().toString(),""));
+            workerModel.setAccount_number(common.isNull(edtbankaccountnumber.getText().toString(),""));
+            workerModel.setBank_name(common.isNull(edtbankname.getText().toString(),""));
+            workerModel.setImageUrl(common.isNull(getImagePath(),""));
             workerModel.setId(id);
 
 
             finger = mfs100Mantra.getList();
+
             if(finger.size()<=0)
             {
                 workerModel.setFingerprint1("");
@@ -488,7 +494,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         datePickerDialog.show();
     }
 
-   /* public void getGender(String str) {
+    public void getGender(String str) {
         List<String> l = Arrays.asList(getResources().getStringArray(R.array.array_gender));
         for (int i=0; i<l.size();i++){
             if(l.get(i).toLowerCase().equals(str.toLowerCase())){
@@ -496,5 +502,4 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             }
         }
     }
-*/
 }

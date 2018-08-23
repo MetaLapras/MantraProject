@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.pasistence.mantrafingerprint.Common.Common;
 import com.pasistence.mantrafingerprint.FingerPrintMatching.MFS100Mantra;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
@@ -54,6 +55,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     ArrayList<String> finger;
 
     MFS100Mantra mfs100Mantra;
+    Common common;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,8 +136,13 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         edtbankname             = (MaterialEditText)findViewById(R.id.edt_Bank_Name);
         profileimage            = (CircleImageView) findViewById(R.id.img_profile_image);
 
+        //Init Common
+        common = new Common();
+
+        //Init Database
         database = new Database(mContext);
 
+        //Init Mantra100 for Fingerprint
         mfs100Mantra = new MFS100Mantra(WorkerRegistrationActivity.this);
         mfs100Mantra.onStart();
     }
@@ -146,7 +153,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             layer1.setVisibility(View.INVISIBLE);
             layer2.setVisibility(View.VISIBLE);
             mfs100Mantra.onStop();
-            /*if(!validationCheckLayer1())
+          /*  if(!validationCheckLayer1())
             {
                 layer1.setVisibility(View.INVISIBLE);
                 layer2.setVisibility(View.VISIBLE);
@@ -237,11 +244,12 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     }
 
     private void WorkerRegistrationBtn() {
+
         workerModel=new WorkerModel();
 
-            workerModel.setName(edtname.getText().toString());
+            workerModel.setName(common.isNull(edtname.getText().toString(),""));
            // workerModel.setId(edt_Id.getText().toString());
-            workerModel.setAdharcardId(edtaadharnum.getText().toString());
+            workerModel.setAdharcardId(common.isNull(edtaadharnum.getText().toString(),""));
             workerModel.setDob(edtdob.getText().toString());
             workerModel.setEmail(edtemail.getText().toString());
          //   workerModel.setGender(spngender.getSelectedItem().toString().trim());
@@ -260,9 +268,15 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
 
             finger = mfs100Mantra.getList();
+            if(finger.size()<=0)
+            {
+                workerModel.setFingerprint1("");
+                workerModel.setFingerprint2("");
 
-            workerModel.setFingerprint1(finger.get(0).toString());
-            workerModel.setFingerprint2(finger.get(1).toString());
+            }else {
+                workerModel.setFingerprint1(finger.get(0).toString());
+                workerModel.setFingerprint2(finger.get(1).toString());
+            }
 
 
             try{

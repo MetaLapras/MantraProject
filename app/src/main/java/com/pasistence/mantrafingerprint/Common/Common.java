@@ -12,4 +12,16 @@ public class Common {
         return RetrofitClient.getClient(BASE_URL).create(IMyAPI.class);
     }
 
+// for checking the value is null or not
+    public String isNull(String parma,String dafualtStr){
+     String value;
+     if(!parma.equals(null)){
+         value =  dafualtStr;
+     }else
+     {
+         value = parma;
+     }
+     return value;
+    }
+
 }

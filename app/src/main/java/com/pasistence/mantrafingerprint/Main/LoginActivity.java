@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity
 
     //Check user Authentication of User
     private void authenticatUser(final String projectname, String employeeId, String password) {
-try {
+    try {
 
         final AlertDialog dialog = new SpotsDialog(mContext);
         dialog.show();

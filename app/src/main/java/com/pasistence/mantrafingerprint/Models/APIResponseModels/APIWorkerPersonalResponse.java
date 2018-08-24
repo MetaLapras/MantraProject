@@ -6,19 +6,27 @@ import java.io.Serializable;
 
 public class APIWorkerPersonalResponse implements Serializable{
 
-    public boolean error ;
-    public int success;
-    public String error_msg;
-    public WorkerModel workerModel;
+        public String error_msg ;
+        public boolean error;
+        public int success ;
+        public WorkerModel WorkerModel ;
 
-    public APIWorkerPersonalResponse(boolean error, int success, String error_msg, WorkerModel workerModel) {
+    public APIWorkerPersonalResponse(String error_msg, boolean error, int success, com.pasistence.mantrafingerprint.Models.WorkerModel workerModel) {
+        this.error_msg = error_msg;
         this.error = error;
         this.success = success;
-        this.error_msg = error_msg;
-        this.workerModel = workerModel;
+        WorkerModel = workerModel;
     }
 
     public APIWorkerPersonalResponse() {
+    }
+
+    public String getError_msg() {
+        return error_msg;
+    }
+
+    public void setError_msg(String error_msg) {
+        this.error_msg = error_msg;
     }
 
     public boolean isError() {
@@ -37,19 +45,11 @@ public class APIWorkerPersonalResponse implements Serializable{
         this.success = success;
     }
 
-    public String getError_msg() {
-        return error_msg;
+    public com.pasistence.mantrafingerprint.Models.WorkerModel getWorkerModel() {
+        return WorkerModel;
     }
 
-    public void setError_msg(String error_msg) {
-        this.error_msg = error_msg;
-    }
-
-    public WorkerModel getWorkerModel() {
-        return workerModel;
-    }
-
-    public void setWorkerModel(WorkerModel workerModel) {
-        this.workerModel = workerModel;
+    public void setWorkerModel(com.pasistence.mantrafingerprint.Models.WorkerModel workerModel) {
+        WorkerModel = workerModel;
     }
 }

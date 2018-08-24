@@ -16,7 +16,7 @@ public class Common {
     public String isNull(String parma,String dafualtStr){
      String value;
      if(!parma.equals(null)){
-         value =  dafualtStr;
+    value =  dafualtStr;
      }else
      {
          value = parma;

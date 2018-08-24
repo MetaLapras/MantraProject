@@ -8,18 +8,15 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dd.processbutton.iml.ActionProcessButton;
-import com.google.gson.JsonObject;
 import com.pasistence.mantrafingerprint.Common.Common;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.EmployeeDetails;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Projectdetails;
-import com.pasistence.mantrafingerprint.Models.APIResponseModels.WorkerList;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.Remote.IMyAPI;
@@ -39,7 +36,6 @@ public class LoginActivity extends AppCompatActivity
    IMyAPI mService;
    Projectdetails projectdetails;
    EmployeeDetails employeeDetails;
-   WorkerList workerList;
    Database database;
 
 

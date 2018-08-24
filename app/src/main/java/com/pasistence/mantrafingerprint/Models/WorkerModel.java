@@ -1,11 +1,18 @@
 package com.pasistence.mantrafingerprint.Models;
 
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.BankAccount;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.CurrentAddress;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.PermanentAddress;
+
 import java.io.Serializable;
 
 public class WorkerModel implements Serializable {
     public String id, workerId, name, adharcardId, gender, dob, fingerprint1, fingerprint2, email, permanentAddressId, currentAddressId, contact1, contact2, salary, createdAt, updatedAt, bankId, projectId, activation, imageUrl, permanent_address, current_address, bank_name, holder_name, ifsc_code, account_number, city,pincode;
+    public PermanentAddress permanent_address1;
+    public CurrentAddress current_address1;
+    public BankAccount bank_account ;
 
-    public WorkerModel(String id, String workerId, String name, String adharcardId, String gender, String dob, String fingerprint1, String fingerprint2, String email, String permanentAddressId, String currentAddressId, String contact1, String contact2, String salary, String createdAt, String updatedAt, String bankId, String projectId, String activation, String imageUrl, String permanent_address, String current_address, String bank_name, String holder_name, String ifsc_code, String account_number, String city, String pincode) {
+    public WorkerModel(String id, String workerId, String name, String adharcardId, String gender, String dob, String fingerprint1, String fingerprint2, String email, String permanentAddressId, String currentAddressId, String contact1, String contact2, String salary, String createdAt, String updatedAt, String bankId, String projectId, String activation, String imageUrl, String permanent_address, String current_address, String bank_name, String holder_name, String ifsc_code, String account_number, String city, String pincode, PermanentAddress permanent_address1, CurrentAddress current_address1, BankAccount bank_account) {
         this.id = id;
         this.workerId = workerId;
         this.name = name;
@@ -34,6 +41,9 @@ public class WorkerModel implements Serializable {
         this.account_number = account_number;
         this.city = city;
         this.pincode = pincode;
+        this.permanent_address1 = permanent_address1;
+        this.current_address1 = current_address1;
+        this.bank_account = bank_account;
     }
 
     public WorkerModel() {
@@ -70,6 +80,9 @@ public class WorkerModel implements Serializable {
                 ", account_number='" + account_number + '\'' +
                 ", city='" + city + '\'' +
                 ", pincode='" + pincode + '\'' +
+                ", permanent_address1=" + permanent_address1 +
+                ", current_address1=" + current_address1 +
+                ", bank_account=" + bank_account +
                 '}';
     }
 
@@ -295,5 +308,29 @@ public class WorkerModel implements Serializable {
 
     public void setPincode(String pincode) {
         this.pincode = pincode;
+    }
+
+    public PermanentAddress getPermanent_address1() {
+        return permanent_address1;
+    }
+
+    public void setPermanent_address1(PermanentAddress permanent_address1) {
+        this.permanent_address1 = permanent_address1;
+    }
+
+    public CurrentAddress getCurrent_address1() {
+        return current_address1;
+    }
+
+    public void setCurrent_address1(CurrentAddress current_address1) {
+        this.current_address1 = current_address1;
+    }
+
+    public BankAccount getBank_account() {
+        return bank_account;
+    }
+
+    public void setBank_account(BankAccount bank_account) {
+        this.bank_account = bank_account;
     }
 }

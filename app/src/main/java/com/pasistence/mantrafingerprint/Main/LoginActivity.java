@@ -63,7 +63,9 @@ public class LoginActivity extends AppCompatActivity
 
 
         btn_signin = findViewById(R.id.btnSignIn);
-        btn_signin.setOnClickListener(new View.OnClickListener() {
+
+
+   /*     btn_signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(mContext,DashboardActivity.class);
@@ -72,7 +74,7 @@ public class LoginActivity extends AppCompatActivity
 
             }
 
-        });
+        });*/
 
 
         //Init Service
@@ -118,25 +120,25 @@ public class LoginActivity extends AppCompatActivity
                             Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
                             Log.e("-->",result.getProjectdetails().toString() );
 
-                            projectdetails = result.getProjectdetails();
+                            //projectdetails = result.getProjectdetails();
                             Log.e("prj",projectdetails.toString());
 
-                            database.deleteToPorjects();
-                            database.addToPorject(projectdetails);
+                            //database.deleteToPorjects();
+                            //database.addToPorject(projectdetails);
 
-                            employeeDetails = projectdetails.getEmployee_details();
+                            //employeeDetails = projectdetails.getEmployee_details();
                             Log.e("emp",employeeDetails.toString() );
-                            database.deleteToEmployee();
-                            database.addToEmployee(employeeDetails);
+                            //database.deleteToEmployee();
+                            //database.addToEmployee(employeeDetails);
 
-                            database.deleteToWorkers();
-                            for(WorkerModel worker : projectdetails.getWorker_list())
+                            //database.deleteToWorkers();
+                            /*for(WorkerModel worker : projectdetails.getWorker_list())
                             {
                                // workerList = worker;
                                 Log.e("wrk",worker.toString() );
                                 database.addToWorkers(worker);
                             }
-
+*/
                             dialog.dismiss();
                             Intent intent= new Intent(mContext,DashboardActivity.class);
                             startActivity(intent);
@@ -146,6 +148,9 @@ public class LoginActivity extends AppCompatActivity
                     @Override
                     public void onFailure(Call<ApiProjectResponse> call, Throwable t) {
                         Toast.makeText(mContext, "Connection Failed !", Toast.LENGTH_SHORT).show();
+                        Log.e("error",t.getMessage());
+                        t.printStackTrace();
+
                         dialog.dismiss();
                     }
                 });

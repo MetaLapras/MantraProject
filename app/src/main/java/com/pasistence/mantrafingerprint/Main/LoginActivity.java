@@ -15,7 +15,10 @@ import android.widget.Toast;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.pasistence.mantrafingerprint.Common.Common;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectResponse;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.BankAccount;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.CurrentAddress;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.EmployeeDetails;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.PermanentAddress;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Projectdetails;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
@@ -36,6 +39,9 @@ public class LoginActivity extends AppCompatActivity
    IMyAPI mService;
    Projectdetails projectdetails;
    EmployeeDetails employeeDetails;
+   PermanentAddress permanentAddress;
+   CurrentAddress currentAddress;
+   BankAccount bankAccount;
    Database database;
 
 
@@ -55,6 +61,15 @@ public class LoginActivity extends AppCompatActivity
         edtPassword         = (EditText)findViewById(R.id.edt_password);
         btn_signin          = (Button) findViewById(R.id.btnSignIn);
         //btnSignIn = (ActionProcessButton) findViewById(R.id.btnSignIn);
+
+
+        //model init
+        projectdetails = new Projectdetails();
+        employeeDetails = new EmployeeDetails();
+        permanentAddress = new PermanentAddress();
+        currentAddress = new CurrentAddress();
+        bankAccount = new BankAccount();
+
 
 
         edtProjectName.setText("mantra1");
@@ -120,25 +135,33 @@ public class LoginActivity extends AppCompatActivity
                             Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
                             Log.e("-->",result.getProjectdetails().toString() );
 
-                            //projectdetails = result.getProjectdetails();
+                            projectdetails = result.getProjectdetails();
                             Log.e("prj",projectdetails.toString());
 
                             //database.deleteToPorjects();
                             //database.addToPorject(projectdetails);
 
-                            //employeeDetails = projectdetails.getEmployee_details();
+                            employeeDetails = projectdetails.getEmployee_details();
                             Log.e("emp",employeeDetails.toString() );
                             //database.deleteToEmployee();
                             //database.addToEmployee(employeeDetails);
 
                             //database.deleteToWorkers();
-                            /*for(WorkerModel worker : projectdetails.getWorker_list())
+                            for(WorkerModel worker : projectdetails.getWorker_list())
                             {
                                // workerList = worker;
                                 Log.e("wrk",worker.toString() );
-                                database.addToWorkers(worker);
+                                //database.addToWorkers(worker);
+
+                                 currentAddress = worker.getCurrent_address();
+                                 permanentAddress = worker.getPermanent_address();
+                                 bankAccount =worker.getBank_account();
+
+                                Log.e("currentAddress",currentAddress.toString() );
+                                Log.e("permanentAddress",permanentAddress.toString() );
+                                Log.e("bankAccount",bankAccount.toString() );
                             }
-*/
+
                             dialog.dismiss();
                             Intent intent= new Intent(mContext,DashboardActivity.class);
                             startActivity(intent);

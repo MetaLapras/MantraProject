@@ -139,8 +139,8 @@ public class DetailsFragment extends Fragment {
         txtAdharNumber.setText(workerModel.adharcardId);
         txtGender.setText(workerModel.getGender());
 
-        txtPermamanentAddress.setText(workerModel.getPermanent_address());
-        txtCurrentAddress.setText(workerModel.getCurrent_address());
+        txtPermamanentAddress.setText(workerModel.getPermanent_address1());
+        txtCurrentAddress.setText(workerModel.getCurrent_address1());
         txtCity.setText(workerModel.getCity());
         txtPincode.setText(workerModel.getPincode());
 

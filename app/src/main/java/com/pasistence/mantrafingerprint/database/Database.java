@@ -151,8 +151,8 @@ public class Database extends SQLiteAssetHelper {
                 workerModel.setProjectId(cursor.getString(cursor.getColumnIndex("project_id")));
                 workerModel.setActivation(cursor.getString(cursor.getColumnIndex("activation")));
                 workerModel.setImageUrl(cursor.getString(cursor.getColumnIndex("image_url")));
-                workerModel.setPermanent_address(cursor.getString(cursor.getColumnIndex("permanent_address")));
-                workerModel.setCurrent_address(cursor.getString(cursor.getColumnIndex("current_address")));
+                workerModel.setPermanent_address1(cursor.getString(cursor.getColumnIndex("permanent_address")));
+                workerModel.setCurrent_address1(cursor.getString(cursor.getColumnIndex("current_address")));
                 workerModel.setBank_name(cursor.getString(cursor.getColumnIndex("bank_name")));
                 workerModel.setHolder_name(cursor.getString(cursor.getColumnIndex("holder_name")));
                 workerModel.setIfsc_code(cursor.getString(cursor.getColumnIndex("ifsc_code")));
@@ -266,8 +266,8 @@ public class Database extends SQLiteAssetHelper {
                 workerModel.setProjectId(cursor.getString(cursor.getColumnIndex("project_id")));
                 workerModel.setActivation(cursor.getString(cursor.getColumnIndex("activation")));
                 workerModel.setImageUrl(cursor.getString(cursor.getColumnIndex("image_url")));
-                workerModel.setPermanent_address(cursor.getString(cursor.getColumnIndex("permanent_address")));
-                workerModel.setCurrent_address(cursor.getString(cursor.getColumnIndex("current_address")));
+                workerModel.setPermanent_address1(cursor.getString(cursor.getColumnIndex("permanent_address")));
+                workerModel.setCurrent_address1(cursor.getString(cursor.getColumnIndex("current_address")));
                 workerModel.setBank_name(cursor.getString(cursor.getColumnIndex("bank_name")));
                 workerModel.setHolder_name(cursor.getString(cursor.getColumnIndex("holder_name")));
                 workerModel.setIfsc_code(cursor.getString(cursor.getColumnIndex("ifsc_code")));
@@ -375,8 +375,8 @@ public class Database extends SQLiteAssetHelper {
         values.put("project_id",workerModel.getProjectId());
         values.put("activation",workerModel.getActivation());
         values.put("image_url",workerModel.getImageUrl());
-        values.put("permanent_address",workerModel.getPermanent_address());
-        values.put("current_address",workerModel.getCurrent_address());
+        values.put("permanent_address",workerModel.getPermanent_address1());
+        values.put("current_address",workerModel.getCurrent_address1());
         values.put("bank_name",workerModel.getBank_name());
         values.put("holder_name",workerModel.getHolder_name());
         values.put("ifsc_code",workerModel.getIfsc_code());

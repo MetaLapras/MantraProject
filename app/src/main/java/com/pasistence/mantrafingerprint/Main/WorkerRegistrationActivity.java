@@ -264,8 +264,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             workerModel.setDob(edtdob.getText().toString());
             workerModel.setEmail(edtemail.getText().toString());
             workerModel.setGender(spngender.getSelectedItem().toString().trim());
-            workerModel.setPermanent_address(edtaddressline1.getText().toString());
-            workerModel.setCurrent_address(edtaddressline2.getText().toString());
+            workerModel.setPermanent_address1(edtaddressline1.getText().toString());
+            workerModel.setCurrent_address1(edtaddressline2.getText().toString());
             workerModel.setContact1(edtmobilenum.getText().toString());
             workerModel.setContact2(edtalternatenum.getText().toString());
             workerModel.setCity(edtcity.getText().toString());
@@ -335,8 +335,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         edtdob.setText(workerModel.getDob());
         edtemail.setText(workerModel.getEmail());
         //getGender(workerModel.getGender());
-        edtaddressline1.setText(workerModel.getCurrent_address());
-        edtaddressline2.setText(workerModel.getPermanent_address());
+        edtaddressline1.setText(workerModel.getCurrent_address1());
+        edtaddressline2.setText(workerModel.getPermanent_address1());
         edtmobilenum.setText(workerModel.getContact1());
         edtalternatenum.setText(workerModel.getContact2());
         edtcity.setText(workerModel.getCity());

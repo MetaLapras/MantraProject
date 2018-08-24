@@ -27,6 +27,9 @@ public class PermanentAddress {
         this.type = type;
     }
 
+    public PermanentAddress() {
+    }
+
     @Override
     public String toString() {
         return "PermanentAddress{" +

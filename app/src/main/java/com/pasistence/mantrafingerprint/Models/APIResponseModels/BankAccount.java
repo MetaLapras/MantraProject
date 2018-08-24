@@ -19,6 +19,9 @@ public class BankAccount {
         this.activation = activation;
     }
 
+    public BankAccount() {
+    }
+
     @Override
     public String toString() {
         return "BankAccount{" +

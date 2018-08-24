@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.pasistence.mantrafingerprint.Common.Common;
+import com.pasistence.mantrafingerprint.Common.PreferenceUtils;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.BankAccount;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.CurrentAddress;
@@ -145,6 +146,8 @@ try {
                             employeeDetails = projectdetails.getEmployee_details();
                             Log.e("emp",employeeDetails.toString() );
 
+                            PreferenceUtils.setEmployee_id(mContext, String.valueOf(employeeDetails.getId()));
+                            PreferenceUtils.setProject_id(mContext, String.valueOf(projectdetails.getProject_id()));
                             //database.deleteToEmployee();
                             //database.addToEmployee(employeeDetails);
 

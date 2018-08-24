@@ -1,5 +1,8 @@
 package com.pasistence.mantrafingerprint.Remote;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -10,13 +13,18 @@ public class RetrofitClient {
 
     private static Retrofit retrofit;
 
+
+
     public static Retrofit getClient(String baseURL)
     {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
         if(retrofit==null){
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseURL)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(okClient())
                     .build();
 

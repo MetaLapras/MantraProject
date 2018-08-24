@@ -1,5 +1,6 @@
 package com.pasistence.mantrafingerprint.Main;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,9 +19,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.pasistence.mantrafingerprint.Common.Common;
+import com.pasistence.mantrafingerprint.Common.PreferenceUtils;
 import com.pasistence.mantrafingerprint.FingerPrintMatching.MFS100Mantra;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerPersonalResponse;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectResponse;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
+import com.pasistence.mantrafingerprint.Remote.IMyAPI;
 import com.pasistence.mantrafingerprint.database.Database;
 import com.pasistence.mantrafingerprint.database.DatabaseHelper;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -33,7 +38,11 @@ import java.util.Calendar;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import dmax.dialog.SpotsDialog;
 import fr.ganfra.materialspinner.MaterialSpinner;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class WorkerRegistrationActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -50,6 +59,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     Spinner spngender,spnstate;
     String ImagePath;
     Database database;
+    IMyAPI mService;
 
     private int mYear, mMonth, mDay;
     String type,id ;
@@ -108,6 +118,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
         mContext = WorkerRegistrationActivity.this;
 
+
         btnLayer1Next = (Button)findViewById(R.id.btn_layer1_next);
         btnLayer2Next = (Button)findViewById(R.id.btn_layer2_next);
         btnLayer3Next = (Button)findViewById(R.id.btn_layer3_next);
@@ -156,6 +167,9 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         //Init Mantra100 for Fingerprint
         mfs100Mantra = new MFS100Mantra(WorkerRegistrationActivity.this);
         mfs100Mantra.onStart();
+
+        //init Api
+        mService = Common.getApi();
     }
     @Override
     public void onClick(View view) {
@@ -267,7 +281,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         workerModel.setGender(spngender.getSelectedItem().toString().trim());
         workerModel.setSalary("500");
 
-
+        finger = mfs100Mantra.getList();
         if(finger.size()<=0)
         {
             workerModel.setFingerprint1("");
@@ -276,6 +290,63 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         }else {
             workerModel.setFingerprint1(finger.get(0).toString());
             workerModel.setFingerprint2(finger.get(1).toString());
+        }
+        try
+        {
+            final AlertDialog dialog = new SpotsDialog(mContext);
+            dialog.show();
+            dialog.setMessage("Load Personal Details...");
+            dialog.setCancelable(false);
+
+            mService.workerRegistration(
+                    workerModel.getName(),
+                    workerModel.getGender(),
+                    workerModel.getDob(),
+                    workerModel.getFingerprint1(),
+                    workerModel.getFingerprint2(),workerModel.getEmail(),
+                    workerModel.getProjectId(),
+                    workerModel.getSalary(),
+                    PreferenceUtils.getEmployee_id(mContext),
+                    workerModel.getAdharcardId())
+                    .enqueue(new Callback<APIWorkerPersonalResponse>() {
+                        @Override
+                        public void onResponse(Call<APIWorkerPersonalResponse> call, Response<APIWorkerPersonalResponse> response) {
+                            APIWorkerPersonalResponse result = response.body();
+                            /*if(result.isError())
+                            {
+                                Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
+                                Log.e("-->",result.getError_msg() );
+                                dialog.dismiss();
+                            }else{
+                              //  Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
+                                Log.e("-->",result.getWorkerModel().toString() );
+
+                                workerModel = result.getWorkerModel();
+                                Log.e("personal Details",workerModel.toString());
+
+                                //database.deleteToPorjects();
+                                //database.addToPorject(projectdetails);
+                                }*/
+
+                            workerModel = result.getWorkerModel();
+                            Log.e("personal Details",workerModel.toString());
+                                dialog.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(Call<APIWorkerPersonalResponse> call, Throwable t) {
+                            Toast.makeText(mContext, "Connection Failed !", Toast.LENGTH_SHORT).show();
+                            Log.e("error",t.getMessage());
+                            t.printStackTrace();
+
+                            dialog.dismiss();
+
+                        }
+                    });
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+
         }
 
 

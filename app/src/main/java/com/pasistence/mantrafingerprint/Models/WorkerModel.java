@@ -3,6 +3,7 @@ package com.pasistence.mantrafingerprint.Models;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.BankAccount;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.CurrentAddress;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.PermanentAddress;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.Projectdetails;
 
 import java.io.Serializable;
 
@@ -13,6 +14,11 @@ public class WorkerModel implements Serializable {
     public PermanentAddress permanent_address;
     public CurrentAddress current_address;
     public BankAccount bank_account ;
+
+    public boolean error ;
+    public int success;
+    public String error_msg;
+
 
 
     public WorkerModel(String id, String workerId, String name, String adharcardId, String gender, String dob, String fingerprint1, String fingerprint2, String email, String permanentAddressId, String currentAddressId, String contact1, String contact2, String salary, String createdAt, String updatedAt, String bankId, String projectId, String activation, String imageUrl, String permanent_address1, String current_address1, String bank_name, String holder_name, String ifsc_code, String account_number, String city, String pincode, PermanentAddress permanent_address, CurrentAddress current_address, BankAccount bank_account) {
@@ -88,6 +94,30 @@ public class WorkerModel implements Serializable {
                 ", bank_account=" + bank_account +
                 '}';
 
+    }
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
+    }
+
+    public int getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(int success) {
+        this.success = success;
+    }
+
+    public String getError_msg() {
+        return error_msg;
+    }
+
+    public void setError_msg(String error_msg) {
+        this.error_msg = error_msg;
     }
 
     public String getId() {

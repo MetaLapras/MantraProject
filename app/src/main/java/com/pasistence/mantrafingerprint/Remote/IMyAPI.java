@@ -1,5 +1,6 @@
 package com.pasistence.mantrafingerprint.Remote;
 
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerPersonalResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectResponse;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 
@@ -16,6 +17,7 @@ public interface IMyAPI {
     @POST("project_login_details.php")
     Call<ApiProjectResponse> loginUser(@Field("employee_id") String employeeId, @Field("project_name") String projectName, @Field("password") String password);
 
+  /*  @FormUrlEncoded
     @POST("workerRegistration.php")
     Call<WorkerModel> workerRegistration(
             @Field("name") String name,
@@ -28,8 +30,24 @@ public interface IMyAPI {
             @Field("salary") String salary,
             @Field("employee_id") String employee_id,
             @Field("adharcard_id") String adharcard_id
+    );*/
+
+    @FormUrlEncoded
+    @POST("workerRegistration.php")
+    Call<APIWorkerPersonalResponse> workerRegistration(
+            @Field("name") String name,
+            @Field("gender") String gender,
+            @Field("dob") String dob,
+            @Field("fingerprint1") String fingerprint1,
+            @Field("fingerprint2") String fingerprint2,
+            @Field("email") String email,
+            @Field("project_id") String project_id,
+            @Field("salary") String salary,
+            @Field("employee_id") String employee_id,
+            @Field("adharcard_id") String adharcard_id
     );
 
+    @FormUrlEncoded
     @POST("insert_contact_details.php")
     Call<WorkerModel> insertcontactdetails(
             @Field("contact1") String contact1,
@@ -45,6 +63,7 @@ public interface IMyAPI {
             @Field("employee_id") String employee_id
     );
 
+    @FormUrlEncoded
     @POST("insert_bank_details.php")
     Call<WorkerModel> insertbankdetails(
             @Field("account_holder_name") String account_holder_name,
@@ -56,6 +75,7 @@ public interface IMyAPI {
             @Field("employee_id") String employee_id
     );
 
+    @FormUrlEncoded
     @POST("image_upload.php")
     Call<WorkerModel> imageupload(
             //@Part("uploadfile") String uploadfile,

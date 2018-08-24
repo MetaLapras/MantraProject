@@ -7,12 +7,15 @@ import com.pasistence.mantrafingerprint.Models.APIResponseModels.PermanentAddres
 import java.io.Serializable;
 
 public class WorkerModel implements Serializable {
-    public String id, workerId, name, adharcardId, gender, dob, fingerprint1, fingerprint2, email, permanentAddressId, currentAddressId, contact1, contact2, salary, createdAt, updatedAt, bankId, projectId, activation, imageUrl, permanent_address, current_address, bank_name, holder_name, ifsc_code, account_number, city,pincode;
-    public PermanentAddress permanent_address1;
-    public CurrentAddress current_address1;
+    public String id, workerId, name, adharcardId, gender, dob, fingerprint1, fingerprint2, email, permanentAddressId,
+            currentAddressId, contact1, contact2, salary, createdAt, updatedAt, bankId, projectId, activation,
+            imageUrl, permanent_address1, current_address1, bank_name, holder_name, ifsc_code, account_number, city,pincode;
+    public PermanentAddress permanent_address;
+    public CurrentAddress current_address;
     public BankAccount bank_account ;
 
-    public WorkerModel(String id, String workerId, String name, String adharcardId, String gender, String dob, String fingerprint1, String fingerprint2, String email, String permanentAddressId, String currentAddressId, String contact1, String contact2, String salary, String createdAt, String updatedAt, String bankId, String projectId, String activation, String imageUrl, String permanent_address, String current_address, String bank_name, String holder_name, String ifsc_code, String account_number, String city, String pincode, PermanentAddress permanent_address1, CurrentAddress current_address1, BankAccount bank_account) {
+
+    public WorkerModel(String id, String workerId, String name, String adharcardId, String gender, String dob, String fingerprint1, String fingerprint2, String email, String permanentAddressId, String currentAddressId, String contact1, String contact2, String salary, String createdAt, String updatedAt, String bankId, String projectId, String activation, String imageUrl, String permanent_address1, String current_address1, String bank_name, String holder_name, String ifsc_code, String account_number, String city, String pincode, PermanentAddress permanent_address, CurrentAddress current_address, BankAccount bank_account) {
         this.id = id;
         this.workerId = workerId;
         this.name = name;
@@ -33,16 +36,16 @@ public class WorkerModel implements Serializable {
         this.projectId = projectId;
         this.activation = activation;
         this.imageUrl = imageUrl;
-        this.permanent_address = permanent_address;
-        this.current_address = current_address;
+        this.permanent_address1 = permanent_address1;
+        this.current_address1 = current_address1;
         this.bank_name = bank_name;
         this.holder_name = holder_name;
         this.ifsc_code = ifsc_code;
         this.account_number = account_number;
         this.city = city;
         this.pincode = pincode;
-        this.permanent_address1 = permanent_address1;
-        this.current_address1 = current_address1;
+        this.permanent_address = permanent_address;
+        this.current_address = current_address;
         this.bank_account = bank_account;
     }
 
@@ -72,16 +75,16 @@ public class WorkerModel implements Serializable {
                 ", projectId='" + projectId + '\'' +
                 ", activation='" + activation + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", permanent_address='" + permanent_address + '\'' +
-                ", current_address='" + current_address + '\'' +
+                ", permanent_address1='" + permanent_address1 + '\'' +
+                ", current_address1='" + current_address1 + '\'' +
                 ", bank_name='" + bank_name + '\'' +
                 ", holder_name='" + holder_name + '\'' +
                 ", ifsc_code='" + ifsc_code + '\'' +
                 ", account_number='" + account_number + '\'' +
                 ", city='" + city + '\'' +
                 ", pincode='" + pincode + '\'' +
-                ", permanent_address1=" + permanent_address1 +
-                ", current_address1=" + current_address1 +
+                ", permanent_address=" + permanent_address +
+                ", current_address=" + current_address +
                 ", bank_account=" + bank_account +
                 '}';
     }
@@ -246,20 +249,20 @@ public class WorkerModel implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public String getPermanent_address() {
-        return permanent_address;
+    public String getPermanent_address1() {
+        return permanent_address1;
     }
 
-    public void setPermanent_address(String permanent_address) {
-        this.permanent_address = permanent_address;
+    public void setPermanent_address1(String permanent_address1) {
+        this.permanent_address1 = permanent_address1;
     }
 
-    public String getCurrent_address() {
-        return current_address;
+    public String getCurrent_address1() {
+        return current_address1;
     }
 
-    public void setCurrent_address(String current_address) {
-        this.current_address = current_address;
+    public void setCurrent_address1(String current_address1) {
+        this.current_address1 = current_address1;
     }
 
     public String getBank_name() {
@@ -310,20 +313,20 @@ public class WorkerModel implements Serializable {
         this.pincode = pincode;
     }
 
-    public PermanentAddress getPermanent_address1() {
-        return permanent_address1;
+    public PermanentAddress getPermanent_address() {
+        return permanent_address;
     }
 
-    public void setPermanent_address1(PermanentAddress permanent_address1) {
-        this.permanent_address1 = permanent_address1;
+    public void setPermanent_address(PermanentAddress permanent_address) {
+        this.permanent_address = permanent_address;
     }
 
-    public CurrentAddress getCurrent_address1() {
-        return current_address1;
+    public CurrentAddress getCurrent_address() {
+        return current_address;
     }
 
-    public void setCurrent_address1(CurrentAddress current_address1) {
-        this.current_address1 = current_address1;
+    public void setCurrent_address(CurrentAddress current_address) {
+        this.current_address = current_address;
     }
 
     public BankAccount getBank_account() {

@@ -52,11 +52,6 @@ public class MemberListActivity extends AppCompatActivity {
 
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.search_bar);
 
-        //Init DB
-     /* databaseHelper = new DatabaseHelper(this);
-
-      workerLists = (ArrayList<WorkerList>) databaseHelper.getWorkerList();*/
-      
       //Setup search bar
         materialSearchBar.setHint("Search");
         materialSearchBar.setCardViewElevation(10);

@@ -164,6 +164,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             layer1.setVisibility(View.INVISIBLE);
             layer2.setVisibility(View.VISIBLE);
             mfs100Mantra.onStop();
+
+            onWorkerRegistration();
           /*  if(!validationCheckLayer1())
             {
                 layer1.setVisibility(View.INVISIBLE);
@@ -252,6 +254,31 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             // Log.e(TAG, mfs100Mantra.getScanFingerprint().toString());
             //  mfs100Mantra.onStop();
         }
+    }
+
+    private void onWorkerRegistration() {
+        workerModel=new WorkerModel();
+
+        workerModel.setName(edtname.getText().toString());
+        // workerModel.setId(edt_Id.getText().toString());
+        workerModel.setAdharcardId(edtaadharnum.getText().toString());
+        workerModel.setDob(edtdob.getText().toString());
+        workerModel.setEmail(edtemail.getText().toString());
+        workerModel.setGender(spngender.getSelectedItem().toString().trim());
+        workerModel.setSalary("500");
+
+
+        if(finger.size()<=0)
+        {
+            workerModel.setFingerprint1("");
+            workerModel.setFingerprint2("");
+
+        }else {
+            workerModel.setFingerprint1(finger.get(0).toString());
+            workerModel.setFingerprint2(finger.get(1).toString());
+        }
+
+
     }
 
     private void WorkerRegistrationBtn() {

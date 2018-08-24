@@ -114,6 +114,7 @@ public class LoginActivity extends AppCompatActivity
 
     //Check user Authentication of User
     private void authenticatUser(final String projectname, String employeeId, String password) {
+try {
 
         final AlertDialog dialog = new SpotsDialog(mContext);
         dialog.show();
@@ -143,6 +144,7 @@ public class LoginActivity extends AppCompatActivity
 
                             employeeDetails = projectdetails.getEmployee_details();
                             Log.e("emp",employeeDetails.toString() );
+
                             //database.deleteToEmployee();
                             //database.addToEmployee(employeeDetails);
 
@@ -157,9 +159,9 @@ public class LoginActivity extends AppCompatActivity
                                  permanentAddress = worker.getPermanent_address();
                                  bankAccount =worker.getBank_account();
 
-                                Log.e("currentAddress",currentAddress.toString() );
-                                Log.e("permanentAddress",permanentAddress.toString() );
-                                Log.e("bankAccount",bankAccount.toString() );
+                               // Log.e("currentAddress",currentAddress.toString() );
+                                //Log.e("permanentAddress",permanentAddress.toString() );
+//                                Log.e("bankAccount",bankAccount.toString() );
                             }
 
                             dialog.dismiss();
@@ -177,6 +179,10 @@ public class LoginActivity extends AppCompatActivity
                         dialog.dismiss();
                     }
                 });
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
     }
 
     //validation for Login details

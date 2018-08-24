@@ -87,6 +87,7 @@ public class WorkerModel implements Serializable {
                 ", current_address=" + current_address +
                 ", bank_account=" + bank_account +
                 '}';
+
     }
 
     public String getId() {

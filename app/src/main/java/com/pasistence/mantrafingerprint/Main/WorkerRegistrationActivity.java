@@ -34,6 +34,7 @@ import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectRespo
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.CurrentAddress;
 
+import com.pasistence.mantrafingerprint.Models.AddressModel;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.Remote.IMyAPI;
@@ -82,6 +83,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     IMyAPI mService;
 
     ProgressDialog dialog;
+    AddressModel addressModel;
 
 
     private int mYear, mMonth, mDay;
@@ -224,6 +226,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             layer2.setVisibility(View.INVISIBLE);
             layer3.setVisibility(View.VISIBLE);
             onWorkerContactRegistration();
+
         }
             /*if (!validationCheckLayer2())
             {
@@ -481,7 +484,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             e.printStackTrace();
 
         }
-
 
     }
 

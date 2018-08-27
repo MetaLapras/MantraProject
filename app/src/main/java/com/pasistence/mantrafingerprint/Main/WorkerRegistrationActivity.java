@@ -5,12 +5,15 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -34,7 +37,6 @@ import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectRespo
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.CurrentAddress;
 
-import com.pasistence.mantrafingerprint.Models.AddressModel;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.Remote.IMyAPI;
@@ -69,11 +71,17 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     View layer1,layer2,layer3,layer4,layer5;
     WorkerModel workerModel;
     Contactdetails contactdetails;
+    private boolean isEnroll1=false;
+    private boolean isEnroll2=false;
+    CheckBox chk_isPermanent;
 
     BankAccount bankAccount;
 
-    MaterialEditText edtname,edtaadharnum,edtdob,edtemail,edtaddressline1,edtaddressline2,edtmobilenum,edtalternatenum,edtcity,edtpincode,edtholdername,
-    edtbankifsccode,edtbankaccountnumber,edtbankname,edtcurrentaddress1,edtcurrentaddress2,edtcurrentcity,edtcurrentstate,edtcurrentpincode;
+    MaterialEditText edtname,edtaadharnum,edtdob,edtemail,edtaddressline1,
+            edtaddressline2,edtmobilenum,edtalternatenum,edtcity,edtpincode,
+            edtholdername,edtbankifsccode,edtbankaccountnumber,edtbankname,
+            edtcurrentaddress1,edtcurrentaddress2,edtcurrentcity,edtcurrentstate,
+            edtcurrentpincode,edtSalary;
     CircleImageView profileimage;
     ImageView imgfingerprint1,imgfingerprint2;
    // MaterialSpinner spngender,spnstate;
@@ -83,7 +91,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     IMyAPI mService;
 
     ProgressDialog dialog;
-    AddressModel addressModel;
 
 
     private int mYear, mMonth, mDay;
@@ -173,13 +180,17 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         edtbankaccountnumber    = (MaterialEditText)findViewById(R.id.edt_Bank_Account_Number);
         edtbankname             = (MaterialEditText)findViewById(R.id.edt_Bank_Name);
         profileimage            = (CircleImageView) findViewById(R.id.img_profile_image);
+        edtSalary               = (MaterialEditText) findViewById(R.id.edt_salary);
 
         //init the current address
         edtcurrentaddress1 = (MaterialEditText)findViewById(R.id.edt_currentaddress1);
         edtcurrentaddress2 = (MaterialEditText)findViewById(R.id.edt_currentaddress2);
-        edtcurrentcity = (MaterialEditText)findViewById(R.id.edt_city);
+        edtcurrentcity = (MaterialEditText)findViewById(R.id.edt_currentcity);
         edtcurrentpincode = (MaterialEditText)findViewById(R.id.edt_currentpincode);
         spncurrentstate = (Spinner)findViewById(R.id.spn_currentstate) ;
+
+        //init Check Box
+        chk_isPermanent = (CheckBox)findViewById(R.id.chk_type);
 
 
         //spngender             = (MaterialSpinner)findViewById(R.id.spinner_gender);
@@ -205,66 +216,63 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     public void onClick(View view) {
         if(view == btnLayer1Next)
         {
-            layer1.setVisibility(View.INVISIBLE);
-            layer2.setVisibility(View.VISIBLE);
-            mfs100Mantra.onStop();
-
-            onWorkerRegistration();
-          /*  if(!validationCheckLayer1())
+             if(!validationCheckLayer1())
             {
                 layer1.setVisibility(View.INVISIBLE);
                 layer2.setVisibility(View.VISIBLE);
                 mfs100Mantra.onStop();
-
+                if(Common.isConnectedToInterNet(mContext)){
+                    onWorkerRegistration();
+                }else{
+                    Toast.makeText(mContext, "Data has been Saved Offline", Toast.LENGTH_SHORT).show();
+                }
             }else
             {
                 Toast.makeText(mContext,"something is missing",Toast.LENGTH_LONG).show();
-            }*/
+            }
         }
         if(view == btnLayer2Next)
         {
-            layer2.setVisibility(View.INVISIBLE);
-            layer3.setVisibility(View.VISIBLE);
-            onWorkerContactRegistration();
-
-        }
-            /*if (!validationCheckLayer2())
+            if (!validationCheckLayer2())
             {
                 layer2.setVisibility(View.INVISIBLE);
                 layer3.setVisibility(View.VISIBLE);
+                if(Common.isConnectedToInterNet(mContext))
+                {
+                    onWorkerContactRegistration();
+                }else{
+                    Toast.makeText(mContext, "Data has been Saved Offline", Toast.LENGTH_SHORT).show();
+                }
+
             }
             else
             {
                 Toast.makeText(mContext,"something is missing",Toast.LENGTH_LONG).show();
-            }*/
+            }
+        }
+
         if(view == btnLayer3Next)
         {
             layer3.setVisibility(View.INVISIBLE);
             layer4.setVisibility(View.VISIBLE);
-            onWorkerCurrentContactRegistration();
-            /*if(!validationChekLayer3())
-            {
-                layer3.setVisibility(View.INVISIBLE);
-                layer4.setVisibility(View.VISIBLE);
-            } else
-            {
-                Toast.makeText(mContext,"something is missing",Toast.LENGTH_LONG).show();
-            }*/
+
+            if(Common.isConnectedToInterNet(mContext)){
+                onWorkerCurrentContactRegistration();
+            }else{
+                Toast.makeText(mContext, "Data has been Saved Offline", Toast.LENGTH_SHORT).show();
+            }
         }
 
         if(view == btnLayer4Next)
         {
             layer4.setVisibility(View.INVISIBLE);
             layer5.setVisibility(View.VISIBLE);
-            onBankDetailsRegistration();
-            /*if(!validationChekLayer3())
-            {
-                layer3.setVisibility(View.INVISIBLE);
-                layer4.setVisibility(View.VISIBLE);
-            } else
-            {
-                Toast.makeText(mContext,"something is missing",Toast.LENGTH_LONG).show();
-            }*/
+
+            if(Common.isConnectedToInterNet(mContext)){
+                onBankDetailsRegistration();
+            }else{
+                Toast.makeText(mContext, "Data has been Saved Offline", Toast.LENGTH_SHORT).show();
+            }
         }
         if(view == btnLayer4previous)
         {
@@ -283,7 +291,12 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         }
         if(view == btnSubmit)
         {
-                WorkerRegistrationBtn();
+            if(Common.isConnectedToInterNet(mContext)){
+                onImageUpload(workerModel.getImageUrl().toString());
+            }else{
+                Toast.makeText(mContext, "Data has been Saved Offline", Toast.LENGTH_SHORT).show();
+            }
+            WorkerRegistrationBtn();
         }
         if(view == profileimage)
         {
@@ -327,7 +340,9 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         workerModel.setDob(edtdob.getText().toString());
         workerModel.setEmail(edtemail.getText().toString());
         workerModel.setGender(spngender.getSelectedItem().toString().trim());
-        workerModel.setSalary("500");
+        workerModel.setSalary(edtSalary.getText().toString());
+
+
 
         finger = mfs100Mantra.getList();
         if(finger.size()<=0)
@@ -337,7 +352,9 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
         }else {
             workerModel.setFingerprint1(finger.get(0).toString());
+            isEnroll1 = true;
             workerModel.setFingerprint2(finger.get(1).toString());
+            isEnroll2 = true;
         }
         try
         {
@@ -416,13 +433,43 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         contactdetails=new Contactdetails();
 
         contactdetails.setAddress_line_1(edtaddressline1.getText().toString());
-        // workerModel.setId(edt_Id.getText().toString());
         contactdetails.setAddress_line_2(edtaddressline2.getText().toString());
-        contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
-        contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
+
+        if(edtmobilenum.getText().toString().equals("")||edtmobilenum.getText().equals(null)){
+            contactdetails.setContact1(0);
+        }else {
+            contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
+        }
+        if(edtalternatenum.getText().toString().equals("")||edtalternatenum.getText().equals(null)){
+            contactdetails.setContact2(0);
+        }else {
+            contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
+        }
+        if(edtpincode.getText().toString().equals("")||edtpincode.getText().equals(null)){
+            contactdetails.setPincode(0);
+        }else {
+            contactdetails.setPincode(Integer.parseInt(edtpincode.getText().toString()));
+        }
+
+        if(chk_isPermanent.isChecked())
+        {
+            edtcurrentaddress1.setText(edtaddressline1.getText());
+            edtcurrentaddress2.setText(edtaddressline2.getText());
+            edtcurrentcity.setText(edtcity.getText());
+            edtcurrentpincode.setText(edtpincode.getText());
+            contactdetails.setType("both");
+            spncurrentstate.setSelection(getIndex(spncurrentstate, spnstate.getSelectedItem().toString().trim()));
+        }else
+        {
+            contactdetails.setType("permanent");
+        }
+
+
+       // contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
+       // contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
         contactdetails.setCity(edtcity.getText().toString());
         contactdetails.setState(spnstate.getSelectedItem().toString().trim());
-        contactdetails.setPincode(Integer.parseInt(edtpincode.getText().toString()));
+       // contactdetails.setPincode(Integer.parseInt(edtpincode.getText().toString()));
 
         try
         {
@@ -441,7 +488,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                     contactdetails.getState().toString(),
                     "India",
                     PreferenceUtils.getWorker_id(mContext).toString(),
-                    "permanent",
+                    contactdetails.getType().toString(),
                     PreferenceUtils.getEmployee_id(mContext).toString())
 
                     .enqueue(new Callback<APIContactResponse>() {
@@ -485,6 +532,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
         }
 
+
     }
 
     private void onWorkerCurrentContactRegistration() {
@@ -497,7 +545,12 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         // contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
         contactdetails.setCity(edtcurrentcity.getText().toString());
         contactdetails.setState(spncurrentstate.getSelectedItem().toString().trim());
-        contactdetails.setPincode(Integer.parseInt(edtcurrentpincode.getText().toString()));
+
+        if(edtpincode.getText().equals("")||edtpincode.getText().equals(null)){
+               contactdetails.setPincode(0);
+        }else {
+            contactdetails.setPincode(Integer.parseInt(edtcurrentpincode.getText().toString()));
+        }
 
         try
         {
@@ -678,7 +731,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                 }else if(type.equals("register"))
                 {
 
-                    onImageUpload(workerModel.getImageUrl().toString());
+                   // onImageUpload(workerModel.getImageUrl().toString());
                     database.addToWorkers(workerModel);
                     Toast.makeText(mContext, "Worker Registred successfully", Toast.LENGTH_SHORT).show();
                     mfs100Mantra.onDestroy();
@@ -800,7 +853,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     }
 
     //validation for custome personal details
-   /* public boolean validationCheckLayer1(){
+    public boolean validationCheckLayer1(){
 
         boolean cancel = false;
         View focusView = null;
@@ -816,22 +869,16 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             focusView=edtaadharnum;
             cancel=true;
         }
-        if(spngender.getSelectedItemPosition()==0){
-            spngender.setError("Please Select Gender * ");
-            focusView=spngender;
-            cancel=true;
-        }
-
-        *//*if(!isEnroll1){
-            imageViewFingerPrint1.setColorFilter(getResources().getColor(R.color.red));
+     /*   if(!isEnroll1){
+            imgfingerprint1.setColorFilter(Color.RED);
             cancel=true;
         }
         if(!isEnroll2){
-            imageViewFingerPrint3.setColorFilter(getResources().getColor(R.color.red));
+            imgfingerprint2.setColorFilter(Color.RED);
             cancel=true;
-        }*//*
+        }*/
 
-     *//*   switch (type) {
+   /*  switch (type) {
             case"edit":
                 break;
             case "register":
@@ -840,36 +887,24 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                     cancel = true;
                 }
                 break;
-
-        }*//*
+        }*/
 
         return cancel;
-    }*/
+    }
 
     //validation for custome contact detail
-    /*public boolean validationCheckLayer2(){
+    public boolean validationCheckLayer2(){
 
         boolean cancel = false;
         View focusView = null;
-
-        if (TextUtils.isEmpty(edtaddressline2.getText())){
-            edtaddressline2.setError("Please enter Name * ");
-            focusView=edtaddressline2;
-            cancel=true;
-        }
 
         if (TextUtils.isEmpty(edtmobilenum.getText())){
             edtmobilenum.setError("Please enter Last Name * ");
             focusView=edtmobilenum;
             cancel=true;
         }
-        if (TextUtils.isEmpty(edtcity.getText())){
-            edtcity.setError("Please enter Last Name * ");
-            focusView=edtcity;
-            cancel=true;
-        }
         return cancel;
-    }*/
+    }
 
     //validation for Bank details
    /* public boolean validationChekLayer3() {
@@ -923,6 +958,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
     }
+
     public void getGender(String str) {
         List<String> l = Arrays.asList(getResources().getStringArray(R.array.array_gender));
         for (int i=0; i<l.size();i++){
@@ -934,5 +970,15 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     @Override
     public void onProgressUpdate(int percetage) {
         dialog.setProgress(percetage);
+    }
+    //private method of your class
+    private int getIndex(Spinner spinner, String myString){
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                return i;
+            }
+        }
+
+        return 0;
     }
 }

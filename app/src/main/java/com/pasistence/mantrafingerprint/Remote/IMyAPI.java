@@ -70,12 +70,12 @@ public interface IMyAPI {
     @FormUrlEncoded
     @POST("insert_contact_details.php")
     Call<Contactdetails> insertcontactdetails(
-            @Field("contact1") String contact1,
-            @Field("contact2") String contact2,
+            @Field("contact1") int contact1,
+            @Field("contact2") int contact2,
             @Field("address_line_1") String address_line_1,
             @Field("address_line_2") String address_line_2,
             @Field("city") String city,
-            @Field("pincode") String pincode,
+            @Field("pincode") int pincode,
             @Field("state") String state,
             @Field("country") String country,
             @Field("worker_id") String worker_id,

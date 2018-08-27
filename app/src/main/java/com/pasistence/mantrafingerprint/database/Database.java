@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.EmployeeDetails;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Projectdetails;
+import com.pasistence.mantrafingerprint.Models.AddressModel;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -167,6 +168,40 @@ public class Database extends SQLiteAssetHelper {
         }
         return result;
     }
+
+    //Table Worker Personal Details
+    public void addToAddressDetails(AddressModel addressModel) {
+        // SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
+        String query = String.format("INSERT OR REPLACE INTO address_master(" +
+                        "address_line1," +
+                        "address_line2," +
+                        "city," +
+                        "pincode,"+
+                        "state," +
+                        "country," +
+                        "created_at," +
+                        "updated_at" +
+                        ")" +
+                        " VALUES('%s','%s','%s','%s','%s','%s','%s','%s');",
+                addressModel.getId(),
+                addressModel.getAddress_line1(),
+                addressModel.getAddress_line2(),
+                addressModel.getCity(),
+                addressModel.getPincode(),
+                addressModel.getState(),
+                addressModel.getCountry(),
+                addressModel.getCreated_at(),
+                addressModel.getUpdated_at());
+
+
+        db.execSQL(query);
+
+        Log.e(TAG, "Database inserted Successfully");
+        Log.e(TAG, addressModel.toString());
+    }
+
+
 
    // function get all worker's name
     public List <String> getNames()

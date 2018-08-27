@@ -17,14 +17,11 @@ public class RetrofitClient {
 
     public static Retrofit getClient(String baseURL)
     {
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
         if(retrofit==null){
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseURL)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .addConverterFactory(GsonConverterFactory.create())
                     .client(okClient())
                     .build();
 

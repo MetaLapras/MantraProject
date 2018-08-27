@@ -136,7 +136,7 @@ public class DetailsFragment extends Fragment {
         //circleImageView.setImageResource(workerModel.getImageUrl());
         txtPersonalName.setText(workerModel.getName());
         txtPersonalMobileNum.setText(workerModel.getContact1());
-        txtAdharNumber.setText(workerModel.adharcardId);
+        txtAdharNumber.setText(workerModel.adharcard_id);
         txtGender.setText(workerModel.getGender());
 
         txtPermamanentAddress.setText(workerModel.getPermanent_address1());

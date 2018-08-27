@@ -118,18 +118,18 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         mContext = WorkerRegistrationActivity.this;
 
 
-        btnLayer1Next = (Button)findViewById(R.id.btn_layer1_next);
-        btnLayer2Next = (Button)findViewById(R.id.btn_layer2_next);
-        btnLayer3Next = (Button)findViewById(R.id.btn_layer3_next);
-        btnLayer4previous = (Button)findViewById(R.id.btn_layer4_previous);
-        btnLayer3Previous = (Button)findViewById(R.id.btn_layer3_previous);
-        btnLayer2Previous = (Button)findViewById(R.id.btn_layer2_previous);
-        btnSubmit = (Button)findViewById(R.id.btn_submit);
+        btnLayer1Next           = (Button)findViewById(R.id.btn_layer1_next);
+        btnLayer2Next           = (Button)findViewById(R.id.btn_layer2_next);
+        btnLayer3Next           = (Button)findViewById(R.id.btn_layer3_next);
+        btnLayer4previous       = (Button)findViewById(R.id.btn_layer4_previous);
+        btnLayer3Previous       = (Button)findViewById(R.id.btn_layer3_previous);
+        btnLayer2Previous       = (Button)findViewById(R.id.btn_layer2_previous);
+        btnSubmit               = (Button)findViewById(R.id.btn_submit);
 
-         layer1  = findViewById(R.id.layer1);
-         layer2 = findViewById(R.id.layer2);
-         layer3 = findViewById(R.id.layer3);
-         layer4 = findViewById(R.id.layer4);
+         layer1                 = findViewById(R.id.layer1);
+         layer2                 = findViewById(R.id.layer2);
+         layer3                 = findViewById(R.id.layer3);
+         layer4                 = findViewById(R.id.layer4);
 
          //initialsing the Component
         edtname                 = (MaterialEditText) findViewById(R.id.edt_name);
@@ -151,9 +151,9 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         profileimage            = (CircleImageView) findViewById(R.id.img_profile_image);
 
 
-        //spngender               = (MaterialSpinner)findViewById(R.id.spinner_gender);
+        //spngender             = (MaterialSpinner)findViewById(R.id.spinner_gender);
         spngender               = (Spinner)findViewById(R.id.spinner_gender);
-        //spnstate                = (MaterialSpinner)findViewById(R.id.spn_state);
+        //spnstate              = (MaterialSpinner)findViewById(R.id.spn_state);
         spnstate                = (Spinner)findViewById(R.id.spn_state);
 
 
@@ -274,7 +274,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
         workerModel.setName(edtname.getText().toString());
         // workerModel.setId(edt_Id.getText().toString());
-        workerModel.setAdharcardId(edtaadharnum.getText().toString());
+        workerModel.setAdharcard_id(edtaadharnum.getText().toString());
         workerModel.setDob(edtdob.getText().toString());
         workerModel.setEmail(edtemail.getText().toString());
         workerModel.setGender(spngender.getSelectedItem().toString().trim());
@@ -307,7 +307,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                     PreferenceUtils.getProject_id(mContext).toString(),
                     workerModel.getSalary().toString(),
                     PreferenceUtils.getEmployee_id(mContext).toString(),
-                    workerModel.getAdharcardId().toString())
+                    workerModel.getAdharcard_id().toString())
             /*mService.workerRegistration(
                     "dfsdfgdsg",
                     "sdfsd",
@@ -368,7 +368,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
             workerModel.setName(edtname.getText().toString());
            // workerModel.setId(edt_Id.getText().toString());
-            workerModel.setAdharcardId(edtaadharnum.getText().toString());
+            workerModel.setAdharcard_id(edtaadharnum.getText().toString());
             workerModel.setDob(edtdob.getText().toString());
             workerModel.setEmail(edtemail.getText().toString());
             workerModel.setGender(spngender.getSelectedItem().toString().trim());
@@ -439,7 +439,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
         edtname.setText(workerModel.getName());
         // workerModel.setId(edt_Id.setText();
-        edtaadharnum.setText(workerModel.getAdharcardId());
+        edtaadharnum.setText(workerModel.getAdharcard_id());
         edtdob.setText(workerModel.getDob());
         edtemail.setText(workerModel.getEmail());
         //getGender(workerModel.getGender());

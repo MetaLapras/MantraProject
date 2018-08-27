@@ -53,7 +53,7 @@ public class Database extends SQLiteAssetHelper {
                         " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
         workerModel.getId(),
         workerModel.getName(),
-        workerModel.getAdharcardId(),
+        workerModel.getAdharcard_id(),
         workerModel.getGender(),
         workerModel.getDob(),
         workerModel.getFingerprint1(),
@@ -134,7 +134,7 @@ public class Database extends SQLiteAssetHelper {
                 workerModel.setId(cursor.getString(cursor.getColumnIndex("id")));
                 workerModel.setWorkerId(cursor.getString(cursor.getColumnIndex("worker_id")));
                 workerModel.setName(cursor.getString(cursor.getColumnIndex("name")));
-                workerModel.setAdharcardId(cursor.getString(cursor.getColumnIndex("adharcard_id")));
+                workerModel.setAdharcard_id(cursor.getString(cursor.getColumnIndex("adharcard_id")));
                 workerModel.setGender(cursor.getString(cursor.getColumnIndex("gender")));
                 workerModel.setDob(cursor.getString(cursor.getColumnIndex("dob")));
                 workerModel.setFingerprint1(cursor.getString(cursor.getColumnIndex("fingerprint1")));
@@ -249,7 +249,7 @@ public class Database extends SQLiteAssetHelper {
                 workerModel.setId(cursor.getString(cursor.getColumnIndex("id")));
                 workerModel.setWorkerId(cursor.getString(cursor.getColumnIndex("worker_id")));
                 workerModel.setName(cursor.getString(cursor.getColumnIndex("name")));
-                workerModel.setAdharcardId(cursor.getString(cursor.getColumnIndex("adharcard_id")));
+                workerModel.setAdharcard_id(cursor.getString(cursor.getColumnIndex("adharcard_id")));
                 workerModel.setGender(cursor.getString(cursor.getColumnIndex("gender")));
                 workerModel.setDob(cursor.getString(cursor.getColumnIndex("dob")));
                 workerModel.setFingerprint1(cursor.getString(cursor.getColumnIndex("fingerprint1")));
@@ -321,7 +321,7 @@ public class Database extends SQLiteAssetHelper {
                 /*"WHERE worker_id = %s",*/
                 "WHERE id = %d",
                 workerModel.getName(),
-                workerModel.getAdharcardId(),
+                workerModel.getAdharcard_id(),
                 workerModel.getGender(),
                 workerModel.getDob(),
                 workerModel.getFingerprint1(),
@@ -358,7 +358,7 @@ public class Database extends SQLiteAssetHelper {
         ContentValues values = new ContentValues();
 
         values.put("name",workerModel.getName());
-        values.put("adharcard_id",workerModel.getAdharcardId());
+        values.put("adharcard_id",workerModel.getAdharcard_id());
         values.put("gender",workerModel.getGender());
         values.put("dob",workerModel.getDob());
         values.put("fingerprint1",workerModel.getFingerprint1());

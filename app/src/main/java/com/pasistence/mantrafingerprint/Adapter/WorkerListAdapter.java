@@ -55,7 +55,7 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
     public void onBindViewHolder(@NonNull WorkerViewHolder holder, final int position) {
         final WorkerModel workers = workerList.get(position);
         holder.txtWorkerName.setText("Name :- " + workers.getName().toString());
-        holder.txtWorkerId.setText("Worker ID :- " + workers.getAdharcardId().toString());
+        holder.txtWorkerId.setText("Worker ID :- " + workers.getAdharcard_id().toString());
         holder.txtWorkerGender.setText("Gender :- " + workers.getGender().toString());
         holder.txtWorkerNumber.setText("Mobile No :- " + workers.getContact1().toString());
         holder.txtWorkerNumber2.setText("Alternate No :- " + workers.getContact2().toString());

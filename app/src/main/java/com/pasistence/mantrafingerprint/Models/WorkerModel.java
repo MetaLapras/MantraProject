@@ -8,7 +8,7 @@ import com.pasistence.mantrafingerprint.Models.APIResponseModels.Projectdetails;
 import java.io.Serializable;
 
 public class WorkerModel implements Serializable {
-    public String id, workerId, name, adharcardId, gender, dob, fingerprint1, fingerprint2, email, permanentAddressId,
+    public String id, workerId, name, adharcard_id, gender, dob, fingerprint1, fingerprint2, email, permanentAddressId,
             currentAddressId, contact1, contact2, salary, createdAt, updatedAt, bankId, projectId, activation,
             imageUrl, permanent_address1, current_address1, bank_name, holder_name, ifsc_code, account_number, city,pincode;
     public PermanentAddress permanent_address;
@@ -21,11 +21,11 @@ public class WorkerModel implements Serializable {
 
 
 
-    public WorkerModel(String id, String workerId, String name, String adharcardId, String gender, String dob, String fingerprint1, String fingerprint2, String email, String permanentAddressId, String currentAddressId, String contact1, String contact2, String salary, String createdAt, String updatedAt, String bankId, String projectId, String activation, String imageUrl, String permanent_address1, String current_address1, String bank_name, String holder_name, String ifsc_code, String account_number, String city, String pincode, PermanentAddress permanent_address, CurrentAddress current_address, BankAccount bank_account) {
+    public WorkerModel(String id, String workerId, String name, String adharcard_id, String gender, String dob, String fingerprint1, String fingerprint2, String email, String permanentAddressId, String currentAddressId, String contact1, String contact2, String salary, String createdAt, String updatedAt, String bankId, String projectId, String activation, String imageUrl, String permanent_address1, String current_address1, String bank_name, String holder_name, String ifsc_code, String account_number, String city, String pincode, PermanentAddress permanent_address, CurrentAddress current_address, BankAccount bank_account) {
         this.id = id;
         this.workerId = workerId;
         this.name = name;
-        this.adharcardId = adharcardId;
+        this.adharcard_id = adharcard_id;
         this.gender = gender;
         this.dob = dob;
         this.fingerprint1 = fingerprint1;
@@ -64,7 +64,7 @@ public class WorkerModel implements Serializable {
                 "id='" + id + '\'' +
                 ", workerId='" + workerId + '\'' +
                 ", name='" + name + '\'' +
-                ", adharcardId='" + adharcardId + '\'' +
+                ", adharcardId='" + adharcard_id + '\'' +
                 ", gender='" + gender + '\'' +
                 ", dob='" + dob + '\'' +
                 ", fingerprint1='" + fingerprint1 + '\'' +
@@ -144,12 +144,12 @@ public class WorkerModel implements Serializable {
         this.name = name;
     }
 
-    public String getAdharcardId() {
-        return adharcardId;
+    public String getAdharcard_id() {
+        return adharcard_id;
     }
 
-    public void setAdharcardId(String adharcardId) {
-        this.adharcardId = adharcardId;
+    public void setAdharcard_id(String adharcard_id) {
+        this.adharcard_id = adharcard_id;
     }
 
     public String getGender() {

@@ -20,12 +20,12 @@ public class RetrofitClient {
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
+
         if(retrofit==null){
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseURL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
-                    .client(okClient())
                     .build();
 
         }

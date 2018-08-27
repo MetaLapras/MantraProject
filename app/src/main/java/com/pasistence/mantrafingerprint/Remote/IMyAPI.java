@@ -9,6 +9,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 
@@ -32,7 +33,24 @@ public interface IMyAPI {
             @Field("adharcard_id") String adharcard_id
     );*/
 
+   /* @FormUrlEncoded
+    @Headers("Content-Type: application/json")
+    @POST("workerRegistration.php")
+    Call<APIWorkerPersonalResponse> workerRegistration(
+            @Field("name") String name,
+            @Field("gender") String gender,
+            @Field("dob") String dob,
+            @Field("fingerprint1") String fingerprint1,
+            @Field("fingerprint2") String fingerprint2,
+            @Field("email") String email,
+            @Field("project_id") String project_id,
+            @Field("salary") String salary,
+            @Field("employee_id") String employee_id,
+            @Field("adharcard_id") String adharcard_id
+    );*/
+
     @FormUrlEncoded
+    //@Headers("Content-Type: application/json")
     @POST("workerRegistration.php")
     Call<APIWorkerPersonalResponse> workerRegistration(
             @Field("name") String name,
@@ -46,6 +64,7 @@ public interface IMyAPI {
             @Field("employee_id") String employee_id,
             @Field("adharcard_id") String adharcard_id
     );
+
 
     @FormUrlEncoded
     @POST("insert_contact_details.php")

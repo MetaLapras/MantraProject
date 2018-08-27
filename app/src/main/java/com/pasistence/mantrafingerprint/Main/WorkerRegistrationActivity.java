@@ -111,7 +111,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         edtdob.setOnClickListener(this);
         imgfingerprint1.setOnClickListener(this);
         imgfingerprint2.setOnClickListener(this);
-
     }
 
     private void mInit() {
@@ -299,20 +298,32 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             dialog.setCancelable(false);
 
             mService.workerRegistration(
-                    workerModel.getName(),
-                    workerModel.getGender(),
-                    workerModel.getDob(),
-                    workerModel.getFingerprint1(),
-                    workerModel.getFingerprint2(),workerModel.getEmail(),
-                    workerModel.getProjectId(),
-                    workerModel.getSalary(),
-                    PreferenceUtils.getEmployee_id(mContext),
-                    workerModel.getAdharcardId())
+                    workerModel.getName().toString(),
+                    workerModel.getGender().toString(),
+                    workerModel.getDob().toString(),
+                    workerModel.getFingerprint1().toString(),
+                    workerModel.getFingerprint2().toString(),
+                    workerModel.getEmail().toString(),
+                    PreferenceUtils.getProject_id(mContext).toString(),
+                    workerModel.getSalary().toString(),
+                    PreferenceUtils.getEmployee_id(mContext).toString(),
+                    workerModel.getAdharcardId().toString())
+            /*mService.workerRegistration(
+                    "dfsdfgdsg",
+                    "sdfsd",
+                   "sdfsdf",
+                  "sadasd",
+                    "fgdfg",
+                   "dfsd",
+                    "1",
+                    "545",
+                   "2",
+                    "1234852")*/
                     .enqueue(new Callback<APIWorkerPersonalResponse>() {
                         @Override
                         public void onResponse(Call<APIWorkerPersonalResponse> call, Response<APIWorkerPersonalResponse> response) {
                             APIWorkerPersonalResponse result = response.body();
-                            /*if(result.isError())
+                          if(result.isError())
                             {
                                 Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
                                 Log.e("-->",result.getError_msg() );
@@ -321,15 +332,14 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                               //  Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
                                 Log.e("-->",result.getWorkerModel().toString() );
 
-                                workerModel = result.getWorkerModel();
+                                workerModel = (WorkerModel) result.getWorkerModel();
                                 Log.e("personal Details",workerModel.toString());
 
                                 //database.deleteToPorjects();
                                 //database.addToPorject(projectdetails);
-                                }*/
+                                }
 
-                            workerModel = result.getWorkerModel();
-                            Log.e("personal Details",workerModel.toString());
+                           // workerModel = result.getWorkerModel();
                                 dialog.dismiss();
                         }
 

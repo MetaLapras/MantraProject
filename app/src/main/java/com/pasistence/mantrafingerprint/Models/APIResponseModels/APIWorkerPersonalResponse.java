@@ -3,22 +3,20 @@ package com.pasistence.mantrafingerprint.Models.APIResponseModels;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class APIWorkerPersonalResponse implements Serializable{
 
         public String error_msg ;
-        public boolean error;
-        public int success ;
-        public WorkerModel WorkerModel ;
+    public boolean error ;
+    public int success ;
+    public WorkerModel WorkerModel;
 
     public APIWorkerPersonalResponse(String error_msg, boolean error, int success, com.pasistence.mantrafingerprint.Models.WorkerModel workerModel) {
         this.error_msg = error_msg;
         this.error = error;
         this.success = success;
         WorkerModel = workerModel;
-    }
-
-    public APIWorkerPersonalResponse() {
     }
 
     public String getError_msg() {
@@ -51,5 +49,9 @@ public class APIWorkerPersonalResponse implements Serializable{
 
     public void setWorkerModel(com.pasistence.mantrafingerprint.Models.WorkerModel workerModel) {
         WorkerModel = workerModel;
+    }
+
+    public APIWorkerPersonalResponse() {
+
     }
 }

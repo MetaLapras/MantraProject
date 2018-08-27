@@ -1,5 +1,8 @@
 package com.pasistence.mantrafingerprint.Remote;
 
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIBankResponse;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIContactResponse;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerImageResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerPersonalResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
@@ -69,7 +72,7 @@ public interface IMyAPI {
 
     @FormUrlEncoded
     @POST("insert_contact_details.php")
-    Call<Contactdetails> insertcontactdetails(
+    Call<APIContactResponse> insertcontactdetails(
             @Field("contact1") int contact1,
             @Field("contact2") int contact2,
             @Field("address_line_1") String address_line_1,
@@ -85,7 +88,7 @@ public interface IMyAPI {
 
     @FormUrlEncoded
     @POST("insert_bank_details.php")
-    Call<WorkerModel> insertbankdetails(
+    Call<APIBankResponse> insertbankdetails(
             @Field("account_holder_name") String account_holder_name,
             @Field("ifsc_code") String ifsc_code,
             @Field("account_no") String account_no,
@@ -97,7 +100,7 @@ public interface IMyAPI {
 
     @FormUrlEncoded
     @POST("image_upload.php")
-    Call<WorkerModel> imageupload(
+    Call<APIWorkerImageResponse> imageupload(
             //@Part("uploadfile") String uploadfile,
             @Part MultipartBody.Part file, @Part("uploadfile") RequestBody name,
             @Field("worker_id") String worker_id,

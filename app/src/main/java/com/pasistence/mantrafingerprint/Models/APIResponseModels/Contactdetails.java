@@ -2,7 +2,7 @@ package com.pasistence.mantrafingerprint.Models.APIResponseModels;
 
 import java.io.Serializable;
 
-class Contactdetails implements Serializable {
+ public class Contactdetails implements Serializable {
     public int id ;
     public int contact1 ;
     public int contact2 ;

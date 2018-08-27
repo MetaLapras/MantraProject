@@ -2,6 +2,7 @@ package com.pasistence.mantrafingerprint.Remote;
 
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerPersonalResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectResponse;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 
 import okhttp3.MultipartBody;
@@ -68,7 +69,7 @@ public interface IMyAPI {
 
     @FormUrlEncoded
     @POST("insert_contact_details.php")
-    Call<WorkerModel> insertcontactdetails(
+    Call<Contactdetails> insertcontactdetails(
             @Field("contact1") String contact1,
             @Field("contact2") String contact2,
             @Field("address_line_1") String address_line_1,

@@ -19,10 +19,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.pasistence.mantrafingerprint.Common.Common;
+
 import com.pasistence.mantrafingerprint.Common.PreferenceUtils;
 import com.pasistence.mantrafingerprint.FingerPrintMatching.MFS100Mantra;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerPersonalResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectResponse;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.CurrentAddress;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.Remote.IMyAPI;
@@ -51,6 +54,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     Context mContext;
     View layer1,layer2,layer3,layer4;
     WorkerModel workerModel;
+    Contactdetails contactdetails;
     MaterialEditText edtname,edtaadharnum,edtdob,edtemail,edtaddressline1,edtaddressline2,edtmobilenum,edtalternatenum,edtcity,edtpincode,edtholdername,
     edtbankifsccode,edtbankaccountnumber,edtbankname;
     CircleImageView profileimage;
@@ -60,6 +64,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     String ImagePath;
     Database database;
     IMyAPI mService;
+
 
     private int mYear, mMonth, mDay;
     String type,id ;
@@ -194,6 +199,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         {
             layer2.setVisibility(View.INVISIBLE);
             layer3.setVisibility(View.VISIBLE);
+           // onWorkerContactRegistration();
         }
             /*if (!validationCheckLayer2())
             {
@@ -267,6 +273,100 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             // Log.e(TAG, mfs100Mantra.getScanFingerprint().toString());
             //  mfs100Mantra.onStop();
         }
+    }
+
+    private void onWorkerContactRegistration() {
+        contactdetails=new Contactdetails();
+
+       contactdetails.setAddress_line_1(edtaddressline1.getText().toString());
+        // workerModel.setId(edt_Id.getText().toString());
+        contactdetails.setAddress_line_2(edtaddressline2.getText().toString());
+        contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
+        contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
+        contactdetails.setCity(edtcity.getText().toString());
+        contactdetails.setCountry(spnstate.getSelectedItem().toString().trim());
+        contactdetails.setPincode(edtpincode.getText().toString());
+        finger = mfs100Mantra.getList();
+        if(finger.size()<=0)
+        {
+            workerModel.setFingerprint1("");
+            workerModel.setFingerprint2("");
+
+        }else {
+            workerModel.setFingerprint1(finger.get(0).toString());
+            workerModel.setFingerprint2(finger.get(1).toString());
+        }
+        try
+        {
+            final AlertDialog dialog = new SpotsDialog(mContext);
+            dialog.show();
+            dialog.setMessage("Load Personal Details...");
+            dialog.setCancelable(false);
+
+            mService.workerRegistration(
+                    workerModel.getName().toString(),
+                    workerModel.getGender().toString(),
+                    workerModel.getDob().toString(),
+                    workerModel.getFingerprint1().toString(),
+                    workerModel.getFingerprint2().toString(),
+                    workerModel.getEmail().toString(),
+                    PreferenceUtils.getProject_id(mContext).toString(),
+                    workerModel.getSalary().toString(),
+                    PreferenceUtils.getEmployee_id(mContext).toString(),
+                    workerModel.getAdharcard_id().toString())
+                    /*mService.workerRegistration(
+                            "dfsdfgdsg",
+                            "sdfsd",
+                           "sdfsdf",
+                          "sadasd",
+                            "fgdfg",
+                           "dfsd",
+                            "1",
+                            "545",
+                           "2",
+                            "1234852")*/
+                    .enqueue(new Callback<APIWorkerPersonalResponse>() {
+                        @Override
+                        public void onResponse(Call<APIWorkerPersonalResponse> call, Response<APIWorkerPersonalResponse> response) {
+                            APIWorkerPersonalResponse result = response.body();
+                            if(result.isError())
+                            {
+                                Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
+                                Log.e("-->",result.getError_msg() );
+                                dialog.dismiss();
+                            }else{
+                                //  Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
+                                Log.e("-->",result.getWorkerModel().toString() );
+
+
+                                workerModel = (WorkerModel) result.getWorkerModel();
+                                Log.e("personal Details",workerModel.toString());
+
+                                //database.deleteToPorjects();
+                                //database.addToPorject(projectdetails);
+                            }
+
+                            // workerModel = result.getWorkerModel();
+                            dialog.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(Call<APIWorkerPersonalResponse> call, Throwable t) {
+                            Toast.makeText(mContext, "Connection Failed !", Toast.LENGTH_SHORT).show();
+                            Log.e("error",t.getMessage());
+                            t.printStackTrace();
+
+                            dialog.dismiss();
+
+                        }
+                    });
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+
+        }
+
+
     }
 
     private void onWorkerRegistration() {

@@ -332,6 +332,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                               //  Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
                                 Log.e("-->",result.getWorkerModel().toString() );
 
+
                                 workerModel = (WorkerModel) result.getWorkerModel();
                                 Log.e("personal Details",workerModel.toString());
 

@@ -19,6 +19,16 @@ public class APIWorkerPersonalResponse implements Serializable{
         WorkerModel = workerModel;
     }
 
+    @Override
+    public String toString() {
+        return "APIWorkerPersonalResponse{" +
+                "error_msg='" + error_msg + '\'' +
+                ", error=" + error +
+                ", success=" + success +
+                ", WorkerModel=" + WorkerModel +
+                '}';
+    }
+
     public String getError_msg() {
         return error_msg;
     }

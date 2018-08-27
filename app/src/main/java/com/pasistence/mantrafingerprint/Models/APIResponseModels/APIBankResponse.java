@@ -1,29 +1,30 @@
 package com.pasistence.mantrafingerprint.Models.APIResponseModels;
 
 import java.io.Serializable;
-import java.util.List;
 
-public class ApiProjectResponse implements Serializable {
-
+public class APIBankResponse implements Serializable {
     public boolean error ;
     public int success;
     public String error_msg;
-    public Projectdetails projectdetails ;
+    public BankAccount bankdetails ;
 
-    public ApiProjectResponse(boolean error, int success, String error_msg, Projectdetails projectdetails) {
+    public APIBankResponse(boolean error, int success, String error_msg, BankAccount bankdetails) {
         this.error = error;
         this.success = success;
         this.error_msg = error_msg;
-        this.projectdetails = projectdetails;
+        this.bankdetails = bankdetails;
+    }
+
+    public APIBankResponse() {
     }
 
     @Override
     public String toString() {
-        return "ApiProjectResponse{" +
+        return "APIBankResponse{" +
                 "error=" + error +
                 ", success=" + success +
                 ", error_msg='" + error_msg + '\'' +
-                ", projectdetails=" + projectdetails +
+                ", bankdetails=" + bankdetails +
                 '}';
     }
 
@@ -51,11 +52,11 @@ public class ApiProjectResponse implements Serializable {
         this.error_msg = error_msg;
     }
 
-    public Projectdetails getProjectdetails() {
-        return projectdetails;
+    public BankAccount getBankdetails() {
+        return bankdetails;
     }
 
-    public void setProjectdetails(Projectdetails projectdetails) {
-        this.projectdetails = projectdetails;
+    public void setBankdetails(BankAccount bankdetails) {
+        this.bankdetails = bankdetails;
     }
 }

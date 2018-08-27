@@ -100,7 +100,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         mOnclick();
 
        try{
-
            if(getIntent()!= null)
            {
                type = (String)getIntent().getStringExtra("type");
@@ -618,10 +617,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         }catch (Exception e)
         {
             e.printStackTrace();
-
         }
-
-
     }
 
     private void WorkerRegistrationBtn() {

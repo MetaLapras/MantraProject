@@ -67,9 +67,9 @@ public class LoginActivity extends AppCompatActivity
         //model init
         projectdetails = new Projectdetails();
         employeeDetails = new EmployeeDetails();
-        permanentAddress = new PermanentAddress();
-        currentAddress = new CurrentAddress();
-        bankAccount = new BankAccount();
+        //permanentAddress = new PermanentAddress();
+        //currentAddress = new CurrentAddress();
+        //bankAccount = new BankAccount();
 
 
 
@@ -158,13 +158,18 @@ public class LoginActivity extends AppCompatActivity
                                 Log.e("wrk",worker.toString() );
                                 //database.addToWorkers(worker);
 
+                                permanentAddress = new PermanentAddress();
+                                currentAddress = new CurrentAddress();
+                                bankAccount = new BankAccount();
+
+
                                  currentAddress = worker.getCurrent_address();
                                  permanentAddress = worker.getPermanent_address();
                                  bankAccount =worker.getBank_account();
 
-                               // Log.e("currentAddress",currentAddress.toString() );
-                                //Log.e("permanentAddress",permanentAddress.toString() );
-//                                Log.e("bankAccount",bankAccount.toString() );
+                                /*Log.e("currentAddress",currentAddress.toString() );
+                                Log.e("permanentAddress",permanentAddress.toString() );
+                                Log.e("bankAccount",bankAccount.toString() );*/
                             }
 
                             dialog.dismiss();

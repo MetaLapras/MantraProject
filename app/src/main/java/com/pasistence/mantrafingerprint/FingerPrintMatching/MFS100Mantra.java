@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mantra.mfs100.FingerData;
@@ -15,6 +16,8 @@ import com.mantra.mfs100.MFS100Event;
 import com.pasistence.mantrafingerprint.Main.MFS100TestActivity;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.database.Database;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -49,6 +52,7 @@ public class MFS100Mantra implements MFS100Event {
 
     WorkerModel workerModel ;
     public boolean checkDevice;
+    TextView lblMessage;
 
 
     public MFS100Mantra(Activity activity ) {
@@ -56,10 +60,11 @@ public class MFS100Mantra implements MFS100Event {
 
     }
 
-    public MFS100Mantra(Activity activity,ImageView imgFinger,WorkerModel workerModel) {
+    public MFS100Mantra(Activity activity, ImageView imgFinger, WorkerModel workerModel, TextView lblMessage) {
         this.activity = activity;
         this.imgFinger = imgFinger;
         this.workerModel = workerModel;
+        this.lblMessage = lblMessage;
     }
 
     @Override
@@ -229,6 +234,7 @@ public class MFS100Mantra implements MFS100Event {
 
             fingerprint = new Database(activity).getAllWorkers();
 
+
            for(WorkerModel workerModel : fingerprint)
             {
                 byte[] byt1 = Base64.decode(workerModel.getFingerprint1(),Base64.DEFAULT);
@@ -338,8 +344,16 @@ public class MFS100Mantra implements MFS100Event {
     }
 
     private void SetTextOnUIThread(final String str) {
-                //lblMessage.setText(str);
+        //lblMessage.setText(str);
         Log.e(TAG, str);
+
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                lblMessage.setText(str);
+               // Log.e(TAG, str);
+            }
+        });
     }
 
     private void SetLogOnUIThread(final String str) {

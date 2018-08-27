@@ -31,7 +31,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MatchingActivity extends AppCompatActivity {
 
     Context mContext;
-    TextView txtProjectName,txtEmployeeId,txtDate,txtTime,txtWorkerName,txtWorkerId;
+    TextView txtProjectName,txtEmployeeId,txtDate,txtTime,txtWorkerName,txtWorkerId,lblMessage;
     ImageView imgfinger;
     CircleImageView CircularImage;
     Button statrMatchingbtn;
@@ -48,7 +48,7 @@ public class MatchingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_matching);
         mInit();
         
-        mfs100Mantra = new MFS100Mantra(MatchingActivity.this,imgfinger,workerModel);
+        mfs100Mantra = new MFS100Mantra(MatchingActivity.this,imgfinger,workerModel,lblMessage);
         mfs100Mantra.onStart();
         statrMatchingbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +78,8 @@ public class MatchingActivity extends AppCompatActivity {
         RInTime                     = (RadioButton) findViewById(R.id.radio_In_Time);
         ROutTime                    = (RadioButton) findViewById(R.id.radio_Out_Time);
         RHalfDay                    = (RadioButton) findViewById(R.id.radio_Half_Day);
+
+        lblMessage                  = (TextView) findViewById(R.id.lbl_message);
 
         mCurrentate();
 

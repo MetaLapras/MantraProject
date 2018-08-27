@@ -2,6 +2,7 @@ package com.pasistence.mantrafingerprint.Main;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -22,7 +23,9 @@ import com.pasistence.mantrafingerprint.Common.Common;
 
 import com.pasistence.mantrafingerprint.Common.PreferenceUtils;
 import com.pasistence.mantrafingerprint.FingerPrintMatching.MFS100Mantra;
+import com.pasistence.mantrafingerprint.Interface.UploadCallBack;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIContactResponse;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerImageResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerPersonalResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
@@ -30,12 +33,14 @@ import com.pasistence.mantrafingerprint.Models.APIResponseModels.CurrentAddress;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.Remote.IMyAPI;
+import com.pasistence.mantrafingerprint.Remote.ProgressRequestBody;
 import com.pasistence.mantrafingerprint.database.Database;
 import com.pasistence.mantrafingerprint.database.DatabaseHelper;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -44,11 +49,12 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import dmax.dialog.SpotsDialog;
 import fr.ganfra.materialspinner.MaterialSpinner;
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WorkerRegistrationActivity extends AppCompatActivity implements View.OnClickListener{
+public class WorkerRegistrationActivity extends AppCompatActivity implements View.OnClickListener, UploadCallBack {
 
     public static final String TAG ="reg -->";
     Button btnLayer1Next,btnLayer2Next,btnLayer3Next,btnLayer2Previous,btnLayer3Previous,btnLayer4previous,btnSubmit;
@@ -65,6 +71,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     String ImagePath;
     Database database;
     IMyAPI mService;
+
+    ProgressDialog dialog;
 
 
     private int mYear, mMonth, mDay;
@@ -96,9 +104,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                }
                 //setWorkerDetails();
            }
-
-
-
        }catch (Exception e)
        {
            e.printStackTrace();
@@ -489,8 +494,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                 workerModel.setImageUrl("");
             }
             workerModel.setId(id);
-
-
             finger = mfs100Mantra.getList();
 
             if(finger.size()<=0)
@@ -513,6 +516,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                     finish();
                 }else if(type.equals("register"))
                 {
+
+                    onImageUpload(workerModel.getImageUrl().toString());
                     database.addToWorkers(workerModel);
                     Toast.makeText(mContext, "Worker Registred successfully", Toast.LENGTH_SHORT).show();
                     mfs100Mantra.onDestroy();
@@ -524,6 +529,52 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                 e.printStackTrace();
                 Toast.makeText(mContext, "Something Went Wrong", Toast.LENGTH_SHORT).show();
             }
+    }
+
+    private void onImageUpload(String imageUri) {
+
+        dialog = new ProgressDialog(mContext);
+        dialog.setMax(100);
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        dialog.setMessage("Uploading All Data....");
+        dialog.setIndeterminate(false);
+        dialog.setCancelable(false);
+        dialog.show();
+
+
+        File file = new File(imageUri);
+        ProgressRequestBody requestBody = new ProgressRequestBody(file,this);
+
+        final MultipartBody.Part body = MultipartBody.Part.createFormData("uploadfile",file.getName(),requestBody);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mService.imageupload(body)
+                        .enqueue(new Callback<APIWorkerImageResponse>() {
+                            @Override
+                            public void onResponse(Call<APIWorkerImageResponse> call, Response<APIWorkerImageResponse> response) {
+                                APIWorkerImageResponse result = response.body();
+                                if(result.isError())
+                                {
+                                    Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
+                                    Log.e("-->",result.getError_msg() );
+                                    dialog.dismiss();
+                                }else {
+                                    Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
+                                    Log.e("-->", result.toString());
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<APIWorkerImageResponse> call, Throwable t) {
+                                t.printStackTrace();
+                            }
+                        });
+            }
+        }).start();
+
+
+
     }
 
     private void setWorkerDetails() {
@@ -712,7 +763,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
     }
-
     public void getGender(String str) {
         List<String> l = Arrays.asList(getResources().getStringArray(R.array.array_gender));
         for (int i=0; i<l.size();i++){
@@ -720,5 +770,10 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                 spngender.setSelection(i+1);
             }
         }
+    }
+
+    @Override
+    public void onProgressUpdate(int percetage) {
+        dialog.setProgress(percetage);
     }
 }

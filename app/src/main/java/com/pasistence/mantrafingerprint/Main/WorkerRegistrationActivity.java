@@ -22,16 +22,18 @@ import com.pasistence.mantrafingerprint.Common.Common;
 import com.pasistence.mantrafingerprint.Common.PreferenceUtils;
 import com.pasistence.mantrafingerprint.FingerPrintMatching.MFS100Mantra;
 import com.pasistence.mantrafingerprint.Interface.UploadCallBack;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIBankResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIContactResponse;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerImageResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerPersonalResponse;
-<<<<<<< HEAD
+
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.BankAccount;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
-=======
+
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.CurrentAddress;
->>>>>>> 560dd8109b19429d24536cc72b795fd6aa23e5b8
+
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.Remote.IMyAPI;
@@ -49,11 +51,11 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import dmax.dialog.SpotsDialog;
-<<<<<<< HEAD
-=======
+
+
 import fr.ganfra.materialspinner.MaterialSpinner;
 import okhttp3.MultipartBody;
->>>>>>> 560dd8109b19429d24536cc72b795fd6aa23e5b8
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,21 +63,20 @@ import retrofit2.Response;
 public class WorkerRegistrationActivity extends AppCompatActivity implements View.OnClickListener, UploadCallBack {
 
     public static final String TAG ="reg -->";
-    Button btnLayer1Next,btnLayer2Next,btnLayer3Next,btnLayer2Previous,btnLayer3Previous,btnLayer4previous,btnSubmit;
+    Button btnLayer1Next,btnLayer2Next,btnLayer3Next,btnLayer4Next,btnLayer2Previous,btnLayer3Previous,btnLayer4previous,btnSubmit;
     Context mContext;
-    View layer1,layer2,layer3,layer4;
+    View layer1,layer2,layer3,layer4,layer5;
     WorkerModel workerModel;
     Contactdetails contactdetails;
-<<<<<<< HEAD
+
     BankAccount bankAccount;
-=======
->>>>>>> 560dd8109b19429d24536cc72b795fd6aa23e5b8
+
     MaterialEditText edtname,edtaadharnum,edtdob,edtemail,edtaddressline1,edtaddressline2,edtmobilenum,edtalternatenum,edtcity,edtpincode,edtholdername,
-    edtbankifsccode,edtbankaccountnumber,edtbankname;
+    edtbankifsccode,edtbankaccountnumber,edtbankname,edtcurrentaddress1,edtcurrentaddress2,edtcurrentcity,edtcurrentstate,edtcurrentpincode;
     CircleImageView profileimage;
     ImageView imgfingerprint1,imgfingerprint2;
    // MaterialSpinner spngender,spnstate;
-    Spinner spngender,spnstate;
+    Spinner spngender,spnstate,spncurrentstate;
     String ImagePath;
     Database database;
     IMyAPI mService;
@@ -122,6 +123,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         btnLayer1Next.setOnClickListener(this);
         btnLayer2Next.setOnClickListener(this);
         btnLayer3Next.setOnClickListener(this);
+        btnLayer4Next.setOnClickListener(this);
         btnLayer4previous.setOnClickListener(this);
         btnLayer3Previous.setOnClickListener(this);
         btnLayer2Previous.setOnClickListener(this);
@@ -140,6 +142,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         btnLayer1Next           = (Button)findViewById(R.id.btn_layer1_next);
         btnLayer2Next           = (Button)findViewById(R.id.btn_layer2_next);
         btnLayer3Next           = (Button)findViewById(R.id.btn_layer3_next);
+        btnLayer4Next           = (Button)findViewById(R.id.btn_layer4_next);
         btnLayer4previous       = (Button)findViewById(R.id.btn_layer4_previous);
         btnLayer3Previous       = (Button)findViewById(R.id.btn_layer3_previous);
         btnLayer2Previous       = (Button)findViewById(R.id.btn_layer2_previous);
@@ -149,6 +152,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
          layer2                 = findViewById(R.id.layer2);
          layer3                 = findViewById(R.id.layer3);
          layer4                 = findViewById(R.id.layer4);
+         layer5                 =findViewById(R.id.layer5);
 
          //initialsing the Component
         edtname                 = (MaterialEditText) findViewById(R.id.edt_name);
@@ -168,6 +172,13 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         edtbankaccountnumber    = (MaterialEditText)findViewById(R.id.edt_Bank_Account_Number);
         edtbankname             = (MaterialEditText)findViewById(R.id.edt_Bank_Name);
         profileimage            = (CircleImageView) findViewById(R.id.img_profile_image);
+
+        //init the current address
+        edtcurrentaddress1 = (MaterialEditText)findViewById(R.id.edt_currentaddress1);
+        edtcurrentaddress2 = (MaterialEditText)findViewById(R.id.edt_currentaddress2);
+        edtcurrentcity = (MaterialEditText)findViewById(R.id.edt_city);
+        edtcurrentpincode = (MaterialEditText)findViewById(R.id.edt_currentpincode);
+        spncurrentstate = (Spinner)findViewById(R.id.spn_currentstate) ;
 
 
         //spngender             = (MaterialSpinner)findViewById(R.id.spinner_gender);
@@ -213,7 +224,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         {
             layer2.setVisibility(View.INVISIBLE);
             layer3.setVisibility(View.VISIBLE);
-           // onWorkerContactRegistration();
+            onWorkerContactRegistration();
         }
             /*if (!validationCheckLayer2())
             {
@@ -228,6 +239,22 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         {
             layer3.setVisibility(View.INVISIBLE);
             layer4.setVisibility(View.VISIBLE);
+            onWorkerCurrentContactRegistration();
+            /*if(!validationChekLayer3())
+            {
+                layer3.setVisibility(View.INVISIBLE);
+                layer4.setVisibility(View.VISIBLE);
+            } else
+            {
+                Toast.makeText(mContext,"something is missing",Toast.LENGTH_LONG).show();
+            }*/
+        }
+
+        if(view == btnLayer4Next)
+        {
+            layer4.setVisibility(View.INVISIBLE);
+            layer5.setVisibility(View.VISIBLE);
+            onBankDetailsRegistration();
             /*if(!validationChekLayer3())
             {
                 layer3.setVisibility(View.INVISIBLE);
@@ -287,92 +314,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             // Log.e(TAG, mfs100Mantra.getScanFingerprint().toString());
             //  mfs100Mantra.onStop();
         }
-    }
-
-    private void onWorkerContactRegistration() {
-        contactdetails=new Contactdetails();
-
-       contactdetails.setAddress_line_1(edtaddressline1.getText().toString());
-        // workerModel.setId(edt_Id.getText().toString());
-        contactdetails.setAddress_line_2(edtaddressline2.getText().toString());
-        contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
-        contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
-        contactdetails.setCity(edtcity.getText().toString());
-        contactdetails.setCountry(spnstate.getSelectedItem().toString().trim());
-        contactdetails.setPincode(edtpincode.getText().toString());
-
-        try
-        {
-            final AlertDialog dialog = new SpotsDialog(mContext);
-            dialog.show();
-            dialog.setMessage("Load Contact Details...");
-            dialog.setCancelable(false);
-
-            mService.insertcontactdetails(
-                   contactdetails.getContact1(),
-                   contactdetails.getContact2(),
-                    contactdetails.getAddress_line_1().toString(),
-                    contactdetails.getAddress_line_2().toString(),
-                    contactdetails.getCity().toString(),
-                    Integer.parseInt(contactdetails.getPincode()),
-                    contactdetails.getState().toString(),
-                    contactdetails.getCountry().toString(),
-                    PreferenceUtils.getWorker_id(mContext).toString(),
-                    contactdetails.getType().toString(),
-                    PreferenceUtils.getEmployee_id(mContext).toString())
-                    /*mService.workerRegistration(
-                            "dfsdfgdsg",
-                            "sdfsd",
-                           "sdfsdf",
-                          "sadasd",
-                            "fgdfg",
-                           "dfsd",
-                            "1",
-                            "545",
-                           "2",
-                            "1234852")*/
-                    .enqueue(new Callback<APIContactResponse>() {
-                        @Override
-                        public void onResponse(Call<APIContactResponse> call, Response<APIContactResponse> response) {
-                            APIContactResponse result = response.body();
-                            if(result.isError())
-                            {
-                                Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
-                                Log.e("-->",result.getError_msg() );
-                                dialog.dismiss();
-                            }else{
-                                //  Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
-                                Log.e("-->",result.getContactdetails().toString() );
-
-
-                                contactdetails = (Contactdetails) result.getContactdetails();
-                                Log.e("Contact Details",contactdetails.toString());
-
-                                //database.deleteToPorjects();
-                                //database.addToPorject(projectdetails);
-                            }
-
-                            // workerModel = result.getWorkerModel();
-                            dialog.dismiss();
-                        }
-
-                        @Override
-                        public void onFailure(Call<APIContactResponse> call, Throwable t) {
-                            Toast.makeText(mContext, "Connection Failed !", Toast.LENGTH_SHORT).show();
-                            Log.e("error",t.getMessage());
-                            t.printStackTrace();
-
-                            dialog.dismiss();
-
-                        }
-                    });
-        }catch (Exception e)
-        {
-            e.printStackTrace();
-
-        }
-
-
     }
 
     private void onWorkerRegistration() {
@@ -452,6 +393,220 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
                         @Override
                         public void onFailure(Call<APIWorkerPersonalResponse> call, Throwable t) {
+                            Toast.makeText(mContext, "Connection Failed !", Toast.LENGTH_SHORT).show();
+                            Log.e("error",t.getMessage());
+                            t.printStackTrace();
+
+                            dialog.dismiss();
+
+                        }
+                    });
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+
+        }
+
+
+    }
+
+    private void onWorkerContactRegistration() {
+        contactdetails=new Contactdetails();
+
+        contactdetails.setAddress_line_1(edtaddressline1.getText().toString());
+        // workerModel.setId(edt_Id.getText().toString());
+        contactdetails.setAddress_line_2(edtaddressline2.getText().toString());
+        contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
+        contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
+        contactdetails.setCity(edtcity.getText().toString());
+        contactdetails.setState(spnstate.getSelectedItem().toString().trim());
+        contactdetails.setPincode(Integer.parseInt(edtpincode.getText().toString()));
+
+        try
+        {
+            final AlertDialog dialog = new SpotsDialog(mContext);
+            dialog.show();
+            dialog.setMessage("Load Contact Details...");
+            dialog.setCancelable(false);
+
+            mService.insertcontactdetails(
+                    contactdetails.getContact1(),
+                    contactdetails.getContact2(),
+                    contactdetails.getAddress_line_1().toString(),
+                    contactdetails.getAddress_line_2().toString(),
+                    contactdetails.getCity().toString(),
+                    contactdetails.getPincode(),
+                    contactdetails.getState().toString(),
+                    "India",
+                    PreferenceUtils.getWorker_id(mContext).toString(),
+                    "permanent",
+                    PreferenceUtils.getEmployee_id(mContext).toString())
+
+                    .enqueue(new Callback<APIContactResponse>() {
+                        @Override
+                        public void onResponse(Call<APIContactResponse> call, Response<APIContactResponse> response) {
+                            APIContactResponse result = response.body();
+                            if(result.isError())
+                            {
+                                Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
+                                Log.e("-->",result.getError_msg() );
+                                dialog.dismiss();
+                            }else{
+                                //  Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
+                                Log.e("-->",result.getContactdetails().toString() );
+
+
+                                contactdetails = (Contactdetails) result.getContactdetails();
+                                Log.e("Contact Details",contactdetails.toString());
+
+                                //database.deleteToPorjects();
+                                //database.addToPorject(projectdetails);
+                            }
+
+                            // workerModel = result.getWorkerModel();
+                            dialog.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(Call<APIContactResponse> call, Throwable t) {
+                            Toast.makeText(mContext, "Connection Failed !", Toast.LENGTH_SHORT).show();
+                            Log.e("error",t.getMessage());
+                            t.printStackTrace();
+
+                            dialog.dismiss();
+
+                        }
+                    });
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+
+        }
+
+
+    }
+
+    private void onWorkerCurrentContactRegistration() {
+        contactdetails=new Contactdetails();
+
+        contactdetails.setAddress_line_1(edtcurrentaddress1.getText().toString());
+        // workerModel.setId(edt_Id.getText().toString());
+        contactdetails.setAddress_line_2(edtcurrentaddress2.getText().toString());
+        // contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
+        // contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
+        contactdetails.setCity(edtcurrentcity.getText().toString());
+        contactdetails.setState(spncurrentstate.getSelectedItem().toString().trim());
+        contactdetails.setPincode(Integer.parseInt(edtcurrentpincode.getText().toString()));
+
+        try
+        {
+            final AlertDialog dialog = new SpotsDialog(mContext);
+            dialog.show();
+            dialog.setMessage("Load Contact Details...");
+            dialog.setCancelable(false);
+
+            mService.insertcontactdetails(
+                    contactdetails.getContact1(),
+                    contactdetails.getContact2(),
+                    contactdetails.getAddress_line_1().toString(),
+                    contactdetails.getAddress_line_2().toString(),
+                    contactdetails.getCity().toString(),
+                    contactdetails.getPincode(),
+                    contactdetails.getState().toString(),
+                    "India",
+                    PreferenceUtils.getWorker_id(mContext).toString(),
+                    "current",
+                    PreferenceUtils.getEmployee_id(mContext).toString())
+                    .enqueue(new Callback<APIContactResponse>() {
+                        @Override
+                        public void onResponse(Call<APIContactResponse> call, Response<APIContactResponse> response) {
+                            APIContactResponse result = response.body();
+                            if(result.isError())
+                            {
+                                Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
+                                Log.e("-->",result.getError_msg() );
+                                dialog.dismiss();
+                            }else{
+                                //  Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
+                                Log.e("-->",result.getContactdetails().toString() );
+                                contactdetails = (Contactdetails) result.getContactdetails();
+                                Log.e("Contact Details",contactdetails.toString());
+
+                                //database.deleteToPorjects();
+                                //database.addToPorject(projectdetails);
+                            }
+
+                            // workerModel = result.getWorkerModel();
+                            dialog.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(Call<APIContactResponse> call, Throwable t) {
+                            Toast.makeText(mContext, "Connection Failed !", Toast.LENGTH_SHORT).show();
+                            Log.e("error",t.getMessage());
+                            t.printStackTrace();
+
+                            dialog.dismiss();
+
+                        }
+                    });
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+
+        }
+
+
+    }
+
+    private void onBankDetailsRegistration() {
+        bankAccount=new BankAccount();
+
+        bankAccount.setAccount_holder_name(edtholdername.getText().toString());
+        bankAccount.setAccount_no(edtbankaccountnumber.getText().toString());
+        bankAccount.setBank_name(edtbankname.getText().toString());
+        bankAccount.setIfsc_code(edtbankifsccode.getText().toString());
+
+        try
+        {
+            final AlertDialog dialog = new SpotsDialog(mContext);
+            dialog.show();
+            dialog.setMessage("Load Bank Details...");
+            dialog.setCancelable(false);
+
+            mService.insertbankdetails(
+                    bankAccount.getAccount_holder_name().toString(),
+                    bankAccount.getIfsc_code().toString(),
+                    bankAccount.getAccount_no().toString(),
+                    bankAccount.getBank_name().toString(),
+                    PreferenceUtils.getWorker_id(mContext).toString(),
+                    "activate",
+                    PreferenceUtils.getEmployee_id(mContext).toString())
+                    .enqueue(new Callback<APIBankResponse>() {
+                        @Override
+                        public void onResponse(Call<APIBankResponse> call, Response<APIBankResponse> response) {
+                            APIBankResponse  result = response.body();
+                            if(result.isError())
+                            {
+                                Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
+                                Log.e("-->",result.getError_msg() );
+                                dialog.dismiss();
+                            }else{
+                                //  Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
+                                Log.e("-->",result.toString() );
+                                bankAccount = (BankAccount) result.getBankdetails();
+                                Log.e("Bank Details",bankAccount.toString());
+
+                                //database.deleteToPorjects();
+                                //database.addToPorject(projectdetails);
+                            }
+
+                            // workerModel = result.getWorkerModel();
+                            dialog.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(Call<APIBankResponse> call, Throwable t) {
                             Toast.makeText(mContext, "Connection Failed !", Toast.LENGTH_SHORT).show();
                             Log.e("error",t.getMessage());
                             t.printStackTrace();
@@ -728,7 +883,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             focusView = edtholdername;
             cancle = true;
         }
-
         if(TextUtils.isEmpty(edtbankifsccode.getText()))
         {
             edtbankifsccode.setError("Please select IFSC Code * ");
@@ -779,7 +933,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             }
         }
     }
-
     @Override
     public void onProgressUpdate(int percetage) {
         dialog.setProgress(percetage);

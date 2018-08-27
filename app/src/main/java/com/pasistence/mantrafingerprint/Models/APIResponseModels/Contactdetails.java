@@ -9,13 +9,13 @@ import java.io.Serializable;
     public String address_line_1 ;
     public String address_line_2 ;
     public String city;
-    public String pincode ;
+    public int pincode ;
     public String state;
     public String country ;
     public int worker_id;
     public String type ;
 
-    public Contactdetails(int id, int contact1, int contact2, String address_line_1, String address_line_2, String city, String pincode, String state, String country, int worker_id, String type) {
+    public Contactdetails(int id, int contact1, int contact2, String address_line_1, String address_line_2, String city, int pincode, String state, String country, int worker_id, String type) {
         this.id = id;
         this.contact1 = contact1;
         this.contact2 = contact2;
@@ -97,15 +97,15 @@ import java.io.Serializable;
         this.city = city;
     }
 
-    public String getPincode() {
-        return pincode;
-    }
+     public int getPincode() {
+         return pincode;
+     }
 
-    public void setPincode(String pincode) {
-        this.pincode = pincode;
-    }
+     public void setPincode(int pincode) {
+         this.pincode = pincode;
+     }
 
-    public String getState() {
+     public String getState() {
         return state;
     }
 

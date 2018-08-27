@@ -25,7 +25,6 @@ public class Database extends SQLiteAssetHelper {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
-
     //Table Worker Details
     public void addToWorkers(WorkerModel workerModel){
         // SQLiteDatabase db = getReadableDatabase();

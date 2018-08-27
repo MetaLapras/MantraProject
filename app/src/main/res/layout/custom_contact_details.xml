@@ -128,6 +128,12 @@
                 app:met_primaryColor="@color/colorAccent"
                 app:met_singleLineEllipsis="true"
                 />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkbox"
+                android:text="if permanent address is Similar to current Address"/>
+
 
 
             <LinearLayout
@@ -157,6 +163,7 @@
                     android:gravity="center"
                     android:layout_weight="1"
                     android:text="@string/next" />
+
 
 
             </LinearLayout>

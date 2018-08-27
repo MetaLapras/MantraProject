@@ -16,14 +16,23 @@
         android:visibility="invisible"
         layout="@layout/custom_contact_details"/>
 
+
     <include
         android:id="@+id/layer3"
         android:visibility="invisible"
-        layout="@layout/custome_bank_details"/>
+        layout="@layout/custom_current_address_details"
+       />
 
     <include
         android:id="@+id/layer4"
         android:visibility="invisible"
+        layout="@layout/custome_bank_details"
+        />
+
+    <include
+        android:id="@+id/layer5"
+        android:visibility="invisible"
         layout="@layout/custome_image_profile"/>
+
 
 </RelativeLayout>

@@ -62,11 +62,12 @@
     <string name="aadhar_card_no">Aadhar Card No</string>
     <string name="name_of_worker">Name of Worker</string>
     <string name="personal_details">Personal Details</string>
-    <string name="Contact_details">Contact Details</string>
+    <string name="Contact_details">Permanent Address Details</string>
+    <string name="Contact_current_details">Current Address Details</string>
     <string name="left_thumb">left Thumb</string>
     <string name="right_thumb">Right Thumb</string>
     <string name="next">Next</string>
-    <string name="previous">previous</string>
+    <string name="previous">Skip</string>
 
     <string-array name="array_technology">
         <item>Android</item>
@@ -89,5 +90,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    >
 
 </resources>

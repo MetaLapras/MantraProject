@@ -22,6 +22,7 @@ import com.pasistence.mantrafingerprint.Common.Common;
 
 import com.pasistence.mantrafingerprint.Common.PreferenceUtils;
 import com.pasistence.mantrafingerprint.FingerPrintMatching.MFS100Mantra;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIContactResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerPersonalResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
@@ -286,34 +287,26 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         contactdetails.setCity(edtcity.getText().toString());
         contactdetails.setCountry(spnstate.getSelectedItem().toString().trim());
         contactdetails.setPincode(edtpincode.getText().toString());
-        finger = mfs100Mantra.getList();
-        if(finger.size()<=0)
-        {
-            workerModel.setFingerprint1("");
-            workerModel.setFingerprint2("");
 
-        }else {
-            workerModel.setFingerprint1(finger.get(0).toString());
-            workerModel.setFingerprint2(finger.get(1).toString());
-        }
         try
         {
             final AlertDialog dialog = new SpotsDialog(mContext);
             dialog.show();
-            dialog.setMessage("Load Personal Details...");
+            dialog.setMessage("Load Contact Details...");
             dialog.setCancelable(false);
 
-            mService.workerRegistration(
-                    workerModel.getName().toString(),
-                    workerModel.getGender().toString(),
-                    workerModel.getDob().toString(),
-                    workerModel.getFingerprint1().toString(),
-                    workerModel.getFingerprint2().toString(),
-                    workerModel.getEmail().toString(),
-                    PreferenceUtils.getProject_id(mContext).toString(),
-                    workerModel.getSalary().toString(),
-                    PreferenceUtils.getEmployee_id(mContext).toString(),
-                    workerModel.getAdharcard_id().toString())
+            mService.insertcontactdetails(
+                   contactdetails.getContact1(),
+                   contactdetails.getContact2(),
+                    contactdetails.getAddress_line_1().toString(),
+                    contactdetails.getAddress_line_2().toString(),
+                    contactdetails.getCity().toString(),
+                    Integer.parseInt(contactdetails.getPincode()),
+                    contactdetails.getState().toString(),
+                    contactdetails.getCountry().toString(),
+                    PreferenceUtils.getWorker_id(mContext).toString(),
+                    contactdetails.getType().toString(),
+                    PreferenceUtils.getEmployee_id(mContext).toString())
                     /*mService.workerRegistration(
                             "dfsdfgdsg",
                             "sdfsd",
@@ -325,10 +318,10 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                             "545",
                            "2",
                             "1234852")*/
-                    .enqueue(new Callback<APIWorkerPersonalResponse>() {
+                    .enqueue(new Callback<APIContactResponse>() {
                         @Override
-                        public void onResponse(Call<APIWorkerPersonalResponse> call, Response<APIWorkerPersonalResponse> response) {
-                            APIWorkerPersonalResponse result = response.body();
+                        public void onResponse(Call<APIContactResponse> call, Response<APIContactResponse> response) {
+                            APIContactResponse result = response.body();
                             if(result.isError())
                             {
                                 Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
@@ -336,11 +329,11 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                 dialog.dismiss();
                             }else{
                                 //  Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
-                                Log.e("-->",result.getWorkerModel().toString() );
+                                Log.e("-->",result.getContactdetails().toString() );
 
 
-                                workerModel = (WorkerModel) result.getWorkerModel();
-                                Log.e("personal Details",workerModel.toString());
+                                contactdetails = (Contactdetails) result.getContactdetails();
+                                Log.e("Contact Details",contactdetails.toString());
 
                                 //database.deleteToPorjects();
                                 //database.addToPorject(projectdetails);
@@ -351,7 +344,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                         }
 
                         @Override
-                        public void onFailure(Call<APIWorkerPersonalResponse> call, Throwable t) {
+                        public void onFailure(Call<APIContactResponse> call, Throwable t) {
                             Toast.makeText(mContext, "Connection Failed !", Toast.LENGTH_SHORT).show();
                             Log.e("error",t.getMessage());
                             t.printStackTrace();

@@ -18,36 +18,6 @@
                 android:text="@string/Contact_details"
                 android:textAlignment="center"/>
 
-
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/edt_address1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Address Line 1"
-                android:inputType="textMultiLine"
-                android:textColorHint="@color/colorAccent"
-                android:textColor="@android:color/black"
-                app:met_floatingLabel="highlight"
-                app:met_maxCharacters="10"
-                app:met_baseColor="@android:color/black"
-                app:met_primaryColor="@color/colorAccent"
-                />
-
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/edt_address2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Address Line 2"
-                android:inputType="textMultiLine"
-                android:textColorHint="@color/colorAccent"
-                android:textColor="@android:color/black"
-                app:met_floatingLabel="highlight"
-                app:met_maxCharacters="10"
-                app:met_baseColor="@android:color/black"
-                app:met_primaryColor="@color/colorAccent"
-                app:met_singleLineEllipsis="true"
-                />
-
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/edt_contact1"
                 android:layout_width="match_parent"
@@ -69,6 +39,35 @@
                 android:layout_height="wrap_content"
                 android:hint="Alternate Number"
                 android:inputType="number"
+                android:textColorHint="@color/colorAccent"
+                android:textColor="@android:color/black"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="10"
+                app:met_baseColor="@android:color/black"
+                app:met_primaryColor="@color/colorAccent"
+                app:met_singleLineEllipsis="true"
+                />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_address1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Address Line 1"
+                android:inputType="textMultiLine"
+                android:textColorHint="@color/colorAccent"
+                android:textColor="@android:color/black"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="10"
+                app:met_baseColor="@android:color/black"
+                app:met_primaryColor="@color/colorAccent"
+                />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_address2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Address Line 2"
+                android:inputType="textMultiLine"
                 android:textColorHint="@color/colorAccent"
                 android:textColor="@android:color/black"
                 app:met_floatingLabel="highlight"
@@ -128,11 +127,12 @@
                 app:met_primaryColor="@color/colorAccent"
                 app:met_singleLineEllipsis="true"
                 />
+
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/checkbox"
-                android:text="if permanent address is Similar to current Address"/>
+                android:id="@+id/chk_type"
+                android:text="Is permanent address is Similar to current Address"/>
 
 
 

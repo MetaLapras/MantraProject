@@ -23,15 +23,15 @@ import com.pasistence.mantrafingerprint.Common.PreferenceUtils;
 import com.pasistence.mantrafingerprint.FingerPrintMatching.MFS100Mantra;
 import com.pasistence.mantrafingerprint.Interface.UploadCallBack;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIContactResponse;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerImageResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerPersonalResponse;
-<<<<<<< HEAD
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.BankAccount;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
-=======
+
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.CurrentAddress;
->>>>>>> 560dd8109b19429d24536cc72b795fd6aa23e5b8
+
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.Remote.IMyAPI;
@@ -49,11 +49,10 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import dmax.dialog.SpotsDialog;
-<<<<<<< HEAD
-=======
+
 import fr.ganfra.materialspinner.MaterialSpinner;
 import okhttp3.MultipartBody;
->>>>>>> 560dd8109b19429d24536cc72b795fd6aa23e5b8
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -66,10 +65,9 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     View layer1,layer2,layer3,layer4;
     WorkerModel workerModel;
     Contactdetails contactdetails;
-<<<<<<< HEAD
+
     BankAccount bankAccount;
-=======
->>>>>>> 560dd8109b19429d24536cc72b795fd6aa23e5b8
+
     MaterialEditText edtname,edtaadharnum,edtdob,edtemail,edtaddressline1,edtaddressline2,edtmobilenum,edtalternatenum,edtcity,edtpincode,edtholdername,
     edtbankifsccode,edtbankaccountnumber,edtbankname;
     CircleImageView profileimage;

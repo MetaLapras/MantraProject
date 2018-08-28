@@ -27,7 +27,6 @@ import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerImageR
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerPersonalResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.BankAccount;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
-import com.pasistence.mantrafingerprint.Models.AddressModel;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.Remote.IMyAPI;
@@ -71,7 +70,6 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
     IMyAPI mService;
 
     ProgressDialog dialog;
-    AddressModel addressModel;
 
 
     private int mYear, mMonth, mDay;

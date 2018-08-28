@@ -7,9 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.BankAccount;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.EmployeeDetails;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Projectdetails;
-import com.pasistence.mantrafingerprint.Models.AddressModel;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -597,36 +598,292 @@ public class Database extends SQLiteAssetHelper {
 
 
     //Table Worker Address Details
-    public void addToAddressDetails(AddressModel addressModel) {
+
+  /*  `id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`address_id`	INTEGER,
+            `contact1`	INTEGER,
+            `contact2`	INTEGER,
+            `address_line_1`	TEXT,
+            `address_line_2`	TEXT,
+            `city`	TEXT,
+            `pincode`	INTEGER,
+            `state`	TEXT,
+            `country`	TEXT,
+            `created_at`	TEXT,
+            `updated_at`	TEXT,
+            `worker_id`	TEXT,
+            `type`	TEXT,
+            `employee_id`	TEXT*/
+
+    // insert into worker Address details
+    public void addToAddressDetails(Contactdetails contactdetails) {
         // SQLiteDatabase db = getReadableDatabase();
         SQLiteDatabase db = getWritableDatabase();
         String query = String.format("INSERT OR REPLACE INTO address_master(" +
-                        "address_line1," +
-                        "address_line2," +
+                        "address_id," +
+                        "contact1," +
+                        "contact2," +
+                        "address_line_1,"+
+                        "address_line_2," +
                         "city," +
-                        "pincode,"+
+                        "pincode," +
                         "state," +
                         "country," +
-                        "created_at," +
-                        "updated_at" +
+                        "worker_id," +
+                        "type" +
                         ")" +
-                        " VALUES('%s','%s','%s','%s','%s','%s','%s','%s');",
-                addressModel.getId(),
-                addressModel.getAddress_line1(),
-                addressModel.getAddress_line2(),
-                addressModel.getCity(),
-                addressModel.getPincode(),
-                addressModel.getState(),
-                addressModel.getCountry(),
-                addressModel.getCreated_at(),
-                addressModel.getUpdated_at());
+                        " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
+                contactdetails.getId(),
+                contactdetails.getContact1(),
+                contactdetails.getContact2(),
+                contactdetails.getAddress_line_1(),
+                contactdetails.getAddress_line_2(),
+                contactdetails.getCity(),
+                contactdetails.getPincode(),
+                contactdetails.getState(),
+                contactdetails.getCountry(),
+                contactdetails.getWorker_id(),
+                contactdetails.getType()
+        );
 
 
         db.execSQL(query);
 
-        Log.e(TAG, "Database inserted Successfully");
-        Log.e(TAG, addressModel.toString());
+        Log.e(TAG, "Database inserted Successfully into Address Master");
+        Log.e(TAG, contactdetails.toString());
     }
+    // Delete into worker Address details
+    public void deleteToAddressDetails(String workerId) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("DELETE FROM address_master WHERE worker_id = '%s'",workerId);
+        db.execSQL(query);
+    }
+    //Update into worker Address details
+    public void updateToAddressMaster(Contactdetails contactdetails) {
+        String sqlTable = "address_master";
+
+        SQLiteDatabase db = getReadableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("address_id",contactdetails.getId());
+        values.put("contact1",contactdetails.getContact1());
+        values.put("contact2",contactdetails.getContact2());
+        values.put("address_line_1",contactdetails.getAddress_line_1());
+        values.put("address_line_2",contactdetails.getAddress_line_2());
+        values.put("city",contactdetails.getCity());
+        values.put("pincode",contactdetails.getPincode());
+        values.put("state",contactdetails.getState());
+        values.put("country",contactdetails.getCountry());
+        values.put("worker_id",contactdetails.getWorker_id());
+        values.put("type",contactdetails.getType());
+
+
+        /*workerModel.getWorkerId()/*Add Later on when Webservices*/
+
+        db.update(sqlTable, values, "worker_id = ?",
+                new String[]{String.valueOf(contactdetails.getWorker_id())});
+    }
+
+    // insert into worker Bank details
+
+    /*`id`	INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`account_holder_name`	TEXT,
+	`ifsc_code`	NUMERIC,
+	`account_no`	TEXT,
+	`bank_name`	TEXT,
+	`worker_id`	INTEGER,
+	`activation`	TEXT,
+	`employee_id`	INTEGER*/
+    public void addToBankDetails(BankAccount bankAccount) {
+        // SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
+        String query = String.format("INSERT OR REPLACE INTO bank_master(" +
+                        "bank_id," +
+                        "account_holder_name," +
+                        "ifsc_code," +
+                        "account_no,"+
+                        "bank_name," +
+                        "worker_id," +
+                        "activation" +
+                        ")" +
+                        " VALUES('%s','%s','%s','%s','%s','%s','%s');",
+                bankAccount.getId(),
+                bankAccount.getAccount_holder_name(),
+                bankAccount.getIfsc_code(),
+                bankAccount.getAccount_no(),
+                bankAccount.getBank_name(),
+                bankAccount.getWorker_id(),
+                bankAccount.getActivation()
+        );
+
+
+        db.execSQL(query);
+
+        Log.e(TAG, "Database inserted Successfully into Bank Master");
+        Log.e(TAG, bankAccount.toString());
+    }
+    // Delete into worker Address details
+    public void deleteToBankDetails(String workerId) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("DELETE FROM bank_master WHERE worker_id = '%s'",workerId);
+        db.execSQL(query);
+    }
+    //Update into worker Address details
+    public void updateToBankMaster(BankAccount bankAccount) {
+        String sqlTable = "bank_master";
+
+        SQLiteDatabase db = getReadableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("bank_id",bankAccount.getId());
+        values.put("account_holder_name",bankAccount.getAccount_holder_name());
+        values.put("ifsc_code",bankAccount.getIfsc_code());
+        values.put("account_no",bankAccount.getAccount_no());
+        values.put("bank_name",bankAccount.getBank_name());
+        values.put("worker_id",bankAccount.getWorker_id());
+        values.put("activation",bankAccount.getActivation());
+
+
+        /*workerModel.getWorkerId()/*Add Later on when Webservices*/
+
+        db.update(sqlTable, values, "worker_id = ?",
+                new String[]{String.valueOf(bankAccount.getWorker_id())});
+    }
+
+
+
+
+    //Temp Bank Account Details
+    public void addToTempBankDetails(BankAccount bankAccount) {
+        // SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
+        String query = String.format("INSERT OR REPLACE INTO Temp_bank_master(" +
+                        "bank_id," +
+                        "account_holder_name," +
+                        "ifsc_code," +
+                        "account_no,"+
+                        "bank_name," +
+                        "worker_id," +
+                        "activation" +
+                        ")" +
+                        " VALUES('%s','%s','%s','%s','%s','%s','%s');",
+                bankAccount.getId(),
+                bankAccount.getAccount_holder_name(),
+                bankAccount.getIfsc_code(),
+                bankAccount.getAccount_no(),
+                bankAccount.getBank_name(),
+                bankAccount.getWorker_id(),
+                bankAccount.getActivation()
+        );
+
+
+        db.execSQL(query);
+
+        Log.e(TAG, "Database inserted Successfully into Bank Temp Master");
+        Log.e(TAG, bankAccount.toString());
+    }
+    // Delete into worker Address details
+    public void deleteToTempBankDetails(String workerId) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("DELETE FROM Temp_bank_master WHERE worker_id = '%s'",workerId);
+        db.execSQL(query);
+    }
+    //Update into worker Address details
+    public void updateToTempBankMaster(BankAccount bankAccount) {
+        String sqlTable = "Temp_bank_master";
+
+        SQLiteDatabase db = getReadableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("bank_id",bankAccount.getId());
+        values.put("account_holder_name",bankAccount.getAccount_holder_name());
+        values.put("ifsc_code",bankAccount.getIfsc_code());
+        values.put("account_no",bankAccount.getAccount_no());
+        values.put("bank_name",bankAccount.getBank_name());
+        values.put("worker_id",bankAccount.getWorker_id());
+        values.put("activation",bankAccount.getActivation());
+
+
+        /*workerModel.getWorkerId()/*Add Later on when Webservices*/
+
+        db.update(sqlTable, values, "worker_id = ?",
+                new String[]{String.valueOf(bankAccount.getWorker_id())});
+    }
+
+
+    //Insert into temp_address_master
+    // insert into worker Temp Address details
+    public void addToTempAddressDetails(Contactdetails contactdetails) {
+        // SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
+        String query = String.format("INSERT OR REPLACE INTO Temp_address_master(" +
+                        "address_id," +
+                        "contact1," +
+                        "contact2," +
+                        "address_line_1,"+
+                        "address_line_2," +
+                        "city," +
+                        "pincode," +
+                        "state," +
+                        "country," +
+                        "worker_id," +
+                        "type" +
+                        ")" +
+                        " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
+                contactdetails.getId(),
+                contactdetails.getContact1(),
+                contactdetails.getContact2(),
+                contactdetails.getAddress_line_1(),
+                contactdetails.getAddress_line_2(),
+                contactdetails.getCity(),
+                contactdetails.getPincode(),
+                contactdetails.getState(),
+                contactdetails.getCountry(),
+                contactdetails.getWorker_id(),
+                contactdetails.getType()
+        );
+
+
+        db.execSQL(query);
+
+        Log.e(TAG, "Database inserted Successfully into Address Master");
+        Log.e(TAG, contactdetails.toString());
+    }
+    // Delete into worker Temp Address details
+    public void deleteToTempAddressDetails(String workerId) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("DELETE FROM Temp_address_master WHERE worker_id = '%s'",workerId);
+        db.execSQL(query);
+    }
+    //Update into worker Temp Address details
+    public void updateToTempAddressMaster(Contactdetails contactdetails) {
+        String sqlTable = "Temp_address_master";
+
+        SQLiteDatabase db = getReadableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("address_id",contactdetails.getId());
+        values.put("contact1",contactdetails.getContact1());
+        values.put("contact2",contactdetails.getContact2());
+        values.put("address_line_1",contactdetails.getAddress_line_1());
+        values.put("address_line_2",contactdetails.getAddress_line_2());
+        values.put("city",contactdetails.getCity());
+        values.put("pincode",contactdetails.getPincode());
+        values.put("state",contactdetails.getState());
+        values.put("country",contactdetails.getCountry());
+        values.put("worker_id",contactdetails.getWorker_id());
+        values.put("type",contactdetails.getType());
+
+
+        /*workerModel.getWorkerId()/*Add Later on when Webservices*/
+
+        db.update(sqlTable, values, "worker_id = ?",
+                new String[]{String.valueOf(contactdetails.getWorker_id())});
+    }
+
+
+
+
 
 
 }

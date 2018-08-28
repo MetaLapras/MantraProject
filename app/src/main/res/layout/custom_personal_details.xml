@@ -53,6 +53,7 @@
         android:textColorHint="@color/colorAccent"
         android:textColor="@android:color/black"
         app:met_floatingLabel="highlight"
+        android:editable="false"
         app:met_baseColor="@android:color/black"
         app:met_primaryColor="@color/colorAccent"
         app:met_singleLineEllipsis="true"

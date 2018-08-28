@@ -114,4 +114,51 @@ public interface IMyAPI {
             @Field("worker_id") String worker_id,
             @Field("employee_id") String employee_id
     );
+
+
+    @FormUrlEncoded
+    //@Headers("Content-Type: application/json")
+    @POST("UpdateWorkerDetails.php")
+    Call<APIWorkerPersonalResponse> updateWorkerDetails(
+            @Field("name") String name,
+            @Field("gender") String gender,
+            @Field("dob") String dob,
+            @Field("fingerprint1") String fingerprint1,
+            @Field("fingerprint2") String fingerprint2,
+            @Field("email") String email,
+            @Field("salary") String salary,
+            @Field("employee_id") String employee_id,
+            @Field("adharcard_id") String adharcard_id,
+            @Field("worker_id") String worker_id
+    );
+
+
+    @FormUrlEncoded
+    @POST("UpdateContactDetails.php")
+    Call<APIContactResponse> updateContactDetails(
+            @Field("contact1") int contact1,
+            @Field("contact2") int contact2,
+            @Field("address_line_1") String address_line_1,
+            @Field("address_line_2") String address_line_2,
+            @Field("city") String city,
+            @Field("pincode") int pincode,
+            @Field("state") String state,
+            @Field("country") String country,
+            @Field("worker_id") String worker_id,
+            @Field("type") String type,
+            @Field("employee_id") String employee_id
+    );
+
+    @FormUrlEncoded
+    @POST("UpdateBankDetails.php")
+    Call<APIBankResponse> updateBankDetails(
+            @Field("account_holder_name") String account_holder_name,
+            @Field("ifsc_code") String ifsc_code,
+            @Field("account_no") String account_no,
+            @Field("bank_name") String bank_name,
+            @Field("worker_id") String worker_id,
+            @Field("activation") String activation,
+            @Field("employee_id") String employee_id
+    );
+
 }

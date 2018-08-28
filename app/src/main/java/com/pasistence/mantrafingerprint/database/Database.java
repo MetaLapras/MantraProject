@@ -881,8 +881,110 @@ public class Database extends SQLiteAssetHelper {
                 new String[]{String.valueOf(contactdetails.getWorker_id())});
     }
 
+    //add to worker temp
+    public void addToTempWorkers(WorkerModel workerModel){
+        // SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
+        String query = String.format("INSERT OR REPLACE INTO Temp_worker_master(" +
+                        "worker_id," +
+                        "name," +
+                        "adharcard_id," +
+                        "gender,dob," +
+                        "fingerprint1," +
+                        "fingerprint2," +
+                        "email," +
+                        "permanent_address_id," +
+                        "current_address_id," +
+                        "contact1," +
+                        "contact2," +
+                        "salary," +
+                        "created_at," +
+                        "updated_at," +
+                        "bank_id," +
+                        "project_id," +
+                        "activation," +
+                        "image_url,permanent_address,current_address,bank_name,holder_name,ifsc_code,account_number,city,pincode" +
+                        ")" +
+                        " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
+                workerModel.getId(),
+                workerModel.getName(),
+                workerModel.getAdharcard_id(),
+                workerModel.getGender(),
+                workerModel.getDob(),
+                workerModel.getFingerprint1(),
+                workerModel.getFingerprint2(),
+                workerModel.getEmail(),
+                workerModel.getPermanentAddressId(),
+                workerModel.getCurrentAddressId(),
+                workerModel.getContact1(),
+                workerModel.getContact2(),
+                workerModel.getSalary(),
+                workerModel.getCreatedAt(),
+                workerModel.getUpdatedAt(),
+                workerModel.getBankId(),
+                workerModel.getProjectId(),
+                workerModel.getActivation(),
+                workerModel.getImageUrl(),
+                workerModel.getPermanent_address(),
+                workerModel.getCurrent_address(),
+                workerModel.getBank_name(),
+                workerModel.getHolder_name(),
+                workerModel.getIfsc_code(),
+                workerModel.getAccount_number(),
+                workerModel.getCity(),
+                workerModel.getPincode());
 
 
+        db.execSQL(query);
+
+        Log.e(TAG, "Database inserted Successfully");
+        Log.e(TAG, workerModel.toString());
+    }
+    // update worker_master by worker id
+    public void updateToTempWorkersMaster(WorkerModel workerModel) {
+        String sqlTable = "Temp_worker_master";
+
+        SQLiteDatabase db = getReadableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("name",workerModel.getName());
+        values.put("adharcard_id",workerModel.getAdharcard_id());
+        values.put("gender",workerModel.getGender());
+        values.put("dob",workerModel.getDob());
+        values.put("fingerprint1",workerModel.getFingerprint1());
+        values.put("fingerprint2",workerModel.getFingerprint2());
+        values.put("email",workerModel.getEmail());
+        values.put("permanent_address_id",workerModel.getPermanentAddressId());
+        values.put("current_address_id",workerModel.getCurrentAddressId());
+        values.put("contact1",workerModel.getContact1());
+        values.put("contact2",workerModel.getContact2());
+        values.put("salary",workerModel.getSalary());
+        values.put("created_at",workerModel.getCreatedAt());
+        values.put("updated_at",workerModel.getUpdatedAt());
+        values.put("bank_id",workerModel.getBankId());
+        values.put("project_id",workerModel.getProjectId());
+        values.put("activation",workerModel.getActivation());
+        values.put("image_url",workerModel.getImageUrl());
+        values.put("permanent_address",workerModel.getPermanent_address1());
+        values.put("current_address",workerModel.getCurrent_address1());
+        values.put("bank_name",workerModel.getBank_name());
+        values.put("holder_name",workerModel.getHolder_name());
+        values.put("ifsc_code",workerModel.getIfsc_code());
+        values.put("account_number",workerModel.getAccount_number());
+        values.put("city",workerModel.getCity());
+        values.put("pincode",workerModel.getPincode());
+
+        /*workerModel.getWorkerId()/*Add Later on when Webservices*/
+
+        db.update(sqlTable, values, "worker_id = ?",
+                new String[]{workerModel.getWorkerId()});
+    }
+    //delete worker by worker id
+    public void deleteToTempWorkers(String workerId) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("DELETE FROM Temp_worker_master WHERE id = '%s'",workerId);
+        db.execSQL(query);
+    }
 
 
 

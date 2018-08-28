@@ -329,16 +329,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         }
         if(view == btnSubmit)
         {
-            if(Common.isConnectedToInterNet(mContext)){
-                //Upload image into the server into the constant table
-                onImageUpload(workerModel.getImageUrl().toString());
-                WorkerRegistrationBtn();
-            }else{
-                //Offline save all data into the temp table
-                WorkerRegistrationBtn();
-                Toast.makeText(mContext, "Data has been Saved Offline", Toast.LENGTH_SHORT).show();
-            }
-
+            WorkerRegistrationBtn();
         }
         if(view == profileimage)
         {
@@ -526,6 +517,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                 workerModel = (WorkerModel) result.getWorkerModel();
                                 Log.e("personal Details",workerModel.toString());
 
+                                PreferenceUtils.setWorker_id(mContext,workerModel.getId());
 
                                 //Save data into worker_Master SQLite
                                 database.addToWorkers(workerModel);
@@ -670,7 +662,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         contactdetails.setCity(edtcurrentcity.getText().toString());
         contactdetails.setState(spncurrentstate.getSelectedItem().toString().trim());
 
-        if(edtpincode.getText().equals("")||edtpincode.getText().equals(null)){
+        if(edtpincode.getText().toString().equals("")||edtpincode.getText().equals(null)){
                contactdetails.setPincode(0);
         }else {
             contactdetails.setPincode(Integer.parseInt(edtcurrentpincode.getText().toString()));
@@ -833,6 +825,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             workerModel.setId(id);
             finger = mfs100Mantra.getList();
 
+
             if(finger.size()<=0)
             {
                 workerModel.setFingerprint1("");
@@ -844,19 +837,19 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             }
 
             try{
-                if(type.equals("edit"))
-                {
+
+                if(Common.isConnectedToInterNet(mContext)){
+                    //Upload image into the server into the constant table
+
+                    onImageUpload(workerModel.getImageUrl().toString());
                     database.updateToWorkersMaster(workerModel);
-                    Toast.makeText(mContext, "Worker Updated successfully", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext, "Worker Updated successfully", Toast.LENGTH_SHORT).show();
                     mfs100Mantra.onDestroy();
-                    finish();
-                }else if(type.equals("register"))
-                {
-                   // onImageUpload(workerModel.getImageUrl().toString());
+                }else{
+                    //Offline save all data into the temp table
                     database.addToWorkers(workerModel);
-                    Toast.makeText(mContext, "Worker Registred successfully", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext, "Worker Registred successfully", Toast.LENGTH_SHORT).show();
                     mfs100Mantra.onDestroy();
-                    finish();
                 }
 
             }catch (NullPointerException e)
@@ -864,6 +857,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                 e.printStackTrace();
                 Toast.makeText(mContext, "Something Went Wrong", Toast.LENGTH_SHORT).show();
             }
+
+        finish();
     }
 
     private void onImageUpload(String imageUri) {
@@ -889,13 +884,14 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                             @Override
                             public void onResponse(Call<APIWorkerImageResponse> call, Response<APIWorkerImageResponse> response) {
                                 APIWorkerImageResponse result = response.body();
-                                if(result.isError())
+                                if(!result.isError())
                                 {
                                     Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
                                     Log.e("-->",result.getError_msg() );
                                     dialog.dismiss();
                                 }else {
-                                    Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                   // Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
                                     Log.e("-->", result.toString());
 
                                     mService.getWorkerDetails(
@@ -910,7 +906,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                             {
                                                 Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
                                                 Log.e("-->",result.getError_msg() );
-                                                dialog.dismiss();
                                             }else {
                                                 Toast.makeText(mContext, "Worker Registred Successfully", Toast.LENGTH_SHORT).show();
                                                 Log.e("-->", result.toString());
@@ -918,16 +913,16 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                         }
                                         @Override
                                         public void onFailure(Call<WorkerModel> call, Throwable t) {
-
+                                            t.printStackTrace();
                                         }
                                     });
-
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<APIWorkerImageResponse> call, Throwable t) {
                                 t.printStackTrace();
+                                dialog.dismiss();
                             }
                         });
             }

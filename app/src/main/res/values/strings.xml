@@ -68,6 +68,7 @@
     <string name="right_thumb">Right Thumb</string>
     <string name="next">Next</string>
     <string name="previous">Skip</string>
+    <string name="salary">Salary</string>
 
     <string-array name="array_technology">
         <item>Android</item>

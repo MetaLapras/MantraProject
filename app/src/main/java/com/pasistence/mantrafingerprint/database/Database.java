@@ -85,6 +85,7 @@ public class Database extends SQLiteAssetHelper {
         Log.e(TAG, "Database inserted Successfully");
         Log.e(TAG, workerModel.toString());
     }
+    //get all worker details
     public List<WorkerModel> getAllWorkers(){
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb =  new SQLiteQueryBuilder();
@@ -169,43 +170,8 @@ public class Database extends SQLiteAssetHelper {
         return result;
     }
 
-    //Table Worker Personal Details
-    public void addToAddressDetails(AddressModel addressModel) {
-        // SQLiteDatabase db = getReadableDatabase();
-        SQLiteDatabase db = getWritableDatabase();
-        String query = String.format("INSERT OR REPLACE INTO address_master(" +
-                        "address_line1," +
-                        "address_line2," +
-                        "city," +
-                        "pincode,"+
-                        "state," +
-                        "country," +
-                        "created_at," +
-                        "updated_at" +
-                        ")" +
-                        " VALUES('%s','%s','%s','%s','%s','%s','%s','%s');",
-                addressModel.getId(),
-                addressModel.getAddress_line1(),
-                addressModel.getAddress_line2(),
-                addressModel.getCity(),
-                addressModel.getPincode(),
-                addressModel.getState(),
-                addressModel.getCountry(),
-                addressModel.getCreated_at(),
-                addressModel.getUpdated_at());
-
-
-        db.execSQL(query);
-
-        Log.e(TAG, "Database inserted Successfully");
-        Log.e(TAG, addressModel.toString());
-    }
-
-
-
    // function get all worker's name
-    public List <String> getNames()
-    {
+    public List <String> getNames() {
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb =  new SQLiteQueryBuilder();
 
@@ -232,8 +198,7 @@ public class Database extends SQLiteAssetHelper {
     }
 
     //Function get worker by name
-    public List<WorkerModel> getWorkerName(String name)
-    {
+    public List<WorkerModel> getWorkerName(String name) {
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb =  new SQLiteQueryBuilder();
 
@@ -318,10 +283,6 @@ public class Database extends SQLiteAssetHelper {
         return result;
 
     }
-
-
-
-
     public void updateToWorkers(WorkerModel workerModel) {
         SQLiteDatabase db = getReadableDatabase();
         String query = String.format("UPDATE " +
@@ -385,6 +346,8 @@ public class Database extends SQLiteAssetHelper {
 
         db.execSQL(query);
     }
+
+    // update worker_master by worker id
     public void updateToWorkersMaster(WorkerModel workerModel) {
         String sqlTable = "worker_master";
 
@@ -423,6 +386,7 @@ public class Database extends SQLiteAssetHelper {
         db.update(sqlTable, values, "id = ?",
                 new String[]{workerModel.getId()});
     }
+    //delete worker by worker id
     public void deleteToWorkers(String workerId) {
         SQLiteDatabase db = getReadableDatabase();
         String query = String.format("DELETE FROM worker_master WHERE id = '%s'",workerId);
@@ -629,6 +593,39 @@ public class Database extends SQLiteAssetHelper {
         String query = String.format("DELETE FROM employee_master");
         db.execSQL(query);
         //  db.delete("project_master",null,null);
+    }
+
+
+    //Table Worker Address Details
+    public void addToAddressDetails(AddressModel addressModel) {
+        // SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
+        String query = String.format("INSERT OR REPLACE INTO address_master(" +
+                        "address_line1," +
+                        "address_line2," +
+                        "city," +
+                        "pincode,"+
+                        "state," +
+                        "country," +
+                        "created_at," +
+                        "updated_at" +
+                        ")" +
+                        " VALUES('%s','%s','%s','%s','%s','%s','%s','%s');",
+                addressModel.getId(),
+                addressModel.getAddress_line1(),
+                addressModel.getAddress_line2(),
+                addressModel.getCity(),
+                addressModel.getPincode(),
+                addressModel.getState(),
+                addressModel.getCountry(),
+                addressModel.getCreated_at(),
+                addressModel.getUpdated_at());
+
+
+        db.execSQL(query);
+
+        Log.e(TAG, "Database inserted Successfully");
+        Log.e(TAG, addressModel.toString());
     }
 
 

@@ -66,7 +66,7 @@ import retrofit2.Response;
 public class WorkerRegistrationActivity extends AppCompatActivity implements View.OnClickListener, UploadCallBack {
 
     public static final String TAG ="reg -->";
-    Button btnLayer1Next,btnLayer2Next,btnLayer3Next,btnLayer4Next,btnLayer2Previous,btnLayer3Previous,btnLayer4previous,btnSubmit;
+    Button btnLayer1Next,btnLayer2Next,btnLayer3Next,btnLayer4Next,btnLayer2Skip,btnLayer3Skip,btnLayer4Skip,btnSubmit;
     Context mContext;
     View layer1,layer2,layer3,layer4,layer5;
     WorkerModel workerModel;
@@ -132,9 +132,9 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         btnLayer2Next.setOnClickListener(this);
         btnLayer3Next.setOnClickListener(this);
         btnLayer4Next.setOnClickListener(this);
-        btnLayer4previous.setOnClickListener(this);
-        btnLayer3Previous.setOnClickListener(this);
-        btnLayer2Previous.setOnClickListener(this);
+        btnLayer4Skip.setOnClickListener(this);
+        btnLayer3Skip.setOnClickListener(this);
+        btnLayer2Skip.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
         profileimage.setOnClickListener(this);
         edtdob.setOnClickListener(this);
@@ -151,9 +151,9 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         btnLayer2Next           = (Button)findViewById(R.id.btn_layer2_next);
         btnLayer3Next           = (Button)findViewById(R.id.btn_layer3_next);
         btnLayer4Next           = (Button)findViewById(R.id.btn_layer4_next);
-        btnLayer4previous       = (Button)findViewById(R.id.btn_layer4_previous);
-        btnLayer3Previous       = (Button)findViewById(R.id.btn_layer3_previous);
-        btnLayer2Previous       = (Button)findViewById(R.id.btn_layer2_previous);
+        btnLayer4Skip           = (Button)findViewById(R.id.btn_layer4_previous);
+        btnLayer3Skip           = (Button)findViewById(R.id.btn_layer3_previous);
+        btnLayer2Skip           = (Button)findViewById(R.id.btn_layer2_previous);
         btnSubmit               = (Button)findViewById(R.id.btn_submit);
 
          layer1                 = findViewById(R.id.layer1);
@@ -183,14 +183,14 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         edtSalary               = (MaterialEditText) findViewById(R.id.edt_salary);
 
         //init the current address
-        edtcurrentaddress1 = (MaterialEditText)findViewById(R.id.edt_currentaddress1);
-        edtcurrentaddress2 = (MaterialEditText)findViewById(R.id.edt_currentaddress2);
-        edtcurrentcity = (MaterialEditText)findViewById(R.id.edt_currentcity);
-        edtcurrentpincode = (MaterialEditText)findViewById(R.id.edt_currentpincode);
-        spncurrentstate = (Spinner)findViewById(R.id.spn_currentstate) ;
+        edtcurrentaddress1      = (MaterialEditText)findViewById(R.id.edt_currentaddress1);
+        edtcurrentaddress2      = (MaterialEditText)findViewById(R.id.edt_currentaddress2);
+        edtcurrentcity          = (MaterialEditText)findViewById(R.id.edt_currentcity);
+        edtcurrentpincode       = (MaterialEditText)findViewById(R.id.edt_currentpincode);
+        spncurrentstate         = (Spinner)findViewById(R.id.spn_currentstate) ;
 
         //init Check Box
-        chk_isPermanent = (CheckBox)findViewById(R.id.chk_type);
+        chk_isPermanent         = (CheckBox)findViewById(R.id.chk_type);
 
 
         //spngender             = (MaterialSpinner)findViewById(R.id.spinner_gender);
@@ -222,8 +222,10 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                 layer2.setVisibility(View.VISIBLE);
                 mfs100Mantra.onStop();
                 if(Common.isConnectedToInterNet(mContext)){
+                    // Insert into Server Side
                     onWorkerRegistration();
                 }else{
+                    //Save on offline
                     Toast.makeText(mContext, "Data has been Saved Offline", Toast.LENGTH_SHORT).show();
                 }
             }else
@@ -239,11 +241,13 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                 layer3.setVisibility(View.VISIBLE);
                 if(Common.isConnectedToInterNet(mContext))
                 {
+                    //Online
                     onWorkerContactRegistration();
                 }else{
+                    //Save on offline
+                    onOfflineWorkerContact1();
                     Toast.makeText(mContext, "Data has been Saved Offline", Toast.LENGTH_SHORT).show();
                 }
-
             }
             else
             {
@@ -257,8 +261,11 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             layer4.setVisibility(View.VISIBLE);
 
             if(Common.isConnectedToInterNet(mContext)){
+                //save for online
                 onWorkerCurrentContactRegistration();
             }else{
+                //save for Offline
+                onOfflineWorkerContact2();
                 Toast.makeText(mContext, "Data has been Saved Offline", Toast.LENGTH_SHORT).show();
             }
         }
@@ -269,34 +276,69 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             layer5.setVisibility(View.VISIBLE);
 
             if(Common.isConnectedToInterNet(mContext)){
+                //Save for Online
                 onBankDetailsRegistration();
             }else{
+                //save for Offline
+                onOfflineWorkerBankDetails();
                 Toast.makeText(mContext, "Data has been Saved Offline", Toast.LENGTH_SHORT).show();
             }
         }
-        if(view == btnLayer4previous)
+        if(view == btnLayer2Skip)
         {
-            layer4.setVisibility(View.INVISIBLE);
+
+            layer2.setVisibility(View.INVISIBLE);
             layer3.setVisibility(View.VISIBLE);
+            if(Common.isConnectedToInterNet(mContext))
+            {
+                //Save on online
+                onWorkerContactRegistration();
+            }else{
+                //Save in offline
+                onOfflineWorkerContact1();
+                Toast.makeText(mContext, "Data has been Saved Offline", Toast.LENGTH_SHORT).show();
+            }
         }
-        if(view == btnLayer3Previous)
+        if(view == btnLayer3Skip)
         {
             layer3.setVisibility(View.INVISIBLE);
-            layer2.setVisibility(View.VISIBLE);
+            layer4.setVisibility(View.VISIBLE);
+
+            if(Common.isConnectedToInterNet(mContext)){
+                //Save on online
+                onWorkerCurrentContactRegistration();
+            }else{
+                //save for Offline
+                onOfflineWorkerContact2();
+                Toast.makeText(mContext, "Data has been Saved Offline", Toast.LENGTH_SHORT).show();
+            }
         }
-        if(view == btnLayer2Previous)
+        if(view == btnLayer4Skip)
         {
             layer2.setVisibility(View.INVISIBLE);
             layer1.setVisibility(View.VISIBLE);
+
+            if(Common.isConnectedToInterNet(mContext)){
+                //Save for Online
+                onBankDetailsRegistration();
+            }else{
+                //save for Offline
+                onOfflineWorkerBankDetails();
+                Toast.makeText(mContext, "Data has been Saved Offline", Toast.LENGTH_SHORT).show();
+            }
         }
         if(view == btnSubmit)
         {
             if(Common.isConnectedToInterNet(mContext)){
+                //Upload image into the server into the constant table
                 onImageUpload(workerModel.getImageUrl().toString());
+                WorkerRegistrationBtn();
             }else{
+                //Offline save all data into the temp table
+                WorkerRegistrationBtn();
                 Toast.makeText(mContext, "Data has been Saved Offline", Toast.LENGTH_SHORT).show();
             }
-            WorkerRegistrationBtn();
+
         }
         if(view == profileimage)
         {
@@ -329,6 +371,20 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             // Log.e(TAG, mfs100Mantra.getScanFingerprint().toString());
             //  mfs100Mantra.onStop();
         }
+    }
+
+    private void onOfflineWorkerBankDetails() {
+        //Save offline Data in worker Bank details
+
+    }
+
+    private void onOfflineWorkerContact2() {
+        //Save offline Data in worker Current contact details
+
+    }
+
+    private void onOfflineWorkerContact1() {
+        //Save offline Data in worker Permanent contact details
     }
 
     private void onWorkerRegistration() {

@@ -195,7 +195,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
             layer2.setVisibility(View.VISIBLE);
             mfs100Mantra.onStop();
 
-            onWorkerRegistration();
+            onUpdateWorkerRegistration();
           /*  if(!validationCheckLayer1())
             {
                 layer1.setVisibility(View.INVISIBLE);
@@ -211,7 +211,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         {
             layer2.setVisibility(View.INVISIBLE);
             layer3.setVisibility(View.VISIBLE);
-            onWorkerContactRegistration();
+            onUpdateWorkerContactRegistration();
 
         }
             /*if (!validationCheckLayer2())
@@ -227,7 +227,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         {
             layer3.setVisibility(View.INVISIBLE);
             layer4.setVisibility(View.VISIBLE);
-            onWorkerCurrentContactRegistration();
+            onUpdateWorkerCurrentContactRegistration();
             /*if(!validationChekLayer3())
             {
                 layer3.setVisibility(View.INVISIBLE);
@@ -242,7 +242,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         {
             layer4.setVisibility(View.INVISIBLE);
             layer5.setVisibility(View.VISIBLE);
-            onBankDetailsRegistration();
+            onUpdateBankDetailsRegistration();
             /*if(!validationChekLayer3())
             {
                 layer3.setVisibility(View.INVISIBLE);
@@ -269,7 +269,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         }
         if(view == btnSubmit)
         {
-            WorkerRegistrationBtn();
+            UpdateWorkerRegistrationBtn();
         }
         if(view == profileimage)
         {
@@ -304,7 +304,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    private void onWorkerRegistration() {
+    private void onUpdateWorkerRegistration() {
         workerModel=new WorkerModel();
 
         workerModel.setName(edtname.getText().toString());
@@ -398,7 +398,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-    private void onWorkerContactRegistration() {
+    private void onUpdateWorkerContactRegistration() {
         contactdetails=new Contactdetails();
 
         contactdetails.setAddress_line_1(edtaddressline1.getText().toString());
@@ -473,7 +473,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-    private void onWorkerCurrentContactRegistration() {
+    private void onUpdateWorkerCurrentContactRegistration() {
         contactdetails=new Contactdetails();
 
         contactdetails.setAddress_line_1(edtcurrentaddress1.getText().toString());
@@ -546,7 +546,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-    private void onBankDetailsRegistration() {
+    private void onUpdateBankDetailsRegistration() {
         bankAccount=new BankAccount();
 
         bankAccount.setAccount_holder_name(edtholdername.getText().toString());
@@ -608,7 +608,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    private void WorkerRegistrationBtn() {
+    private void UpdateWorkerRegistrationBtn() {
 
         workerModel=new WorkerModel();
 

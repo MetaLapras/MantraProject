@@ -632,7 +632,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                 contactdetails = (Contactdetails) result.getContactdetails();
                                 Log.e("Contact Details",contactdetails.toString());
 
-                                //database.deleteToPorjects();
+                                database.addToAddressDetails(contactdetails);
                                 //database.addToPorject(projectdetails);
                             }
 
@@ -665,8 +665,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         contactdetails.setAddress_line_1(edtcurrentaddress1.getText().toString());
         // workerModel.setId(edt_Id.getText().toString());
         contactdetails.setAddress_line_2(edtcurrentaddress2.getText().toString());
-        // contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
-        // contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
+        //contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
+        //contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
         contactdetails.setCity(edtcurrentcity.getText().toString());
         contactdetails.setState(spncurrentstate.getSelectedItem().toString().trim());
 
@@ -710,8 +710,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                 contactdetails = (Contactdetails) result.getContactdetails();
                                 Log.e("Contact Details",contactdetails.toString());
 
-                                //database.deleteToPorjects();
-                                //database.addToPorject(projectdetails);
+                                database.addToAddressDetails(contactdetails);
+
                             }
 
                             // workerModel = result.getWorkerModel();
@@ -775,8 +775,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                 bankAccount = (BankAccount) result.getBankdetails();
                                 Log.e("Bank Details",bankAccount.toString());
 
-                                //database.deleteToPorjects();
-                                //database.addToPorject(projectdetails);
+                                database.addToBankDetails(bankAccount);
                             }
 
                             // workerModel = result.getWorkerModel();
@@ -844,7 +843,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                 workerModel.setFingerprint2(finger.get(1).toString());
             }
 
-
             try{
                 if(type.equals("edit"))
                 {
@@ -854,7 +852,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                     finish();
                 }else if(type.equals("register"))
                 {
-
                    // onImageUpload(workerModel.getImageUrl().toString());
                     database.addToWorkers(workerModel);
                     Toast.makeText(mContext, "Worker Registred successfully", Toast.LENGTH_SHORT).show();
@@ -900,6 +897,31 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                 }else {
                                     Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
                                     Log.e("-->", result.toString());
+
+                                    mService.getWorkerDetails(
+                                            result.getImageURL().toString(),
+                                            PreferenceUtils.getWorker_id(mContext).toString(),
+                                            PreferenceUtils.getEmployee_id(mContext).toString()
+                                    ).enqueue(new Callback<WorkerModel>() {
+                                        @Override
+                                        public void onResponse(Call<WorkerModel> call, Response<WorkerModel> response) {
+                                            WorkerModel result = response.body();
+                                            if(result.isError())
+                                            {
+                                                Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
+                                                Log.e("-->",result.getError_msg() );
+                                                dialog.dismiss();
+                                            }else {
+                                                Toast.makeText(mContext, "Worker Registred Successfully", Toast.LENGTH_SHORT).show();
+                                                Log.e("-->", result.toString());
+                                            }
+                                        }
+                                        @Override
+                                        public void onFailure(Call<WorkerModel> call, Throwable t) {
+
+                                        }
+                                    });
+
                                 }
                             }
 
@@ -910,9 +932,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                         });
             }
         }).start();
-
-
-
     }
 
     private void setWorkerDetails() {

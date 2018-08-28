@@ -9,15 +9,7 @@ public class APIWorkerImageResponse implements Serializable {
     public int success ;
     public String error_msg;
     public String ImageURL ;
-    public WorkerModel workerModel;
-
-    public APIWorkerImageResponse(boolean error, int success, String error_msg, String imageURL, WorkerModel workerModel) {
-        this.error = error;
-        this.success = success;
-        this.error_msg = error_msg;
-        ImageURL = imageURL;
-        this.workerModel = workerModel;
-    }
+    public String ImageName ;
 
     public APIWorkerImageResponse() {
     }
@@ -29,8 +21,16 @@ public class APIWorkerImageResponse implements Serializable {
                 ", success=" + success +
                 ", error_msg='" + error_msg + '\'' +
                 ", ImageURL='" + ImageURL + '\'' +
-                ", workerModel=" + workerModel +
+                ", ImageName='" + ImageName + '\'' +
                 '}';
+    }
+
+    public APIWorkerImageResponse(boolean error, int success, String error_msg, String imageURL, String imageName) {
+        this.error = error;
+        this.success = success;
+        this.error_msg = error_msg;
+        ImageURL = imageURL;
+        ImageName = imageName;
     }
 
     public boolean isError() {
@@ -65,11 +65,11 @@ public class APIWorkerImageResponse implements Serializable {
         ImageURL = imageURL;
     }
 
-    public WorkerModel getWorkerModel() {
-        return workerModel;
+    public String getImageName() {
+        return ImageName;
     }
 
-    public void setWorkerModel(WorkerModel workerModel) {
-        this.workerModel = workerModel;
+    public void setImageName(String imageName) {
+        ImageName = imageName;
     }
 }

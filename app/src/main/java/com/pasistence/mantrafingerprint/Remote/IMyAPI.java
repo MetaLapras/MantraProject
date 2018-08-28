@@ -106,4 +106,12 @@ public interface IMyAPI {
             //@Part("uploadfile") String uploadfile,
             @Part MultipartBody.Part file
     );
+
+    @FormUrlEncoded
+    @POST("getworkerDetails.php")
+    Call<WorkerModel> getWorkerDetails(
+            @Field("uploadfile") String uploadfile,
+            @Field("worker_id") String worker_id,
+            @Field("employee_id") String employee_id
+    );
 }

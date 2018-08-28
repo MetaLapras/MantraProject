@@ -795,7 +795,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         workerModel=new WorkerModel();
 
             workerModel.setName(edtname.getText().toString());
-           // workerModel.setId(edt_Id.getText().toString());
+            //workerModel.setId(edt_Id.getText().toString());
             workerModel.setAdharcard_id(edtaadharnum.getText().toString());
             workerModel.setDob(edtdob.getText().toString());
             workerModel.setEmail(edtemail.getText().toString());
@@ -822,7 +822,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                 e.printStackTrace();
                 workerModel.setImageUrl("");
             }
-            workerModel.setId(id);
+            workerModel.setWorkerId(PreferenceUtils.getWorker_id(mContext));
             finger = mfs100Mantra.getList();
 
 

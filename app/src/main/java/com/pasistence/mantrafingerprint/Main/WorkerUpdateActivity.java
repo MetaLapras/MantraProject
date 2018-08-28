@@ -325,6 +325,8 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
             workerModel.setFingerprint1(finger.get(0).toString());
             workerModel.setFingerprint2(finger.get(1).toString());
         }
+        database.updateToWorkersMaster(workerModel);
+
         try
         {
             final AlertDialog dialog = new SpotsDialog(mContext);
@@ -410,6 +412,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         contactdetails.setState(spnstate.getSelectedItem().toString().trim());
         contactdetails.setPincode(Integer.parseInt(edtpincode.getText().toString()));
 
+        database.updateToAddressMaster(contactdetails);
         try
         {
             final AlertDialog dialog = new SpotsDialog(mContext);
@@ -485,6 +488,8 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         contactdetails.setState(spncurrentstate.getSelectedItem().toString().trim());
         contactdetails.setPincode(Integer.parseInt(edtcurrentpincode.getText().toString()));
 
+        database.updateToAddressMaster(contactdetails);
+
         try
         {
             final AlertDialog dialog = new SpotsDialog(mContext);
@@ -553,6 +558,8 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         bankAccount.setAccount_no(edtbankaccountnumber.getText().toString());
         bankAccount.setBank_name(edtbankname.getText().toString());
         bankAccount.setIfsc_code(edtbankifsccode.getText().toString());
+
+        database.updateToBankMaster(bankAccount);
 
         try
         {

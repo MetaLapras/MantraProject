@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.pasistence.mantrafingerprint.Main.ShowDetailsActivity;
 import com.pasistence.mantrafingerprint.Main.WorkerDisplayList;
 import com.pasistence.mantrafingerprint.Main.WorkerRegistrationActivity;
+import com.pasistence.mantrafingerprint.Main.WorkerUpdateActivity;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.ViewHolder.WorkerViewHolder;
@@ -78,7 +79,7 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
 
                 Log.e(TAG, workers.toString() );
 
-                Intent UpdateWokerIntent = new Intent(mContext, WorkerRegistrationActivity.class);
+                Intent UpdateWokerIntent = new Intent(mContext, WorkerUpdateActivity.class);
                 UpdateWokerIntent.putExtra("type","edit");
                 UpdateWokerIntent.putExtra("id",workers.getId());
                 UpdateWokerIntent.putExtra("workers",workers);

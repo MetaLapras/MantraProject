@@ -384,8 +384,8 @@ public class Database extends SQLiteAssetHelper {
 
                 /*workerModel.getWorkerId()/*Add Later on when Webservices*/
 
-        db.update(sqlTable, values, "id = ?",
-                new String[]{workerModel.getId()});
+        db.update(sqlTable, values, "worker_id = ?",
+                new String[]{workerModel.getWorkerId()});
     }
     //delete worker by worker id
     public void deleteToWorkers(String workerId) {

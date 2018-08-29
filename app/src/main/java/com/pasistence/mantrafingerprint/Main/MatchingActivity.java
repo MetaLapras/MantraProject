@@ -70,19 +70,6 @@ public class MatchingActivity extends AppCompatActivity {
         });
     }
 
-    private void setworker() {
-        workerModel = mfs100Mantra.getWorkerModel();
-        Log.e(TAG, workerModel.toString());
-
-        WorkerModel workerModel = mfs100Mantra.getWorkerModel();
-        txtWorkerName.setText(workerModel.getName());
-        txtWorkerId.setText(workerModel.getAdharcard_id());
-
-        Glide.with(mContext)
-                .load(workerModel.getImageUrl().toString())
-                .into(CircularImage);
-    }
-
     private void mInit() {
         mContext = MatchingActivity.this;
         txtProjectName              = (TextView) findViewById(R.id.txt_ProjectName);

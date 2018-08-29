@@ -37,7 +37,7 @@ public class MFS100Mantra implements MFS100Event {
     CircleImageView imgPicture;
     String scanFingerprint;
     ArrayList<String> list = new ArrayList<String>();
-    ArrayList<WorkerModel> AttendanceList = new ArrayList<WorkerModel>();
+    ArrayList<WorkerModel> workerList = new ArrayList<WorkerModel>();
     Database database;
 
     private enum ScannerAction {
@@ -382,7 +382,7 @@ public class MFS100Mantra implements MFS100Event {
                         .load(workerModel.getImageUrl().toString())
                         .into(imgPicture);
 
-                AttendanceList.add(workerModel);
+                workerList.add(workerModel);
 
             }
         });
@@ -454,6 +454,6 @@ public class MFS100Mantra implements MFS100Event {
     }
 
     public ArrayList<WorkerModel> getAttendanceList() {
-        return AttendanceList;
+        return workerList;
     }
 }

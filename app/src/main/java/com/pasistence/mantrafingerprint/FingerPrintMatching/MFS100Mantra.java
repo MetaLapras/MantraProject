@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.mantra.mfs100.FingerData;
 import com.mantra.mfs100.MFS100;
 import com.mantra.mfs100.MFS100Event;
@@ -24,13 +25,20 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static java.lang.System.exit;
+
 public class MFS100Mantra implements MFS100Event {
 
     Activity activity;
 
     ImageView imgFinger;
+    CircleImageView imgPicture;
     String scanFingerprint;
     ArrayList<String> list = new ArrayList<String>();
+    ArrayList<WorkerModel> AttendanceList = new ArrayList<WorkerModel>();
+    Database database;
 
     private enum ScannerAction {
         Capture, Verify
@@ -52,7 +60,7 @@ public class MFS100Mantra implements MFS100Event {
 
     WorkerModel workerModel ;
     public boolean checkDevice;
-    TextView lblMessage;
+    TextView lblMessage,txtName,txtWorkerId;
 
 
     public MFS100Mantra(Activity activity,TextView lblMessage) {
@@ -60,11 +68,13 @@ public class MFS100Mantra implements MFS100Event {
         this.lblMessage = lblMessage;
     }
 
-    public MFS100Mantra(Activity activity, ImageView imgFinger, WorkerModel workerModel, TextView lblMessage) {
+    public MFS100Mantra(Activity activity, ImageView imgFinger, CircleImageView imgPicture,TextView txtName,TextView txtWorkerId, TextView lblMessage) {
         this.activity = activity;
         this.imgFinger = imgFinger;
-        this.workerModel = workerModel;
         this.lblMessage = lblMessage;
+        this.txtWorkerId = txtWorkerId;
+        this.imgPicture = imgPicture;
+        this.txtName = txtName;
     }
 
     @Override
@@ -112,7 +122,7 @@ public class MFS100Mantra implements MFS100Event {
     public void onStart() {
         if (mfs100 == null) {
             mfs100 = new MFS100(this);
-            //mfs100.SetApplicationContext(activity);
+            mfs100.SetApplicationContext(activity);
         } else {
             InitScanner();
         }
@@ -232,8 +242,8 @@ public class MFS100Mantra implements MFS100Event {
 
             Log.e("verify-->", Verify_Template.toString());
 
+            //get all data from database of workers
             fingerprint = new Database(activity).getAllWorkers();
-
 
            for(WorkerModel workerModel : fingerprint)
             {
@@ -248,8 +258,9 @@ public class MFS100Mantra implements MFS100Event {
                     //if first finger print match
                     if (ret >= 1400) {
                         SetTextOnUIThread("Finger1 matched with score: " + ret);
-                        setVerfiy(true);
-                        setWorkModel(workerModel);
+                        SetTextOnUIThread1(workerModel);
+                       // setWorkerModel(workerModel);
+                       // setVerfiy(true);
                         break;
                     } else {
                         //if second finger print match
@@ -259,11 +270,13 @@ public class MFS100Mantra implements MFS100Event {
                         } else {
                             if (ret1 >= 1400) {
                                 SetTextOnUIThread("Finger2 matched with score: " + ret1);
-                                setVerfiy(true);
-                                setWorkModel(workerModel);
+                                SetTextOnUIThread1(workerModel);
+                                //setWorkerModel(workerModel);
+                                //setVerfiy(true);
                                 break;
                             } else {
                                 SetTextOnUIThread("Finger not matched, score: " + ret1);
+                                SetTextOnUINotMatch();
                             }
                         }
                     }
@@ -356,6 +369,54 @@ public class MFS100Mantra implements MFS100Event {
         });
     }
 
+    public void SetTextOnUIThread1(final WorkerModel workerModel) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // Log.e(TAG, str);
+
+                txtName.setText(workerModel.getName());
+                txtWorkerId.setText(workerModel.getAdharcard_id());
+
+                Glide.with(activity)
+                        .load(workerModel.getImageUrl().toString())
+                        .into(imgPicture);
+
+                AttendanceList.add(workerModel);
+
+            }
+        });
+    }
+
+
+    private void SetTextOnUINotMatch() {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // Log.e(TAG, str);
+
+                txtName.setText("No Match Found");
+                txtWorkerId.setText("Worker not present");
+
+                Glide.with(activity)
+                        .load(getImage("images"))
+                        .into(imgPicture);
+
+                Glide.with(activity)
+                        .load(getImage("ic_fingerprint_1"))
+                        .into(imgFinger);
+
+            }
+        });
+    }
+
+    public int getImage(String imageName) {
+
+        int drawableResourceId = activity.getResources().getIdentifier(imageName, "drawable", activity.getPackageName());
+
+        return drawableResourceId;
+    }
+
     private void SetLogOnUIThread(final String str) {
 
      /*   txtEventLog.post(new Runnable() {
@@ -392,18 +453,7 @@ public class MFS100Mantra implements MFS100Event {
         return workerModel;
     }
 
-    public WorkerModel setWorkModel(WorkerModel workerModel)
-    {
-        return workerModel;
+    public ArrayList<WorkerModel> getAttendanceList() {
+        return AttendanceList;
     }
-
-    public boolean isVerfiy() {
-        return isVerfiy;
-    }
-
-    public void setVerfiy(boolean verfiy) {
-        isVerfiy = verfiy;
-    }
-
-
 }

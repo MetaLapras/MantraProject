@@ -176,7 +176,9 @@
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:padding="7dp"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_fingerprint_1"
+                android:background="@drawable/image_border"/>
             <TextView
                 android:id="@+id/txt_matchingWorkerName"
                 android:layout_width="wrap_content"
@@ -208,13 +210,14 @@
             </LinearLayout>
             <TextView
                 android:id="@+id/lbl_message"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Message"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 android:textColor="#000"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:gravity="center" />
 
 
         </LinearLayout>

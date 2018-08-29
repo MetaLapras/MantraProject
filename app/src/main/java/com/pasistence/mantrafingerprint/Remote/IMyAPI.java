@@ -2,6 +2,7 @@ package com.pasistence.mantrafingerprint.Remote;
 
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIBankResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIContactResponse;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIDeleteResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerImageResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerPersonalResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectResponse;
@@ -164,11 +165,11 @@ public interface IMyAPI {
 
     @FormUrlEncoded
     @POST("DeleteWorkerDetails.php")
-    Call<APIBankResponse> deleteWorkerDetails(
+    Call<APIDeleteResponse> deleteWorkerDetails(
             @Field("worker_id") String worker_id,
-            @Field("employee_id") String project_id,
+            @Field("employee_id") String employee_id,
+            @Field("project_id") String project_id,
             @Field("bank_id") String bank_id,
-            @Field("bank_name") String bank_name,
             @Field("permanent_address_id") String permanent_address_id,
             @Field("current_address_id") String current_address_id
     );

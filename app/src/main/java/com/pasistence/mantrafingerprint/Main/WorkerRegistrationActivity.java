@@ -200,6 +200,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         //init Api
         mService = Common.getApi();
     }
+
     @Override
     public void onClick(View view) {
         if(view == btnLayer1Next)
@@ -449,6 +450,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
 
         finger = mfs100Mantra.getList();
+
         if(finger.size()<=0)
         {
             workerModel.setFingerprint1("");

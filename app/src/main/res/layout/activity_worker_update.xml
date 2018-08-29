@@ -7,6 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".Main.WorkerUpdateActivity">
 
+    <TextView
+        android:id="@+id/txt_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
     <include
         android:id="@+id/layer1"
         layout="@layout/custom_personal_details"/>

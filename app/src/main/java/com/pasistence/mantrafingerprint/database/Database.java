@@ -347,7 +347,6 @@ public class Database extends SQLiteAssetHelper {
 
         db.execSQL(query);
     }
-
     // update worker_master by worker id
     public void updateToWorkersMaster(WorkerModel workerModel) {
         String sqlTable = "worker_master";
@@ -680,8 +679,59 @@ public class Database extends SQLiteAssetHelper {
 
         /*workerModel.getWorkerId()/*Add Later on when Webservices*/
 
-        db.update(sqlTable, values, "worker_id = ?",
-                new String[]{String.valueOf(contactdetails.getWorker_id())});
+        db.update(sqlTable, values, "worker_id = ? AND address_id =?",
+                new String[]{String.valueOf(contactdetails.getWorker_id()),String.valueOf(contactdetails.getId())});
+    }
+    public List<Contactdetails> getAddressMasterDetails(String workerId,String permanent_address_id) {
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb =  new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {
+                        "address_id",
+                        "contact1" ,
+                        "contact2" ,
+                        "address_line_1",
+                        "address_line_2" ,
+                        "city",
+                        "pincode" ,
+                        "state" ,
+                        "country" ,
+                        "worker_id",
+                        "type"
+        };
+        String sqlTable = "address_master";
+
+        String selectQuery = "SELECT  * FROM  address_master ";
+
+        qb.setTables(sqlTable);
+        //Cursor cursor = qb.query(db,sqlSelect,"name = ?",new String[]{name},null,null,null);
+        Cursor cursor = qb.query(db,sqlSelect,"address_id = ? AND worker_id = ?",new String[]{permanent_address_id,workerId},null,null,null);
+
+        final List<Contactdetails> result = new ArrayList<Contactdetails>();
+        if(cursor.moveToFirst())
+        {
+            do {
+                Contactdetails details = new Contactdetails();
+                details.setId(cursor.getInt(cursor.getColumnIndex("address_id")));
+                details.setContact1(cursor.getString(cursor.getColumnIndex("contact1")));
+                details.setContact2(cursor.getString(cursor.getColumnIndex("contact2")));
+                details.setAddress_line_1(cursor.getString(cursor.getColumnIndex("address_line_1")));
+                details.setAddress_line_2(cursor.getString(cursor.getColumnIndex("address_line_2")));
+                details.setCity(cursor.getString(cursor.getColumnIndex("city")));
+                details.setPincode(cursor.getString(cursor.getColumnIndex("pincode")));
+                details.setState(cursor.getString(cursor.getColumnIndex("state")));
+                details.setCountry(cursor.getString(cursor.getColumnIndex("country")));
+                details.setWorker_id(cursor.getInt(cursor.getColumnIndex("worker_id")));
+                details.setType(cursor.getString(cursor.getColumnIndex("type")));
+
+                result.add(details);
+
+                Log.e(TAG, result.toString() );
+
+            }while (cursor.moveToNext());
+        }
+        return result;
+
     }
 
     // insert into worker Bank details
@@ -749,6 +799,52 @@ public class Database extends SQLiteAssetHelper {
         db.update(sqlTable, values, "worker_id = ?",
                 new String[]{String.valueOf(bankAccount.getWorker_id())});
     }
+    //Get Bank Details
+    public List<BankAccount> getBankMasterDetails(String workerId,String bankId) {
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb =  new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {
+                        "bank_id" ,
+                        "account_holder_name" ,
+                        "ifsc_code" ,
+                        "account_no",
+                        "bank_name" ,
+                        "worker_id" ,
+                        "activation"
+        };
+        String sqlTable = "bank_master";
+
+        String selectQuery = "SELECT  * FROM  bank_master ";
+
+        qb.setTables(sqlTable);
+        //Cursor cursor = qb.query(db,sqlSelect,"name = ?",new String[]{name},null,null,null);
+        Cursor cursor = qb.query(db,sqlSelect,"bank_id = ? AND worker_id = ?",new String[]{bankId,workerId},null,null,null);
+
+        final List<BankAccount> result = new ArrayList<BankAccount>();
+        if(cursor.moveToFirst())
+        {
+            do {
+                BankAccount details = new BankAccount();
+                details.setId(cursor.getInt(cursor.getColumnIndex("bank_id")));
+                details.setBank_name(cursor.getString(cursor.getColumnIndex("bank_name")));
+                details.setAccount_holder_name(cursor.getString(cursor.getColumnIndex("account_holder_name")));
+                details.setAccount_no(cursor.getString(cursor.getColumnIndex("account_no")));
+                details.setWorker_id(cursor.getInt(cursor.getColumnIndex("worker_id")));
+                details.setActivation(cursor.getString(cursor.getColumnIndex("activation")));
+                details.setIfsc_code(cursor.getString(cursor.getColumnIndex("ifsc_code")));
+
+
+                result.add(details);
+
+                Log.e(TAG, result.toString() );
+
+            }while (cursor.moveToNext());
+        }
+        return result;
+
+    }
+
 
 
 

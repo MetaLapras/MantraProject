@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -52,7 +54,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class WorkerUpdateActivity extends AppCompatActivity implements View.OnClickListener ,UploadCallBack {
-    public static final String TAG ="reg -->";
+    public static final String TAG ="update -->";
     Button btnLayer1Next,btnLayer2Next,btnLayer3Next,btnLayer4Next,btnLayer2Skip,btnLayer3Skip,btnLayer4Skip,btnSubmit;
     Context mContext;
     View layer1,layer2,layer3,layer4,layer5;
@@ -61,6 +63,8 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
     private boolean isEnroll1=false;
     private boolean isEnroll2=false;
     CheckBox chk_isPermanent;
+    TextView lblMessage;
+    String per_address_id,curr_address_id,bank_id;
 
     BankAccount bankAccount;
 
@@ -81,7 +85,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
 
 
     private int mYear, mMonth, mDay;
-    String type,id ;
+    String type,id;
     ArrayList<String> finger;
 
     MFS100Mantra mfs100Mantra;
@@ -100,13 +104,9 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
             {
                 type = (String)getIntent().getStringExtra("type");
                 id = (String)getIntent().getStringExtra("id");
-                Log.e(TAG, "type"+type+" "+"id"+id );
+                Log.e(TAG, "type="+type+" "+"id= "+id );
 
-                if(!type.equals("register"))
-                {
-                    setWorkerDetails();
-                }
-                //setWorkerDetails();
+                setWorkerDetails(id);
             }
         }catch (Exception e)
         {
@@ -189,11 +189,14 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         //Init Common
         common = new Common();
 
+        //Textview Message
+        lblMessage              = (TextView)findViewById(R.id.txt_message);
+
         //Init Database
         database = new Database(mContext);
 
         //Init Mantra100 for Fingerprint
-        mfs100Mantra = new MFS100Mantra(WorkerUpdateActivity.this);
+        mfs100Mantra = new MFS100Mantra(WorkerUpdateActivity.this,lblMessage);
         mfs100Mantra.onStart();
 
         //init Api
@@ -317,7 +320,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         }
         if(view == btnSubmit)
         {
-            WorkerRegistrationBtn();
+            WorkerUpdateBtn();
         }
         if(view == profileimage)
         {
@@ -352,118 +355,77 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    private void onWorkerUpdateOffline() {
+    //Set worker details for views
+    private void setWorkerDetails(String workerId) {
+
         workerModel=new WorkerModel();
 
-        workerModel.setName(edtname.getText().toString());
-        // workerModel.setId(edt_Id.getText().toString());
-        workerModel.setAdharcard_id(edtaadharnum.getText().toString());
-        workerModel.setDob(edtdob.getText().toString());
-        workerModel.setEmail(edtemail.getText().toString());
-        workerModel.setGender(spngender.getSelectedItem().toString().trim());
-        workerModel.setSalary(edtSalary.getText().toString());
+        workerModel = (WorkerModel) getIntent().getSerializableExtra("workers");
 
+        edtname.setText(workerModel.getName());
+        edtaadharnum.setText(workerModel.getAdharcard_id());
+        edtdob.setText(workerModel.getDob());
+        edtemail.setText(workerModel.getEmail());
+        spngender.setSelection(getIndex(spngender,workerModel.getGender()));
+        edtSalary.setText(workerModel.getSalary());
 
-
-        finger = mfs100Mantra.getList();
-        if(finger.size()<=0)
-        {
-            workerModel.setFingerprint1("");
-            workerModel.setFingerprint2("");
-
-        }else {
-            workerModel.setFingerprint1(finger.get(0).toString());
-            isEnroll1 = true;
-            workerModel.setFingerprint2(finger.get(1).toString());
-            isEnroll2 = true;
-        }
-     
-        database.updateToTempWorkersMaster(workerModel);
-
-    }
-
-    private void onOfflineWorkerBankDetails() {
-        //Save offline Data in worker Bank details
-        bankAccount=new BankAccount();
-
-        bankAccount.setAccount_holder_name(edtholdername.getText().toString());
-        bankAccount.setAccount_no(edtbankaccountnumber.getText().toString());
-        bankAccount.setBank_name(edtbankname.getText().toString());
-        bankAccount.setIfsc_code(edtbankifsccode.getText().toString());
-        bankAccount.setWorker_id(Integer.parseInt(PreferenceUtils.getWorker_id(mContext).toString()));
-        bankAccount.setActivation("activate");
-
-        database.updateToTempBankMaster(bankAccount);
-    }
-
-    private void onOfflineWorkerContact2() {
-        //Save offline Data in worker Current contact details
-        contactdetails=new Contactdetails();
-
-        contactdetails.setAddress_line_1(edtcurrentaddress1.getText().toString());
-        // workerModel.setId(edt_Id.getText().toString());
-        contactdetails.setAddress_line_2(edtcurrentaddress2.getText().toString());
-        // contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
-        // contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
-        contactdetails.setCity(edtcurrentcity.getText().toString());
-        contactdetails.setState(spncurrentstate.getSelectedItem().toString().trim());
-
-        if(edtpincode.getText().equals("")||edtpincode.getText().equals(null)){
-            contactdetails.setPincode(0);
-        }else {
-            contactdetails.setPincode(Integer.parseInt(edtcurrentpincode.getText().toString()));
-        }
-
-        database.updateToTempAddressMaster(contactdetails); //Add to Temp Contact 2
-    }
-
-    private void onOfflineWorkerContact1() {
-        //Save offline Data in worker Permanent contact details
-        contactdetails=new Contactdetails();
-
-        contactdetails.setAddress_line_1(edtaddressline1.getText().toString());
-        contactdetails.setAddress_line_2(edtaddressline2.getText().toString());
-
-        if(edtmobilenum.getText().toString().equals("")||edtmobilenum.getText().equals(null)){
-            contactdetails.setContact1(0);
-        }else {
-            contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
-        }
-        if(edtalternatenum.getText().toString().equals("")||edtalternatenum.getText().equals(null)){
-            contactdetails.setContact2(0);
-        }else {
-            contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
-        }
-        if(edtpincode.getText().toString().equals("")||edtpincode.getText().equals(null)){
-            contactdetails.setPincode(0);
-        }else {
-            contactdetails.setPincode(Integer.parseInt(edtpincode.getText().toString()));
-        }
-
-        if(chk_isPermanent.isChecked())
-        {
-            edtcurrentaddress1.setText(edtaddressline1.getText());
-            edtcurrentaddress2.setText(edtaddressline2.getText());
-            edtcurrentcity.setText(edtcity.getText());
-            edtcurrentpincode.setText(edtpincode.getText());
-            contactdetails.setType("both");
-            spncurrentstate.setSelection(getIndex(spncurrentstate, spnstate.getSelectedItem().toString().trim()));
+        if(workerModel.getFingerprint1().toString().equals("")||workerModel.getFingerprint1().equals(null)){
+            imgfingerprint1.setColorFilter(Color.RED);
         }else
         {
-            contactdetails.setType("permanent");
+            imgfingerprint1.setColorFilter(Color.GREEN);
+            isEnroll1=true;
+        }
+        if(workerModel.getFingerprint2().toString().equals("")||workerModel.getFingerprint2().equals(null)){
+            imgfingerprint2.setColorFilter(Color.RED);
+        }else
+        {
+            imgfingerprint2.setColorFilter(Color.GREEN);
+            isEnroll2=true;
         }
 
 
-        // contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
-        // contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
-        contactdetails.setCity(edtcity.getText().toString());
-        contactdetails.setState(spnstate.getSelectedItem().toString().trim());
-        // contactdetails.setPincode(Integer.parseInt(edtpincode.getText().toString()));
+        //Contact Details
+        List<Contactdetails> details = database.getAddressMasterDetails(workerId,workerModel.getPermanentAddressId());
+        for(Contactdetails contactdetails : details)
+        {
+            edtmobilenum.setText(contactdetails.getContact1()+"");
+            edtalternatenum.setText(contactdetails.getContact2()+"");
+            edtaddressline1.setText(contactdetails.getAddress_line_1());
+            edtaddressline2.setText(contactdetails.getAddress_line_2());
+            spnstate.setSelection(getIndex(spnstate,contactdetails.getState()));
+            edtcity.setText(contactdetails.getCity());
+            edtpincode.setText(contactdetails.getPincode()+"");
+        }
+        //Current contact Details
+        List<Contactdetails> currentContact = database.getAddressMasterDetails(workerId,workerModel.getCurrentAddressId());
+        for(Contactdetails CurrenContactDetails :  currentContact){
+            edtcurrentaddress1.setText(CurrenContactDetails.getAddress_line_1());
+            edtcurrentaddress2.setText(CurrenContactDetails.getAddress_line_2());
+            edtcurrentcity.setText(CurrenContactDetails.getCity());
+            edtcurrentpincode.setText(CurrenContactDetails.getPincode()+"");
+            spncurrentstate.setSelection(getIndex(spncurrentstate,CurrenContactDetails.getState()));
+        }
+        //Bank Account Details
+        List<BankAccount> bankAccountsList = database.getBankMasterDetails(workerId,workerModel.getBankId());
+        for (BankAccount bankAccount : bankAccountsList){
+            edtholdername.setText(bankAccount.getAccount_holder_name());
+            edtbankifsccode.setText(bankAccount.getIfsc_code());
+            edtbankaccountnumber.setText(bankAccount.getAccount_no());
+            edtbankname.setText(bankAccount.getBank_name());
+        }
+        // profileimage.setImageURI(Uri.parse(workerModel.getImageUrl().toString()));
 
-        database.updateToTempAddressMaster(contactdetails);//Add to Temp address details 1
+        Glide.with(mContext)
+                .load(workerModel.getImageUrl().toString())
+                .into(profileimage);
+
+        setImagePath(workerModel.getImageUrl());
     }
 
+    //online update worker personal details
     private void onWorkerUpdate() {
+
         workerModel=new WorkerModel();
 
         workerModel.setName(edtname.getText().toString());
@@ -473,8 +435,6 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         workerModel.setEmail(edtemail.getText().toString());
         workerModel.setGender(spngender.getSelectedItem().toString().trim());
         workerModel.setSalary(edtSalary.getText().toString());
-
-
 
         finger = mfs100Mantra.getList();
         if(finger.size()<=0)
@@ -495,6 +455,9 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
             dialog.setMessage("Load Personal Details...");
             dialog.setCancelable(false);
 
+
+            Log.e(TAG, id+"empid = "+PreferenceUtils.getEmployee_id(mContext).toString());
+
             mService.updateWorkerDetails(
                     workerModel.getName().toString(),
                     workerModel.getGender().toString(),
@@ -502,10 +465,10 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
                     workerModel.getFingerprint1().toString(),
                     workerModel.getFingerprint2().toString(),
                     workerModel.getEmail().toString(),
-                    PreferenceUtils.getWorker_id(mContext).toString(),
                     workerModel.getSalary().toString(),
                     PreferenceUtils.getEmployee_id(mContext).toString(),
-                    workerModel.getAdharcard_id().toString())
+                    workerModel.getAdharcard_id().toString(),
+                    id)
                     /*mService.workerRegistration(
                             "dfsdfgdsg",
                             "sdfsd",
@@ -528,13 +491,10 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
                                 dialog.dismiss();
                             }else{
                                 //  Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
-                                Log.e("-->",result.getWorkerModel().toString() );
+                                Log.e("-->",result.toString() );
 
                                 workerModel = (WorkerModel) result.getWorkerModel();
-                                Log.e("personal Details",workerModel.toString());
-
-                                PreferenceUtils.setWorker_id(mContext,workerModel.getId());
-
+                                //Log.e("personal Details",workerModel.toString());
                                 //Save data into worker_Master SQLite
                                 database.updateToWorkersMaster(workerModel);
 
@@ -567,19 +527,19 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         contactdetails.setAddress_line_2(edtaddressline2.getText().toString());
 
         if(edtmobilenum.getText().toString().equals("")||edtmobilenum.getText().equals(null)){
-            contactdetails.setContact1(0);
+            contactdetails.setContact1("0");
         }else {
-            contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
+            contactdetails.setContact1(edtmobilenum.getText().toString());
         }
         if(edtalternatenum.getText().toString().equals("")||edtalternatenum.getText().equals(null)){
-            contactdetails.setContact2(0);
+            contactdetails.setContact2("0");
         }else {
-            contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
+            contactdetails.setContact2(edtalternatenum.getText().toString());
         }
         if(edtpincode.getText().toString().equals("")||edtpincode.getText().equals(null)){
-            contactdetails.setPincode(0);
+            contactdetails.setPincode("0");
         }else {
-            contactdetails.setPincode(Integer.parseInt(edtpincode.getText().toString()));
+            contactdetails.setPincode(edtpincode.getText().toString());
         }
 
         if(chk_isPermanent.isChecked())
@@ -588,7 +548,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
             edtcurrentaddress2.setText(edtaddressline2.getText());
             edtcurrentcity.setText(edtcity.getText());
             edtcurrentpincode.setText(edtpincode.getText());
-            contactdetails.setType("both");
+            contactdetails.setType("permanent");
             spncurrentstate.setSelection(getIndex(spncurrentstate, spnstate.getSelectedItem().toString().trim()));
         }else
         {
@@ -637,7 +597,9 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
 
 
                                 contactdetails = (Contactdetails) result.getContactdetails();
-                                Log.e("Contact Details",contactdetails.toString());
+                                Log.e("responseContact Details",contactdetails.toString());
+
+                                per_address_id = String.valueOf(contactdetails.getId());
 
                                 database.updateToAddressMaster(contactdetails);
                                 //database.addToPorject(projectdetails);
@@ -678,9 +640,9 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         contactdetails.setState(spncurrentstate.getSelectedItem().toString().trim());
 
         if(edtpincode.getText().toString().equals("")||edtpincode.getText().equals(null)){
-            contactdetails.setPincode(0);
+            contactdetails.setPincode("0");
         }else {
-            contactdetails.setPincode(Integer.parseInt(edtcurrentpincode.getText().toString()));
+            contactdetails.setPincode(edtcurrentpincode.getText().toString());
         }
 
         try
@@ -716,6 +678,8 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
                                 Log.e("-->",result.getContactdetails().toString() );
                                 contactdetails = (Contactdetails) result.getContactdetails();
                                 Log.e("Contact Details",contactdetails.toString());
+
+                                curr_address_id = String.valueOf(contactdetails.getId());
 
                                 database.updateToAddressMaster(contactdetails);
 
@@ -782,6 +746,8 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
                                 bankAccount = (BankAccount) result.getBankdetails();
                                 Log.e("Bank Details",bankAccount.toString());
 
+                                bank_id = String.valueOf(bankAccount.getId());
+
                                 database.updateToBankMaster(bankAccount);
                             }
 
@@ -805,7 +771,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    private void WorkerRegistrationBtn() {
+    private void WorkerUpdateBtn() {
 
         workerModel=new WorkerModel();
 
@@ -825,7 +791,10 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         workerModel.setIfsc_code(edtbankifsccode.getText().toString());
         workerModel.setAccount_number(edtbankaccountnumber.getText().toString());
         workerModel.setBank_name(edtbankname.getText().toString());
-
+        workerModel.setPermanentAddressId(per_address_id);
+        workerModel.setCurrentAddressId(curr_address_id);
+        workerModel.setBankId(bank_id);
+        workerModel.setSalary(edtSalary.getText().toString());
         try{
             if(!getImagePath().equals(null))
             {
@@ -911,7 +880,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
 
                                     mService.getWorkerDetails(
                                             result.getImageURL().toString(),
-                                            PreferenceUtils.getWorker_id(mContext).toString(),
+                                            id,
                                             PreferenceUtils.getEmployee_id(mContext).toString()
                                     ).enqueue(new Callback<WorkerModel>() {
                                         @Override
@@ -922,7 +891,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
                                                 Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
                                                 Log.e("-->",result.getError_msg() );
                                             }else {
-                                                Toast.makeText(mContext, "Worker Registred Successfully", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(mContext, "Worker Updated Successfully", Toast.LENGTH_SHORT).show();
                                                 Log.e("-->", result.toString());
                                             }
                                         }
@@ -944,33 +913,116 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
         }).start();
     }
 
-    private void setWorkerDetails() {
+    //Offline Section
+    private void onWorkerUpdateOffline() {
         workerModel=new WorkerModel();
 
-        workerModel = (WorkerModel) getIntent().getSerializableExtra("workers");
+        workerModel.setName(edtname.getText().toString());
+        // workerModel.setId(edt_Id.getText().toString());
+        workerModel.setAdharcard_id(edtaadharnum.getText().toString());
+        workerModel.setDob(edtdob.getText().toString());
+        workerModel.setEmail(edtemail.getText().toString());
+        workerModel.setGender(spngender.getSelectedItem().toString().trim());
+        workerModel.setSalary(edtSalary.getText().toString());
 
-        edtname.setText(workerModel.getName());
-        // workerModel.setId(edt_Id.setText();
-        edtaadharnum.setText(workerModel.getAdharcard_id());
-        edtdob.setText(workerModel.getDob());
-        edtemail.setText(workerModel.getEmail());
-        //getGender(workerModel.getGender());
-        edtaddressline1.setText(workerModel.getCurrent_address1());
-        edtaddressline2.setText(workerModel.getPermanent_address1());
-        edtmobilenum.setText(workerModel.getContact1());
-        edtalternatenum.setText(workerModel.getContact2());
-        edtcity.setText(workerModel.getCity());
-        edtpincode.setText(workerModel.getPincode());
-        edtholdername.setText(workerModel.getHolder_name());
-        edtbankifsccode.setText(workerModel.getIfsc_code());
-        edtbankaccountnumber.setText(workerModel.getAccount_number());
-        edtbankname.setText(workerModel.getBank_name());
-        // profileimage.setImageURI(Uri.parse(workerModel.getImageUrl().toString()));
 
-        Glide.with(mContext)
-                .load(workerModel.getImageUrl().toString())
-                .into(profileimage);
-        setImagePath(workerModel.getImageUrl());
+
+        finger = mfs100Mantra.getList();
+        if(finger.size()<=0)
+        {
+            workerModel.setFingerprint1("");
+            workerModel.setFingerprint2("");
+
+        }else {
+            workerModel.setFingerprint1(finger.get(0).toString());
+            isEnroll1 = true;
+            workerModel.setFingerprint2(finger.get(1).toString());
+            isEnroll2 = true;
+        }
+
+        database.updateToTempWorkersMaster(workerModel);
+
+    }
+
+    private void onOfflineWorkerBankDetails() {
+        //Save offline Data in worker Bank details
+        bankAccount=new BankAccount();
+
+        bankAccount.setAccount_holder_name(edtholdername.getText().toString());
+        bankAccount.setAccount_no(edtbankaccountnumber.getText().toString());
+        bankAccount.setBank_name(edtbankname.getText().toString());
+        bankAccount.setIfsc_code(edtbankifsccode.getText().toString());
+        bankAccount.setWorker_id(Integer.parseInt(PreferenceUtils.getWorker_id(mContext).toString()));
+        bankAccount.setActivation("activate");
+
+        database.updateToTempBankMaster(bankAccount);
+    }
+
+    private void onOfflineWorkerContact2() {
+        //Save offline Data in worker Current contact details
+        contactdetails=new Contactdetails();
+
+        contactdetails.setAddress_line_1(edtcurrentaddress1.getText().toString());
+        // workerModel.setId(edt_Id.getText().toString());
+        contactdetails.setAddress_line_2(edtcurrentaddress2.getText().toString());
+        // contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
+        // contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
+        contactdetails.setCity(edtcurrentcity.getText().toString());
+        contactdetails.setState(spncurrentstate.getSelectedItem().toString().trim());
+
+        if(edtpincode.getText().equals("")||edtpincode.getText().equals(null)){
+            contactdetails.setPincode("0");
+        }else {
+            contactdetails.setPincode(edtcurrentpincode.getText().toString());
+        }
+
+        database.updateToTempAddressMaster(contactdetails); //Add to Temp Contact 2
+    }
+
+    private void onOfflineWorkerContact1() {
+        //Save offline Data in worker Permanent contact details
+        contactdetails=new Contactdetails();
+
+        contactdetails.setAddress_line_1(edtaddressline1.getText().toString());
+        contactdetails.setAddress_line_2(edtaddressline2.getText().toString());
+
+        if(edtmobilenum.getText().toString().equals("")||edtmobilenum.getText().equals(null)){
+            contactdetails.setContact1("0");
+        }else {
+            contactdetails.setContact1(edtmobilenum.getText().toString());
+        }
+        if(edtalternatenum.getText().toString().equals("")||edtalternatenum.getText().equals(null)){
+            contactdetails.setContact2("0");
+        }else {
+            contactdetails.setContact2(edtalternatenum.getText().toString());
+        }
+        if(edtpincode.getText().toString().equals("")||edtpincode.getText().equals(null)){
+            contactdetails.setPincode("0");
+        }else {
+            contactdetails.setPincode(edtpincode.getText().toString());
+        }
+
+        if(chk_isPermanent.isChecked())
+        {
+            edtcurrentaddress1.setText(edtaddressline1.getText());
+            edtcurrentaddress2.setText(edtaddressline2.getText());
+            edtcurrentcity.setText(edtcity.getText());
+            edtcurrentpincode.setText(edtpincode.getText());
+            contactdetails.setType("both");
+            spncurrentstate.setSelection(getIndex(spncurrentstate, spnstate.getSelectedItem().toString().trim()));
+        }else
+        {
+            contactdetails.setType("permanent");
+        }
+
+
+        // contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
+        // contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
+        contactdetails.setCity(edtcity.getText().toString());
+        contactdetails.setState(spnstate.getSelectedItem().toString().trim());
+        // contactdetails.setPincode(Integer.parseInt(edtpincode.getText().toString()));
+
+        database.updateToTempAddressMaster(contactdetails);//Add to Temp address details 1
     }
 
     @Override

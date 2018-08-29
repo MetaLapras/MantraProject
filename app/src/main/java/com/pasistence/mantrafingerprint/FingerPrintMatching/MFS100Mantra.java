@@ -55,9 +55,9 @@ public class MFS100Mantra implements MFS100Event {
     TextView lblMessage;
 
 
-    public MFS100Mantra(Activity activity ) {
+    public MFS100Mantra(Activity activity,TextView lblMessage) {
         this.activity = activity;
-
+        this.lblMessage = lblMessage;
     }
 
     public MFS100Mantra(Activity activity, ImageView imgFinger, WorkerModel workerModel, TextView lblMessage) {
@@ -112,7 +112,7 @@ public class MFS100Mantra implements MFS100Event {
     public void onStart() {
         if (mfs100 == null) {
             mfs100 = new MFS100(this);
-            mfs100.SetApplicationContext(activity);
+            //mfs100.SetApplicationContext(activity);
         } else {
             InitScanner();
         }

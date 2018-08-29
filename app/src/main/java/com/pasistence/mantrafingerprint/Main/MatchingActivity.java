@@ -7,6 +7,7 @@ import android.os.Build;
 import android.provider.FontsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.pasistence.mantrafingerprint.FingerPrintMatching.MFS100Mantra;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
@@ -30,6 +32,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MatchingActivity extends AppCompatActivity {
 
+    private static final String TAG = "atten :" ;
     Context mContext;
     TextView txtProjectName,txtEmployeeId,txtDate,txtTime,txtWorkerName,txtWorkerId,lblMessage;
     ImageView imgfinger;
@@ -48,14 +51,36 @@ public class MatchingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_matching);
         mInit();
         
-        mfs100Mantra = new MFS100Mantra(MatchingActivity.this,imgfinger,workerModel,lblMessage);
+        mfs100Mantra = new MFS100Mantra(MatchingActivity.this,imgfinger,CircularImage,txtWorkerName,txtWorkerId,lblMessage);
         mfs100Mantra.onStart();
         statrMatchingbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                     mfs100Mantra.startMatching();
+                    /*WorkerModel workerModel = mfs100Mantra.getWorkerModel();
+                    txtWorkerName.setText(workerModel.getName());
+                    txtWorkerId.setText(workerModel.getAdharcard_id());
+
+                    Glide.with(mContext)
+                            .load(workerModel.getImageUrl().toString())
+                            .into(CircularImage);
+                            */
+               // Log.e(TAG, workerModel.toString());
             }
         });
+    }
+
+    private void setworker() {
+        workerModel = mfs100Mantra.getWorkerModel();
+        Log.e(TAG, workerModel.toString());
+
+        WorkerModel workerModel = mfs100Mantra.getWorkerModel();
+        txtWorkerName.setText(workerModel.getName());
+        txtWorkerId.setText(workerModel.getAdharcard_id());
+
+        Glide.with(mContext)
+                .load(workerModel.getImageUrl().toString())
+                .into(CircularImage);
     }
 
     private void mInit() {
@@ -82,9 +107,11 @@ public class MatchingActivity extends AppCompatActivity {
         lblMessage                  = (TextView) findViewById(R.id.lbl_message);
 
         mCurrentate();
+        radioGroup.check(R.id.radio_In_Time);
+        linearLayout.setBackgroundResource(R.drawable.gradient_rintime_worker);
 
 
-       radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
            @Override
            public void onCheckedChanged(RadioGroup radioGroup, int i) {
                if(RInTime.isChecked())

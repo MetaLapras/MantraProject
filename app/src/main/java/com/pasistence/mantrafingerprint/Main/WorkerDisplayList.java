@@ -55,6 +55,7 @@ public class WorkerDisplayList extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     SearchAdapter adapter;
 
+
     Context mContext;
     WorkerListAdapter workerListAdapter;
     Database database;

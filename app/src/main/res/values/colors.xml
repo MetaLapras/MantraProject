@@ -18,4 +18,5 @@
 
     <color name="white">#59EBF2F5</color>
     <color name="blue4" >#FF3F7097</color>
+    <color name="bluedark" >#010b2e</color>
 </resources>

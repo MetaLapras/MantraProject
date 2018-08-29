@@ -75,12 +75,12 @@ public interface IMyAPI {
     @FormUrlEncoded
     @POST("insert_contact_details.php")
     Call<APIContactResponse> insertcontactdetails(
-            @Field("contact1") int contact1,
-            @Field("contact2") int contact2,
+            @Field("contact1") String contact1,
+            @Field("contact2") String contact2,
             @Field("address_line_1") String address_line_1,
             @Field("address_line_2") String address_line_2,
             @Field("city") String city,
-            @Field("pincode") int pincode,
+            @Field("pincode") String pincode,
             @Field("state") String state,
             @Field("country") String country,
             @Field("worker_id") String worker_id,
@@ -136,12 +136,12 @@ public interface IMyAPI {
     @FormUrlEncoded
     @POST("UpdateContactDetails.php")
     Call<APIContactResponse> updateContactDetails(
-            @Field("contact1") int contact1,
-            @Field("contact2") int contact2,
+            @Field("contact1") String contact1,
+            @Field("contact2") String contact2,
             @Field("address_line_1") String address_line_1,
             @Field("address_line_2") String address_line_2,
             @Field("city") String city,
-            @Field("pincode") int pincode,
+            @Field("pincode") String pincode,
             @Field("state") String state,
             @Field("country") String country,
             @Field("worker_id") String worker_id,
@@ -159,6 +159,18 @@ public interface IMyAPI {
             @Field("worker_id") String worker_id,
             @Field("activation") String activation,
             @Field("employee_id") String employee_id
+    );
+
+
+    @FormUrlEncoded
+    @POST("DeleteWorkerDetails.php")
+    Call<APIBankResponse> deleteWorkerDetails(
+            @Field("worker_id") String worker_id,
+            @Field("employee_id") String project_id,
+            @Field("bank_id") String bank_id,
+            @Field("bank_name") String bank_name,
+            @Field("permanent_address_id") String permanent_address_id,
+            @Field("current_address_id") String current_address_id
     );
 
 }

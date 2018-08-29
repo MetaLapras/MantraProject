@@ -52,6 +52,7 @@
     </string-array>
 
 
+
     <string-array name="array_marital_status">
         <item> Andhra Pradesh</item>
         <item> Arunachal Pradesh</item>
@@ -118,8 +119,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="project_name">Enter Project Name</string>
-    <string name="emp_id" >Enter Worker_id</string>
     >
 
 </resources>

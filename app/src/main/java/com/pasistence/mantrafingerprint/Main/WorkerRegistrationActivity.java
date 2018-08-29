@@ -17,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -68,12 +69,14 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     public static final String TAG ="reg -->";
     Button btnLayer1Next,btnLayer2Next,btnLayer3Next,btnLayer4Next,btnLayer2Skip,btnLayer3Skip,btnLayer4Skip,btnSubmit;
     Context mContext;
+    TextView lblMessage;
     View layer1,layer2,layer3,layer4,layer5;
     WorkerModel workerModel;
     Contactdetails contactdetails;
     private boolean isEnroll1=false;
     private boolean isEnroll2=false;
     CheckBox chk_isPermanent;
+    String per_address_id,curr_address_id,bank_id;
 
     BankAccount bankAccount;
 
@@ -108,23 +111,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         mInit();
         mOnclick();
 
-       try{
-           if(getIntent()!= null)
-           {
-               type = (String)getIntent().getStringExtra("type");
-               id = (String)getIntent().getStringExtra("id");
-               Log.e(TAG, "type"+type+" "+"id"+id );
-
-               if(!type.equals("register"))
-               {
-                   setWorkerDetails();
-               }
-                //setWorkerDetails();
-           }
-       }catch (Exception e)
-       {
-           e.printStackTrace();
-       }
     }
 
     private void mOnclick() {
@@ -198,6 +184,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         //spnstate              = (MaterialSpinner)findViewById(R.id.spn_state);
         spnstate                = (Spinner)findViewById(R.id.spn_state);
 
+        //Textview Message
+        lblMessage              = (TextView)findViewById(R.id.txt_message);
 
         //Init Common
         common = new Common();
@@ -206,7 +194,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         database = new Database(mContext);
 
         //Init Mantra100 for Fingerprint
-        mfs100Mantra = new MFS100Mantra(WorkerRegistrationActivity.this);
+        mfs100Mantra = new MFS100Mantra(WorkerRegistrationActivity.this,lblMessage);
         mfs100Mantra.onStart();
 
         //init Api
@@ -391,9 +379,9 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         contactdetails.setState(spncurrentstate.getSelectedItem().toString().trim());
 
         if(edtpincode.getText().equals("")||edtpincode.getText().equals(null)){
-            contactdetails.setPincode(0);
+            contactdetails.setPincode("0");
         }else {
-            contactdetails.setPincode(Integer.parseInt(edtcurrentpincode.getText().toString()));
+            contactdetails.setPincode(edtcurrentpincode.getText().toString());
         }
 
         database.addToTempAddressDetails(contactdetails); //Add to Temp Contact 2
@@ -407,19 +395,19 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         contactdetails.setAddress_line_2(edtaddressline2.getText().toString());
 
         if(edtmobilenum.getText().toString().equals("")||edtmobilenum.getText().equals(null)){
-            contactdetails.setContact1(0);
+            contactdetails.setContact1("0");
         }else {
-            contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
+            contactdetails.setContact1(edtmobilenum.getText().toString());
         }
         if(edtalternatenum.getText().toString().equals("")||edtalternatenum.getText().equals(null)){
-            contactdetails.setContact2(0);
+            contactdetails.setContact2("0");
         }else {
-            contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
+            contactdetails.setContact2(edtalternatenum.getText().toString());
         }
         if(edtpincode.getText().toString().equals("")||edtpincode.getText().equals(null)){
-            contactdetails.setPincode(0);
+            contactdetails.setPincode("0");
         }else {
-            contactdetails.setPincode(Integer.parseInt(edtpincode.getText().toString()));
+            contactdetails.setPincode(edtpincode.getText().toString());
         }
 
         if(chk_isPermanent.isChecked())
@@ -539,10 +527,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         }catch (Exception e)
         {
             e.printStackTrace();
-
         }
-
-
     }
 
     private void onWorkerContactRegistration() {
@@ -552,19 +537,19 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         contactdetails.setAddress_line_2(edtaddressline2.getText().toString());
 
         if(edtmobilenum.getText().toString().equals("")||edtmobilenum.getText().equals(null)){
-            contactdetails.setContact1(0);
+            contactdetails.setContact1("0");
         }else {
-            contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
+            contactdetails.setContact1(edtmobilenum.getText().toString());
         }
         if(edtalternatenum.getText().toString().equals("")||edtalternatenum.getText().equals(null)){
-            contactdetails.setContact2(0);
+            contactdetails.setContact2("0");
         }else {
-            contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
+            contactdetails.setContact2(edtalternatenum.getText().toString());
         }
         if(edtpincode.getText().toString().equals("")||edtpincode.getText().equals(null)){
-            contactdetails.setPincode(0);
+            contactdetails.setPincode("0");
         }else {
-            contactdetails.setPincode(Integer.parseInt(edtpincode.getText().toString()));
+            contactdetails.setPincode(edtpincode.getText().toString());
         }
 
         if(chk_isPermanent.isChecked())
@@ -595,12 +580,12 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             dialog.setCancelable(false);
 
             mService.insertcontactdetails(
-                    contactdetails.getContact1(),
-                    contactdetails.getContact2(),
+                    contactdetails.getContact1().toString(),
+                    contactdetails.getContact2().toString(),
                     contactdetails.getAddress_line_1().toString(),
                     contactdetails.getAddress_line_2().toString(),
                     contactdetails.getCity().toString(),
-                    contactdetails.getPincode(),
+                    contactdetails.getPincode().toString(),
                     contactdetails.getState().toString(),
                     "India",
                     PreferenceUtils.getWorker_id(mContext).toString(),
@@ -620,9 +605,10 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                 //  Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
                                 Log.e("-->",result.getContactdetails().toString() );
 
-
                                 contactdetails = (Contactdetails) result.getContactdetails();
                                 Log.e("Contact Details",contactdetails.toString());
+
+                                per_address_id = String.valueOf(contactdetails.getId());
 
                                 database.addToAddressDetails(contactdetails);
                                 //database.addToPorject(projectdetails);
@@ -652,20 +638,21 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     }
 
     private void onWorkerCurrentContactRegistration() {
+
         contactdetails=new Contactdetails();
 
         contactdetails.setAddress_line_1(edtcurrentaddress1.getText().toString());
         // workerModel.setId(edt_Id.getText().toString());
         contactdetails.setAddress_line_2(edtcurrentaddress2.getText().toString());
-        //contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
-        //contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
+        contactdetails.setContact1(edtmobilenum.getText().toString());
+        contactdetails.setContact2(edtalternatenum.getText().toString());
         contactdetails.setCity(edtcurrentcity.getText().toString());
         contactdetails.setState(spncurrentstate.getSelectedItem().toString().trim());
 
         if(edtpincode.getText().toString().equals("")||edtpincode.getText().equals(null)){
-               contactdetails.setPincode(0);
+               contactdetails.setPincode("0");
         }else {
-            contactdetails.setPincode(Integer.parseInt(edtcurrentpincode.getText().toString()));
+            contactdetails.setPincode(edtcurrentpincode.getText().toString());
         }
 
         try
@@ -676,12 +663,12 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             dialog.setCancelable(false);
 
             mService.insertcontactdetails(
-                    contactdetails.getContact1(),
-                    contactdetails.getContact2(),
+                    contactdetails.getContact1().toString(),
+                    contactdetails.getContact2().toString(),
                     contactdetails.getAddress_line_1().toString(),
                     contactdetails.getAddress_line_2().toString(),
                     contactdetails.getCity().toString(),
-                    contactdetails.getPincode(),
+                    contactdetails.getPincode().toString(),
                     contactdetails.getState().toString(),
                     "India",
                     PreferenceUtils.getWorker_id(mContext).toString(),
@@ -701,6 +688,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                 Log.e("-->",result.getContactdetails().toString() );
                                 contactdetails = (Contactdetails) result.getContactdetails();
                                 Log.e("Contact Details",contactdetails.toString());
+
+                                curr_address_id = String.valueOf(contactdetails.getId());
 
                                 database.addToAddressDetails(contactdetails);
 
@@ -766,7 +755,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                 Log.e("-->",result.toString() );
                                 bankAccount = (BankAccount) result.getBankdetails();
                                 Log.e("Bank Details",bankAccount.toString());
-
+                                bank_id = String.valueOf(bankAccount.getId());
                                 database.addToBankDetails(bankAccount);
                             }
 
@@ -810,6 +799,9 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             workerModel.setIfsc_code(edtbankifsccode.getText().toString());
             workerModel.setAccount_number(edtbankaccountnumber.getText().toString());
             workerModel.setBank_name(edtbankname.getText().toString());
+            workerModel.setPermanentAddressId(per_address_id);
+            workerModel.setCurrentAddressId(curr_address_id);
+            workerModel.setBankId(bank_id);
 
             try{
                 if(!getImagePath().equals(null))
@@ -839,14 +831,13 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
                 if(Common.isConnectedToInterNet(mContext)){
                     //Upload image into the server into the constant table
-
                     onImageUpload(workerModel.getImageUrl().toString());
                     database.updateToWorkersMaster(workerModel);
                     //Toast.makeText(mContext, "Worker Updated successfully", Toast.LENGTH_SHORT).show();
                     mfs100Mantra.onDestroy();
                 }else{
                     //Offline save all data into the temp table
-                    database.addToWorkers(workerModel);
+                    database.addToTempWorkers(workerModel);
                     //Toast.makeText(mContext, "Worker Registred successfully", Toast.LENGTH_SHORT).show();
                     mfs100Mantra.onDestroy();
                 }
@@ -926,35 +917,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                         });
             }
         }).start();
-    }
-
-    private void setWorkerDetails() {
-        workerModel=new WorkerModel();
-
-        workerModel = (WorkerModel) getIntent().getSerializableExtra("workers");
-
-        edtname.setText(workerModel.getName());
-        // workerModel.setId(edt_Id.setText();
-        edtaadharnum.setText(workerModel.getAdharcard_id());
-        edtdob.setText(workerModel.getDob());
-        edtemail.setText(workerModel.getEmail());
-        //getGender(workerModel.getGender());
-        edtaddressline1.setText(workerModel.getCurrent_address1());
-        edtaddressline2.setText(workerModel.getPermanent_address1());
-        edtmobilenum.setText(workerModel.getContact1());
-        edtalternatenum.setText(workerModel.getContact2());
-        edtcity.setText(workerModel.getCity());
-        edtpincode.setText(workerModel.getPincode());
-        edtholdername.setText(workerModel.getHolder_name());
-        edtbankifsccode.setText(workerModel.getIfsc_code());
-        edtbankaccountnumber.setText(workerModel.getAccount_number());
-        edtbankname.setText(workerModel.getBank_name());
-       // profileimage.setImageURI(Uri.parse(workerModel.getImageUrl().toString()));
-
-        Glide.with(mContext)
-                .load(workerModel.getImageUrl().toString())
-                .into(profileimage);
-        setImagePath(workerModel.getImageUrl());
     }
 
     @Override

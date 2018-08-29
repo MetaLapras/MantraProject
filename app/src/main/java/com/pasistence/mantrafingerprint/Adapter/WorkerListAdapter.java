@@ -81,7 +81,7 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
 
                 Intent UpdateWokerIntent = new Intent(mContext, WorkerUpdateActivity.class);
                 UpdateWokerIntent.putExtra("type","edit");
-                UpdateWokerIntent.putExtra("id",workers.getId());
+                UpdateWokerIntent.putExtra("id",workers.getWorkerId());
                 UpdateWokerIntent.putExtra("workers",workers);
                 mContext.startActivity(UpdateWokerIntent);
 

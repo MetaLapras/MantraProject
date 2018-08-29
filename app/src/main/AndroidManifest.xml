@@ -49,7 +49,8 @@
             android:name=".Main.ShowDetailsActivity"
             android:label="@string/title_activity_show_details" />
         <activity android:name=".Main.MatchingActivity" />
-        <activity android:name=".Main.WorkerUpdateActivity"></activity>
+        <activity android:name=".Main.WorkerUpdateActivity" />
+        <activity android:name=".Main.TransferActivity"></activity>
     </application>
 
 </manifest>

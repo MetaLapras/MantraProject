@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Main.WorkerDisplayList"
-    android:background="@drawable/ic_loginbackground">
+    tools:context=".Main.TransferActivity">
+
     <com.mancj.materialsearchbar.MaterialSearchBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:mt_hint="Search"
         app:mt_speechMode="false"
-        android:id="@+id/worker_search_bar"
-        android:layout_alignParentTop="true"/>
+        android:id="@+id/Transfer_search_bar"
+        android:layout_alignParentTop="true">
+
+    </com.mancj.materialsearchbar.MaterialSearchBar>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/worker_recycler_worker"
+        android:id="@+id/recyclerTranser_search"
+        android:layout_below="@+id/Transfer_search_bar"
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
 
-</LinearLayout>
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

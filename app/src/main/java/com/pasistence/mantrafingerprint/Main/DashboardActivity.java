@@ -91,14 +91,14 @@ public class DashboardActivity extends AppCompatActivity
 
 
 
-                startActivity(new Intent(DashboardActivity.this, MatchingActivity.class));
+                startActivity(new Intent(DashboardActivity.this, TransferActivity.class));
 
 
 
 
                 //startActivity(new Intent(DashboardActivity.this, MatchingActivity.class));
 
-                startActivity(new Intent(DashboardActivity.this,MatchingActivity.class));
+               /* startActivity(new Intent(DashboardActivity.this,MatchingActivity.class));*/
 
             }
         });

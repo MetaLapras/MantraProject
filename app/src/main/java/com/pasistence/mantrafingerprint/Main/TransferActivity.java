@@ -1,49 +1,59 @@
 package com.pasistence.mantrafingerprint.Main;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.pasistence.mantrafingerprint.Adapter.SearchAdapter;
-import com.pasistence.mantrafingerprint.Models.WorkerList;
+//import com.pasistence.mantrafingerprint.Adapter.SearchViewHolder;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.database.Database;
-import com.pasistence.mantrafingerprint.database.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemberListActivity extends AppCompatActivity {
+public class TransferActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     SearchAdapter adapter;
+    Button transferBtn;
+    Context mcontext;
+    LinearLayout layoutToAdd;
 
 
     MaterialSearchBar materialSearchBar;
     List<String> suggestList = new ArrayList<>();
     Database database;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_member_list);
+        setContentView(R.layout.activity_transfer);
 
-        //init view
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_search);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerTranser_search);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
+        mcontext = TransferActivity.this;
 
-        materialSearchBar = (MaterialSearchBar) findViewById(R.id.search_bar);
+        materialSearchBar = (MaterialSearchBar) findViewById(R.id.Transfer_search_bar);
+        transferBtn       = (Button)findViewById(R.id.btn_workerTransfer);
+        layoutToAdd       = (LinearLayout)findViewById(R.id.transfer_linear_layout);
+
+
 
         //Init DB
-       database = new Database(this);
+        database = new Database(this);
 
         //Setup search bar
         materialSearchBar.setHint("Search");
@@ -94,7 +104,7 @@ public class MemberListActivity extends AppCompatActivity {
         });
 
         //Init Adapter default set all result
-        adapter = new SearchAdapter(MemberListActivity.this,this,database.getAllWorkers());
+        adapter = new SearchAdapter(TransferActivity.this,mcontext,database.getAllWorkers());
         recyclerView.setAdapter(adapter);
 
     }
@@ -102,7 +112,7 @@ public class MemberListActivity extends AppCompatActivity {
 
 
     private void startSearch(String text) {
-        adapter = new SearchAdapter(MemberListActivity.this,this,database.getWorkerName(text));
+        adapter = new SearchAdapter(TransferActivity.this,mcontext,database.getWorkerName(text));
         recyclerView.setAdapter(adapter);
     }
 
@@ -146,7 +156,7 @@ public class MemberListActivity extends AppCompatActivity {
       databaseHelper = new DatabaseHelper(this);
 
       workerLists = (ArrayList<WorkerList>) databaseHelper.getWorkerList();
-      
+
       //Setup search bar
         materialSearchBar.setHint("Search");
         materialSearchBar.setCardViewElevation(10);
@@ -213,3 +223,4 @@ public class MemberListActivity extends AppCompatActivity {
         materialSearchBar.setLastSuggestions(suggestList);
     }*/
 }
+

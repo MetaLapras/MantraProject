@@ -3,9 +3,11 @@ package com.pasistence.mantrafingerprint.Remote;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIBankResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIContactResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIDeleteResponse;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIResponseAttendance;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerImageResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerPersonalResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectResponse;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.Attendance;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 
@@ -15,6 +17,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -173,5 +176,26 @@ public interface IMyAPI {
             @Field("permanent_address_id") String permanent_address_id,
             @Field("current_address_id") String current_address_id
     );
+
+    @FormUrlEncoded
+    @GET("GetAttendanceDetails.php")
+    Call<Attendance> getAllAttendanceDetails();
+
+
+    @FormUrlEncoded
+    @POST("InsertAttendaceDetails.php")
+    Call<APIResponseAttendance> insertAttendanceData(
+            @Field("worker_id") String worker_id,
+            @Field("workerAssignmentId") String workerAssignmentId,
+            @Field("project_id") String project_id,
+            @Field("CheckInDate") String CheckInDate,
+            @Field("CheckInTime") String CheckInTime,
+            @Field("CheckOutTime") String CheckOutTime,
+            @Field("OverTime") String OverTime,
+            @Field("FullTime") String FullTime,
+            @Field("halfDay") String halfDay,
+            @Field("wages") String wages
+    );
+
 
 }

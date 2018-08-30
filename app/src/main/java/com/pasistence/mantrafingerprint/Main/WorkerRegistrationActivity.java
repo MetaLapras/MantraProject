@@ -1051,4 +1051,10 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
         return 0;
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mfs100Mantra.onDestroy();
+    }
 }

@@ -14,7 +14,9 @@ import com.bumptech.glide.Glide;
 import com.mantra.mfs100.FingerData;
 import com.mantra.mfs100.MFS100;
 import com.mantra.mfs100.MFS100Event;
+import com.pasistence.mantrafingerprint.Common.PreferenceUtils;
 import com.pasistence.mantrafingerprint.Main.MFS100TestActivity;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.Attendance;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.database.Database;
 
@@ -22,7 +24,10 @@ import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -39,6 +44,7 @@ public class MFS100Mantra implements MFS100Event {
     ArrayList<String> list = new ArrayList<String>();
     ArrayList<WorkerModel> workerList = new ArrayList<WorkerModel>();
     Database database;
+    String RadioCheck;
 
     private enum ScannerAction {
         Capture, Verify
@@ -382,7 +388,44 @@ public class MFS100Mantra implements MFS100Event {
                         .load(workerModel.getImageUrl().toString())
                         .into(imgPicture);
 
-                workerList.add(workerModel);
+               workerList.add(workerModel);
+               String id,worker_id,worker_assignment_id,project_id,check_in_date,check_in_time,overtime,fulltime,halfday,
+                        check_out_time,wages,created_at,updated_at;
+               worker_id = workerModel.getWorkerId().toString();
+               worker_assignment_id = "1";
+               project_id = PreferenceUtils.getProject_id(activity);
+               check_in_date = getCurrentDate();
+               wages = workerModel.getSalary();
+               check_in_time = getCurrentTime();
+
+               Attendance attendance = new Attendance();
+
+                attendance.setWorkerId(worker_id);
+                attendance.setWorkerAssignmentId(worker_assignment_id);
+                attendance.setProjectId(project_id);
+                attendance.setCheckInDate(check_in_date);
+                attendance.setWages(wages);
+                attendance.setCheckInTime(check_in_time);
+
+                database = new Database(activity);
+
+                if(getRadioCheck().equals("checkIn")){
+                   check_in_time = getCurrentTime();
+                   attendance.setCheckInTime(check_in_time);
+                   database.addToTempAttendance(attendance);
+               }else if(getRadioCheck().equals("checkOut")) {
+                   check_out_time = getCurrentTime();
+                   attendance.setCheckOutTime(check_out_time);
+                   database.updateToTempAttendance(attendance);
+               }else if(getRadioCheck().equals("halfDay")){
+                   check_out_time = getCurrentTime();
+                   attendance.setCheckOutTime(check_out_time);
+                   database.updateToTempAttendance(attendance);
+               }else{
+                    check_in_time = getCurrentTime();
+                    attendance.setCheckInTime(check_in_time);
+                    database.addToTempAttendance(attendance);
+                }
 
             }
         });
@@ -455,5 +498,29 @@ public class MFS100Mantra implements MFS100Event {
 
     public ArrayList<WorkerModel> getAttendanceList() {
         return workerList;
+    }
+
+    public String getCurrentTime(){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm:ss");
+        String strDate = mdformat.format(calendar.getTime());
+        return strDate;
+    }
+
+    public String getCurrentDate(){
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        String formattedDate = df.format(c);
+        return formattedDate;
+    }
+
+    public String getRadioCheck() {
+        return RadioCheck;
+    }
+
+    public void setRadioCheck(String radioCheck) {
+        RadioCheck = radioCheck;
     }
 }

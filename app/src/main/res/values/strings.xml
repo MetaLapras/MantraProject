@@ -119,12 +119,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-<<<<<<< HEAD
-    <string name="project_name" />
-=======
     <string name="project_name">Project Name</string>
     <string name="emp_id">Employee Id</string>
->>>>>>> 90209f2e9f80ece84f6e0a4b77aaedbd85e3046a
-    >
 
 </resources>

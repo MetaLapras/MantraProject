@@ -57,15 +57,6 @@ public class MatchingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                     mfs100Mantra.startMatching();
-                    /*WorkerModel workerModel = mfs100Mantra.getWorkerModel();
-                    txtWorkerName.setText(workerModel.getName());
-                    txtWorkerId.setText(workerModel.getAdharcard_id());
-
-                    Glide.with(mContext)
-                            .load(workerModel.getImageUrl().toString())
-                            .into(CircularImage);
-                            */
-               // Log.e(TAG, workerModel.toString());
             }
         });
     }
@@ -105,17 +96,23 @@ public class MatchingActivity extends AppCompatActivity {
                {
                  //linearLayout.setBackgroundColor(Color.GREEN);
                    linearLayout.setBackgroundResource(R.drawable.gradient_rintime_worker);
+                   mfs100Mantra.setRadioCheck("checkIn");
+
                }
                if(ROutTime.isChecked())
                {
                 //linearLayout.setBackground(getDrawable(R.drawable.gradient_routtime_worker));
                    linearLayout.setBackgroundResource(R.drawable.gradient_routtime_worker);
+                   mfs100Mantra.setRadioCheck("checkOut");
+
 
                }
                if(RHalfDay.isChecked())
                {
                       // linearLayout.setBackground(getDrawable(R.drawable.gradient_rhalfday_worker));
                    linearLayout.setBackgroundResource(R.drawable.gradient_rhalfday_worker);
+                   mfs100Mantra.setRadioCheck("halfDay");
+
                }
            }
        });
@@ -130,5 +127,11 @@ public class MatchingActivity extends AppCompatActivity {
 
     private void display(String strDate) {
         txtDate.setText(strDate);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mfs100Mantra.onDestroy();
     }
 }

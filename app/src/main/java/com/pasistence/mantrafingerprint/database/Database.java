@@ -1114,7 +1114,7 @@ public class Database extends SQLiteAssetHelper {
                         "check_out_time," +
                         "wages," +
                         "created_at," +
-                        "updated_at," +
+                        "updated_at" +
                         ")" +
                         " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
                 attendance.getId(),
@@ -1186,7 +1186,7 @@ public class Database extends SQLiteAssetHelper {
                         "check_out_time," +
                         "wages," +
                         "created_at," +
-                        "updated_at," +
+                        "updated_at" +
                         ")" +
                         " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
                 attendance.getId(),

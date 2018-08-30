@@ -3,9 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="8dp"
-    app:cardElevation="8dp"
-    app:cardCornerRadius="10dp"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
@@ -117,14 +114,7 @@
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
-    <Button
-        android:id="@+id/btn_submit_upload"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:textSize="20dp"
-        android:textAllCaps="false"
-        android:layout_gravity="center"/>
+
 
 
 </LinearLayout>

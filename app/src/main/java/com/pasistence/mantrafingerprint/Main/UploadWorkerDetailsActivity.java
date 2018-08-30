@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.pasistence.mantrafingerprint.Adapter.SearchAdapter;
 import com.pasistence.mantrafingerprint.Adapter.WorkerListAdapter;
+import com.pasistence.mantrafingerprint.Adapter.WorkerUploadAdapter;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.database.Database;
@@ -26,7 +27,7 @@ public class UploadWorkerDetailsActivity extends AppCompatActivity {
 
 
     Context mContext;
-    WorkerListAdapter workerListAdapter;
+    WorkerUploadAdapter workerUploadAdapter;
     Database database;
 
     List<WorkerModel> WorkerDetails;
@@ -44,9 +45,9 @@ public class UploadWorkerDetailsActivity extends AppCompatActivity {
 
         WorkerDetails = new Database(mContext).getAllWorkers();
 
-        workerListAdapter = new WorkerListAdapter(UploadWorkerDetailsActivity.this, WorkerDetails);
-        WorkeruploadListRecyclerView.setAdapter(workerListAdapter);
-        workerListAdapter.notifyDataSetChanged();
+        workerUploadAdapter = new WorkerUploadAdapter(UploadWorkerDetailsActivity.this, WorkerDetails);
+        WorkeruploadListRecyclerView.setAdapter(workerUploadAdapter);
+        workerUploadAdapter.notifyDataSetChanged();
     }
 
     private void mInit() {

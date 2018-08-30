@@ -23,6 +23,7 @@ import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIDeleteRespon
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.Remote.IMyAPI;
+import com.pasistence.mantrafingerprint.ViewHolder.WorkerUploadHolder;
 import com.pasistence.mantrafingerprint.ViewHolder.WorkerViewHolder;
 import com.pasistence.mantrafingerprint.database.Database;
 
@@ -32,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WorkerUploadAdapter  extends RecyclerView.Adapter<WorkerViewHolder>{
+public class WorkerUploadAdapter  extends RecyclerView.Adapter<WorkerUploadHolder>{
 
     Context mContext;
     Activity activity;
@@ -49,21 +50,21 @@ public class WorkerUploadAdapter  extends RecyclerView.Adapter<WorkerViewHolder>
 
     @NonNull
     @Override
-    public WorkerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public WorkerUploadHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.worker_details_upload_template,parent,false);
         mContext = activity;
-        return new WorkerViewHolder(itemView);
+        return new WorkerUploadHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WorkerViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull WorkerUploadHolder holder, final int position) {
         final WorkerModel workers = workerList.get(position);
-        holder.txtWorkerName.setText("Name :- " + workers.getName().toString());
-        holder.txtWorkerId.setText("Worker ID :- " + workers.getAdharcard_id().toString());
-        holder.txtWorkerGender.setText("Gender :- " + workers.getGender().toString());
-        holder.txtWorkerNumber.setText("Mobile No :- " + workers.getContact1().toString());
-        holder.txtWorkerNumber2.setText("Alternate No :- " + workers.getContact2().toString());
+        holder.uploadWorkerName.setText("Name :- " + workers.getName().toString());
+        holder.uploadWorkerId.setText("Worker ID :- " + workers.getAdharcard_id().toString());
+        holder.uploadWorkerGender.setText("Gender :- " + workers.getGender().toString());
+        holder.uploadWorkerNumber.setText("Mobile No :- " + workers.getContact1().toString());
+        holder.uploadWorkerNumber2.setText("Alternate No :- " + workers.getContact2().toString());
 
         workeruploadid = workers.getWorkerId();
         uploadperAddId = workers.getPermanentAddressId();
@@ -78,13 +79,13 @@ public class WorkerUploadAdapter  extends RecyclerView.Adapter<WorkerViewHolder>
 
         Glide.with(mContext)
                 .load(workers.getImageUrl().toString())
-                .into(holder.circleImageViewPhoto);
+                .into(holder.uploadcircleImageViewPhoto);
 
         //  Picasso.get().load(workers.getImageUrl().toString()).into(holder.circleImageViewPhoto);
 
 
 
-        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+       /* holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -101,8 +102,8 @@ public class WorkerUploadAdapter  extends RecyclerView.Adapter<WorkerViewHolder>
                 // Toast.makeText(mContext,workerList.get(position).getWorkerId().toString()+"EDIT", Toast.LENGTH_SHORT).show();
 
             }
-        });
-        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+        });*/
+        /*holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -164,8 +165,8 @@ public class WorkerUploadAdapter  extends RecyclerView.Adapter<WorkerViewHolder>
 
 
             }
-        });
-        holder.btnDetails.setOnClickListener(new View.OnClickListener() {
+        });*/
+       /* holder.btnDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Gettting Details Activity
@@ -174,7 +175,7 @@ public class WorkerUploadAdapter  extends RecyclerView.Adapter<WorkerViewHolder>
                 workerDetails.putExtra("workers",workers);
                 activity.startActivity(workerDetails);
             }
-        });
+        });*/
 
     }
 

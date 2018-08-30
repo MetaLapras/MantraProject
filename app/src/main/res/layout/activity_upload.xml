@@ -52,7 +52,7 @@
                             android:id="@+id/worker_upload_all"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Upload All"
+                            android:text=" All "
                             android:textAllCaps="false"
                             android:textColor="@color/accent"
                           android:layout_marginLeft="10dp"/>
@@ -61,11 +61,11 @@
                             android:id="@+id/worker_upload_details"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Upload Details"
+                            android:text=" Details "
                             android:textAllCaps="false"
                             android:elevation="20dp"
                             android:textColor="@color/accent"
-                            android:layout_marginLeft="130dp"/>
+                            android:layout_marginLeft="150dp"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -105,7 +105,7 @@
                             android:id="@+id/worker_attendence_upload_all"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Upload All"
+                            android:text=" All "
                             android:textAllCaps="false"
                             android:textColor="@color/accent"
                             android:layout_marginLeft="10dp"/>
@@ -114,11 +114,11 @@
                             android:id="@+id/worker_attendence_upload_details"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Upload Details"
+                            android:text=" Details "
                             android:textAllCaps="false"
                             android:elevation="20dp"
                             android:textColor="@color/accent"
-                            android:layout_marginLeft="130dp"/>
+                            android:layout_marginLeft="150dp"/>
 
                     </LinearLayout>
                 </LinearLayout>

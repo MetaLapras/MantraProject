@@ -221,7 +221,7 @@ public class DashboardActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-            Intent intent1 = new Intent(this,LoginActivity.class);
+            Intent intent1 = new Intent(this,UploadActivity.class);
             this.startActivity(intent1);
             return true;
 

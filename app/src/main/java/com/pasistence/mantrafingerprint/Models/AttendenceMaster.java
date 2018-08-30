@@ -4,16 +4,18 @@ import java.io.Serializable;
 
 public class AttendenceMaster implements Serializable {
 
-    public String id,worker_id,worker_assignment_id,project_id,chaeck_in_date,check_in_time,overtime,fulltime,halfday,
+    public String id,worker_id,worker_assignment_id,project_id,check_in_date,check_in_time,overtime,fulltime,halfday,
     check_out_time,wages,created_at,updated_at;
 
+    public AttendenceMaster() {
+    }
 
-    public AttendenceMaster(String id, String worker_id, String worker_assignment_id, String project_id, String chaeck_in_date, String check_in_time, String overtime, String fulltime, String halfday, String check_out_time, String wages, String created_at, String updated_at) {
+    public AttendenceMaster(String id, String worker_id, String worker_assignment_id, String project_id, String check_in_date, String check_in_time, String overtime, String fulltime, String halfday, String check_out_time, String wages, String created_at, String updated_at) {
         this.id = id;
         this.worker_id = worker_id;
         this.worker_assignment_id = worker_assignment_id;
         this.project_id = project_id;
-        this.chaeck_in_date = chaeck_in_date;
+        this.check_in_date = check_in_date;
         this.check_in_time = check_in_time;
         this.overtime = overtime;
         this.fulltime = fulltime;
@@ -22,28 +24,6 @@ public class AttendenceMaster implements Serializable {
         this.wages = wages;
         this.created_at = created_at;
         this.updated_at = updated_at;
-    }
-
-    public AttendenceMaster() {
-    }
-
-    @Override
-    public String toString() {
-        return "AttendenceMaster{" +
-                "id='" + id + '\'' +
-                ", worker_id='" + worker_id + '\'' +
-                ", worker_assignment_id='" + worker_assignment_id + '\'' +
-                ", project_id='" + project_id + '\'' +
-                ", chaeck_in_date='" + chaeck_in_date + '\'' +
-                ", check_in_time='" + check_in_time + '\'' +
-                ", overtime='" + overtime + '\'' +
-                ", fulltime='" + fulltime + '\'' +
-                ", halfday='" + halfday + '\'' +
-                ", check_out_time='" + check_out_time + '\'' +
-                ", wages='" + wages + '\'' +
-                ", created_at='" + created_at + '\'' +
-                ", updated_at='" + updated_at + '\'' +
-                '}';
     }
 
     public String getId() {
@@ -78,12 +58,12 @@ public class AttendenceMaster implements Serializable {
         this.project_id = project_id;
     }
 
-    public String getChaeck_in_date() {
-        return chaeck_in_date;
+    public String getCheck_in_date() {
+        return check_in_date;
     }
 
-    public void setChaeck_in_date(String chaeck_in_date) {
-        this.chaeck_in_date = chaeck_in_date;
+    public void setCheck_in_date(String check_in_date) {
+        this.check_in_date = check_in_date;
     }
 
     public String getCheck_in_time() {

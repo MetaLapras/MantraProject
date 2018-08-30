@@ -22,6 +22,9 @@ public class Attendance implements Serializable {
         this.updated_at = updated_at;
     }
 
+    public Attendance() {
+    }
+
     @Override
     public String toString() {
         return "Attendance{" +

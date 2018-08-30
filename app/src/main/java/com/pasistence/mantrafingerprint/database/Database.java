@@ -1085,7 +1085,7 @@ public class Database extends SQLiteAssetHelper {
 
 
 
-    //Temp Attendance Table
+    //Temp Attendance Master Table
     /*id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	`worker_id`	TEXT,
 	`worker_assignment_id`	TEXT,
@@ -1114,7 +1114,7 @@ public class Database extends SQLiteAssetHelper {
                         "check_out_time," +
                         "wages," +
                         "created_at," +
-                        "updated_at," +
+                        "updated_at" +
                         ")" +
                         " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
                 attendance.getId(),
@@ -1137,7 +1137,7 @@ public class Database extends SQLiteAssetHelper {
         Log.e(TAG, "Database Attendance Inserted Successfully");
         Log.e(TAG, attendance.toString());
     }
-    // update worker_master by worker id
+    // update Attendance Master by worker id
     public void updateToTempAttendance(Attendance attendance) {
         String sqlTable = "Temp_attendance_master";
 
@@ -1163,14 +1163,84 @@ public class Database extends SQLiteAssetHelper {
         db.update(sqlTable, values, "worker_id = ?",
                 new String[]{attendance.getWorkerId()});
     }
-    //delete worker by worker id
+    //delete Attendance Master
     public void deleteToTempAttendance(String workerId) {
         SQLiteDatabase db = getReadableDatabase();
-        String query = String.format("DELETE FROM Temp_attendance_master WHERE id = '%s'",workerId);
+        String query = String.format("DELETE FROM Temp_attendance_master");
         db.execSQL(query);
     }
 
     //Attendance Table
+    public void addToAttendance(Attendance attendance){
+        // SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
+        String query = String.format("INSERT OR REPLACE INTO attendance_master(" +
+                        "worker_id," +
+                        "worker_assignment_id," +
+                        "project_id," +
+                        "check_in_date," +
+                        "check_in_time," +
+                        "overtime," +
+                        "fulltime," +
+                        "halfday," +
+                        "check_out_time," +
+                        "wages," +
+                        "created_at," +
+                        "updated_at" +
+                        ")" +
+                        " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
+                attendance.getId(),
+                attendance.getWorkerAssignmentId(),
+                attendance.getProjectId(),
+                attendance.getCheckInDate(),
+                attendance.getCheckInTime(),
+                attendance.getOverTime(),
+                attendance.getFullTime(),
+                attendance.getHalfday(),
+                attendance.getCheckOutTime(),
+                attendance.getWages(),
+                attendance.getCreated_at(),
+                attendance.getUpdated_at()
+        );
+
+
+        db.execSQL(query);
+
+        Log.e(TAG, "Database Attendance Inserted Successfully");
+        Log.e(TAG, attendance.toString());
+    }
+    // update Attendance Master by worker id
+    public void updateToAttendance(Attendance attendance) {
+        String sqlTable = "attendance_master";
+
+        SQLiteDatabase db = getReadableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("worker_id",attendance.getWorkerId());
+        values.put("worker_assignment_id",attendance.getWorkerAssignmentId());
+        values.put("project_id",attendance.getProjectId());
+        values.put("check_in_date",attendance.getCheckInDate());
+        values.put("check_in_time",attendance.getCheckInTime());
+        values.put("overtime",attendance.getOverTime());
+        values.put("fulltime",attendance.getFullTime());
+        values.put("halfday",attendance.getHalfday());
+        values.put("check_out_time",attendance.getCheckOutTime());
+        values.put("wages",attendance.getWages());
+        values.put("created_at",attendance.getCreated_at());
+        values.put("updated_at",attendance.getUpdated_at());
+
+
+        /*workerModel.getWorkerId()/*Add Later on when Webservices*/
+
+        db.update(sqlTable, values, "worker_id = ?",
+                new String[]{attendance.getWorkerId()});
+    }
+    //delete worker by worker id
+    public void deleteToAttendance() {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("DELETE FROM attendance_master");
+        db.execSQL(query);
+    }
 
 
 

@@ -76,7 +76,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             dialog.setCancelable(false);
         }
         if(view == btnWorkerDetailsAttendence ){
-            Intent intent = new Intent(mContext,MatchingActivity.class);
+            Intent intent = new Intent(mContext,UploadWorkerAttendence.class);
             startActivity(intent);
         }
     }

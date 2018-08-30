@@ -52,7 +52,8 @@
         <activity android:name=".Main.WorkerUpdateActivity" />
         <activity android:name=".Main.TransferActivity" />
         <activity android:name=".Main.UploadActivity" />
-        <activity android:name=".Main.UploadWorkerDetailsActivity"></activity>
+        <activity android:name=".Main.UploadWorkerDetailsActivity" />
+        <activity android:name=".Main.UploadWorkerAttendence"></activity>
     </application>
 
 </manifest>

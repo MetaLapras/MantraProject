@@ -45,11 +45,11 @@ public class WorkerAteendenceAdapter extends RecyclerView.Adapter<WorkerAttenden
     @Override
     public void onBindViewHolder(@NonNull WorkerAttendenceHolder holder, final int position) {
         final WorkerModel workers = workerList.get(position);
-        holder.uploadWorkerName.setText("Name :- " + workers.getName().toString());
-        holder.uploadWorkerId.setText("Worker ID :- " + workers.getAdharcard_id().toString());
-        holder.uploadWorkerGender.setText("Gender :- " + workers.getGender().toString());
-        holder.uploadWorkerNumber.setText("Mobile No :- " + workers.getContact1().toString());
-        holder.uploadWorkerNumber2.setText("Alternate No :- " + workers.getContact2().toString());
+        holder.attendenceWorkerName.setText("Name :- " + workers.getName().toString());
+        holder.attendenceWorkerId.setText("Worker ID :- " + workers.getAdharcard_id().toString());
+        holder.attendenceWorkerGender.setText("Gender :- " + workers.getGender().toString());
+        holder.attendenceWorkerNumber.setText("Mobile No :- " + workers.getContact1().toString());
+        holder.attendenceWorkerNumber2.setText("Alternate No :- " + workers.getContact2().toString());
 
         workerAttendenceid = workers.getWorkerId();
         attendenceperAddId = workers.getPermanentAddressId();
@@ -64,7 +64,7 @@ public class WorkerAteendenceAdapter extends RecyclerView.Adapter<WorkerAttenden
 
         Glide.with(mContext)
                 .load(workers.getImageUrl().toString())
-                .into(holder.uploadcircleImageViewPhoto);
+                .into(holder.attendencecircleImageViewPhoto);
 
         //  Picasso.get().load(workers.getImageUrl().toString()).into(holder.circleImageViewPhoto);
 

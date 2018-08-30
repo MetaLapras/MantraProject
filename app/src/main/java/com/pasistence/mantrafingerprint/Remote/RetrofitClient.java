@@ -14,8 +14,6 @@ public class RetrofitClient {
 
     private static Retrofit retrofit;
 
-
-
     public static Retrofit getClient(String baseURL)
     {
         Gson gson = new GsonBuilder()

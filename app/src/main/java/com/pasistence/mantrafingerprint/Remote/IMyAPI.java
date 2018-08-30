@@ -196,6 +196,4 @@ public interface IMyAPI {
             @Field("halfDay") String halfDay,
             @Field("wages") String wages
     );
-
-
 }

@@ -353,89 +353,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         }
     }
 
-    private void onOfflineWorkerBankDetails() {
-        //Save offline Data in worker Bank details
-        bankAccount=new BankAccount();
 
-        bankAccount.setAccount_holder_name(edtholdername.getText().toString());
-        bankAccount.setAccount_no(edtbankaccountnumber.getText().toString());
-        bankAccount.setBank_name(edtbankname.getText().toString());
-        bankAccount.setIfsc_code(edtbankifsccode.getText().toString());
-        bankAccount.setWorker_id(Integer.parseInt(PreferenceUtils.getWorker_id(mContext).toString()));
-        bankAccount.setActivation("activate");
-
-        database.addToTempBankDetails(bankAccount);
-    }
-
-    private void onOfflineWorkerContact2() {
-        //Save offline Data in worker Current contact details
-        contactdetails=new Contactdetails();
-
-        contactdetails.setAddress_line_1(edtcurrentaddress1.getText().toString());
-        // workerModel.setId(edt_Id.getText().toString());
-        contactdetails.setAddress_line_2(edtcurrentaddress2.getText().toString());
-        // contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
-        // contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
-        contactdetails.setCity(edtcurrentcity.getText().toString());
-        contactdetails.setState(spncurrentstate.getSelectedItem().toString().trim());
-
-        if(edtpincode.getText().equals("")||edtpincode.getText().equals(null)){
-            contactdetails.setPincode("0");
-        }else {
-            contactdetails.setPincode(edtcurrentpincode.getText().toString());
-        }
-
-        database.addToTempAddressDetails(contactdetails); //Add to Temp Contact 2
-    }
-
-    private void onOfflineWorkerContact1() {
-        //Save offline Data in worker Permanent contact details
-        contactdetails=new Contactdetails();
-
-        contactdetails.setAddress_line_1(edtaddressline1.getText().toString());
-        contactdetails.setAddress_line_2(edtaddressline2.getText().toString());
-
-        if(edtmobilenum.getText().toString().equals("")||edtmobilenum.getText().equals(null)){
-            contactdetails.setContact1("0");
-        }else {
-            contactdetails.setContact1(edtmobilenum.getText().toString());
-        }
-        if(edtalternatenum.getText().toString().equals("")||edtalternatenum.getText().equals(null)){
-            contactdetails.setContact2("0");
-        }else {
-            contactdetails.setContact2(edtalternatenum.getText().toString());
-        }
-        if(edtpincode.getText().toString().equals("")||edtpincode.getText().equals(null)){
-            contactdetails.setPincode("0");
-        }else {
-            contactdetails.setPincode(edtpincode.getText().toString());
-        }
-
-        if(chk_isPermanent.isChecked())
-        {
-            edtcurrentaddress1.setText(edtaddressline1.getText());
-            edtcurrentaddress2.setText(edtaddressline2.getText());
-            edtcurrentcity.setText(edtcity.getText());
-            edtcurrentpincode.setText(edtpincode.getText());
-            contactdetails.setType("both");
-            spncurrentstate.setSelection(getIndex(spncurrentstate, spnstate.getSelectedItem().toString().trim()));
-        }else
-        {
-            contactdetails.setType("permanent");
-        }
-
-
-        // contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
-        // contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
-        contactdetails.setCity(edtcity.getText().toString());
-        contactdetails.setState(spnstate.getSelectedItem().toString().trim());
-        // contactdetails.setPincode(Integer.parseInt(edtpincode.getText().toString()));
-
-        database.addToTempAddressDetails(contactdetails);//Add to Temp address details 1
-
-
-    }
-
+                /*--------------------------------------------Online---------------------------------------------*/
     private void onWorkerRegistration() {
         workerModel=new WorkerModel();
 
@@ -920,6 +839,127 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             }
         }).start();
     }
+
+    /*--------------------------------------------Offline---------------------------------------------*/
+
+
+    private void onOfflineWorkerRegistration() {
+
+        workerModel=new WorkerModel();
+
+        workerModel.setName(edtname.getText().toString());
+        // workerModel.setId(edt_Id.getText().toString());
+        workerModel.setAdharcard_id(edtaadharnum.getText().toString());
+        workerModel.setDob(edtdob.getText().toString());
+        workerModel.setEmail(edtemail.getText().toString());
+        workerModel.setGender(spngender.getSelectedItem().toString().trim());
+        workerModel.setSalary(edtSalary.getText().toString());
+
+        finger = mfs100Mantra.getList();
+
+        if(finger.size()<=0)
+        {
+            workerModel.setFingerprint1("");
+            workerModel.setFingerprint2("");
+
+        }else {
+            workerModel.setFingerprint1(finger.get(0).toString());
+            isEnroll1 = true;
+            workerModel.setFingerprint2(finger.get(1).toString());
+            isEnroll2 = true;
+        }
+        try
+        {
+            database.addToTempWorkers(workerModel);
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void onOfflineWorkerContact1() {
+        //Save offline Data in worker Permanent contact details
+        contactdetails=new Contactdetails();
+
+        contactdetails.setAddress_line_1(edtaddressline1.getText().toString());
+        contactdetails.setAddress_line_2(edtaddressline2.getText().toString());
+
+        if(edtmobilenum.getText().toString().equals("")||edtmobilenum.getText().equals(null)){
+            contactdetails.setContact1("0");
+        }else {
+            contactdetails.setContact1(edtmobilenum.getText().toString());
+        }
+        if(edtalternatenum.getText().toString().equals("")||edtalternatenum.getText().equals(null)){
+            contactdetails.setContact2("0");
+        }else {
+            contactdetails.setContact2(edtalternatenum.getText().toString());
+        }
+        if(edtpincode.getText().toString().equals("")||edtpincode.getText().equals(null)){
+            contactdetails.setPincode("0");
+        }else {
+            contactdetails.setPincode(edtpincode.getText().toString());
+        }
+
+        if(chk_isPermanent.isChecked())
+        {
+            edtcurrentaddress1.setText(edtaddressline1.getText());
+            edtcurrentaddress2.setText(edtaddressline2.getText());
+            edtcurrentcity.setText(edtcity.getText());
+            edtcurrentpincode.setText(edtpincode.getText());
+            contactdetails.setType("both");
+            spncurrentstate.setSelection(getIndex(spncurrentstate, spnstate.getSelectedItem().toString().trim()));
+        }else
+        {
+            contactdetails.setType("permanent");
+        }
+
+
+        // contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
+        // contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
+        contactdetails.setCity(edtcity.getText().toString());
+        contactdetails.setState(spnstate.getSelectedItem().toString().trim());
+        // contactdetails.setPincode(Integer.parseInt(edtpincode.getText().toString()));
+
+        database.addToTempAddressDetails(contactdetails);//Add to Temp address details 1
+
+    }
+
+    private void onOfflineWorkerContact2() {
+        //Save offline Data in worker Current contact details
+        contactdetails=new Contactdetails();
+
+        contactdetails.setAddress_line_1(edtcurrentaddress1.getText().toString());
+        // workerModel.setId(edt_Id.getText().toString());
+        contactdetails.setAddress_line_2(edtcurrentaddress2.getText().toString());
+        // contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
+        // contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
+        contactdetails.setCity(edtcurrentcity.getText().toString());
+        contactdetails.setState(spncurrentstate.getSelectedItem().toString().trim());
+
+        if(edtpincode.getText().equals("")||edtpincode.getText().equals(null)){
+            contactdetails.setPincode("0");
+        }else {
+            contactdetails.setPincode(edtcurrentpincode.getText().toString());
+        }
+
+        database.addToTempAddressDetails(contactdetails); //Add to Temp Contact 2
+    }
+
+    private void onOfflineWorkerBankDetails() {
+        //Save offline Data in worker Bank details
+        bankAccount=new BankAccount();
+
+        bankAccount.setAccount_holder_name(edtholdername.getText().toString());
+        bankAccount.setAccount_no(edtbankaccountnumber.getText().toString());
+        bankAccount.setBank_name(edtbankname.getText().toString());
+        bankAccount.setIfsc_code(edtbankifsccode.getText().toString());
+        bankAccount.setWorker_id(Integer.parseInt(PreferenceUtils.getWorker_id(mContext).toString()));
+        bankAccount.setActivation("activate");
+
+        database.addToTempBankDetails(bankAccount);
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

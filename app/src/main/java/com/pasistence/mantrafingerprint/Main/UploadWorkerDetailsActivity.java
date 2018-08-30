@@ -43,7 +43,7 @@ public class UploadWorkerDetailsActivity extends AppCompatActivity {
 
         mInit();
 
-        WorkerDetails = new Database(mContext).getAllWorkers();
+        WorkerDetails = new Database(mContext).getAllTempWorkers();
 
         workerUploadAdapter = new WorkerUploadAdapter(UploadWorkerDetailsActivity.this, WorkerDetails);
         WorkeruploadListRecyclerView.setAdapter(workerUploadAdapter);

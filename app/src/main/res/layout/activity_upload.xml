@@ -28,6 +28,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -36,10 +37,10 @@
                         android:orientation="horizontal">
 
                         <EditText
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="100dp"
                             android:editable="false"
+                            android:textAlignment="center"
                             android:text="Workers Upload"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -47,25 +48,42 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:weightSum="3"
                         android:orientation="horizontal">
                         <Button
                             android:id="@+id/worker_upload_all"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
+<<<<<<< HEAD
                             android:text=" All "
+=======
+                            android:text="@string/upload_all"
+>>>>>>> 98ee3148cfbc98fb22add1a752d5788d4697094c
                             android:textAllCaps="false"
-                            android:textColor="@color/accent"
-                          android:layout_marginLeft="10dp"/>
+                            android:textColor="@color/accent" />
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
 
                         <Button
                             android:id="@+id/worker_upload_details"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
+<<<<<<< HEAD
                             android:text=" Details "
                             android:textAllCaps="false"
                             android:elevation="20dp"
                             android:textColor="@color/accent"
                             android:layout_marginLeft="150dp"/>
+=======
+                            android:text="@string/details"
+                            android:textAllCaps="false"
+                            android:elevation="20dp"
+                            android:textColor="@color/accent"/>
+>>>>>>> 98ee3148cfbc98fb22add1a752d5788d4697094c
 
                     </LinearLayout>
                 </LinearLayout>
@@ -81,6 +99,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -89,10 +108,10 @@
                         android:orientation="horizontal">
 
                         <EditText
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="100dp"
                             android:editable="false"
+                            android:textAlignment="center"
                             android:text="Workers Attendence"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -100,25 +119,44 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:weightSum="3"
                         android:orientation="horizontal">
                         <Button
                             android:id="@+id/worker_attendence_upload_all"
+<<<<<<< HEAD
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=" All "
+=======
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:text="@string/upload_all"
+>>>>>>> 98ee3148cfbc98fb22add1a752d5788d4697094c
                             android:textAllCaps="false"
-                            android:textColor="@color/accent"
-                            android:layout_marginLeft="10dp"/>
+                            android:textColor="@color/accent" />
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent" />
 
                         <Button
                             android:id="@+id/worker_attendence_upload_details"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+<<<<<<< HEAD
                             android:text=" Details "
                             android:textAllCaps="false"
                             android:elevation="20dp"
                             android:textColor="@color/accent"
                             android:layout_marginLeft="150dp"/>
+=======
+                            android:text="@string/details"
+                            android:layout_weight="1"
+                            android:textAllCaps="false"
+                            android:elevation="20dp"
+                            android:textColor="@color/accent" />
+>>>>>>> 98ee3148cfbc98fb22add1a752d5788d4697094c
 
                     </LinearLayout>
                 </LinearLayout>
@@ -134,6 +172,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -142,9 +181,9 @@
                         android:orientation="horizontal">
 
                         <EditText
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="100dp"
+                            android:textAlignment="center"
                             android:editable="false"
                             android:text="Workers Manual Attendence"
                             android:textStyle="bold" />
@@ -153,25 +192,31 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:weightSum="3"
                         android:orientation="horizontal">
                         <Button
                             android:id="@+id/worker_uploadAll_amnualattendence"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="Upload All"
+                            android:text="@string/upload_all"
                             android:textAllCaps="false"
-                            android:textColor="@color/accent"
-                            android:layout_marginLeft="10dp"/>
+                            android:textColor="@color/accent"/>
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent" />
 
                         <Button
                             android:id="@+id/worker_uploadDetails_mannualAttendence"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="Upload Details"
+                            android:text="@string/details"
                             android:textAllCaps="false"
                             android:elevation="20dp"
                             android:textColor="@color/accent"
-                            android:layout_marginLeft="130dp"/>
+                         />
 
                     </LinearLayout>
                 </LinearLayout>

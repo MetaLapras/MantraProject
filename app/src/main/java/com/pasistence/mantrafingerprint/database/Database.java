@@ -50,7 +50,15 @@ public class Database extends SQLiteAssetHelper {
                         "bank_id," +
                         "project_id," +
                         "activation," +
-                        "image_url,permanent_address,current_address,bank_name,holder_name,ifsc_code,account_number,city,pincode" +
+                        "image_url," +
+                        "permanent_address," +
+                        "current_address," +
+                        "bank_name," +
+                        "holder_name," +
+                        "ifsc_code," +
+                        "account_number," +
+                        "city," +
+                        "pincode" +
                         ")" +
                         " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
         workerModel.getId(),

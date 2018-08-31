@@ -749,7 +749,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             }
 
             try{
-
                 if(Common.isConnectedToInterNet(mContext)){
                     //Upload image into the server into the constant table
                     onImageUpload(workerModel.getImageUrl().toString());
@@ -768,8 +767,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                 e.printStackTrace();
                 Toast.makeText(mContext, "Something Went Wrong", Toast.LENGTH_SHORT).show();
             }
-
-        finish();
     }
 
     private void onImageUpload(String imageUri) {
@@ -795,8 +792,9 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                             @Override
                             public void onResponse(Call<APIWorkerImageResponse> call, Response<APIWorkerImageResponse> response) {
                                 APIWorkerImageResponse result = response.body();
-                                if(!result.isError())
-                                {
+                                Log.e("-->", result.toString());
+
+                                /*if(result.isError()) {
                                     Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
                                     Log.e("-->",result.getError_msg() );
                                     dialog.dismiss();
@@ -816,10 +814,11 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                             if(result.isError())
                                             {
                                                 Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
-                                                Log.e("-->",result.getError_msg() );
+                                                Log.e("-->",result.getError_msg());
                                             }else {
                                                 Toast.makeText(mContext, "Worker Registred Successfully", Toast.LENGTH_SHORT).show();
                                                 Log.e("-->", result.toString());
+                                                finish();
                                             }
                                         }
                                         @Override
@@ -827,7 +826,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                             t.printStackTrace();
                                         }
                                     });
-                                }
+                                }*/
                             }
 
                             @Override

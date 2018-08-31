@@ -1,6 +1,8 @@
 package com.pasistence.mantrafingerprint.Models.APIResponseModels;
 
-public class CurrentAddress {
+import java.io.Serializable;
+
+public class CurrentAddress implements Serializable {
     public int id;
     public String address_line_1 ;
     public String address_line_2 ;

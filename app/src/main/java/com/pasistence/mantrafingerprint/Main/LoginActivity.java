@@ -177,7 +177,7 @@ public class LoginActivity extends AppCompatActivity
                                // workerList = worker;
                                 Log.e("wrk",worker.toString());
 
-                                database.addToWorkers(worker);
+                             //   database.addToWorkers(worker);
 
                                 permanentAddress = new PermanentAddress();
                                 currentAddress = new CurrentAddress();

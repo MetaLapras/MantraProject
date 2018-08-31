@@ -405,7 +405,7 @@ public class MFS100Mantra implements MFS100Event {
                 attendance.setProjectId(project_id);
                 attendance.setCheckInDate(check_in_date);
                 attendance.setWages(wages);
-                attendance.setCheckInTime(check_in_time);
+                //attendance.setCheckInTime(check_in_time);
 
                 database = new Database(activity);
 

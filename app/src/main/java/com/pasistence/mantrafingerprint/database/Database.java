@@ -177,6 +177,7 @@ public class Database extends SQLiteAssetHelper {
 
             }while (cursor.moveToNext());
         }
+        cursor.close();
         return result;
     }
     public List<WorkerModel> getAllWorkers(String workerID){
@@ -1438,7 +1439,7 @@ public class Database extends SQLiteAssetHelper {
                         "updated_at" +
                         ")" +
                         " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
-                attendance.getId(),
+                attendance.getWorkerId(),
                 attendance.getWorkerAssignmentId(),
                 attendance.getProjectId(),
                 attendance.getCheckInDate(),
@@ -1483,6 +1484,7 @@ public class Database extends SQLiteAssetHelper {
 
         db.update(sqlTable, values, "worker_id = ?",
                 new String[]{attendance.getWorkerId()});
+        Log.e(TAG, "updateToTempAttendance:"+attendance.toString() );
     }
     //delete Attendance Master
     public void deleteToTempAttendance(String workerId) {

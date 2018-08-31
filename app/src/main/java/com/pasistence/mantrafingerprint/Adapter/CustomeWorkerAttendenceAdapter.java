@@ -67,7 +67,7 @@ public class CustomeWorkerAttendenceAdapter extends RecyclerView.Adapter<Custome
         Locale locale = new Locale("en","IN");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
        // txtTotal.setText(fmt.format(total));
-        holder.txtwages.setText(fmt.format(Integer.parseInt(workers.getWages().toString())));
+//        holder.txtwages.setText(fmt.format(Integer.parseInt(workers.getWages().toString()))+"");
 
 
     }

@@ -68,7 +68,10 @@ public class AttendanceFragment extends Fragment {
         layoutupload = new LinearLayoutManager(getActivity());
         fragmentrecyclerview.setLayoutManager(layoutupload);
 
-        List<Attendance> attendances = new Database(getActivity()).getallTempAttendace(PreferenceUtils.getWorker_id(getActivity()));
+        String strtext = getArguments().getString("worker_id");
+
+
+        List<Attendance> attendances = new Database(getActivity()).getallTempAttendace(strtext);
         Attendance attendance1 =  new Attendance(
                 "1",
                 "nam",

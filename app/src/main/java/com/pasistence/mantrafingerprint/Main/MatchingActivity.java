@@ -53,6 +53,7 @@ public class MatchingActivity extends AppCompatActivity {
         
         mfs100Mantra = new MFS100Mantra(MatchingActivity.this,imgfinger,CircularImage,txtWorkerName,txtWorkerId,lblMessage);
         mfs100Mantra.onStart();
+        mfs100Mantra.setRadioCheck("checkIn");
         statrMatchingbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +90,7 @@ public class MatchingActivity extends AppCompatActivity {
         linearLayout.setBackgroundResource(R.drawable.gradient_rintime_worker);
 
 
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
            @Override
            public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -116,6 +118,7 @@ public class MatchingActivity extends AppCompatActivity {
                }
            }
        });
+      //  mfs100Mantra.setRadioCheck("checkIn");
     }
 
     private void mCurrentate() {

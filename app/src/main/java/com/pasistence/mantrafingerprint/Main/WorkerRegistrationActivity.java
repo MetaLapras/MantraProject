@@ -794,7 +794,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                 APIWorkerImageResponse result = response.body();
                                 Log.e("-->", result.toString());
 
-                                /*if(result.isError()) {
+                                if(result.isError()) {
                                     Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
                                     Log.e("-->",result.getError_msg() );
                                     dialog.dismiss();
@@ -826,7 +826,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                             t.printStackTrace();
                                         }
                                     });
-                                }*/
+                                }
                             }
 
                             @Override

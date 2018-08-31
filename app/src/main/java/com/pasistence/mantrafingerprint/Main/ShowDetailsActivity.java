@@ -48,6 +48,9 @@ public class ShowDetailsActivity extends AppCompatActivity {
                 id = (String)getIntent().getStringExtra("id");
                 workerModel = (WorkerModel) getIntent().getSerializableExtra("workers");
             }
+
+
+
         }catch (Exception e)
         {
             e.printStackTrace();
@@ -114,7 +117,11 @@ public class ShowDetailsActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
+        Bundle bundle = new Bundle();
+        bundle.putString("worker_id",workerModel.getWorkerId());
+
         attendanceFragment=new AttendanceFragment();
+        attendanceFragment.setArguments(bundle);
         detailsFragment=new DetailsFragment(workerModel);
         //notificationFragment=new NotificationFragment();
 

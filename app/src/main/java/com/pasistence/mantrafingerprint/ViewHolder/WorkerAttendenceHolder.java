@@ -13,7 +13,7 @@ public class WorkerAttendenceHolder extends RecyclerView.ViewHolder {
 
     public CircleImageView attendencecircleImageViewPhoto;
     public TextView attendenceWorkerName,attendenceWorkerId,attendenceWorkerNumber,attendenceWorkerGender,attendenceWorkerNumber2;
-    public Button btnsubmit;
+    public Button btnCheckInTime,btnCheckOutTime;
 
     public WorkerAttendenceHolder(View itemView) {
         super(itemView);
@@ -25,7 +25,8 @@ public class WorkerAttendenceHolder extends RecyclerView.ViewHolder {
         attendenceWorkerNumber         = (TextView)itemView.findViewById(R.id.txt_workerattendence_number);
         attendenceWorkerNumber2        = (TextView)itemView.findViewById(R.id.txt_workerattendence_number2);
 
-        btnsubmit                 = (Button)itemView.findViewById(R.id.btn_submit_upload);
+        btnCheckInTime                 = (Button)itemView.findViewById(R.id.checkinTime_btn);
+        btnCheckOutTime                = (Button)itemView.findViewById(R.id.checkOutTime_btn);
 
 
     }

@@ -83,7 +83,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         btnWorkerDetails.setOnClickListener(this);
         btnWorkerAllAttendence.setOnClickListener(this);
         btnWorkerDetailsAttendence.setOnClickListener(this);
-
     }
 
     @Override
@@ -178,12 +177,15 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     }
     private void onWorkerDetailsUpload(List<WorkerModel> workerList) {
         //JSONArray jsArray = new JSONArray(workerList);
-       /* Gson gson = new GsonBuilder().setPrettyPrinting().create();
+      /*  Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(workerList);
         String stringToPost = new Gson().toJson(workerList);
         String joint = "worker :";
         Log.e(TAG, stringToPost.toString() );
         System.out.println(json);*/
+
+
+
     }
     private void onAddressUpload(List<Contactdetails> contactList) {
 

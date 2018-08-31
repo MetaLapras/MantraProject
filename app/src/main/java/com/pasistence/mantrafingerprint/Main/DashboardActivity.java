@@ -195,8 +195,8 @@ public class DashboardActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.action_logout) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DashboardActivity.this);
-            alertDialog.setMessage("Are you Sure Want to Logout")
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(DashboardActivity.this);
+            alertDialogBuilder.setMessage("Are you Sure Want to Logout")
                     .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // FIRE ZE MISSILES!
@@ -213,9 +213,8 @@ public class DashboardActivity extends AppCompatActivity
                         }
                     });
 
-
-
-
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
 
             return true;
         }

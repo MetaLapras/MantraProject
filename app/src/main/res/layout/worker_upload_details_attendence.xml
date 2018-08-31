@@ -120,6 +120,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="CheckIn Time"
+                    android:clickable="false"
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -131,6 +132,7 @@
                     android:layout_height="wrap_content"
                     android:text="CheckOut Time"
                     android:layout_weight="1"
+                    android:clickable="false"
                     android:textColor="@color/black"
                     android:background="#fc0410"/>
             </LinearLayout>

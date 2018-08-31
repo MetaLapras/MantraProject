@@ -354,7 +354,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     }
 
 
-                /*--------------------------------------------Online---------------------------------------------*/
+   /*--------------------------------------------Online---------------------------------------------*/
+
     private void onWorkerRegistration() {
         workerModel=new WorkerModel();
 
@@ -721,6 +722,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             workerModel.setPermanentAddressId(per_address_id);
             workerModel.setCurrentAddressId(curr_address_id);
             workerModel.setBankId(bank_id);
+            workerModel.setActivation("activate");
 
             try{
                 if(!getImagePath().equals(null))

@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.pasistence.mantrafingerprint.Common.Common;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.Attendance;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.Remote.IMyAPI;
 import com.pasistence.mantrafingerprint.ViewHolder.WorkerAttendenceHolder;
 import com.pasistence.mantrafingerprint.ViewHolder.WorkerUploadHolder;
+import com.pasistence.mantrafingerprint.database.Database;
 
 import java.util.List;
 
@@ -22,15 +24,16 @@ public class WorkerAteendenceAdapter extends RecyclerView.Adapter<WorkerAttenden
 
     Context mContext;
     Activity activity;
+    List<Attendance> attendanceList ;
     List<WorkerModel> workerList ;
     public static String TAG = "adaper -->";
     String workerAttendenceid,attendenceperAddId,attendencecurAddId,attendencebankId;
     IMyAPI mService;
 
 
-    public WorkerAteendenceAdapter(Activity activity, List<WorkerModel> workerList) {
+    public WorkerAteendenceAdapter(Activity activity, List<Attendance> workerList) {
         this.activity = activity;
-        this.workerList = workerList;
+        this.attendanceList = workerList;
     }
 
     @NonNull
@@ -44,17 +47,20 @@ public class WorkerAteendenceAdapter extends RecyclerView.Adapter<WorkerAttenden
 
     @Override
     public void onBindViewHolder(@NonNull WorkerAttendenceHolder holder, final int position) {
-        final WorkerModel workers = workerList.get(position);
-        holder.attendenceWorkerName.setText("Name :- " + workers.getName().toString());
-        holder.attendenceWorkerId.setText("Worker ID :- " + workers.getAdharcard_id().toString());
-        holder.attendenceWorkerGender.setText("Gender :- " + workers.getGender().toString());
-        holder.attendenceWorkerNumber.setText("Mobile No :- " + workers.getContact1().toString());
-        holder.attendenceWorkerNumber2.setText("Alternate No :- " + workers.getContact2().toString());
+        final Attendance workers = attendanceList.get(position);
 
-        workerAttendenceid = workers.getWorkerId();
-        attendenceperAddId = workers.getPermanentAddressId();
-        attendencecurAddId = workers.getCurrentAddressId();
-        attendencebankId = workers.getBankId();
+        workerList = new Database(mContext).getAllWorkers(attendanceList.get(position).getWorkerId());
+
+        holder.attendenceWorkerName.setText("Name :- " + workerList.get(0).getName().toString());
+        holder.attendenceWorkerId.setText("Worker ID :- " + workerList.get(0).toString());
+        holder.attendenceWorkerGender.setText("Gender :- " + workerList.get(0).toString());
+        holder.attendenceWorkerNumber.setText("Mobile No :- " + workerList.get(0).toString());
+        holder.attendenceWorkerNumber2.setText("Alternate No :- " + workerList.get(0).toString());
+
+        workerAttendenceid = workerList.get(0).getWorkerId();
+        attendenceperAddId = workerList.get(0).getPermanentAddressId();
+        attendencecurAddId = workerList.get(0).getCurrentAddressId();
+        attendencebankId = workerList.get(0).getBankId();
         //init service
         mService = Common.getApi();
 
@@ -63,12 +69,12 @@ public class WorkerAteendenceAdapter extends RecyclerView.Adapter<WorkerAttenden
         //   holder.circleImageViewPhoto.setImageURI(Uri.parse(workers.getImageUrl().toString()));
 
         Glide.with(mContext)
-                .load(workers.getImageUrl().toString())
+                .load(workerList.get(0).getImageUrl().toString())
                 .into(holder.attendencecircleImageViewPhoto);
 
         //  Picasso.get().load(workers.getImageUrl().toString()).into(holder.circleImageViewPhoto);
-
-
+        holder.btnCheckInTime.setText(attendanceList.get(position).getCheckInTime());
+        holder.btnCheckOutTime.setText(attendanceList.get(position).getCheckOutTime());
 
        /* holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override

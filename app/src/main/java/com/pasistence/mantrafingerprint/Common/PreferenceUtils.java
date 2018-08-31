@@ -9,9 +9,20 @@ public class PreferenceUtils {
     public static final String project_id = "project_id";
     public static final String worker_id = "worker_id";
     public static final String PREFERENCE_KEY = "MANTRA";
+    public static final String PREFERENCE_KEY_SIGN_IN="signIn";
 
     //prevent instantiation
     private PreferenceUtils(){}
+
+
+    public static void setSignIn(Context context,boolean signIn){
+        SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+        editor.putBoolean(PREFERENCE_KEY_SIGN_IN,signIn).apply();
+    }
+
+    public static boolean getSignIn(Context context){
+        return getSharedPreferences(context).getBoolean(PREFERENCE_KEY_SIGN_IN,false);
+    }
 
     public static SharedPreferences getSharedPreferences(Context context){
         return context.getSharedPreferences(PREFERENCE_KEY,Context.MODE_PRIVATE);

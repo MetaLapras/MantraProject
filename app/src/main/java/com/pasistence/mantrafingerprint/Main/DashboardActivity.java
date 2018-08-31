@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.appolica.flubber.Flubber;
+import com.pasistence.mantrafingerprint.Common.PreferenceUtils;
 import com.pasistence.mantrafingerprint.R;
 
 public class DashboardActivity extends AppCompatActivity
@@ -194,9 +195,28 @@ public class DashboardActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.action_logout) {
-            Toast.makeText(this, "Logout From Activity and goes to Login Activity", Toast.LENGTH_SHORT).show();
-            Intent intent1 = new Intent(this,LoginActivity.class);
-            this.startActivity(intent1);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(DashboardActivity.this);
+            alertDialog.setMessage("Are you Sure Want to Logout")
+                    .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // FIRE ZE MISSILES!
+                            PreferenceUtils.setSignIn(DashboardActivity.this,false);
+                            Intent intent1 = new Intent(DashboardActivity.this,LoginActivity.class);
+                            startActivity(intent1);
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                            dialog.dismiss();
+                        }
+                    });
+
+
+
+
+
             return true;
         }
 

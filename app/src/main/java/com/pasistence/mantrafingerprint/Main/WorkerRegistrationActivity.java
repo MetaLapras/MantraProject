@@ -366,8 +366,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         workerModel.setGender(spngender.getSelectedItem().toString().trim());
         workerModel.setSalary(edtSalary.getText().toString());
 
-
-
         finger = mfs100Mantra.getList();
 
         if(finger.size()<=0)
@@ -759,7 +757,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                 }else{
                     //Offline save all data into the temp table
                     database.addToTempWorkers(workerModel);
-                    //Toast.makeText(mContext, "Worker Registred successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Worker Registred successfully", Toast.LENGTH_SHORT).show();
                     mfs100Mantra.onDestroy();
                 }
 
@@ -841,7 +839,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     }
 
     /*--------------------------------------------Offline---------------------------------------------*/
-
 
     private void onOfflineWorkerRegistration() {
 
@@ -954,7 +951,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         bankAccount.setAccount_no(edtbankaccountnumber.getText().toString());
         bankAccount.setBank_name(edtbankname.getText().toString());
         bankAccount.setIfsc_code(edtbankifsccode.getText().toString());
-        bankAccount.setWorker_id(Integer.parseInt(PreferenceUtils.getWorker_id(mContext).toString()));
+        //bankAccount.setWorker_id(Integer.parseInt(PreferenceUtils.getWorker_id(mContext).toString()));
         bankAccount.setActivation("activate");
 
         database.addToTempBankDetails(bankAccount);

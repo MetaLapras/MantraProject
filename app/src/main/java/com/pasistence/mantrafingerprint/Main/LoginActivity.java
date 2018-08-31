@@ -148,6 +148,7 @@ public class LoginActivity extends AppCompatActivity
 
                             PreferenceUtils.setEmployee_id(mContext, String.valueOf(employeeDetails.getId()));
                             PreferenceUtils.setProject_id(mContext, String.valueOf(projectdetails.getProject_id()));
+                            PreferenceUtils.setSignIn(LoginActivity.this,true);
                             //database.deleteToEmployee();
                             //database.addToEmployee(employeeDetails);
 

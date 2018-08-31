@@ -73,7 +73,6 @@
                             android:elevation="20dp"
                             android:textColor="@color/accent"/>
 
-
                     </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -112,12 +111,10 @@
                         android:orientation="horizontal">
                         <Button
                             android:id="@+id/worker_attendence_upload_all"
-
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="match_parent"
                             android:text="@string/upload_all"
-
                             android:textAllCaps="false"
                             android:textColor="@color/accent" />
                         <Space

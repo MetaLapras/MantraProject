@@ -1433,6 +1433,56 @@ public class Database extends SQLiteAssetHelper {
         }
         return result;
     }
+    public List<Attendance> getallTempAttendace(String worker_id) {
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb =  new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {
+                "worker_id" ,
+                "worker_assignment_id" ,
+                "project_id" ,
+                "check_in_date" ,
+                "check_in_time" ,
+                "overtime" ,
+                "fulltime",
+                "halfday" ,
+                "check_out_time" ,
+                "wages" ,
+                "created_at",
+                "updated_at"
+        };
+        String sqlTable = "Temp_attendance_master";
+
+        String selectQuery = "SELECT  * FROM  Temp_attendance_master ";
+
+        qb.setTables(sqlTable);
+        Cursor cursor = qb.query(db,sqlSelect,"worker_id=?",new String[]{worker_id},null,null,null);
+
+        final List<Attendance> result = new ArrayList<Attendance>();
+        if(cursor.moveToFirst())
+        {
+            do {
+                Attendance details = new Attendance();
+                details.setWorkerId(cursor.getString(cursor.getColumnIndex("worker_id")));
+                details.setWorkerAssignmentId(cursor.getString(cursor.getColumnIndex("worker_assignment_id")));
+                details.setProjectId(cursor.getString(cursor.getColumnIndex("project_id")));
+                details.setCheckInDate(cursor.getString(cursor.getColumnIndex("check_in_date")));
+                details.setCheckInTime(cursor.getString(cursor.getColumnIndex("check_in_time")));
+                details.setCheckOutTime(cursor.getString(cursor.getColumnIndex("overtime")));
+                details.setFullTime(cursor.getString(cursor.getColumnIndex("fulltime")));
+                details.setHalfday(cursor.getString(cursor.getColumnIndex("halfday")));
+                details.setCheckOutTime(cursor.getString(cursor.getColumnIndex("check_out_time")));
+                details.setWages(cursor.getString(cursor.getColumnIndex("wages")));
+
+                result.add(details);
+
+                Log.e(TAG, result.toString() );
+
+            }while (cursor.moveToNext());
+        }
+        return result;
+    }
+
 
     //Attendance Table
     public void addToAttendance(Attendance attendance){

@@ -53,11 +53,11 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private void mInit() {
         mContext                   = UploadActivity.this;
 
-        btnWorkerAll               = (Button)findViewById(R.id.worker_upload_all);
+       // btnWorkerAll               = (Button)findViewById(R.id.worker_upload_all);
         btnWorkerDetails           = (Button)findViewById(R.id.worker_upload_details);
-        btnWorkerAllAttendence     = (Button)findViewById(R.id.worker_attendence_upload_all);
+      //  btnWorkerAllAttendence     = (Button)findViewById(R.id.worker_attendence_upload_all);
         btnWorkerDetailsAttendence = (Button)findViewById(R.id.worker_attendence_upload_details);
-        btnWorkerAllmannual        = (Button)findViewById(R.id.worker_uploadAll_amnualattendence);
+      //  btnWorkerAllmannual        = (Button)findViewById(R.id.worker_uploadAll_amnualattendence);
         btnWorkerDetailsMannual    = (Button)findViewById(R.id.worker_uploadDetails_mannualAttendence);
 
         database = new Database(mContext);
@@ -66,24 +66,24 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     private void mOnClick() {
 
-        btnWorkerAll.setOnClickListener(this);
+       // btnWorkerAll.setOnClickListener(this);
         btnWorkerDetails.setOnClickListener(this);
-        btnWorkerAllAttendence.setOnClickListener(this);
+       // btnWorkerAllAttendence.setOnClickListener(this);
         btnWorkerDetailsAttendence.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View view) {
-        if(view == btnWorkerAll ){
+       /* if(view == btnWorkerAll ){
             Toast.makeText(mContext, "Worker Upload..... ", Toast.LENGTH_SHORT).show();
             showWorkerUploadDialogue();
-        }
+        }*/
         if(view == btnWorkerDetails ){
             Intent intent = new Intent(UploadActivity.this,UploadWorkerDetailsActivity.class);
             startActivity(intent);
         }
-        if(view == btnWorkerAllAttendence ){
+        /*if(view == btnWorkerAllAttendence ){
             Toast.makeText(mContext, "Worker Attendence Upload..... ", Toast.LENGTH_SHORT).show();
             final AlertDialog dialog = new SpotsDialog(mContext);
             dialog.show();
@@ -91,14 +91,14 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             dialog.setCancelable(false);
 
             showAttendanceDialogue();
-        }
+        }*/
         if(view == btnWorkerDetailsAttendence ){
             Intent intent = new Intent(mContext,UploadWorkerAttendence.class);
             startActivity(intent);
         }
     }
 
-    private void showAttendanceDialogue() {
+   /* private void showAttendanceDialogue() {
         dialog.setMax(100);
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         dialog.setMessage("Uploading All Data....");
@@ -109,7 +109,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         attendanceList = database.getallTempAttendace();
         uploadAllAttendanceData(attendanceList);
     }
-
+*/
 
     private void showWorkerUploadDialogue() {
 

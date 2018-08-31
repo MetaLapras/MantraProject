@@ -235,7 +235,7 @@ public class DashboardActivity extends AppCompatActivity
             return true;
 
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_feedback) {
 
 
         }

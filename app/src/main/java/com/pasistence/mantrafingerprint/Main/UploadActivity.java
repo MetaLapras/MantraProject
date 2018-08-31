@@ -87,12 +87,12 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-<<<<<<< HEAD
+
        /* if(view == btnWorkerAll ){
             Toast.makeText(mContext, "Worker Upload..... ", Toast.LENGTH_SHORT).show();
             showWorkerUploadDialogue();
         }*/
-=======
+
         if(view == btnWorkerAll ){
             //Toast.makeText(mContext, "Worker Upload..... ", Toast.LENGTH_SHORT).show();
             if(Common.isConnectedToInterNet(mContext)){
@@ -102,7 +102,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         }
->>>>>>> 6deb848044512b4fbef89bdb467039fef80cb919
+
         if(view == btnWorkerDetails ){
             Intent intent = new Intent(UploadActivity.this,UploadWorkerDetailsActivity.class);
             startActivity(intent);
@@ -122,13 +122,12 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-<<<<<<< HEAD
-   /* private void showAttendanceDialogue() {
-        dialog.setMax(100);
-=======
+
+ /* private void showAttendanceDialogue() {
+      dialog.setMax(100);
+  }*/
     private void showAttendanceDialogue() {
 
->>>>>>> 6deb848044512b4fbef89bdb467039fef80cb919
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         dialog.setMessage("Uploading All Data....");
         dialog.setIndeterminate(false);
@@ -160,7 +159,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         attendanceList = database.getallTempAttendace();
         uploadAllAttendanceData(attendanceList);
     }
-*/
+
 
     private void showWorkerUploadDialogue() {
 
@@ -195,9 +194,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         String joint = "worker :";
         Log.e(TAG, stringToPost.toString() );
         System.out.println(json);*/
-
-
-
     }
     private void onAddressUpload(List<Contactdetails> contactList) {
 

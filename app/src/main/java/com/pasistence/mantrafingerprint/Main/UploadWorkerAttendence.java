@@ -12,6 +12,7 @@ import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.pasistence.mantrafingerprint.Adapter.SearchAdapter;
 import com.pasistence.mantrafingerprint.Adapter.WorkerAteendenceAdapter;
 import com.pasistence.mantrafingerprint.Adapter.WorkerUploadAdapter;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.Attendance;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.database.Database;
@@ -30,7 +31,7 @@ public class UploadWorkerAttendence extends AppCompatActivity {
     WorkerAteendenceAdapter workerAteendenceAdapter;
     Database database;
 
-    List<WorkerModel> WorkerDetails;
+    List<Attendance> WorkerDetails;
 
 
     MaterialSearchBar materialAttendenceSearchBar;
@@ -43,7 +44,7 @@ public class UploadWorkerAttendence extends AppCompatActivity {
 
         mInit();
 
-        WorkerDetails = new Database(mContext).getAllWorkers();
+        WorkerDetails = new Database(mContext).getallTempAttendace();
 
         workerAteendenceAdapter = new WorkerAteendenceAdapter(UploadWorkerAttendence.this, WorkerDetails);
         WorkerAttendenceListRecyclerView.setAdapter(workerAteendenceAdapter);

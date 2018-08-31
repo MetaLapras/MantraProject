@@ -13,8 +13,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.pasistence.mantrafingerprint.Common.Common;
+import com.pasistence.mantrafingerprint.Common.PreferenceUtils;
 import com.pasistence.mantrafingerprint.Interface.UploadCallBack;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerPersonalResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Attendance;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.BankAccount;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
@@ -24,10 +29,16 @@ import com.pasistence.mantrafingerprint.Remote.IMyAPI;
 import com.pasistence.mantrafingerprint.Remote.ProgressRequestBody;
 import com.pasistence.mantrafingerprint.database.Database;
 
+import org.json.JSONArray;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import dmax.dialog.SpotsDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UploadActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG ="upload-->" ;
@@ -60,8 +71,10 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
       //  btnWorkerAllmannual        = (Button)findViewById(R.id.worker_uploadAll_amnualattendence);
         btnWorkerDetailsMannual    = (Button)findViewById(R.id.worker_uploadDetails_mannualAttendence);
 
+        dialog=new ProgressDialog(this);
         database = new Database(mContext);
         mService = Common.getApi();
+
     }
 
     private void mOnClick() {
@@ -70,15 +83,26 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         btnWorkerDetails.setOnClickListener(this);
        // btnWorkerAllAttendence.setOnClickListener(this);
         btnWorkerDetailsAttendence.setOnClickListener(this);
-
     }
 
     @Override
     public void onClick(View view) {
+<<<<<<< HEAD
        /* if(view == btnWorkerAll ){
             Toast.makeText(mContext, "Worker Upload..... ", Toast.LENGTH_SHORT).show();
             showWorkerUploadDialogue();
         }*/
+=======
+        if(view == btnWorkerAll ){
+            //Toast.makeText(mContext, "Worker Upload..... ", Toast.LENGTH_SHORT).show();
+            if(Common.isConnectedToInterNet(mContext)){
+                showWorkerUploadDialogue();
+            }else{
+            Toast.makeText(mContext, "No Internet Connection", Toast.LENGTH_SHORT).show();
+        }
+
+        }
+>>>>>>> 6deb848044512b4fbef89bdb467039fef80cb919
         if(view == btnWorkerDetails ){
             Intent intent = new Intent(UploadActivity.this,UploadWorkerDetailsActivity.class);
             startActivity(intent);
@@ -98,14 +122,41 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+<<<<<<< HEAD
    /* private void showAttendanceDialogue() {
         dialog.setMax(100);
+=======
+    private void showAttendanceDialogue() {
+
+>>>>>>> 6deb848044512b4fbef89bdb467039fef80cb919
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         dialog.setMessage("Uploading All Data....");
         dialog.setIndeterminate(false);
         dialog.setCancelable(false);
+        dialog.setProgress(0);
+        dialog.setMax(100);
         dialog.show();
 
+     /*   final int totalProgressTime = 100;
+        final Thread t = new Thread() {
+            @Override
+            public void run() {
+                int jumpTime = 0;
+
+                while(jumpTime < totalProgressTime) {
+                    try {
+                        sleep(200);
+                        jumpTime += 5;
+                        dialog.setProgress(jumpTime);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+                dialog.dismiss();
+            }
+        };
+        t.start();*/
         attendanceList = database.getallTempAttendace();
         uploadAllAttendanceData(attendanceList);
     }
@@ -113,13 +164,13 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     private void showWorkerUploadDialogue() {
 
-        dialog = new ProgressDialog(mContext);
+        /*dialog = new ProgressDialog(mContext);
         dialog.setMax(100);
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         dialog.setMessage("Uploading All Data....");
         dialog.setIndeterminate(false);
         dialog.setCancelable(false);
-        dialog.show();
+        dialog.show();*/
 
         workerList = database.getAllTempWorkers();
         bankList = database.getAllTempBankDetails();
@@ -129,42 +180,37 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         Log.e(TAG,bankList.toString() );
         Log.e(TAG,contactList.toString() );
 
-        if(Common.isConnectedToInterNet(mContext)){
             // Insert into Server Side
             onWorkerDetailsUpload(workerList);
             onAddressUpload(contactList);
             onBankUpload(bankList);
             onImageUplod(workerList);
-        }else{
-            //Save on offline
-            Toast.makeText(mContext, "Data has been Saved Offline", Toast.LENGTH_SHORT).show();
-        }
+
     }
     private void onWorkerDetailsUpload(List<WorkerModel> workerList) {
-        for(WorkerModel workerModel : workerList){
+        //JSONArray jsArray = new JSONArray(workerList);
+      /*  Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(workerList);
+        String stringToPost = new Gson().toJson(workerList);
+        String joint = "worker :";
+        Log.e(TAG, stringToPost.toString() );
+        System.out.println(json);*/
 
-        }
+
+
     }
     private void onAddressUpload(List<Contactdetails> contactList) {
-        for(Contactdetails contactdetails : contactList){
 
-        }
     }
     private void onBankUpload(List<BankAccount> bankList) {
-        for(BankAccount bankAccount : bankList){
 
-        }
     }
     private void onImageUplod(List<WorkerModel> workerList) {
-        for(WorkerModel workerModel : workerList){
 
-        }
     }
 
     private void uploadAllAttendanceData(List<Attendance> attendanceList) {
-        for(Attendance attendance : attendanceList){
 
-        }
     }
 
 

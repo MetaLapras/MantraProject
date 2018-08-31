@@ -1,6 +1,8 @@
 package com.pasistence.mantrafingerprint.Models.APIResponseModels;
 
-public class BankAccount {
+import java.io.Serializable;
+
+public class BankAccount implements Serializable {
     public int id ;
     public String account_holder_name ;
     public String ifsc_code;

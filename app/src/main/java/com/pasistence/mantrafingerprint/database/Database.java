@@ -50,7 +50,15 @@ public class Database extends SQLiteAssetHelper {
                         "bank_id," +
                         "project_id," +
                         "activation," +
-                        "image_url,permanent_address,current_address,bank_name,holder_name,ifsc_code,account_number,city,pincode" +
+                        "image_url," +
+                        "permanent_address," +
+                        "current_address," +
+                        "bank_name," +
+                        "holder_name," +
+                        "ifsc_code," +
+                        "account_number," +
+                        "city," +
+                        "pincode" +
                         ")" +
                         " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
         workerModel.getId(),
@@ -128,6 +136,89 @@ public class Database extends SQLiteAssetHelper {
 
         qb.setTables(sqlTable);
         Cursor cursor = qb.query(db,sqlSelect,null,null,null,null,null);
+
+        final List<WorkerModel> result = new ArrayList<WorkerModel>();
+        if(cursor.moveToFirst())
+        {
+            do {
+                WorkerModel workerModel = new WorkerModel();
+                workerModel.setId(cursor.getString(cursor.getColumnIndex("id")));
+                workerModel.setWorkerId(cursor.getString(cursor.getColumnIndex("worker_id")));
+                workerModel.setName(cursor.getString(cursor.getColumnIndex("name")));
+                workerModel.setAdharcard_id(cursor.getString(cursor.getColumnIndex("adharcard_id")));
+                workerModel.setGender(cursor.getString(cursor.getColumnIndex("gender")));
+                workerModel.setDob(cursor.getString(cursor.getColumnIndex("dob")));
+                workerModel.setFingerprint1(cursor.getString(cursor.getColumnIndex("fingerprint1")));
+                workerModel.setFingerprint2(cursor.getString(cursor.getColumnIndex("fingerprint2")));
+                workerModel.setEmail(cursor.getString(cursor.getColumnIndex("email")));
+                workerModel.setPermanentAddressId(cursor.getString(cursor.getColumnIndex("permanent_address_id")));
+                workerModel.setCurrentAddressId(cursor.getString(cursor.getColumnIndex("current_address_id")));
+                workerModel.setContact1(cursor.getString(cursor.getColumnIndex("contact1")));
+                workerModel.setContact2(cursor.getString(cursor.getColumnIndex("contact2")));
+                workerModel.setSalary(cursor.getString(cursor.getColumnIndex("salary")));
+                workerModel.setCreatedAt(cursor.getString(cursor.getColumnIndex("created_at")));
+                workerModel.setUpdatedAt(cursor.getString(cursor.getColumnIndex("updated_at")));
+                workerModel.setBankId(cursor.getString(cursor.getColumnIndex("bank_id")));
+                workerModel.setProjectId(cursor.getString(cursor.getColumnIndex("project_id")));
+                workerModel.setActivation(cursor.getString(cursor.getColumnIndex("activation")));
+                workerModel.setImageUrl(cursor.getString(cursor.getColumnIndex("image_url")));
+                workerModel.setPermanent_address1(cursor.getString(cursor.getColumnIndex("permanent_address")));
+                workerModel.setCurrent_address1(cursor.getString(cursor.getColumnIndex("current_address")));
+                workerModel.setBank_name(cursor.getString(cursor.getColumnIndex("bank_name")));
+                workerModel.setHolder_name(cursor.getString(cursor.getColumnIndex("holder_name")));
+                workerModel.setIfsc_code(cursor.getString(cursor.getColumnIndex("ifsc_code")));
+                workerModel.setAccount_number(cursor.getString(cursor.getColumnIndex("account_number")));
+                workerModel.setCity(cursor.getString(cursor.getColumnIndex("city")));
+                workerModel.setPincode(cursor.getString(cursor.getColumnIndex("pincode")));
+
+                result.add(workerModel);
+
+                Log.e(TAG, result.toString() );
+
+            }while (cursor.moveToNext());
+        }
+        return result;
+    }
+    public List<WorkerModel> getAllWorkers(String workerID){
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb =  new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {
+                "id",
+                "worker_id",
+                "name",
+                "adharcard_id",
+                "gender",
+                "dob",
+                "fingerprint1",
+                "fingerprint2",
+                "email",
+                "permanent_address_id",
+                "current_address_id",
+                "contact1",
+                "contact2",
+                "salary",
+                "created_at",
+                "updated_at",
+                "bank_id",
+                "project_id",
+                "activation",
+                "image_url",
+                "permanent_address",
+                "current_address",
+                "bank_name",
+                "holder_name",
+                "ifsc_code",
+                "account_number",
+                "city",
+                "pincode"
+        };
+        String sqlTable = "worker_master";
+
+        String selectQuery = "SELECT  * FROM  worker_master ";
+
+        qb.setTables(sqlTable);
+        Cursor cursor = qb.query(db,sqlSelect,"worker_id = ?",new String[] {workerID},null,null,null);
 
         final List<WorkerModel> result = new ArrayList<WorkerModel>();
         if(cursor.moveToFirst())
@@ -923,6 +1014,11 @@ public class Database extends SQLiteAssetHelper {
         String query = String.format("DELETE FROM Temp_bank_master WHERE worker_id = '%s'",workerId);
         db.execSQL(query);
     }
+    public void deleteToTempBankDetailsID(String Id) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("DELETE FROM Temp_bank_master WHERE id = '%s'",Id);
+        db.execSQL(query);
+    }
     //Update into worker Address details
     public void updateToTempBankMaster(BankAccount bankAccount) {
         String sqlTable = "Temp_bank_master";
@@ -1030,6 +1126,11 @@ public class Database extends SQLiteAssetHelper {
     public void deleteToTempAddressDetails(String workerId) {
         SQLiteDatabase db = getReadableDatabase();
         String query = String.format("DELETE FROM Temp_address_master WHERE worker_id = '%s'",workerId);
+        db.execSQL(query);
+    }
+    public void deleteToTempAddressDetailsID(String Id) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("DELETE FROM Temp_address_master WHERE id = '%s'",Id);
         db.execSQL(query);
     }
     //Update into worker Temp Address details
@@ -1210,6 +1311,11 @@ public class Database extends SQLiteAssetHelper {
     public void deleteToTempWorkers(String workerId) {
         SQLiteDatabase db = getReadableDatabase();
         String query = String.format("DELETE FROM Temp_worker_master WHERE id = '%s'",workerId);
+        db.execSQL(query);
+    }
+    public void deleteToTempWorkersID(String Id) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("DELETE FROM Temp_worker_master WHERE id = '%s'",Id);
         db.execSQL(query);
     }
     //Get all Temp Workers

@@ -354,7 +354,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     }
 
 
-                /*--------------------------------------------Online---------------------------------------------*/
+   /*--------------------------------------------Online---------------------------------------------*/
+
     private void onWorkerRegistration() {
         workerModel=new WorkerModel();
 
@@ -365,8 +366,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         workerModel.setEmail(edtemail.getText().toString());
         workerModel.setGender(spngender.getSelectedItem().toString().trim());
         workerModel.setSalary(edtSalary.getText().toString());
-
-
 
         finger = mfs100Mantra.getList();
 
@@ -723,6 +722,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             workerModel.setPermanentAddressId(per_address_id);
             workerModel.setCurrentAddressId(curr_address_id);
             workerModel.setBankId(bank_id);
+            workerModel.setActivation("activate");
 
             try{
                 if(!getImagePath().equals(null))
@@ -749,7 +749,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             }
 
             try{
-
                 if(Common.isConnectedToInterNet(mContext)){
                     //Upload image into the server into the constant table
                     onImageUpload(workerModel.getImageUrl().toString());
@@ -759,7 +758,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                 }else{
                     //Offline save all data into the temp table
                     database.addToTempWorkers(workerModel);
-                    //Toast.makeText(mContext, "Worker Registred successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Worker Registred successfully", Toast.LENGTH_SHORT).show();
                     mfs100Mantra.onDestroy();
                 }
 
@@ -768,8 +767,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                 e.printStackTrace();
                 Toast.makeText(mContext, "Something Went Wrong", Toast.LENGTH_SHORT).show();
             }
-
-        finish();
     }
 
     private void onImageUpload(String imageUri) {
@@ -795,8 +792,9 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                             @Override
                             public void onResponse(Call<APIWorkerImageResponse> call, Response<APIWorkerImageResponse> response) {
                                 APIWorkerImageResponse result = response.body();
-                                if(!result.isError())
-                                {
+                                Log.e("-->", result.toString());
+
+                                /*if(result.isError()) {
                                     Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
                                     Log.e("-->",result.getError_msg() );
                                     dialog.dismiss();
@@ -816,10 +814,11 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                             if(result.isError())
                                             {
                                                 Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
-                                                Log.e("-->",result.getError_msg() );
+                                                Log.e("-->",result.getError_msg());
                                             }else {
                                                 Toast.makeText(mContext, "Worker Registred Successfully", Toast.LENGTH_SHORT).show();
                                                 Log.e("-->", result.toString());
+                                                finish();
                                             }
                                         }
                                         @Override
@@ -827,7 +826,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                             t.printStackTrace();
                                         }
                                     });
-                                }
+                                }*/
                             }
 
                             @Override
@@ -841,7 +840,6 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
     }
 
     /*--------------------------------------------Offline---------------------------------------------*/
-
 
     private void onOfflineWorkerRegistration() {
 
@@ -954,7 +952,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         bankAccount.setAccount_no(edtbankaccountnumber.getText().toString());
         bankAccount.setBank_name(edtbankname.getText().toString());
         bankAccount.setIfsc_code(edtbankifsccode.getText().toString());
-        bankAccount.setWorker_id(Integer.parseInt(PreferenceUtils.getWorker_id(mContext).toString()));
+        //bankAccount.setWorker_id(Integer.parseInt(PreferenceUtils.getWorker_id(mContext).toString()));
         bankAccount.setActivation("activate");
 
         database.addToTempBankDetails(bankAccount);

@@ -1,6 +1,8 @@
 package com.pasistence.mantrafingerprint.Models.APIResponseModels;
 
-public class PermanentAddress {
+import java.io.Serializable;
+
+public class PermanentAddress implements Serializable {
     public int id ;
     public String address_line_1 ;
     public String address_line_2 ;

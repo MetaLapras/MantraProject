@@ -7,11 +7,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.pasistence.mantrafingerprint.Adapter.SearchAdapter;
 import com.pasistence.mantrafingerprint.Adapter.WorkerListAdapter;
 import com.pasistence.mantrafingerprint.Adapter.WorkerUploadAdapter;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.Attendance;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.BankAccount;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.database.Database;
@@ -24,6 +28,12 @@ public class UploadWorkerDetailsActivity extends AppCompatActivity {
     RecyclerView WorkeruploadListRecyclerView;
     RecyclerView.LayoutManager layoutupload;
     SearchAdapter adapter;
+
+    List<WorkerModel>workerList = new ArrayList<WorkerModel>();
+    List<BankAccount>bankList = new ArrayList<BankAccount>();
+    List<Contactdetails>contactList = new ArrayList<Contactdetails>();
+    List<Attendance> attendanceList = new ArrayList<Attendance>();
+
 
 
     Context mContext;
@@ -42,12 +52,21 @@ public class UploadWorkerDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_upload_worker_details);
 
         mInit();
+        workerList = database.getAllTempWorkers();
+        bankList = database.getAllTempBankDetails();
+        contactList = database.getAllTempAddress();
+
+        Log.e(TAG,workerList.toString() );
+        Log.e(TAG,bankList.toString() );
+        Log.e(TAG,contactList.toString() );
+
 
         WorkerDetails = new Database(mContext).getAllTempWorkers();
 
         workerUploadAdapter = new WorkerUploadAdapter(UploadWorkerDetailsActivity.this, WorkerDetails);
         WorkeruploadListRecyclerView.setAdapter(workerUploadAdapter);
         workerUploadAdapter.notifyDataSetChanged();
+
     }
 
     private void mInit() {

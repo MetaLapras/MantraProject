@@ -18,15 +18,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Main.LoginActivity">
+        <activity android:name=".Main.SplashScreen_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".Main.SplashScreen_Activity"
+            android:name=".Main.LoginActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".Main.MFS100TestActivity" />
         <activity

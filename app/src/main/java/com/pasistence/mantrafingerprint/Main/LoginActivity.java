@@ -2,6 +2,7 @@ package com.pasistence.mantrafingerprint.Main;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -103,6 +104,23 @@ public class LoginActivity extends AppCompatActivity
     }
     @Override
     public void onClick(View view) {
+        if (Common.isConnectedToInterNet(mContext)) {
+
+        }else {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setMessage("No Internet Connection! Please Check your Internet Connection...");
+                    alertDialogBuilder.setNegativeButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    arg0.dismiss();
+                                }
+                            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
+        }
         if (!validationCheck())
         {
             authenticatUser(edtProjectName.getText().toString(),edtEmployeeName.getText().toString(),edtPassword.getText().toString());
@@ -140,32 +158,34 @@ public class LoginActivity extends AppCompatActivity
                             projectdetails = result.getProjectdetails();
                             Log.e("prj",projectdetails.toString());
 
-                            //database.deleteToPorjects();
-                            //database.addToPorject(projectdetails);
+                            database.deleteToPorjects();
+                            database.addToPorject(projectdetails);
 
                             employeeDetails = projectdetails.getEmployee_details();
                             Log.e("emp",employeeDetails.toString() );
 
                             PreferenceUtils.setEmployee_id(mContext, String.valueOf(employeeDetails.getId()));
                             PreferenceUtils.setProject_id(mContext, String.valueOf(projectdetails.getProject_id()));
-                            //database.deleteToEmployee();
-                            //database.addToEmployee(employeeDetails);
+                            PreferenceUtils.setSignIn(LoginActivity.this,true);
+
+                            database.deleteToEmployee();
+                            database.addToEmployee(employeeDetails);
 
                             //database.deleteToWorkers();
                             for(WorkerModel worker : projectdetails.getWorker_list())
                             {
                                // workerList = worker;
-                                Log.e("wrk",worker.toString() );
-                                //database.addToWorkers(worker);
+                                Log.e("wrk",worker.toString());
+
+                             //   database.addToWorkers(worker);
 
                                 permanentAddress = new PermanentAddress();
                                 currentAddress = new CurrentAddress();
                                 bankAccount = new BankAccount();
 
-
-                                 currentAddress = worker.getCurrent_address();
-                                 permanentAddress = worker.getPermanent_address();
-                                 bankAccount =worker.getBank_account();
+                                currentAddress = worker.getCurrent_address();
+                                permanentAddress = worker.getPermanent_address();
+                                bankAccount =worker.getBank_account();
 
                                 /*Log.e("currentAddress",currentAddress.toString() );
                                 Log.e("permanentAddress",permanentAddress.toString() );

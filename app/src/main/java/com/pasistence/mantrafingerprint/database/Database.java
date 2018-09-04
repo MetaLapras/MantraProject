@@ -1853,9 +1853,9 @@ public class Database extends SQLiteAssetHelper {
     }
 
     //Check Already Attended Temp
-    public boolean isTempPresent(String workerId) {
+    public boolean isTempPresent(String workerId,String current_date) {
         SQLiteDatabase db = getReadableDatabase();
-        String query = String.format("SELECT * FROM Temp_attendance_master WHERE worker_id ='%s';",workerId);
+        String query = String.format("SELECT * FROM Temp_attendance_master WHERE worker_id ='%s' AND check_in_date ='%s' ;",workerId,current_date);
         Cursor cursor = db.rawQuery(query,null);
         if(cursor.getCount()<=0)
         {

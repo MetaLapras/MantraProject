@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.pasistence.mantrafingerprint.Common.Common;
 import com.pasistence.mantrafingerprint.Interface.ItemClickListener;
 import com.pasistence.mantrafingerprint.Models.WorkerList;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
@@ -132,30 +133,26 @@ class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickLi
                 @Override
                 public void onClick(View v) {
                     showTransferDialog();
-
-                }
-            });
+                    if (Common.isConnectedToInterNet(activity)) {
 
 
-            holder.setItemClickListener(new ItemClickListener() {
-                @Override
-                public void onClick(View view, int position, boolean isLongClick) {
-                    if (isLongClick) {
-                        Context context = view.getContext();
+                    }else {
+                        android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(activity);
+                        alertDialogBuilder.setMessage("No Internet Connection! Please Check your Internet Connection...");
+                        alertDialogBuilder.setNegativeButton("Ok",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        arg0.dismiss();
+                                    }
+                                });
 
-                    /*    Intent intent = new Intent(context, WorkerDetails.class);
-                        context.startActivity(intent);*/
+                        android.app.AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
 
-                        Toast.makeText(context, "Long Click : ", Toast.LENGTH_SHORT).show();
                     }
-
-                    else
-                        Toast.makeText(context, "  "+workerModels.get(position), Toast.LENGTH_SHORT).show();
-
                 }
-
             });
-
         }
 
         private void showTransferDialog() {

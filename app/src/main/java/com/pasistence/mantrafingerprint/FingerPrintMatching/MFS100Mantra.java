@@ -422,7 +422,7 @@ public class MFS100Mantra implements MFS100Event {
 
 
                     if(getRadioCheck().equals("checkIn")){
-                        if(database.isTempPresent(workerModel.getWorkerId())){
+                        if(database.isTempPresent(workerModel.getWorkerId(),check_in_date)){
                             Toast.makeText(activity, "Already Present", Toast.LENGTH_SHORT).show();
                         }else {
                             check_in_time = getCurrentTime();

@@ -22,6 +22,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.pasistence.mantrafingerprint.Common.Common;
 import com.pasistence.mantrafingerprint.Common.PreferenceUtils;
 import com.pasistence.mantrafingerprint.Main.DashboardActivity;
+import com.pasistence.mantrafingerprint.Main.LoginActivity;
 import com.pasistence.mantrafingerprint.Main.ShowDetailsActivity;
 import com.pasistence.mantrafingerprint.Main.WorkerDisplayList;
 import com.pasistence.mantrafingerprint.Main.WorkerRegistrationActivity;
@@ -125,59 +126,57 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
             @Override
             public void onClick(View v) {
 
+
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.setTitle("Delete Worker Details !");
-                alertDialog.setMessage("Are you sure want to delete the Worker " + workers.getName());
+                alertDialogBuilder.setTitle("Delete Worker Details !");
+                alertDialogBuilder.setMessage("Are you sure want to delete the Worker " + workers.getName())
+                        .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // FIRE ZE MISSILES!
+                                mService.deleteWorkerDetails(
+                                        workerid,
+                                        PreferenceUtils.getEmployee_id(mContext),
+                                        PreferenceUtils.getProject_id(mContext),
+                                        bankId,
+                                        perAddId,
+                                        curAddId
+                                ).enqueue(new Callback<APIDeleteResponse>() {
+                                    @Override
+                                    public void onResponse(Call<APIDeleteResponse> call, Response<APIDeleteResponse> response) {
+                                        APIDeleteResponse result = response.body();
+                                        if (result.isError()) {
+                                            Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
+                                            Log.e("-->", result.getError_msg());
+                                        } else {
+                                            Log.e("-->", result.toString());
 
+                                        }
+                                    }
+                                    @Override
+                                    public void onFailure(Call<APIDeleteResponse> call, Throwable t) {
 
-                //set Buttons
-                alertDialogBuilder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        mService.deleteWorkerDetails(
-                                workerid,
-                                PreferenceUtils.getEmployee_id(mContext),
-                                PreferenceUtils.getProject_id(mContext),
-                                bankId,
-                                perAddId,
-                                curAddId
-                        ).enqueue(new Callback<APIDeleteResponse>() {
-                            @Override
-                            public void onResponse(Call<APIDeleteResponse> call, Response<APIDeleteResponse> response) {
-                                APIDeleteResponse result = response.body();
-                                if (result.isError()) {
-                                    Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
-                                    Log.e("-->", result.getError_msg());
-                                } else {
-                                    Log.e("-->", result.toString());
+                                    }
+                                });
+                                new Database(mContext).deleteToWorkers(workers.getId());
+                                Toast.makeText(mContext,workers.getId()+"Delete", Toast.LENGTH_SHORT).show();
+                                activity.finish();
+                                activity.startActivity(new Intent(mContext, WorkerDisplayList.class));
 
-                                }
+                                notifyDataSetChanged();
+                                dialog.dismiss();
                             }
-                            @Override
-                            public void onFailure(Call<APIDeleteResponse> call, Throwable t) {
-
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                                dialog.dismiss();
                             }
                         });
-                        new Database(mContext).deleteToWorkers(workers.getId());
-                        Toast.makeText(mContext,workers.getId()+"Delete", Toast.LENGTH_SHORT).show();
-                        activity.finish();
-                        activity.startActivity(new Intent(mContext, WorkerDisplayList.class));
 
-                        notifyDataSetChanged();
-                        dialogInterface.dismiss();
-                    }
-                });
 
-                alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        notifyDataSetChanged();
-                    }
-                });
-
+                AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
+
 
 
             }

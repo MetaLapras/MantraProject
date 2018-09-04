@@ -109,21 +109,6 @@ public class LoginActivity extends AppCompatActivity
     public void onClick(View view) {
         if (Common.isConnectedToInterNet(mContext)) {
 
-        }else {
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setMessage("No Internet Connection! Please Check your Internet Connection...");
-                    alertDialogBuilder.setNegativeButton("Ok",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface arg0, int arg1) {
-                                    arg0.dismiss();
-                                }
-                            });
-
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
-
-        }
         if (!validationCheck())
         {
             authenticatUser(edtProjectName.getText().toString(),edtEmployeeName.getText().toString(),edtPassword.getText().toString());
@@ -131,6 +116,21 @@ public class LoginActivity extends AppCompatActivity
         else
         {
             Toast.makeText(mContext,"something is missing",Toast.LENGTH_LONG).show();
+        }
+        }else {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setMessage("No Internet Connection! Please Check your Internet Connection...");
+            alertDialogBuilder.setNegativeButton("Ok",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            arg0.dismiss();
+                        }
+                    });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
         }
     }
 

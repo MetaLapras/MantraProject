@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.pasistence.mantrafingerprint.Common.Common;
 import com.pasistence.mantrafingerprint.Main.WorkerRegistrationActivity;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
@@ -149,10 +150,21 @@ public class DetailsFragment extends Fragment {
         txtAccoountNumber.setText(workerModel.getAccount_number());
         txtIfscCode.setText(workerModel.getIfsc_code());
 
-
         Glide.with(getActivity())
                 .load(workerModel.getImageUrl().toString())
                 .into(circleImageView);
+
+
+       /* if(workerModel.getImageUrl().toString().contains("images/workers")){
+            String Url = Common.BASE_URL+ workerModel.getImageUrl().toString();
+            Glide.with(getActivity())
+                    .load(Url) // image url
+                    .into(circleImageView) ; // imageview object
+        }else {
+            Glide.with(getActivity())
+                    .load(workerModel.getImageUrl().toString())
+                    .into(circleImageView);
+        }*/
     }
 
     private void showAlertDialog() {

@@ -357,6 +357,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
    /*--------------------------------------------Online---------------------------------------------*/
 
     private void onWorkerRegistration() {
+
         workerModel=new WorkerModel();
 
         workerModel.setName(edtname.getText().toString());
@@ -416,6 +417,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                         @Override
                         public void onResponse(Call<APIWorkerPersonalResponse> call, Response<APIWorkerPersonalResponse> response) {
                             APIWorkerPersonalResponse result = response.body();
+                            Log.e("-->",result.toString() );
                           if(result.isError())
                             {
                                 Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
@@ -1071,7 +1073,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                                           int monthOfYear, int dayOfMonth) {
 
                        // edtdob.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
-                        edtdob.setText(dayOfMonth  + "/" + (monthOfYear + 1) + "/" + year );
+                        //edtdob.setText(dayOfMonth  + "/" + (monthOfYear + 1) + "/" + year );
+                        edtdob.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth );
 
                     }
                 }, mYear, mMonth, mDay);

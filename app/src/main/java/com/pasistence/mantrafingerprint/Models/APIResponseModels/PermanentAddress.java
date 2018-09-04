@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class PermanentAddress implements Serializable {
     public int id ;
+    public String contact1 ;
+    public String contact2 ;
     public String address_line_1 ;
     public String address_line_2 ;
     public String city ;
@@ -15,8 +17,10 @@ public class PermanentAddress implements Serializable {
     public int worker_id;
     public String type ;
 
-    public PermanentAddress(int id, String address_line_1, String address_line_2, String city, String pincode, String state, String country, String created_at, String updated_at, int worker_id, String type) {
+    public PermanentAddress(int id, String contact1, String contact2, String address_line_1, String address_line_2, String city, String pincode, String state, String country, String created_at, String updated_at, int worker_id, String type) {
         this.id = id;
+        this.contact1 = contact1;
+        this.contact2 = contact2;
         this.address_line_1 = address_line_1;
         this.address_line_2 = address_line_2;
         this.city = city;
@@ -36,6 +40,8 @@ public class PermanentAddress implements Serializable {
     public String toString() {
         return "PermanentAddress{" +
                 "id=" + id +
+                ", contact1='" + contact1 + '\'' +
+                ", contact2='" + contact2 + '\'' +
                 ", address_line_1='" + address_line_1 + '\'' +
                 ", address_line_2='" + address_line_2 + '\'' +
                 ", city='" + city + '\'' +
@@ -55,6 +61,22 @@ public class PermanentAddress implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getContact1() {
+        return contact1;
+    }
+
+    public void setContact1(String contact1) {
+        this.contact1 = contact1;
+    }
+
+    public String getContact2() {
+        return contact2;
+    }
+
+    public void setContact2(String contact2) {
+        this.contact2 = contact2;
     }
 
     public String getAddress_line_1() {

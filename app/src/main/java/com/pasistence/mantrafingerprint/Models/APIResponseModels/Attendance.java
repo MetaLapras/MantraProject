@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class Attendance implements Serializable {
     public String id,workerId,workerAssignmentId,projectId,checkInDate,checkInTime,overTime,
-    fullTime,halfday,checkOutTime,wages,created_at,updated_at;
+    fullTime,halfday,checkOutTime,wages,created_at,updated_at,day,month,year;
 
-    public Attendance(String id, String workerId, String workerAssignmentId, String projectId, String checkInDate, String checkInTime, String overTime, String fullTime, String halfday, String checkOutTime, String wages, String created_at, String updated_at) {
+    public Attendance(String id, String workerId, String workerAssignmentId, String projectId, String checkInDate, String checkInTime, String overTime, String fullTime, String halfday, String checkOutTime, String wages, String created_at, String updated_at, String day, String month, String year) {
         this.id = id;
         this.workerId = workerId;
         this.workerAssignmentId = workerAssignmentId;
@@ -20,6 +20,9 @@ public class Attendance implements Serializable {
         this.wages = wages;
         this.created_at = created_at;
         this.updated_at = updated_at;
+        this.day = day;
+        this.month = month;
+        this.year = year;
     }
 
     public Attendance() {
@@ -41,6 +44,9 @@ public class Attendance implements Serializable {
                 ", wages='" + wages + '\'' +
                 ", created_at='" + created_at + '\'' +
                 ", updated_at='" + updated_at + '\'' +
+                ", day='" + day + '\'' +
+                ", month='" + month + '\'' +
+                ", year='" + year + '\'' +
                 '}';
     }
 
@@ -146,5 +152,29 @@ public class Attendance implements Serializable {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 }

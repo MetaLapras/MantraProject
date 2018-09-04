@@ -14,9 +14,11 @@ import com.bumptech.glide.Glide;
 import com.mantra.mfs100.FingerData;
 import com.mantra.mfs100.MFS100;
 import com.mantra.mfs100.MFS100Event;
+import com.pasistence.mantrafingerprint.Common.Common;
 import com.pasistence.mantrafingerprint.Common.PreferenceUtils;
 import com.pasistence.mantrafingerprint.Main.MFS100TestActivity;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Attendance;
+import com.pasistence.mantrafingerprint.Models.WorkerList;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.database.Database;
 
@@ -384,53 +386,65 @@ public class MFS100Mantra implements MFS100Event {
                 txtName.setText(workerModel.getName());
                 txtWorkerId.setText(workerModel.getAdharcard_id());
 
-                Glide.with(activity)
+             /*   Glide.with(activity)
                         .load(workerModel.getImageUrl().toString())
-                        .into(imgPicture);
+                        .into(imgPicture);*/
 
-               workerList.add(workerModel);
-               String id,worker_id,worker_assignment_id,project_id,check_in_date,check_in_time,overtime,fulltime,halfday,
-                        check_out_time,wages,created_at,updated_at;
-               worker_id = workerModel.getWorkerId().toString();
-               worker_assignment_id = "1";
-               project_id = PreferenceUtils.getProject_id(activity);
-               check_in_date = getCurrentDate();
-               wages = workerModel.getSalary();
-               check_in_time = getCurrentTime();
-
-               Attendance attendance = new Attendance();
-
-                attendance.setWorkerId(worker_id);
-                attendance.setWorkerAssignmentId(worker_assignment_id);
-                attendance.setProjectId(project_id);
-                attendance.setCheckInDate(check_in_date);
-                attendance.setWages(wages);
-                //attendance.setCheckInTime(check_in_time);
-
+                if(workerModel.getImageUrl().toString().contains("images/workers")){
+                    String Url = Common.BASE_URL+ workerModel.getImageUrl().toString();
+                    Glide.with(activity)
+                            .load(Url) // image url
+                            .into(imgPicture) ; // imageview object
+                }else {
+                    Glide.with(activity)
+                            .load(workerModel.getImageUrl().toString())
+                            .into(imgPicture);
+                }
                 database = new Database(activity);
 
-                if(getRadioCheck().equals("checkIn")){
-                   check_in_time = getCurrentTime();
-                   attendance.setCheckInTime(check_in_time);
-                   database.addToTempAttendance(attendance);
-               }else if(getRadioCheck().equals("checkOut")) {
-                   check_out_time = getCurrentTime();
-                   attendance.setCheckOutTime(check_out_time);
-                   database.updateToTempAttendance(attendance);
-               }else if(getRadioCheck().equals("halfDay")){
-                   check_out_time = getCurrentTime();
-                   attendance.setCheckOutTime(check_out_time);
-                   database.updateToTempAttendance(attendance);
-               }else{
-                    check_in_time = getCurrentTime();
-                    attendance.setCheckInTime(check_in_time);
-                    database.addToTempAttendance(attendance);
-                }
+                    workerList.add(workerModel);
+                    String id,worker_id,worker_assignment_id,project_id,check_in_date,check_in_time,overtime,fulltime,halfday,
+                            check_out_time,wages,created_at,updated_at;
+                    worker_id = workerModel.getWorkerId().toString();
+                    worker_assignment_id = "1";
+                    project_id = PreferenceUtils.getProject_id(activity);
+                    check_in_date = getCurrentDate().toString();
+                    wages = workerModel.getSalary();
 
-            }
+                    Attendance attendance = new Attendance();
+
+                    attendance.setWorkerId(worker_id);
+                    attendance.setWorkerAssignmentId(worker_assignment_id);
+                    attendance.setProjectId(project_id);
+                    attendance.setCheckInDate(check_in_date);
+                    attendance.setWages(wages);
+                    //attendance.setCheckInTime(check_in_time);
+
+
+                    if(getRadioCheck().equals("checkIn")){
+                        if(database.isTempPresent(workerModel.getWorkerId())){
+                            Toast.makeText(activity, "Already Present", Toast.LENGTH_SHORT).show();
+                        }else {
+                            check_in_time = getCurrentTime();
+                            attendance.setCheckInTime(check_in_time);
+                            database.addToTempAttendance(attendance);
+                        }
+                    }else if(getRadioCheck().equals("checkOut")) {
+                            check_out_time = getCurrentTime();
+                            attendance.setCheckOutTime(check_out_time);
+                            database.updateToTempAttendance(attendance);
+                    }else if(getRadioCheck().equals("halfDay")){
+                            check_out_time = getCurrentTime();
+                            attendance.setCheckOutTime(check_out_time);
+                            database.updateToTempAttendance(attendance);
+                    }else{
+                        check_in_time = getCurrentTime();
+                        attendance.setCheckInTime(check_in_time);
+                        database.addToTempAttendance(attendance);
+                    }
+                }
         });
     }
-
 
     private void SetTextOnUINotMatch() {
         activity.runOnUiThread(new Runnable() {
@@ -511,7 +525,7 @@ public class MFS100Mantra implements MFS100Event {
         Date c = Calendar.getInstance().getTime();
         System.out.println("Current time => " + c);
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = df.format(c);
         return formattedDate;
     }

@@ -28,6 +28,7 @@ public class Database extends SQLiteAssetHelper {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
+    /*********************************workers***************************************/
     //Table Worker Details
     public void addToWorkers(WorkerModel workerModel){
         // SQLiteDatabase db = getReadableDatabase();
@@ -80,8 +81,8 @@ public class Database extends SQLiteAssetHelper {
         workerModel.getProjectId(),
         workerModel.getActivation(),
         workerModel.getImageUrl(),
-        workerModel.getPermanent_address(),
-        workerModel.getCurrent_address(),
+        workerModel.getPermanent_address1(),
+        workerModel.getCurrent_address1(),
         workerModel.getBank_name(),
         workerModel.getHolder_name(),
         workerModel.getIfsc_code(),
@@ -289,7 +290,6 @@ public class Database extends SQLiteAssetHelper {
         return result;
 
     }
-
     //Function get worker by name
     public List<WorkerModel> getWorkerName(String name) {
         SQLiteDatabase db = getReadableDatabase();
@@ -426,8 +426,8 @@ public class Database extends SQLiteAssetHelper {
                 workerModel.getProjectId(),
                 workerModel.getActivation(),
                 workerModel.getImageUrl(),
-                workerModel.getPermanent_address(),
-                workerModel.getCurrent_address(),
+                workerModel.getPermanent_address1(),
+                workerModel.getCurrent_address1(),
                 workerModel.getBank_name(),
                 workerModel.getHolder_name(),
                 workerModel.getIfsc_code(),
@@ -492,6 +492,8 @@ public class Database extends SQLiteAssetHelper {
 
     }
 
+
+    /*********************************Project***************************************/
 
     //Table Project Details
     public void addToPorject(Projectdetails projectdetails){
@@ -580,6 +582,7 @@ public class Database extends SQLiteAssetHelper {
       //  db.delete("project_master",null,null);
     }
 
+    /*********************************Employee***************************************/
 
     //Table Employee Details
     public void addToEmployee(EmployeeDetails employeeDetails){
@@ -688,6 +691,7 @@ public class Database extends SQLiteAssetHelper {
     }
 
 
+    /********************************* Address ***************************************/
     //Table Worker Address Details
 
   /*  `id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -748,6 +752,13 @@ public class Database extends SQLiteAssetHelper {
         SQLiteDatabase db = getReadableDatabase();
         String query = String.format("DELETE FROM address_master WHERE worker_id = '%s'",workerId);
         db.execSQL(query);
+    }
+    public void deleteToAddressDetails() {
+        SQLiteDatabase db = getReadableDatabase();
+        // String query = String.format("DELETE FROM worker_master WHERE id = '%s'",workerId);
+        String query = String.format("DELETE FROM address_master");
+        db.execSQL(query);
+        //  db.delete("project_master",null,null);
     }
     //Update into worker Address details
     public void updateToAddressMaster(Contactdetails contactdetails) {
@@ -826,6 +837,8 @@ public class Database extends SQLiteAssetHelper {
 
     }
 
+    /*********************************Bank Details***************************************/
+
     // insert into worker Bank details
 
     /*`id`	INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
@@ -869,6 +882,13 @@ public class Database extends SQLiteAssetHelper {
         SQLiteDatabase db = getReadableDatabase();
         String query = String.format("DELETE FROM bank_master WHERE worker_id = '%s'",workerId);
         db.execSQL(query);
+    }
+    public void deleteToBankDetails() {
+        SQLiteDatabase db = getReadableDatabase();
+        // String query = String.format("DELETE FROM worker_master WHERE id = '%s'",workerId);
+        String query = String.format("DELETE FROM bank_master");
+        db.execSQL(query);
+        //  db.delete("project_master",null,null);
     }
     //Update into worker Address details
     public void updateToBankMaster(BankAccount bankAccount) {
@@ -979,7 +999,7 @@ public class Database extends SQLiteAssetHelper {
         return result;
     }
 
-
+    /*********************************Temp Bank Details***************************************/
     //Temp Bank Account Details
     public void addToTempBankDetails(BankAccount bankAccount) {
         // SQLiteDatabase db = getReadableDatabase();
@@ -1085,6 +1105,7 @@ public class Database extends SQLiteAssetHelper {
     }
 
 
+    /*********************************Temp Address Details***************************************/
     //Insert into temp_address_master
     // insert into worker Temp Address details
     public void addToTempAddressDetails(Contactdetails contactdetails) {
@@ -1210,6 +1231,7 @@ public class Database extends SQLiteAssetHelper {
         return result;
     }
 
+    /*********************************Temp Worker Details***************************************/
     //add to worker temp
     public void addToTempWorkers(WorkerModel workerModel){
         // SQLiteDatabase db = getReadableDatabase();
@@ -1254,8 +1276,8 @@ public class Database extends SQLiteAssetHelper {
                 workerModel.getProjectId(),
                 workerModel.getActivation(),
                 workerModel.getImageUrl(),
-                workerModel.getPermanent_address(),
-                workerModel.getCurrent_address(),
+                workerModel.getPermanent_address1(),
+                workerModel.getCurrent_address1(),
                 workerModel.getBank_name(),
                 workerModel.getHolder_name(),
                 workerModel.getIfsc_code(),
@@ -1404,9 +1426,7 @@ public class Database extends SQLiteAssetHelper {
         return result;
     }
 
-
-
-
+    /********************************* Temp Attendance Details ***************************************/
     //Temp Attendance Master Table
     /*id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	`worker_id`	TEXT,
@@ -1466,11 +1486,6 @@ public class Database extends SQLiteAssetHelper {
         SQLiteDatabase db = getReadableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put("worker_id",attendance.getWorkerId());
-        values.put("worker_assignment_id",attendance.getWorkerAssignmentId());
-        values.put("project_id",attendance.getProjectId());
-        values.put("check_in_date",attendance.getCheckInDate());
-        values.put("check_in_time",attendance.getCheckInTime());
         values.put("overtime",attendance.getOverTime());
         values.put("fulltime",attendance.getFullTime());
         values.put("halfday",attendance.getHalfday());
@@ -1508,7 +1523,10 @@ public class Database extends SQLiteAssetHelper {
                         "check_out_time" ,
                         "wages" ,
                         "created_at",
-                        "updated_at"
+                        "updated_at",
+                        "day",
+                        "month",
+                        "year"
         };
         String sqlTable = "Temp_attendance_master";
 
@@ -1557,7 +1575,10 @@ public class Database extends SQLiteAssetHelper {
                 "check_out_time" ,
                 "wages" ,
                 "created_at",
-                "updated_at"
+                "updated_at",
+                "day",
+                "month",
+                "year"
         };
         String sqlTable = "Temp_attendance_master";
 
@@ -1590,8 +1611,111 @@ public class Database extends SQLiteAssetHelper {
         }
         return result;
     }
+    public List<Attendance> getallTempAttendaceByMonth(String month) {
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb =  new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {
+                "worker_id" ,
+                "worker_assignment_id" ,
+                "project_id" ,
+                "check_in_date" ,
+                "check_in_time" ,
+                "overtime" ,
+                "fulltime",
+                "halfday" ,
+                "check_out_time" ,
+                "wages" ,
+                "created_at",
+                "updated_at",
+                "day",
+                "month",
+                "year"
+        };
+        String sqlTable = "Temp_attendance_master";
+
+        String selectQuery = "SELECT  * FROM  Temp_attendance_master ";
+
+        qb.setTables(sqlTable);
+        Cursor cursor = qb.query(db,sqlSelect,"month=?",new String[]{month},null,null,null);
+
+        final List<Attendance> result = new ArrayList<Attendance>();
+        if(cursor.moveToFirst())
+        {
+            do {
+                Attendance details = new Attendance();
+                details.setWorkerId(cursor.getString(cursor.getColumnIndex("worker_id")));
+                details.setWorkerAssignmentId(cursor.getString(cursor.getColumnIndex("worker_assignment_id")));
+                details.setProjectId(cursor.getString(cursor.getColumnIndex("project_id")));
+                details.setCheckInDate(cursor.getString(cursor.getColumnIndex("check_in_date")));
+                details.setCheckInTime(cursor.getString(cursor.getColumnIndex("check_in_time")));
+                details.setCheckOutTime(cursor.getString(cursor.getColumnIndex("overtime")));
+                details.setFullTime(cursor.getString(cursor.getColumnIndex("fulltime")));
+                details.setHalfday(cursor.getString(cursor.getColumnIndex("halfday")));
+                details.setCheckOutTime(cursor.getString(cursor.getColumnIndex("check_out_time")));
+                details.setWages(cursor.getString(cursor.getColumnIndex("wages")));
+
+                result.add(details);
+
+                Log.e(TAG, result.toString() );
+
+            }while (cursor.moveToNext());
+        }
+        return result;
+    }
+    public List<Attendance> getallTempAttendaceByDay(String date) {
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb =  new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {
+                "worker_id" ,
+                "worker_assignment_id" ,
+                "project_id" ,
+                "check_in_date" ,
+                "check_in_time" ,
+                "overtime" ,
+                "fulltime",
+                "halfday" ,
+                "check_out_time" ,
+                "wages" ,
+                "created_at",
+                "updated_at"
+        };
+        String sqlTable = "Temp_attendance_master";
+
+        String selectQuery = "SELECT  * FROM  Temp_attendance_master ";
+
+        qb.setTables(sqlTable);
+        Cursor cursor = qb.query(db,sqlSelect,"check_in_date=?",new String[]{date},null,null,null);
+
+        final List<Attendance> result = new ArrayList<Attendance>();
+        if(cursor.moveToFirst())
+        {
+            do {
+                Attendance details = new Attendance();
+                details.setWorkerId(cursor.getString(cursor.getColumnIndex("worker_id")));
+                details.setWorkerAssignmentId(cursor.getString(cursor.getColumnIndex("worker_assignment_id")));
+                details.setProjectId(cursor.getString(cursor.getColumnIndex("project_id")));
+                details.setCheckInDate(cursor.getString(cursor.getColumnIndex("check_in_date")));
+                details.setCheckInTime(cursor.getString(cursor.getColumnIndex("check_in_time")));
+                details.setCheckOutTime(cursor.getString(cursor.getColumnIndex("overtime")));
+                details.setFullTime(cursor.getString(cursor.getColumnIndex("fulltime")));
+                details.setHalfday(cursor.getString(cursor.getColumnIndex("halfday")));
+                details.setCheckOutTime(cursor.getString(cursor.getColumnIndex("check_out_time")));
+                details.setWages(cursor.getString(cursor.getColumnIndex("wages")));
+
+                result.add(details);
+
+                Log.e(TAG, result.toString() );
+
+            }while (cursor.moveToNext());
+        }
+        return result;
+    }
 
 
+
+    /********************************* Attendance ***************************************/
     //Attendance Table
     public void addToAttendance(Attendance attendance){
         // SQLiteDatabase db = getReadableDatabase();
@@ -1663,6 +1787,85 @@ public class Database extends SQLiteAssetHelper {
         String query = String.format("DELETE FROM attendance_master");
         db.execSQL(query);
     }
+    public List<Attendance> getallAttendace(String worker_id) {
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb =  new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {
+                "worker_id" ,
+                "worker_assignment_id" ,
+                "project_id" ,
+                "check_in_date" ,
+                "check_in_time" ,
+                "overtime" ,
+                "fulltime",
+                "halfday" ,
+                "check_out_time" ,
+                "wages" ,
+                "created_at",
+                "updated_at"
+        };
+        String sqlTable = "attendance_master";
+
+        String selectQuery = "SELECT  * FROM  attendance_master ";
+
+        qb.setTables(sqlTable);
+        Cursor cursor = qb.query(db,sqlSelect,"worker_id=?",new String[]{worker_id},null,null,null);
+
+        final List<Attendance> result = new ArrayList<Attendance>();
+        if(cursor.moveToFirst())
+        {
+            do {
+                Attendance details = new Attendance();
+                details.setWorkerId(cursor.getString(cursor.getColumnIndex("worker_id")));
+                details.setWorkerAssignmentId(cursor.getString(cursor.getColumnIndex("worker_assignment_id")));
+                details.setProjectId(cursor.getString(cursor.getColumnIndex("project_id")));
+                details.setCheckInDate(cursor.getString(cursor.getColumnIndex("check_in_date")));
+                details.setCheckInTime(cursor.getString(cursor.getColumnIndex("check_in_time")));
+                details.setCheckOutTime(cursor.getString(cursor.getColumnIndex("overtime")));
+                details.setFullTime(cursor.getString(cursor.getColumnIndex("fulltime")));
+                details.setHalfday(cursor.getString(cursor.getColumnIndex("halfday")));
+                details.setCheckOutTime(cursor.getString(cursor.getColumnIndex("check_out_time")));
+                details.setWages(cursor.getString(cursor.getColumnIndex("wages")));
+
+                result.add(details);
+
+                Log.e(TAG, result.toString() );
+
+            }while (cursor.moveToNext());
+        }
+        return result;
+    }
+
+
+    //Check Already Attended Permanent
+    public boolean isPresent(String workerId) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("SELECT * FROM attendance_master WHERE worker_id ='%s';",workerId);
+        Cursor cursor = db.rawQuery(query,null);
+        if(cursor.getCount()<=0)
+        {
+            cursor.close();
+            return false ;
+        }
+        cursor.close();
+        return true;
+    }
+
+    //Check Already Attended Temp
+    public boolean isTempPresent(String workerId) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("SELECT * FROM Temp_attendance_master WHERE worker_id ='%s';",workerId);
+        Cursor cursor = db.rawQuery(query,null);
+        if(cursor.getCount()<=0)
+        {
+            cursor.close();
+            return false ;
+        }
+        cursor.close();
+        return true;
+    }
+
 
 
 }

@@ -18,8 +18,10 @@ import android.widget.BaseAdapter;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.GlideException;
 import com.pasistence.mantrafingerprint.Common.Common;
 import com.pasistence.mantrafingerprint.Common.PreferenceUtils;
+import com.pasistence.mantrafingerprint.Main.DashboardActivity;
 import com.pasistence.mantrafingerprint.Main.ShowDetailsActivity;
 import com.pasistence.mantrafingerprint.Main.WorkerDisplayList;
 import com.pasistence.mantrafingerprint.Main.WorkerRegistrationActivity;
@@ -33,6 +35,7 @@ import com.pasistence.mantrafingerprint.ViewHolder.WorkerViewHolder;
 import com.pasistence.mantrafingerprint.database.Database;
 import com.squareup.picasso.Picasso;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,12 +86,20 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
         workers.setId(workerList.get(position).getId());
 
      //   holder.circleImageViewPhoto.setImageURI(Uri.parse(workers.getImageUrl().toString()));
+        if(workers.getImageUrl().toString().contains("images/workers")){
+            String Url = Common.BASE_URL+ workers.getImageUrl().toString();
+            Glide.with(mContext)
+                    .load(Url) // image url
+                    .into(holder.circleImageViewPhoto) ; // imageview object
+        }else {
+            Glide.with(mContext)
+                    .load(workers.getImageUrl().toString())
+                    .into(holder.circleImageViewPhoto);
+        }
 
-        Glide.with(mContext)
-                .load(workers.getImageUrl().toString())
-                .into(holder.circleImageViewPhoto);
 
-      //  Picasso.get().load(workers.getImageUrl().toString()).into(holder.circleImageViewPhoto);
+
+        //  Picasso.get().load(workers.getImageUrl().toString()).into(holder.circleImageViewPhoto);
 
 
 
@@ -114,16 +125,14 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
             @Override
             public void onClick(View v) {
 
-                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-                LayoutInflater layoutInflater = activity.getLayoutInflater();
-                View changePwdLayout = layoutInflater.inflate(R.layout.transfer_dialog,null);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
+                AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.setTitle("Delete Worker Details !");
                 alertDialog.setMessage("Are you sure want to delete the Worker " + workers.getName());
 
-                alertDialog.setView(changePwdLayout);
 
                 //set Buttons
-                alertDialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         mService.deleteWorkerDetails(
@@ -160,7 +169,7 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
                     }
                 });
 
-                alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();

@@ -6,6 +6,7 @@ public class CurrentAddress implements Serializable {
     public int id;
     public String address_line_1 ;
     public String address_line_2 ;
+    public String contact1,contact2;
     public String city ;
     public String pincode ;
     public String state ;
@@ -15,10 +16,12 @@ public class CurrentAddress implements Serializable {
     public int worker_id ;
     public String type;
 
-    public CurrentAddress(int id, String address_line_1, String address_line_2, String city, String pincode, String state, String country, String created_at, String updated_at, int worker_id, String type) {
+    public CurrentAddress(int id, String address_line_1, String address_line_2, String contact1, String contact2, String city, String pincode, String state, String country, String created_at, String updated_at, int worker_id, String type) {
         this.id = id;
         this.address_line_1 = address_line_1;
         this.address_line_2 = address_line_2;
+        this.contact1 = contact1;
+        this.contact2 = contact2;
         this.city = city;
         this.pincode = pincode;
         this.state = state;
@@ -38,6 +41,8 @@ public class CurrentAddress implements Serializable {
                 "id=" + id +
                 ", address_line_1='" + address_line_1 + '\'' +
                 ", address_line_2='" + address_line_2 + '\'' +
+                ", contact1='" + contact1 + '\'' +
+                ", contact2='" + contact2 + '\'' +
                 ", city='" + city + '\'' +
                 ", pincode='" + pincode + '\'' +
                 ", state='" + state + '\'' +
@@ -71,6 +76,22 @@ public class CurrentAddress implements Serializable {
 
     public void setAddress_line_2(String address_line_2) {
         this.address_line_2 = address_line_2;
+    }
+
+    public String getContact1() {
+        return contact1;
+    }
+
+    public void setContact1(String contact1) {
+        this.contact1 = contact1;
+    }
+
+    public String getContact2() {
+        return contact2;
+    }
+
+    public void setContact2(String contact2) {
+        this.contact2 = contact2;
     }
 
     public String getCity() {

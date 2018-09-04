@@ -18,6 +18,7 @@ import com.pasistence.mantrafingerprint.Common.Common;
 import com.pasistence.mantrafingerprint.Common.PreferenceUtils;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.BankAccount;
+import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.CurrentAddress;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.EmployeeDetails;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.PermanentAddress;
@@ -45,6 +46,8 @@ public class LoginActivity extends AppCompatActivity
    CurrentAddress currentAddress;
    BankAccount bankAccount;
    Database database;
+   public String curAddress;
+   public String perAddress;
 
 
     @Override
@@ -172,24 +175,90 @@ public class LoginActivity extends AppCompatActivity
                             database.addToEmployee(employeeDetails);
 
                             //database.deleteToWorkers();
-                            for(WorkerModel worker : projectdetails.getWorker_list())
-                            {
-                               // workerList = worker;
-                                Log.e("wrk",worker.toString());
+                            if(projectdetails.getWorker_list() != null){
+                                database.deleteToWorkers();
+                                database.deleteToAddressDetails();
+                                database.deleteToBankDetails();
 
-                             //   database.addToWorkers(worker);
+                                for(WorkerModel worker : projectdetails.getWorker_list())
+                                {
+                                    // workerList = worker;
+                                    Log.e("wrk",worker.toString());
 
-                                permanentAddress = new PermanentAddress();
-                                currentAddress = new CurrentAddress();
-                                bankAccount = new BankAccount();
+                                    permanentAddress = new PermanentAddress();
+                                    currentAddress = new CurrentAddress();
+                                    Contactdetails contactdetails = new Contactdetails();
+                                    bankAccount = new BankAccount();
 
-                                currentAddress = worker.getCurrent_address();
-                                permanentAddress = worker.getPermanent_address();
-                                bankAccount =worker.getBank_account();
+                                    if(worker.getCurrent_address() != null){
+                                        currentAddress = worker.getCurrent_address();
+                                        contactdetails.setId(currentAddress.getId());
+                                        contactdetails.setContact1(currentAddress.getContact1());
+                                        contactdetails.setContact2(currentAddress.getContact2());
+                                        contactdetails.setAddress_line_1(currentAddress.getAddress_line_1());
+                                        contactdetails.setAddress_line_2(currentAddress.getAddress_line_2());
+                                        contactdetails.setCity(currentAddress.getCity());
+                                        contactdetails.setPincode(currentAddress.getPincode());
+                                        contactdetails.setState(currentAddress.getState());
+                                        contactdetails.setCountry(currentAddress.getCountry());
+                                        contactdetails.setType(currentAddress.getType());
 
-                                /*Log.e("currentAddress",currentAddress.toString() );
-                                Log.e("permanentAddress",permanentAddress.toString() );
-                                Log.e("bankAccount",bankAccount.toString() );*/
+                                        database.addToAddressDetails(contactdetails);
+
+                                        worker.setContact1(currentAddress.getContact1());
+                                        worker.setContact2(currentAddress.getContact2());
+                                        worker.setCity(currentAddress.getCity());
+                                        worker.setPincode(currentAddress.getPincode());
+                                        curAddress = currentAddress.getAddress_line_1() + " " + currentAddress.getAddress_line_2() + " " +
+                                                currentAddress.getPincode() + " " + currentAddress.getCity();
+
+                                        Log.e("currentAddress",currentAddress.toString());
+                                    }
+                                    if(worker.getPermanent_address() != null){
+                                        permanentAddress = worker.getPermanent_address();
+
+                                        contactdetails.setId(permanentAddress.getId());
+                                        contactdetails.setContact1(permanentAddress.getContact1());
+
+                                        contactdetails.setContact2(permanentAddress.getContact2());
+                                        contactdetails.setAddress_line_1(permanentAddress.getAddress_line_1());
+                                        contactdetails.setAddress_line_2(permanentAddress.getAddress_line_2());
+                                        contactdetails.setCity(permanentAddress.getCity());
+                                        contactdetails.setPincode(permanentAddress.getPincode());
+                                        contactdetails.setState(permanentAddress.getState());
+                                        contactdetails.setCountry(permanentAddress.getCountry());
+                                        contactdetails.setType(permanentAddress.getType());
+
+                                        database.addToAddressDetails(contactdetails);
+
+                                        worker.setContact1(permanentAddress.getContact1());
+                                        worker.setContact2(permanentAddress.getContact2());
+                                        worker.setCity(permanentAddress.getCity());
+                                        worker.setPincode(permanentAddress.getPincode());
+
+                                        perAddress = permanentAddress.getAddress_line_1() + " " + permanentAddress.getAddress_line_2() + " " +
+                                                permanentAddress.getPincode() + " " + permanentAddress.getCity();
+
+
+                                        Log.e("permanentAddress",permanentAddress.toString());
+                                    }
+                                    if( worker.getBank_account() != null){
+                                        bankAccount = worker.getBank_account();
+                                        database.addToBankDetails(bankAccount);
+
+                                        worker.setBank_name(bankAccount.getBank_name());
+                                        worker.setHolder_name(bankAccount.getAccount_holder_name());
+                                        worker.setIfsc_code(bankAccount.getIfsc_code());
+                                        worker.setAccount_number(bankAccount.getAccount_no());
+
+                                        Log.e("bankAccount",bankAccount.toString() );
+                                    }
+
+                                    worker.setCurrent_address1(curAddress);
+                                    worker.setPermanent_address1(perAddress);
+
+                                    database.addToWorkers(worker);
+                                }
                             }
 
                             dialog.dismiss();

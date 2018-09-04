@@ -334,7 +334,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
             dateDialog();
         }
         if(view == imgfingerprint1){
-
+            imgfingerprint1.setColorFilter(null);
             mfs100Mantra.startCapturing(imgfingerprint1);
             // workerModel.setFingerprint1(mfs100Mantra.getScanFingerprint());
             if(mfs100Mantra.getScanFingerprint()!= null)
@@ -344,6 +344,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
             //  mfs100Mantra.onStop();
         }
         if(view == imgfingerprint2){
+            imgfingerprint2.setColorFilter(null);
             mfs100Mantra.startCapturing(imgfingerprint2);
             if(mfs100Mantra.getScanFingerprint()!= null)
             {

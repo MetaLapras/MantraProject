@@ -60,14 +60,19 @@ public class CustomeWorkerAttendenceAdapter extends RecyclerView.Adapter<Custome
     public void onBindViewHolder(@NonNull CustomeWorkerAttendenceHolder holder, final int position) {
         final Attendance workers = attendances.get(position);
         holder.txtdate.setText(workers.getCheckInDate().toString());
-        //holder.txtwages.setText( workers.getWages().toString());
+      //  holder.txtwages.setText( workers.getWages().toString());
         holder.txtcheckinTime.setText(workers.getCheckInTime().toString());
         holder.txtcheckOutTime.setText( workers.getCheckOutTime().toString());
 
         Locale locale = new Locale("en","IN");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-       // txtTotal.setText(fmt.format(total));
-//        holder.txtwages.setText(fmt.format(Integer.parseInt(workers.getWages().toString()))+"");
+      //txtTotal.setText(fmt.format(total));
+        try{
+            holder.txtwages.setText(fmt.format(Integer.parseInt(workers.getWages().toString()))+"");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
 
     }

@@ -387,6 +387,9 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
             dialog.setMessage("Load Personal Details...");
             dialog.setCancelable(false);
 
+            Log.e(TAG,  PreferenceUtils.getProject_id(mContext).toString() );
+            Log.e(TAG,  PreferenceUtils.getEmployee_id(mContext).toString() );
+
             mService.workerRegistration(
                     workerModel.getName().toString(),
                     workerModel.getGender().toString(),
@@ -781,8 +784,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
 
 
         File file = new File(imageUri);
+        Log.e(TAG, file.toString() );
         ProgressRequestBody requestBody = new ProgressRequestBody(file,this);
-
         final MultipartBody.Part body = MultipartBody.Part.createFormData("uploadfile",file.getName(),requestBody);
         new Thread(new Runnable() {
             @Override
@@ -791,42 +794,50 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                         .enqueue(new Callback<APIWorkerImageResponse>() {
                             @Override
                             public void onResponse(Call<APIWorkerImageResponse> call, Response<APIWorkerImageResponse> response) {
-                                APIWorkerImageResponse result = response.body();
-                                Log.e("-->", result.toString());
+                                try{
+                                   APIWorkerImageResponse result = response.body();
+                                    Log.e("-->",  response.body().toString());
 
-                                if(result.isError()) {
-                                    Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
-                                    Log.e("-->",result.getError_msg() );
-                                    dialog.dismiss();
-                                }else {
-                                    dialog.dismiss();
-                                   // Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
-                                    Log.e("-->", result.toString());
+                                    if(result.isError()) {
+                                        Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
+                                        Log.e("-->",result.getError_msg() );
+                                        dialog.dismiss();
+                                    }else {
+                                        dialog.dismiss();
+                                        // Toast.makeText(mContext, "Login Successful", Toast.LENGTH_SHORT).show();
+                                        Log.e("-->", result.toString());
 
-                                    mService.getWorkerDetails(
-                                            result.getImageURL().toString(),
-                                            PreferenceUtils.getWorker_id(mContext).toString(),
-                                            PreferenceUtils.getEmployee_id(mContext).toString()
-                                    ).enqueue(new Callback<WorkerModel>() {
-                                        @Override
-                                        public void onResponse(Call<WorkerModel> call, Response<WorkerModel> response) {
-                                            WorkerModel result = response.body();
-                                            if(result.isError())
-                                            {
-                                                Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
-                                                Log.e("-->",result.getError_msg());
-                                            }else {
-                                                Toast.makeText(mContext, "Worker Registred Successfully", Toast.LENGTH_SHORT).show();
-                                                Log.e("-->", result.toString());
-                                                finish();
+                                        mService.getWorkerDetails(
+                                                result.getImageURL().toString(),
+                                                PreferenceUtils.getWorker_id(mContext).toString(),
+                                                PreferenceUtils.getEmployee_id(mContext).toString()
+                                        ).enqueue(new Callback<WorkerModel>() {
+                                            @Override
+                                            public void onResponse(Call<WorkerModel> call, Response<WorkerModel> response) {
+                                                WorkerModel result = response.body();
+                                                if(result.isError())
+                                                {
+                                                    Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
+                                                    Log.e("-->",result.getError_msg());
+                                                }else {
+                                                    Toast.makeText(mContext, "Worker Registred Successfully", Toast.LENGTH_SHORT).show();
+                                                    Log.e("-->", result.toString());
+                                                    finish();
+                                                }
                                             }
-                                        }
-                                        @Override
-                                        public void onFailure(Call<WorkerModel> call, Throwable t) {
-                                            t.printStackTrace();
-                                        }
-                                    });
+                                            @Override
+                                            public void onFailure(Call<WorkerModel> call, Throwable t) {
+                                                t.printStackTrace();
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                    }
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                    dialog.dismiss();
+                                    finish();
                                 }
+
                             }
 
                             @Override

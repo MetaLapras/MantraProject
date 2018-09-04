@@ -1,8 +1,11 @@
 package com.pasistence.mantrafingerprint.Main;
 
 import android.content.ClipData;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -17,17 +20,22 @@ import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appolica.flubber.Flubber;
 import com.pasistence.mantrafingerprint.Common.PreferenceUtils;
 import com.pasistence.mantrafingerprint.R;
 
+import java.util.Locale;
+
 public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    LinearLayout member_register, member_list, member_transfer, member_dailyAttendence;
+    LinearLayout member_register, member_list, member_transfer, member_dailyAttendence,mannual_aatendence;
+    TextView dailyAttendence;
     Animation animation;
     MenuItem logout;
+    Context mContext;
 
 
 
@@ -37,13 +45,21 @@ public class DashboardActivity extends AppCompatActivity
         setContentView(R.layout.activity_dashboard);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mContext = DashboardActivity.this;
 
 
-        logout = (MenuItem)findViewById(R.id.action_logout);
-       member_register = (LinearLayout) findViewById(R.id.cardView_MemberRegister);
-        member_list = (LinearLayout) findViewById(R.id.cardView_MemberList);
-       member_transfer = (LinearLayout) findViewById(R.id.cardView_MemberTransfer);
-        member_dailyAttendence = (LinearLayout) findViewById(R.id.cardView_DailyAtendence);
+
+            logout = (MenuItem) findViewById(R.id.action_logout);
+            member_register = (LinearLayout) findViewById(R.id.cardView_MemberRegister);
+            member_list = (LinearLayout) findViewById(R.id.cardView_MemberList);
+            member_transfer = (LinearLayout) findViewById(R.id.cardView_MemberTransfer);
+            member_dailyAttendence = (LinearLayout) findViewById(R.id.cardView_DailyAtendence);
+            mannual_aatendence = (LinearLayout)findViewById(R.id.cardView_ManualAttendence) ;
+
+            dailyAttendence = (TextView) findViewById(R.id.txt_daily_Attendence);
+        /*Typeface custom_font = Typeface.createFromAsset(getAssets(),  "font/gradientico.ttf");
+
+        dailyAttendence.setTypeface(custom_font);*/
 
 
       /* //animation = AnimationUtils.makeInAnimation(getApplicationContext(),true);
@@ -73,6 +89,13 @@ public class DashboardActivity extends AppCompatActivity
                 .repeatCount(0)                              // Repeat once
                 .duration(3000)                              // Last for 1000 milliseconds(1 second)
                 .createFor(member_transfer)                             // Apply it to the view
+                .start();
+
+        Flubber.with()
+                .animation(Flubber.AnimationPreset.SLIDE_RIGHT) // Slide up animation
+                .repeatCount(0)                              // Repeat once
+                .duration(4000)                              // Last for 1000 milliseconds(1 second)
+                .createFor(mannual_aatendence)                             // Apply it to the view
                 .start();
 
 
@@ -143,6 +166,8 @@ public class DashboardActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+
 
 /*
     private void mLogout() {
@@ -233,18 +258,29 @@ public class DashboardActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_workerDailyAttendence) {
+            startActivity(new Intent(this,MatchingActivity.class));
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_workerRegistration) {
+            startActivity(new Intent(this,WorkerRegistrationActivity.class));
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_workerList) {
+            startActivity(new Intent(this,WorkerDisplayList.class));
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_workerTransfer) {
+        startActivity(new Intent(this,TransferActivity.class));
+        }
+
+        else if (id == R.id.nav_workerUpload) {
             Intent intent1 = new Intent(this,UploadActivity.class);
             this.startActivity(intent1);
             return true;
+        } else if(id == R.id.nav_workerMannulAttendence)
+        {
 
-        } else if (id == R.id.nav_share) {
+        }
+
+        else if (id == R.id.nav_share) {
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
             String shareBodyText = "Check it out. Your message goes here";
@@ -254,7 +290,7 @@ public class DashboardActivity extends AppCompatActivity
             return true;
 
 
-        } else if (id == R.id.nav_feedback) {
+        } else if (id == R.id.nav_contact_us) {
 
 
         }

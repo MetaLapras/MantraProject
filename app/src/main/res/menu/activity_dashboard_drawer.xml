@@ -5,20 +5,31 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:id="@+id/nav_workerDailyAttendence"
+            android:icon="@drawable/ic_beenhere_black_24dp"
             android:title="Worker Daily Attendence" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:id="@+id/nav_workerRegistration"
+            android:icon="@drawable/ic_person_add_black_24dp"
             android:title="Worker Registration" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:id="@+id/nav_workerList"
+            android:icon="@drawable/ic_list_black_24dp"
             android:title="Worker List" />
+
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
+            android:id="@+id/nav_workerTransfer"
+            android:icon="@drawable/ic_swap_horiz_black_24dp"
+            android:title="Worker Transfer" />
+
+        <item
+            android:id="@+id/nav_workerMannulAttendence"
+            android:icon="@drawable/if_calendar"
+            android:title="Mannual Attendence" />
+
+        <item
+            android:id="@+id/nav_workerUpload"
+            android:icon="@drawable/ic_file_upload_black_24dp"
             android:title="Worker Upload" />
     </group>
 

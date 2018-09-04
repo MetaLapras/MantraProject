@@ -59,7 +59,7 @@
                 <LinearLayout
                     android:id="@+id/cardView_DailyAtendence"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:background="@drawable/arrow"
                     android:gravity="center_horizontal|center_vertical"
                     android:orientation="horizontal">
@@ -75,18 +75,21 @@
                         android:src="@drawable/attendence" />
 
                     <TextView
+                        android:id="@+id/txt_daily_Attendence"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text=" Daily Attendence"
                         android:textAllCaps="true"
                         android:textAlignment="center"
-                        android:textSize="25dp" />
+                        android:fontFamily="@font/mohavebold"
+                        android:textColor="#7f0303"
+                        android:textSize="28dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/cardView_MemberRegister"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:background="@drawable/arrow"
                     android:gravity="center_horizontal|center_vertical"
                     android:orientation="horizontal">
@@ -102,16 +105,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Register"
+                        android:fontFamily="@font/mohavebold"
+                        android:textColor="#7f0303"
                         android:textAllCaps="true"
-                        android:textAlignment="center"
-                        android:textSize="25dp" />
+                       android:gravity="center"
+                        android:textSize="28dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/cardView_MemberList"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:background="@drawable/arrow"
                     android:gravity="center_horizontal|center_vertical"
                     android:orientation="horizontal">
@@ -132,14 +137,17 @@
                         android:layout_height="wrap_content"
                         android:text="List"
                         android:textAllCaps="true"
-                        android:textAlignment="center"
-                        android:textSize="25dp" />
+                        android:fontFamily="@font/mohavebold"
+                        android:textColor="#7f0303"
+                        android:gravity="center"
+                        android:textSize="28dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/cardView_MemberTransfer"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:weightSum="4"
+                    android:layout_height="80dp"
                     android:background="@drawable/arrow"
                     android:gravity="center_horizontal|center_vertical"
                     android:orientation="horizontal">
@@ -158,9 +166,39 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text=" Transfer"
+                        android:fontFamily="@font/mohavebold"
+                        android:textColor="#7f0303"
                         android:textAllCaps="true"
-                        android:textAlignment="center"
-                        android:textSize="25dp" />
+                        android:gravity="center"
+                        android:textSize="28dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/cardView_ManualAttendence"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@drawable/arrow"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/img_banner_5"
+                        android:layout_width="49dp"
+                        android:layout_height="49dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="15dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/if_calendar" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=" Mannual Attendence"
+                        android:fontFamily="@font/mohavebold"
+                        android:textColor="#7f0303"
+                        android:textAllCaps="true"
+                       android:gravity="center"
+                        android:textSize="28dp" />
                 </LinearLayout>
 
 

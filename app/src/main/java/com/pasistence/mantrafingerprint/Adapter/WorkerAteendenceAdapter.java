@@ -172,7 +172,7 @@ public class WorkerAteendenceAdapter extends RecyclerView.Adapter<WorkerAttenden
 
     @Override
     public int getItemCount() {
-        return workerList.size();
+        return attendanceList.size();
     }
 
 }

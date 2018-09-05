@@ -184,7 +184,13 @@
                     android:layout_weight="7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <com.rengwuxian.materialedittext.MaterialEditText
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:id="@+id/transfer_spinner"
+                        android:entries="@string/Project_name_list"></Spinner>
+                    <!--<com.rengwuxian.materialedittext.MaterialEditText
                         android:id="@+id/transfer_project_name2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -195,9 +201,9 @@
                         app:met_baseColor="@android:color/black"
                         app:met_primaryColor="@color/colorAccent"
                         app:met_singleLineEllipsis="true"
-                        />
+                        />-->
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                 <!--   <com.rengwuxian.materialedittext.MaterialEditText
                         android:id="@+id/transfer_Emp_Id2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -208,7 +214,7 @@
                         app:met_baseColor="@android:color/black"
                         app:met_primaryColor="@color/colorAccent"
                         app:met_singleLineEllipsis="true"
-                        />
+                        />-->
 
 
                 </LinearLayout>

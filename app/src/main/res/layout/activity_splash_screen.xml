@@ -31,14 +31,15 @@
             android:src="@drawable/circle"
             android:tint="@color/white" />
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/image1"
             android:visibility="visible"
             android:layout_width="300dp"
             android:layout_height="100dp"
-            android:src="@drawable/best" />
+            android:src="@drawable/best" />-->
         <ImageView
             android:visibility="visible"
+            android:layout_marginTop="60dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/pasistancelogotwo" />

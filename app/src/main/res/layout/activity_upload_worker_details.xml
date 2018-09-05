@@ -23,7 +23,7 @@
         android:layout_margin="10dp"
         android:layout_below="@+id/workerUpload_searchBar"
         android:layout_height="wrap_content"/>
-    <Button
+    <!--<Button
         android:id="@+id/btn_submit_upload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,5 +33,5 @@
 
         android:textAllCaps="false"
         android:layout_gravity="center"/>
-
+-->
 </RelativeLayout>

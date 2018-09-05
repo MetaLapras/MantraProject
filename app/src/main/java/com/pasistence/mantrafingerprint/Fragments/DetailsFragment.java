@@ -150,12 +150,12 @@ public class DetailsFragment extends Fragment {
         txtAccoountNumber.setText(workerModel.getAccount_number());
         txtIfscCode.setText(workerModel.getIfsc_code());
 
-        Glide.with(getActivity())
+     /*   Glide.with(getActivity())
                 .load(workerModel.getImageUrl().toString())
-                .into(circleImageView);
+                .into(circleImageView);*/
 
 
-       /* if(workerModel.getImageUrl().toString().contains("images/workers")){
+        if(workerModel.getImageUrl().toString().contains("images/workers")){
             String Url = Common.BASE_URL+ workerModel.getImageUrl().toString();
             Glide.with(getActivity())
                     .load(Url) // image url
@@ -164,7 +164,7 @@ public class DetailsFragment extends Fragment {
             Glide.with(getActivity())
                     .load(workerModel.getImageUrl().toString())
                     .into(circleImageView);
-        }*/
+        }
     }
 
     private void showAlertDialog() {

@@ -26,6 +26,7 @@ public class WorkerAteendenceAdapter extends RecyclerView.Adapter<WorkerAttenden
     Activity activity;
     List<Attendance> attendanceList ;
     List<WorkerModel> workerList ;
+
     public static String TAG = "adaper -->";
     String workerAttendenceid,attendenceperAddId,attendencecurAddId,attendencebankId;
     IMyAPI mService;
@@ -47,126 +48,50 @@ public class WorkerAteendenceAdapter extends RecyclerView.Adapter<WorkerAttenden
 
     @Override
     public void onBindViewHolder(@NonNull WorkerAttendenceHolder holder, final int position) {
-        final Attendance workers = attendanceList.get(position);
+        final Attendance attendance = attendanceList.get(position);
 
-        workerList = new Database(mContext).getAllWorkers(attendanceList.get(position).getWorkerId());
+        workerList =  new Database(mContext).getAllWorkers(attendanceList.get(position).getWorkerId());
+            for( WorkerModel workerModel : workerList){
+                holder.attendenceWorkerName.setText("Name :- " + workerModel.getName().toString());
+                holder.attendenceWorkerId.setText("Worker ID :- " + workerModel.getAdharcard_id().toString());
+                holder.attendenceWorkerGender.setText("Gender :- " + workerModel.getGender().toString());
+                holder.attendenceWorkerNumber.setText("Mobile No :- " + workerModel.getContact1().toString());
+                holder.attendenceWorkerNumber2.setText("Alternate No :- " + workerModel.getContact2().toString());
 
-        holder.attendenceWorkerName.setText("Name :- " + workerList.get(0).getName().toString());
-        holder.attendenceWorkerId.setText("Worker ID :- " + workerList.get(0).toString());
-        holder.attendenceWorkerGender.setText("Gender :- " + workerList.get(0).toString());
-        holder.attendenceWorkerNumber.setText("Mobile No :- " + workerList.get(0).toString());
-        holder.attendenceWorkerNumber2.setText("Alternate No :- " + workerList.get(0).toString());
 
-        workerAttendenceid = workerList.get(0).getWorkerId();
-        attendenceperAddId = workerList.get(0).getPermanentAddressId();
-        attendencecurAddId = workerList.get(0).getCurrentAddressId();
-        attendencebankId = workerList.get(0).getBankId();
-        //init service
-        mService = Common.getApi();
+                workerAttendenceid = workerModel.getWorkerId();
+                attendenceperAddId = workerModel.getPermanentAddressId();
+                attendencecurAddId = workerModel.getCurrentAddressId();
+                attendencebankId = workerModel.getBankId();
+                //init service
+                mService = Common.getApi();
 
-        workers.setId(workerList.get(position).getId());
+                attendance.setId(workerModel.getId());
 
-        //   holder.circleImageViewPhoto.setImageURI(Uri.parse(workers.getImageUrl().toString()));
+                //   holder.circleImageViewPhoto.setImageURI(Uri.parse(workers.getImageUrl().toString()));
 
-        Glide.with(mContext)
-                .load(workerList.get(0).getImageUrl().toString())
-                .into(holder.attendencecircleImageViewPhoto);
+       /*         Glide.with(mContext)
+                        .load(workerModel.getImageUrl().toString())
+                        .into(holder.attendencecircleImageViewPhoto);*/
+
+
+                if(workerModel.getImageUrl().toString().contains("images/workers")){
+                    String Url = Common.BASE_URL+ workerModel.getImageUrl().toString();
+                    Glide.with(mContext)
+                            .load(Url) // image url
+                            .into(holder.attendencecircleImageViewPhoto) ; // imageview object
+                }else {
+                    Glide.with(mContext)
+                            .load(workerModel.getImageUrl().toString())
+                            .into(holder.attendencecircleImageViewPhoto);
+                }
+
+            }
+
 
         //  Picasso.get().load(workers.getImageUrl().toString()).into(holder.circleImageViewPhoto);
         holder.btnCheckInTime.setText(attendanceList.get(position).getCheckInTime());
         holder.btnCheckOutTime.setText(attendanceList.get(position).getCheckOutTime());
-
-       /* holder.btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Log.e(TAG, workers.toString() );
-
-                Intent UpdateWokerIntent = new Intent(mContext, WorkerUpdateActivity.class);
-                UpdateWokerIntent.putExtra("type","edit");
-                UpdateWokerIntent.putExtra("id",workers.getWorkerId());
-                UpdateWokerIntent.putExtra("workers",workers);
-                mContext.startActivity(UpdateWokerIntent);
-
-                activity.finish();
-
-                // Toast.makeText(mContext,workerList.get(position).getWorkerId().toString()+"EDIT", Toast.LENGTH_SHORT).show();
-
-            }
-        });*/
-        /*holder.btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-                LayoutInflater layoutInflater = activity.getLayoutInflater();
-                View changePwdLayout = layoutInflater.inflate(R.layout.transfer_dialog,null);
-                alertDialog.setTitle("Delete Worker Details !");
-                alertDialog.setMessage("Are you sure want to delete the Worker " + workers.getName());
-
-                alertDialog.setView(changePwdLayout);
-
-                //set Buttons
-                alertDialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        mService.deleteWorkerDetails(
-                                workeruploadid,
-                                PreferenceUtils.getEmployee_id(mContext),
-                                PreferenceUtils.getProject_id(mContext),
-                                uploadbankId,
-                                uploadperAddId,
-                                uploadcurAddId
-                        ).enqueue(new Callback<APIDeleteResponse>() {
-                            @Override
-                            public void onResponse(Call<APIDeleteResponse> call, Response<APIDeleteResponse> response) {
-                                APIDeleteResponse result = response.body();
-                                if (result.isError()) {
-                                    Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
-                                    Log.e("-->", result.getError_msg());
-                                } else {
-                                    Log.e("-->", result.toString());
-
-                                }
-                            }
-                            @Override
-                            public void onFailure(Call<APIDeleteResponse> call, Throwable t) {
-
-                            }
-                        });
-                        new Database(mContext).deleteToWorkers(workers.getId());
-                        Toast.makeText(mContext,workers.getId()+"Delete", Toast.LENGTH_SHORT).show();
-                        activity.finish();
-                        activity.startActivity(new Intent(mContext, WorkerDisplayList.class));
-
-                        notifyDataSetChanged();
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        notifyDataSetChanged();
-                    }
-                });
-
-                alertDialog.show();
-
-
-            }
-        });*/
-       /* holder.btnDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Gettting Details Activity
-                Intent workerDetails = new Intent(activity, ShowDetailsActivity.class);
-                workerDetails.putExtra("id",workers.getId());
-                workerDetails.putExtra("workers",workers);
-                activity.startActivity(workerDetails);
-            }
-        });*/
 
     }
 

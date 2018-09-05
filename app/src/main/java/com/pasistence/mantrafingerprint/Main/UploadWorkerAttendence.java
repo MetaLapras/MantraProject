@@ -7,7 +7,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.pasistence.mantrafingerprint.Adapter.SearchAdapter;
 import com.pasistence.mantrafingerprint.Adapter.WorkerAteendenceAdapter;
@@ -17,6 +22,8 @@ import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.database.Database;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +32,13 @@ public class UploadWorkerAttendence extends AppCompatActivity {
     RecyclerView WorkerAttendenceListRecyclerView;
     RecyclerView.LayoutManager layoutupload;
     SearchAdapter adapter;
-
+    Button btnUpload;
 
     Context mContext;
     WorkerAteendenceAdapter workerAteendenceAdapter;
     Database database;
 
-    List<Attendance> WorkerDetails;
+    List<Attendance> attendanceList;
 
 
     MaterialSearchBar materialAttendenceSearchBar;
@@ -44,11 +51,29 @@ public class UploadWorkerAttendence extends AppCompatActivity {
 
         mInit();
 
-        WorkerDetails = new Database(mContext).getallTempAttendace();
+        attendanceList = new Database(mContext).getallTempAttendace();
 
-        workerAteendenceAdapter = new WorkerAteendenceAdapter(UploadWorkerAttendence.this, WorkerDetails);
+        workerAteendenceAdapter = new WorkerAteendenceAdapter(UploadWorkerAttendence.this, attendanceList);
         WorkerAttendenceListRecyclerView.setAdapter(workerAteendenceAdapter);
         workerAteendenceAdapter.notifyDataSetChanged();
+
+
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadAllAttendanceData(attendanceList);
+            }
+        });
+    }
+
+    private void uploadAllAttendanceData(List<Attendance> attendanceList) {
+        //JSONArray jsArray = new JSONArray(workerList);
+       // Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        //String json = gson.toJson(attendanceList);
+        String stringToPost = new Gson().toJson(attendanceList);
+        //String joint = "worker :";
+        Log.e(TAG, stringToPost.toString() );
+       // System.out.println(json);
     }
 
     private void mInit() {
@@ -60,6 +85,7 @@ public class UploadWorkerAttendence extends AppCompatActivity {
         layoutupload = new LinearLayoutManager(mContext);
         WorkerAttendenceListRecyclerView.setLayoutManager(layoutupload);
         materialAttendenceSearchBar = (MaterialSearchBar) findViewById(R.id.workerAttendence_searchBar);
+        btnUpload = (Button)findViewById(R.id.btn_submit_upload) ;
 
         //Init DB
         database = new Database(this);
@@ -73,7 +99,6 @@ public class UploadWorkerAttendence extends AppCompatActivity {
         materialAttendenceSearchBar.addTextChangeListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -117,7 +142,6 @@ public class UploadWorkerAttendence extends AppCompatActivity {
         WorkerAttendenceListRecyclerView.setAdapter(adapter);
 
     }
-
 
     private void startSearch(String text) {
         adapter = new SearchAdapter(UploadWorkerAttendence.this, this, database.getWorkerName(text));

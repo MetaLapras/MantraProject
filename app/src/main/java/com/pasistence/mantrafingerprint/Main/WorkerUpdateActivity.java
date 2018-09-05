@@ -397,6 +397,12 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
             spnstate.setSelection(getIndex(spnstate,contactdetails.getState()));
             edtcity.setText(contactdetails.getCity());
             edtpincode.setText(contactdetails.getPincode()+"");
+            if(contactdetails.getType().equals("both")){
+                chk_isPermanent.setChecked(true);
+            }else
+            {
+                chk_isPermanent.setChecked(false);
+            }
         }
         //Current contact Details
         List<Contactdetails> currentContact = database.getAddressMasterDetails(workerId,workerModel.getCurrentAddressId());
@@ -825,7 +831,6 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
 
             if(Common.isConnectedToInterNet(mContext)){
                 //Upload image into the server into the constant table
-
                 onImageUpload(workerModel.getImageUrl().toString());
                 database.updateToWorkersMaster(workerModel);
                 //Toast.makeText(mContext, "Worker Updated successfully", Toast.LENGTH_SHORT).show();

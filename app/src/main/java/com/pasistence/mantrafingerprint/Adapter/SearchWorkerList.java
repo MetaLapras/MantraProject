@@ -117,6 +117,8 @@ class SearchWokerList extends RecyclerView.Adapter<SearchWorkerListHolder> {
         holder.workernumber1.setText("Contact no : "+workerModels.get(position).getContact1());
         holder.workernumber2.setText("alternate no : "+workerModels.get(position).getContact2());
         holder.workergender.setText("gender : "+workerModels.get(position).getGender());
+
+
         Glide.with(context)
                 .load(workerModels.get(position).getImageUrl().toString())
                 .into(holder.workerimg);

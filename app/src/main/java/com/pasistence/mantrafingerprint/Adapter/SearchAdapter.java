@@ -125,17 +125,29 @@ class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickLi
             holder.number1.setText("Contact no : "+workerModels.get(position).getContact1());
             holder.number2.setText("alternate no : "+workerModels.get(position).getContact2());
             holder.gender.setText("gender : "+workerModels.get(position).getGender());
-            Glide.with(context)
+            /*Glide.with(context)
                     .load(workerModels.get(position).getImageUrl().toString())
-                    .into(holder.img);
+                    .into(holder.img);*/
+
+            if(workerModels.get(position).getImageUrl().toString().contains("images/workers")){
+                String Url = Common.BASE_URL+ workerModels.get(position).getImageUrl().toString();
+                Glide.with(context)
+                        .load(Url) // image url
+                        .into(holder.img) ; // imageview object
+            }else {
+                Glide.with(context)
+                        .load(workerModels.get(position).getImageUrl().toString())
+                        .into(holder.img);
+            }
+
+
+
 
             holder.transferBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showTransferDialog();
                     if (Common.isConnectedToInterNet(activity)) {
-
-
+                        showTransferDialog();
                     }else {
                         android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(activity);
                         alertDialogBuilder.setMessage("No Internet Connection! Please Check your Internet Connection...");

@@ -765,6 +765,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
                     database.addToTempWorkers(workerModel);
                     Toast.makeText(mContext, "Worker Registred successfully", Toast.LENGTH_SHORT).show();
                     mfs100Mantra.onDestroy();
+                    finish();
                 }
 
             }catch (NullPointerException e)
@@ -943,8 +944,8 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         contactdetails.setAddress_line_1(edtcurrentaddress1.getText().toString());
         // workerModel.setId(edt_Id.getText().toString());
         contactdetails.setAddress_line_2(edtcurrentaddress2.getText().toString());
-        // contactdetails.setContact1(Integer.parseInt(edtmobilenum.getText().toString()));
-        // contactdetails.setContact2(Integer.parseInt(edtalternatenum.getText().toString()));
+        contactdetails.setContact1(edtmobilenum.getText().toString());
+        contactdetails.setContact2(edtalternatenum.getText().toString());
         contactdetails.setCity(edtcurrentcity.getText().toString());
         contactdetails.setState(spncurrentstate.getSelectedItem().toString().trim());
 
@@ -953,6 +954,7 @@ public class WorkerRegistrationActivity extends AppCompatActivity implements Vie
         }else {
             contactdetails.setPincode(edtcurrentpincode.getText().toString());
         }
+        contactdetails.setType("current");
 
         database.addToTempAddressDetails(contactdetails); //Add to Temp Contact 2
     }

@@ -264,6 +264,7 @@ public class LoginActivity extends AppCompatActivity
                             dialog.dismiss();
                             Intent intent= new Intent(mContext,DashboardActivity.class);
                             startActivity(intent);
+                            finish();
                         }
                     }
 
@@ -272,7 +273,6 @@ public class LoginActivity extends AppCompatActivity
                         Toast.makeText(mContext, "Connection Failed !", Toast.LENGTH_SHORT).show();
                         Log.e("error",t.getMessage());
                         t.printStackTrace();
-
                         dialog.dismiss();
                     }
                 });

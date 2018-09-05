@@ -43,6 +43,8 @@ public class MannualAttendenceAdapter extends RecyclerView.Adapter<MannualAttend
     public static String TAG = "adaper -->";
     String workerid,perAddId,curAddId,bankId;
     IMyAPI mService;
+   MannualAttendencePOJO mannualAttendencePOJO;
+    Database database;
 
 
     public MannualAttendenceAdapter(Activity activity, List<WorkerModel> workerList) {
@@ -88,6 +90,22 @@ public class MannualAttendenceAdapter extends RecyclerView.Adapter<MannualAttend
                     .load(workers.getImageUrl().toString())
                     .into(holder.McircleImageViewPhoto);
         }
+
+
+        holder.chkChecked.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mannualAttendencePOJO=new MannualAttendencePOJO();
+                mannualAttendencePOJO.setName(MtxtWorkerName.getText().toString());
+                // workerModel.setId(edt_Id.getText().toString());
+                mannualAttendencePOJO.setWorker_id(MtxtWorkerId.getText().toString());
+                mannualAttendencePOJO.setNumber(MtxtWorkerNumber.getText().toString());
+
+                    database.addToMannualAttendance(mannualAttendencePOJO);
+
+
+            }
+        });
 
     }
 

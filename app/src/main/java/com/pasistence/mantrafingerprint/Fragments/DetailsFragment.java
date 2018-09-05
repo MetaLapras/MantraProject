@@ -46,7 +46,8 @@ public class DetailsFragment extends Fragment {
             txtAdharNumber,
             txtGender,txtPermamanentAddress,
             txtCurrentAddress,txtCity,txtPincode,txtBankName,
-            txtHolderName,txtAccoountNumber,txtIfscCode;
+            txtHolderName,txtAccoountNumber,txtIfscCode,
+    txtPerPermanentAdd,txtpercurrentAdd,txtpercity,txtperpincode;
 
            WorkerModel workerModel;
 
@@ -92,6 +93,11 @@ public class DetailsFragment extends Fragment {
         txtAdharNumber = view.findViewById(R.id.txt_aadharNum);
         txtGender = view.findViewById(R.id.txt_gender);
 
+        txtPerPermanentAdd = view.findViewById(R.id.txt_perPermanentAddress);
+        txtpercurrentAdd = view.findViewById(R.id.txt_perCurrentAddress);
+        txtpercity = view.findViewById(R.id.txt_percity);
+        txtperpincode = view.findViewById(R.id.txt_perpincode);
+
         txtPermamanentAddress = view.findViewById(R.id.txt_PermanentAddress);
         txtCurrentAddress = view.findViewById(R.id.txt_CurrentAddress);
         txtCity = view.findViewById(R.id.txt_city);
@@ -107,29 +113,29 @@ public class DetailsFragment extends Fragment {
         imgBank =view.findViewById(R.id.edt_bank_details);
 
 
-        imgPersonal.setOnClickListener(new View.OnClickListener() {
+       /* imgPersonal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Personal Details", Toast.LENGTH_SHORT).show();
                 showAlertDialog();
             }
-        });
+        });*/
 
-        imgAddress.setOnClickListener(new View.OnClickListener() {
+        /*imgAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Address Details", Toast.LENGTH_SHORT).show();
                 showAlertDialog1();
             }
         });
-
-        imgBank.setOnClickListener(new View.OnClickListener() {
+*/
+        /*imgBank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Bank Details", Toast.LENGTH_SHORT).show();
                 showAlertDialog2();
             }
-        });
+        });*/
     }
 
 
@@ -139,6 +145,11 @@ public class DetailsFragment extends Fragment {
         txtPersonalMobileNum.setText(workerModel.getContact1());
         txtAdharNumber.setText(workerModel.adharcard_id);
         txtGender.setText(workerModel.getGender());
+
+        txtPerPermanentAdd.setText(workerModel.getPermanent_address1());
+        txtpercurrentAdd.setText(workerModel.getCurrent_address1());
+        txtpercity.setText(workerModel.getCity());
+        txtperpincode.setText(workerModel.getPincode());
 
         txtPermamanentAddress.setText(workerModel.getPermanent_address1());
         txtCurrentAddress.setText(workerModel.getCurrent_address1());

@@ -125,7 +125,7 @@
     <string name="upload_all">Upload All</string>
     <string name="upload_details">Upload Details</string>
     <string name="details">Details</string>
-    <string name="Project_name_list">
+    <string name="array_transfer">
          <item>Android</item>
         <item>Java</item>
         <item>Php</item>

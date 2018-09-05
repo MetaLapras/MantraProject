@@ -56,7 +56,6 @@
         <activity android:name=".Main.UploadWorkerAttendence" />
         <activity android:name=".Main.AboutUsActivity" />
         <activity android:name=".Main2Activity" />
-        <activity android:name=".Main.MainActivityAboutUs"></activity>
     </application>
 
 </manifest>

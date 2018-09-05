@@ -182,6 +182,7 @@ public interface IMyAPI {
     Call<Attendance> getAllAttendanceDetails();
 
 
+
     @FormUrlEncoded
     @POST("InsertAttendaceDetails.php")
     Call<APIResponseAttendance> insertAttendanceData(

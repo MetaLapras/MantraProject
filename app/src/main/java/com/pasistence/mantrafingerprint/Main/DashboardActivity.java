@@ -145,6 +145,14 @@ public class DashboardActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+        mannual_aatendence.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent inte = new Intent(DashboardActivity.this, MannualAttendence.class);
+               // intent.putExtra("type", "register");
+                startActivity(inte);
+            }
+        });
 
 
         
@@ -270,14 +278,15 @@ public class DashboardActivity extends AppCompatActivity
         } else if (id == R.id.nav_workerTransfer) {
         startActivity(new Intent(this,TransferActivity.class));
         }
-
+        else if(id == R.id.nav_workerMannulAttendence)
+        {
+            Intent intent2 = new Intent(this,MannualAttendence.class);
+            this.startActivity(intent2);
+        }
         else if (id == R.id.nav_workerUpload) {
             Intent intent1 = new Intent(this,UploadActivity.class);
             this.startActivity(intent1);
             return true;
-        } else if(id == R.id.nav_workerMannulAttendence)
-        {
-
         }
 
         else if (id == R.id.nav_share) {

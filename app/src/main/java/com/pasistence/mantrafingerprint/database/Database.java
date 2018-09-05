@@ -12,6 +12,7 @@ import com.pasistence.mantrafingerprint.Models.APIResponseModels.BankAccount;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.EmployeeDetails;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Projectdetails;
+import com.pasistence.mantrafingerprint.Models.MannualAttendencePOJO;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -1866,6 +1867,54 @@ public class Database extends SQLiteAssetHelper {
         return true;
     }
 
+    //add to mannual attendence
+     public void addToMannualAttendance(MannualAttendencePOJO mannualAttendencePOJO){
+    // SQLiteDatabase db = getReadableDatabase();
+    SQLiteDatabase db = getWritableDatabase();
+    String query = String.format("INSERT OR REPLACE INTO mannual_attendance_master(" +
+                    "id," +
+                    "name," +
+                    "number," +
+                    "worker_id," +
+                    "worker_assignment_id," +
+                    "project_id," +
+                    "check_in_date," +
+                    "check_in_time," +
+                    "overtime," +
+                    "fulltime," +
+                    "halfday," +
+                    "check_out_time," +
+                    "wages,"+
+                    "created_at,"+
+                    "updated_at,"+
+                    "checktype,"+
+                    "approval"+
+                    ")" +
+                    " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
+            mannualAttendencePOJO.getId(),
+            mannualAttendencePOJO.getName(),
+            mannualAttendencePOJO.getNumber(),
+            mannualAttendencePOJO.getWorker_id(),
+            mannualAttendencePOJO.getWorker_assignment_id(),
+            mannualAttendencePOJO.getProject_id(),
+            mannualAttendencePOJO.getCheck_in_date(),
+            mannualAttendencePOJO.getCheck_in_time(),
+            mannualAttendencePOJO.getOvertime(),
+            mannualAttendencePOJO.getFulltime(),
+            mannualAttendencePOJO.getHalfday(),
+            mannualAttendencePOJO.getCheck_out_time(),
+            mannualAttendencePOJO.getWages(),
+            mannualAttendencePOJO.getCreated_at(),
+            mannualAttendencePOJO.getUpdated_at(),
+            mannualAttendencePOJO.getChecktype(),
+            mannualAttendencePOJO.getApproval()
+    );
 
+
+    db.execSQL(query);
+
+    Log.e(TAG, "Database Attendance Inserted Successfully");
+    Log.e(TAG, mannualAttendencePOJO.toString());
+}
 
 }

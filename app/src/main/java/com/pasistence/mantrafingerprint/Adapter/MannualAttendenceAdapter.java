@@ -39,13 +39,13 @@ public class MannualAttendenceAdapter extends RecyclerView.Adapter<MannualAttend
 
     Context mContext;
     Activity activity;
-    List<MannualAttendencePOJO> workerList ;
+    List<WorkerModel> workerList ;
     public static String TAG = "adaper -->";
     String workerid,perAddId,curAddId,bankId;
     IMyAPI mService;
 
 
-    public MannualAttendenceAdapter(Activity activity, List<MannualAttendencePOJO> workerList) {
+    public MannualAttendenceAdapter(Activity activity, List<WorkerModel> workerList) {
         this.activity = activity;
         this.workerList = workerList;
     }
@@ -61,14 +61,14 @@ public class MannualAttendenceAdapter extends RecyclerView.Adapter<MannualAttend
 
     @Override
     public void onBindViewHolder(@NonNull MannualAttendenceHolder holder, final int position) {
-        final MannualAttendencePOJO workers = workerList.get(position);
+        final WorkerModel workers = workerList.get(position);
         holder.MtxtWorkerName.setText("Name :- " + workers.getName().toString());
-        holder.MtxtWorkerId.setText("Worker ID :- " + workers.getWorker_id().toString());
+        holder.MtxtWorkerId.setText("Worker ID :- " + workers.getAdharcard_id().toString());
        // holder.txtWorkerGender.setText("Gender :- " + workers.getGender().toString());
-        holder.MtxtWorkerNumber.setText("Mobile No :- " + workers.getNumber().toString());
+        holder.MtxtWorkerNumber.setText("Mobile No :- " + workers.getContact1().toString());
        // holder.txtWorkerNumber2.setText("Alternate No :- " + workers.getContact2().toString());*/
 
-        workerid = workers.getWorker_id();
+        workerid = workers.getWorkerId();
        /* perAddId = workers.getPermanentAddressId();
         curAddId = workers.getCurrentAddressId();
         bankId = workers.getBankId();*/
@@ -78,110 +78,16 @@ public class MannualAttendenceAdapter extends RecyclerView.Adapter<MannualAttend
         workers.setId(workerList.get(position).getId());
 
         //   holder.circleImageViewPhoto.setImageURI(Uri.parse(workers.getImageUrl().toString()));
-        /*if(workers.getImage().toString().contains("images/workers")){
-            String Url = Common.BASE_URL+ workers.getImage().toString();
+        if(workers.getImageUrl().toString().contains("images/workers")){
+            String Url = Common.BASE_URL+ workers.getImageUrl().toString();
             Glide.with(mContext)
                     .load(Url) // image url
                     .into(holder.McircleImageViewPhoto) ; // imageview object
         }else {
             Glide.with(mContext)
-                    .load(workers.getImage().toString())
+                    .load(workers.getImageUrl().toString())
                     .into(holder.McircleImageViewPhoto);
-        }*/
-
-
-
-        //  Picasso.get().load(workers.getImageUrl().toString()).into(holder.circleImageViewPhoto);
-
-
-/*
-        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Log.e(TAG, workers.toString() );
-
-                Intent UpdateWokerIntent = new Intent(mContext, WorkerUpdateActivity.class);
-                UpdateWokerIntent.putExtra("type","edit");
-                UpdateWokerIntent.putExtra("id",workers.getWorkerId());
-                UpdateWokerIntent.putExtra("workers",workers);
-                mContext.startActivity(UpdateWokerIntent);
-
-                activity.finish();
-
-                // Toast.makeText(mContext,workerList.get(position).getWorkerId().toString()+"EDIT", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
-                alertDialogBuilder.setTitle("Delete Worker Details !");
-                alertDialogBuilder.setMessage("Are you sure want to delete the Worker " + workers.getName())
-                        .setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // FIRE ZE MISSILES!
-                                mService.deleteWorkerDetails(
-                                        workerid,
-                                        PreferenceUtils.getEmployee_id(mContext),
-                                        PreferenceUtils.getProject_id(mContext),
-                                        bankId,
-                                        perAddId,
-                                        curAddId
-                                ).enqueue(new Callback<APIDeleteResponse>() {
-                                    @Override
-                                    public void onResponse(Call<APIDeleteResponse> call, Response<APIDeleteResponse> response) {
-                                        APIDeleteResponse result = response.body();
-                                        if (result.isError()) {
-                                            Toast.makeText(mContext, result.getError_msg(), Toast.LENGTH_SHORT).show();
-                                            Log.e("-->", result.getError_msg());
-                                        } else {
-                                            Log.e("-->", result.toString());
-
-                                        }
-                                    }
-                                    @Override
-                                    public void onFailure(Call<APIDeleteResponse> call, Throwable t) {
-
-                                    }
-                                });
-                                new Database(mContext).deleteToWorkers(workers.getId());
-                                Toast.makeText(mContext,workers.getId()+"Delete", Toast.LENGTH_SHORT).show();
-                                activity.finish();
-                                activity.startActivity(new Intent(mContext, WorkerDisplayList.class));
-
-                                notifyDataSetChanged();
-                                dialog.dismiss();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // User cancelled the dialog
-                                dialog.dismiss();
-                            }
-                        });
-
-
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-
-
-
-            }
-        });*/
-        holder.MannualbtnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Gettting Details Activity
-                Intent workerDetails = new Intent(activity, MannualAttendence.class);
-                workerDetails.putExtra("id",workers.getId());
-                workerDetails.putExtra("workers",workers);
-                activity.startActivity(workerDetails);
-            }
-        });
+        }
 
     }
 

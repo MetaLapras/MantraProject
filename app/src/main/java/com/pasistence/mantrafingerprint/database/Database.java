@@ -1503,7 +1503,7 @@ public class Database extends SQLiteAssetHelper {
         Log.e(TAG, "updateToTempAttendance:"+attendance.toString() );
     }
     //delete Attendance Master
-    public void deleteToTempAttendance(String workerId) {
+    public void deleteToTempAttendance() {
         SQLiteDatabase db = getReadableDatabase();
         String query = String.format("DELETE FROM Temp_attendance_master");
         db.execSQL(query);

@@ -54,7 +54,8 @@
         <activity android:name=".Main.UploadActivity" />
         <activity android:name=".Main.UploadWorkerDetailsActivity" />
         <activity android:name=".Main.UploadWorkerAttendence" />
-        <activity android:name=".Main.MannualAttendence"></activity>
+        <activity android:name=".Main.MannualAttendence" />
+        <activity android:name=".Main.ContactUs"></activity>
     </application>
 
 </manifest>

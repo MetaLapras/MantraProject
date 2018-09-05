@@ -32,7 +32,7 @@ public class MannualAttendence extends AppCompatActivity {
     MannualAttendenceAdapter mannualAttendenceAdapter;
     Database database;
 
-    List<MannualAttendencePOJO> Workermannual;
+    List<WorkerModel> Workerlsit;
 
 
     MaterialSearchBar materialSearchBar;
@@ -46,10 +46,10 @@ public class MannualAttendence extends AppCompatActivity {
 
         mInit();
 
-        //Workermannual = new Database(mContext).addToMannualAttendance();
+        Workerlsit = new Database(mContext).getAllWorkers();
         //database.addToMannualAttendance(Workermannual);
 
-        mannualAttendenceAdapter = new MannualAttendenceAdapter(MannualAttendence.this, Workermannual);
+        mannualAttendenceAdapter = new MannualAttendenceAdapter(MannualAttendence.this, Workerlsit);
         MannualAttendenceRecyclerView.setAdapter(mannualAttendenceAdapter);
         mannualAttendenceAdapter.notifyDataSetChanged();
     }

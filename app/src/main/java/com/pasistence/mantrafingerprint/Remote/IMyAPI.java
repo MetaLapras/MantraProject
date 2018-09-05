@@ -8,17 +8,16 @@ import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerImageR
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.APIWorkerPersonalResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.ApiProjectResponse;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Attendance;
-import com.pasistence.mantrafingerprint.Models.APIResponseModels.Contactdetails;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -181,6 +180,8 @@ public interface IMyAPI {
     @GET("GetAttendanceDetails.php")
     Call<Attendance> getAllAttendanceDetails();
 
+    @POST("UploadAllAttendance.php")
+    Call<ResponseBody> uploadAttendanceDetails(@Body RequestBody array);
 
 
     @FormUrlEncoded

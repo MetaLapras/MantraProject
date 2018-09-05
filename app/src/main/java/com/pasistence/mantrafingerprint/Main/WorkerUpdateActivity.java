@@ -1132,7 +1132,7 @@ public class WorkerUpdateActivity extends AppCompatActivity implements View.OnCl
                                           int monthOfYear, int dayOfMonth) {
 
                         // edtdob.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
-                        edtdob.setText(dayOfMonth  + "/" + (monthOfYear + 1) + "/" + year );
+                        edtdob.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth );
 
                     }
                 }, mYear, mMonth, mDay);

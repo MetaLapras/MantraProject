@@ -2,6 +2,7 @@ package com.pasistence.mantrafingerprint.Main;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mancj.materialsearchbar.MaterialSearchBar;
@@ -71,7 +73,23 @@ public class UploadWorkerAttendence extends AppCompatActivity {
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uploadAllAttendanceData(attendanceList);
+                if(attendanceList.isEmpty()){
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
+                    alertDialogBuilder.setMessage("No Data to Upload into the Server");
+                    alertDialogBuilder.setNegativeButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    arg0.dismiss();
+                                }
+                            });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }else{
+                    uploadAllAttendanceData(attendanceList);
+                }
+
             }
         });
     }
@@ -93,7 +111,6 @@ public class UploadWorkerAttendence extends AppCompatActivity {
 
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),stringToPost);
 
-
         mService.uploadAttendanceDetails(body).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -101,9 +118,9 @@ public class UploadWorkerAttendence extends AppCompatActivity {
                 try
                 {
                     //get your response....
-                    Log.d(TAG, "RetroFit2.0 : " + response.body());
+                    Log.d(TAG, "RetroFit2.0 : " + response.body().string());
                     String str = response.body().contentType().toString();
-                    Log.d(TAG, "json : " + str.toString());
+                    //Log.d(TAG, "json : " + str.toString());
 
 
                     for(Attendance attendance : attendanceList){

@@ -49,7 +49,6 @@ public class LoginActivity extends AppCompatActivity
    public String curAddress;
    public String perAddress;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

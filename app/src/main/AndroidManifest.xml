@@ -21,6 +21,7 @@
         <activity android:name=".Main.SplashScreen_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -52,7 +53,10 @@
         <activity android:name=".Main.TransferActivity" />
         <activity android:name=".Main.UploadActivity" />
         <activity android:name=".Main.UploadWorkerDetailsActivity" />
-        <activity android:name=".Main.UploadWorkerAttendence"></activity>
+        <activity android:name=".Main.UploadWorkerAttendence" />
+        <activity android:name=".Main.AboutUsActivity" />
+        <activity android:name=".Main2Activity" />
+        <activity android:name=".Main.MainActivityAboutUs"></activity>
     </application>
 
 </manifest>

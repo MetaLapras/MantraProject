@@ -69,7 +69,6 @@ public class UploadWorkerAttendence extends AppCompatActivity {
         WorkerAttendenceListRecyclerView.setAdapter(workerAteendenceAdapter);
         workerAteendenceAdapter.notifyDataSetChanged();
 
-
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

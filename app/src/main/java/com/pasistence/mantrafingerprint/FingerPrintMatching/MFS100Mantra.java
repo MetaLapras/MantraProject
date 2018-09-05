@@ -3,6 +3,7 @@ package com.pasistence.mantrafingerprint.FingerPrintMatching;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
@@ -20,6 +21,7 @@ import com.pasistence.mantrafingerprint.Main.MFS100TestActivity;
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.Attendance;
 import com.pasistence.mantrafingerprint.Models.WorkerList;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
+import com.pasistence.mantrafingerprint.R;
 import com.pasistence.mantrafingerprint.database.Database;
 
 import org.w3c.dom.Text;
@@ -382,6 +384,7 @@ public class MFS100Mantra implements MFS100Event {
             @Override
             public void run() {
                 // Log.e(TAG, str);
+               final MediaPlayer mp = MediaPlayer.create(activity, R.raw.smb_coin);
 
                 txtName.setText(workerModel.getName());
                 txtWorkerId.setText(workerModel.getAdharcard_id());
@@ -442,8 +445,10 @@ public class MFS100Mantra implements MFS100Event {
                         attendance.setCheckInTime(check_in_time);
                         database.addToTempAttendance(attendance);
                     }
+                mp.start();
                 }
         });
+
     }
 
     private void SetTextOnUINotMatch() {
@@ -451,7 +456,7 @@ public class MFS100Mantra implements MFS100Event {
             @Override
             public void run() {
                 // Log.e(TAG, str);
-
+                final MediaPlayer mp1 = MediaPlayer.create(activity, R.raw.beep);
                 txtName.setText("No Match Found");
                 txtWorkerId.setText("Worker not present");
 
@@ -462,6 +467,7 @@ public class MFS100Mantra implements MFS100Event {
                 Glide.with(activity)
                         .load(getImage("ic_fingerprint_1"))
                         .into(imgFinger);
+                mp1.start();
 
             }
         });

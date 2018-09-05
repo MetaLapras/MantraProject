@@ -3,6 +3,7 @@ package com.pasistence.mantrafingerprint.Main;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.provider.FontsContract;
 import android.support.v7.app.AppCompatActivity;
@@ -50,14 +51,18 @@ public class MatchingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching);
         mInit();
-        
+
+
+
         mfs100Mantra = new MFS100Mantra(MatchingActivity.this,imgfinger,CircularImage,txtWorkerName,txtWorkerId,lblMessage);
         mfs100Mantra.onStart();
         mfs100Mantra.setRadioCheck("checkIn");
+
         statrMatchingbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                     mfs100Mantra.startMatching();
+
             }
         });
     }
@@ -76,6 +81,8 @@ public class MatchingActivity extends AppCompatActivity {
 
         statrMatchingbtn            = (Button) findViewById(R.id.matchingBtn);
         linearLayout                = (ScrollView) findViewById(R.id.Matching_Layout);
+
+        final MediaPlayer mp = MediaPlayer.create(this,R.raw.smb_coin);
 
 
         radioGroup                  = (RadioGroup) findViewById(R.id.radio_group);

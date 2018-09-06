@@ -38,13 +38,6 @@ dependencies {
     implementation 'me.spark:submitbutton:1.0.1'
     implementation 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
 
-    implementation('com.github.ganfra:material-spinner:2.0.0')
-
-            {
-                exclude group: 'com.android.support', module: 'appcompat-v7'
-                exclude group: 'com.android.support', module: 'recyclerview-v7'
-            }
-
     // implementation'com.weiwangcn.betterspinner:library-material:1.1.0'
 
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'

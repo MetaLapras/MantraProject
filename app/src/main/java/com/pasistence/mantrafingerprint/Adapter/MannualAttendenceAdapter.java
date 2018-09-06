@@ -95,6 +95,7 @@ public class MannualAttendenceAdapter extends RecyclerView.Adapter<MannualAttend
         holder.chkChecked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+<<<<<<< HEAD
                 mannualAttendencePOJO=new MannualAttendencePOJO();
                /* mannualAttendencePOJO.setName(MtxtWorkerName.getText().toString());
                 // workerModel.setId(edt_Id.getText().toString());
@@ -104,6 +105,8 @@ public class MannualAttendenceAdapter extends RecyclerView.Adapter<MannualAttend
                   //  database.addToMannualAttendance(mannualAttendencePOJO);
 
 
+=======
+>>>>>>> a2732ab67fe52175a66760a721141978d5cd4c8b
             }
         });
 

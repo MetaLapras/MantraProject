@@ -1,1 +1,1 @@
-include ':app', ':ashclanzcalendar', ':calendar'
+include ':app'

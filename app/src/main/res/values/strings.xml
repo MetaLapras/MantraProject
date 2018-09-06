@@ -84,7 +84,7 @@
         <item>West Bengal</item>
 
     </string-array>
-    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_activity_dashboard">Dashboard</string>
     <string name="email">Email</string>
     <string name="aadhar_card_no">Aadhar Card No</string>
     <string name="name_of_worker">Name of Worker</string>

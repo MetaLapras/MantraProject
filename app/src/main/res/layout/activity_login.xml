@@ -90,6 +90,7 @@
                     android:textColorHint="#014e96"
                     android:shadowColor="@color/accent"
                     android:inputType="text"
+                    android:visibility="gone"
                     android:textAlignment="center" />
             </android.support.design.widget.TextInputLayout>
 

@@ -178,7 +178,7 @@ public interface IMyAPI {
 
     @FormUrlEncoded
     @GET("GetAttendanceDetails.php")
-    Call<Attendance> getAllAttendanceDetails();
+    Call<APIResponseAttendance> getAllAttendanceDetails();
 
     @POST("UploadAllAttendance.php")
     Call<ResponseBody> uploadAttendanceDetails(@Body RequestBody array);

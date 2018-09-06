@@ -37,8 +37,6 @@ public class DashboardActivity extends AppCompatActivity
     MenuItem logout;
     Context mContext;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -295,12 +293,15 @@ public class DashboardActivity extends AppCompatActivity
             String shareBodyText = "Check it out. Your message goes here";
             sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Subject here");
             sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
-            startActivity(Intent.createChooser(sharingIntent, "Shearing Option"));
+            startActivity(Intent.createChooser(sharingIntent, "Sharing Option"));
             return true;
 
 
         } else if (id == R.id.nav_contact_us) {
+<<<<<<< HEAD
          //startActivity(new Intent(this,ContactUs.class));
+=======
+>>>>>>> 12d71c57b7b32957c7e79975551cf53c78ba2afd
 
         }
 

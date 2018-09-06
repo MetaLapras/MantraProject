@@ -43,7 +43,6 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".Main.WorkerDisplayList" />
-        <activity android:name=".Main.WorkerDetails" />
         <activity android:name=".Main.WorkerRegistrationActivity" />
         <activity
             android:name=".Main.ShowDetailsActivity"
@@ -55,12 +54,9 @@
         <activity android:name=".Main.UploadWorkerDetailsActivity" />
         <activity android:name=".Main.UploadWorkerAttendence" />
         <activity android:name=".Main.MannualAttendence" />
-<<<<<<< HEAD
-        <activity android:name=".Main.ContactUs"></activity>
-=======
+
         <activity android:name=".Main.AboutUsActivity" />
-        <activity android:name=".Main.ContactUsActivity"></activity>
->>>>>>> e01ca977ac559e63b4d43df224e9cd194e2a6aa4
+
     </application>
 
 </manifest>

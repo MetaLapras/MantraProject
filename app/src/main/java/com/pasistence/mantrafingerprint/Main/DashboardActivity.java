@@ -300,7 +300,7 @@ public class DashboardActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_contact_us) {
-         startActivity(new Intent(this,ContactUs.class));
+         //startActivity(new Intent(this,ContactUs.class));
 
         }
 

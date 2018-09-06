@@ -55,9 +55,6 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import dmax.dialog.SpotsDialog;
-
-
-import fr.ganfra.materialspinner.MaterialSpinner;
 import okhttp3.MultipartBody;
 
 import retrofit2.Call;

@@ -95,7 +95,6 @@ public class MannualAttendenceAdapter extends RecyclerView.Adapter<MannualAttend
         holder.chkChecked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
             }
         });
 

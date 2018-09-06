@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-=======
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
->>>>>>> e01ca977ac559e63b4d43df224e9cd194e2a6aa4
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-<<<<<<< HEAD
-    tools:context=".Main.ContactUs">
+    tools:context=".Main.ContactUsActivity">
 
 
     <EditText
@@ -112,9 +107,6 @@
         android:layout_gravity="center"/>
 
 
-=======
-    tools:context=".Main.ContactUsActivity">
-
     <TextView
         android:id="@+id/txthodname"
         android:layout_width="match_parent"
@@ -166,6 +158,4 @@
             app:srcCompat="@drawable/ic_call" />
 
     </LinearLayout>
->>>>>>> e01ca977ac559e63b4d43df224e9cd194e2a6aa4
-
 </LinearLayout>

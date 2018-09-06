@@ -50,10 +50,10 @@ dependencies {
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:cardview-v7:27.1.1'
-    implementation 'com.github.mancj:MaterialSearchBar:+'
+    implementation 'com.github.mancj:MaterialSearchBar:0.7.6'
 
     //image choosing /croping library
-    implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.+'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.4.7'
 
     //material Edit Text
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'

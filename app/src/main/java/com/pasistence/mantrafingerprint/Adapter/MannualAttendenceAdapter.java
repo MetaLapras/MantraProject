@@ -101,7 +101,7 @@ public class MannualAttendenceAdapter extends RecyclerView.Adapter<MannualAttend
                 mannualAttendencePOJO.setWorker_id(MtxtWorkerId.getText().toString());
                 mannualAttendencePOJO.setNumber(MtxtWorkerNumber.getText().toString());
 */
-                    database.addToMannualAttendance(mannualAttendencePOJO);
+                  //  database.addToMannualAttendance(mannualAttendencePOJO);
 
 
             }

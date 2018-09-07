@@ -7,11 +7,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.pasistence.mantrafingerprint.Adapter.MannualAttendenceAdapter;
 import com.pasistence.mantrafingerprint.Adapter.SearchAdapter;
-import com.pasistence.mantrafingerprint.Adapter.WorkerListAdapter;
 import com.pasistence.mantrafingerprint.Models.MannualAttendencePOJO;
 import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.R;
@@ -22,8 +24,11 @@ import java.util.List;
 
 public class MannualAttendence extends AppCompatActivity {
 
+    StringBuffer sb = null;
+
     private static final String TAG = "workerdetails -->";
     RecyclerView MannualAttendenceRecyclerView;
+    Button btnsave,btnNext;
     RecyclerView.LayoutManager layoutManager;
     SearchAdapter adapter;
 
@@ -49,9 +54,17 @@ public class MannualAttendence extends AppCompatActivity {
         Workerlsit = new Database(mContext).getAllWorkers();
         //database.addToMannualAttendance(Workermannual);
 
-        mannualAttendenceAdapter = new MannualAttendenceAdapter(MannualAttendence.this, Workerlsit);
+       mannualAttendenceAdapter = new MannualAttendenceAdapter(MannualAttendence.this, Workerlsit);
         MannualAttendenceRecyclerView.setAdapter(mannualAttendenceAdapter);
         mannualAttendenceAdapter.notifyDataSetChanged();
+       // mannualAttendenceAdapter = new MannualAttendenceAdapter(this,getMannual());
+    }
+
+    private ArrayList<MannualAttendencePOJO> getMannual() {
+        ArrayList<MannualAttendencePOJO> mannualpojos=new ArrayList<>();
+      MannualAttendencePOJO M = new MannualAttendencePOJO();
+      mannualpojos.add(M);
+        return mannualpojos;
     }
 
     private void mInit() {
@@ -63,6 +76,38 @@ public class MannualAttendence extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(mContext);
         MannualAttendenceRecyclerView.setLayoutManager(layoutManager);
         materialSearchBar = (MaterialSearchBar) findViewById(R.id.mannualAttendence_search_bar);
+
+        btnsave   = (Button)findViewById(R.id.get_value);
+        btnNext=(Button)findViewById(R.id.mannual_Next);
+
+        btnsave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              sb = new StringBuffer();
+                new Database(mContext).deleteToMannualAttendance();
+
+              for (MannualAttendencePOJO mannualAttendence : mannualAttendenceAdapter.mannualList) {
+                  sb.append(mannualAttendence.getName());
+                  sb.append("\n");
+                  if (mannualAttendenceAdapter.mannualList.size() > 0) {
+
+                      Toast.makeText(mContext, sb.toString(), Toast.LENGTH_SHORT).show();
+                      new Database(mContext).addToMannualAttendance(mannualAttendence);
+                  } else {
+                      Toast.makeText(mContext, "Please check mannual Attendence..", Toast.LENGTH_SHORT).show();
+                  }
+
+              }
+            /*  if (mannualAttendenceAdapter.mannualList.size() > 0) {
+
+                    Toast.makeText(mContext, sb.toString(), Toast.LENGTH_SHORT).show();
+                    // new Database(mContext).addToMannualAttendance(mannualAttendence);
+                } else {
+                    Toast.makeText(mContext, "Please check mannual Attendence..", Toast.LENGTH_SHORT).show();
+                }
+*/
+            }
+        });
 
         //Init DB
         database = new Database(this);

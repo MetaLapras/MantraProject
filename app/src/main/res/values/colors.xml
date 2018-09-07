@@ -20,4 +20,7 @@
     <color name="white100">#fff</color>
     <color name="blue4" >#FF3F7097</color>
     <color name="bluedark" >#010b2e</color>
+    <color name="starColor">#ffbf40</color>
+    <color name="colorAccent1">#A9d440</color>
+    <color name="colorNavyBlue">#043b71</color>
 </resources>

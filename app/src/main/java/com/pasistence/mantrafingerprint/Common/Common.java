@@ -5,10 +5,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.pasistence.mantrafingerprint.Models.APIResponseModels.EmployeeDetails;
+import com.pasistence.mantrafingerprint.Models.WorkerModel;
 import com.pasistence.mantrafingerprint.Remote.IMyAPI;
 import com.pasistence.mantrafingerprint.Remote.RetrofitClient;
 
 public class Common {
+    public static WorkerModel currentUser;
 
     //public static final String BASE_URL = "http://192.168.0.150/mantra/";
     //public static final String BASE_URL = "https://projectmantra.000webhostapp.com/";

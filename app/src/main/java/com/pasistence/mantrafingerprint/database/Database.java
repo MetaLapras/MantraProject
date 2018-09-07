@@ -1872,11 +1872,9 @@ public class Database extends SQLiteAssetHelper {
     // SQLiteDatabase db = getReadableDatabase();
     SQLiteDatabase db = getWritableDatabase();
     String query = String.format("INSERT OR REPLACE INTO mannual_attendance_master(" +
-                    "id," +
                     "name," +
                     "number," +
                     "worker_id," +
-                    "worker_assignment_id," +
                     "project_id," +
                     "check_in_date," +
                     "check_in_time," +
@@ -1890,12 +1888,10 @@ public class Database extends SQLiteAssetHelper {
                     "checktype,"+
                     "approval"+
                     ")" +
-                    " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
-            mannualAttendencePOJO.getId(),
+                    " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
             mannualAttendencePOJO.getName(),
             mannualAttendencePOJO.getNumber(),
             mannualAttendencePOJO.getWorker_id(),
-            mannualAttendencePOJO.getWorker_assignment_id(),
             mannualAttendencePOJO.getProject_id(),
             mannualAttendencePOJO.getCheck_in_date(),
             mannualAttendencePOJO.getCheck_in_time(),
@@ -1909,12 +1905,15 @@ public class Database extends SQLiteAssetHelper {
             mannualAttendencePOJO.getChecktype(),
             mannualAttendencePOJO.getApproval()
     );
-
-
     db.execSQL(query);
 
-    Log.e(TAG, "Database Attendance Inserted Successfully");
+    Log.e(TAG, "Database Mannual Attendance Inserted Successfully");
     Log.e(TAG, mannualAttendencePOJO.toString());
 }
-
+    //delete worker by worker id
+    public void deleteToMannualAttendance() {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("DELETE FROM mannual_attendance_master");
+        db.execSQL(query);
+    }
 }

@@ -26,11 +26,14 @@ import android.widget.Toast;
 import com.appolica.flubber.Flubber;
 import com.pasistence.mantrafingerprint.Common.PreferenceUtils;
 import com.pasistence.mantrafingerprint.R;
+import com.stepstone.apprating.AppRatingDialog;
+import com.stepstone.apprating.listener.RatingDialogListener;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 public class DashboardActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,RatingDialogListener {
     LinearLayout member_register, member_list, member_transfer, member_dailyAttendence,mannual_aatendence;
     TextView dailyAttendence;
     Animation animation;
@@ -297,7 +300,17 @@ public class DashboardActivity extends AppCompatActivity
             return true;
 
 
-        } else if (id == R.id.nav_contact_us) {
+        } else if (id == R.id.nav_about_us) {
+            startActivity(new Intent(this,AboutUsActivity.class));
+
+        }
+        else if (id == R.id.nav_contact_us) {
+            startActivity(new Intent(this,ContactUs.class));
+
+        }
+        else if (id == R.id.nav_feedback) {
+            //startActivity(new Intent(this,FeedbackActivity.class));
+            showRatingDialog();
 
         }
 
@@ -306,7 +319,45 @@ public class DashboardActivity extends AppCompatActivity
         return true;
     }
 
+    private void showRatingDialog() {
+        new AppRatingDialog.Builder()
+                .setPositiveButtonText("Submit")
+                .setNegativeButtonText("Cancel")
+                .setNeutralButtonText("Later")
+                .setNoteDescriptions(Arrays.asList("Very Bad", "Not good", "Quite ok", "Very Good", "Excellent !!!"))
+                .setDefaultRating(1)
+                .setTitle("Rate this food")
+                .setDescription("Please select some stars and give your feedback")
+                .setStarColor(R.color.starColor)
+                .setNoteDescriptionTextColor(R.color.colorPrimary)
+                .setTitleTextColor(R.color.colorPrimary)
+                .setDescriptionTextColor(R.color.colorAccent1)
+                .setHint("Please write your comment here ...")
+                .setHintTextColor(R.color.colorAccent)
+                .setCommentTextColor(R.color.white)
+                .setCommentBackgroundColor(R.color.colorPrimaryDark)
+                /* .setWindowAnimation(R.style.MyDialogFadeAnimation)*/
+                .create(DashboardActivity.this)
+                .show();
+    }
 
+
+    @Override
+    public void onPositiveButtonClicked(int i, String s) {
+        Toast.makeText(mContext, "Thank You for Submitted Rating with Comments..", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNegativeButtonClicked() {
+        Toast.makeText(mContext, "Cancle the Feedback", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onNeutralButtonClicked() {
+        Toast.makeText(mContext, "Fill the Feedback Later", Toast.LENGTH_SHORT).show();
+
+    }
 }
 
 

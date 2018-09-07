@@ -34,10 +34,10 @@
                 android:id="@+id/text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="This is Company Name.."
+                android:text="Sant Vamanbhau Enterprises"
                 android:layout_below="@id/img_logo"
                 android:textSize="30dp"
-                android:textColor="@color/colorPrimary"
+                android:textColor="#043b71"
                 android:fontFamily="cursive"
                 android:textStyle="bold"
                 android:textAlignment="center"/>

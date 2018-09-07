@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Main.MannualAttendence">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <com.mancj.materialsearchbar.MaterialSearchBar
         android:layout_width="match_parent"
@@ -19,8 +23,44 @@
         android:id="@+id/worker_recycler_mannualAttendence"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
-        android:layout_height="match_parent"/>
+        android:layout_below="@+id/mannualAttendence_search_bar"
+        android:layout_height="wrap_content"/>
+
+    <Space
+        android:id="@+id/mannual_space"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/worker_recycler_mannualAttendence"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_below="@+id/mannual_space"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+       android:gravity="center"
+        android:layout_alignParentBottom="true"
+        >
+
+        <Button
+            android:id="@+id/get_value"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="23dp"
+            android:paddingRight="20dp"
+            android:text="Save" />
+
+    <Button
+        android:id="@+id/mannual_Next"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="34dp"
+        android:text="Next" />
+    </LinearLayout>
 
 
 
-</LinearLayout>
+    </RelativeLayout>
+</ScrollView>

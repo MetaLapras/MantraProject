@@ -82,4 +82,11 @@ dependencies {
     //Calendar
     implementation 'com.github.MetaLapras:Calendar:1.0.1'
 
+    //Rating
+    implementation 'com.stepstone.apprating:app-rating:2.3.0'
+    configurations {
+        cleanedAnnotations
+        compile.exclude group: 'org.jetbrains' , module:'annotations'
+    }
+
 }

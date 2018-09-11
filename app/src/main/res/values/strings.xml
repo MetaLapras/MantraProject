@@ -140,5 +140,8 @@
         <item>Perl</item>
     </string>
     <string name="companyName">Sant Vamanbhau Enterprises</string>
+    <string name="employeename" >Enter Employee Name</string>
+    <string name="empId" >Enter Employee Id</string>
+    <string name="Emp_password">Enter Employee password</string>
 
 </resources>

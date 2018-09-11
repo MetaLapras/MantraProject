@@ -8,9 +8,9 @@
     tools:context=".Main.ProjectLogn_In">
 
     <LinearLayout
-        android:layout_width="276dp"
-        android:layout_height="507dp"
-        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:layout_margin="20dp"
         android:background="@color/white"
         android:orientation="vertical"
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/candlemustard"
-            android:text="Project Login"
+            android:text="Employee Login"
             android:textAlignment="center"
             android:textColor="@color/primary_text"
             android:textSize="45dp" />
@@ -30,12 +30,12 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/edt_project_name"
+                android:id="@+id/emp_project_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/normal"
-                android:hint="@string/projectname"
+                android:hint="@string/employeename"
                 android:inputType="text"
                 android:paddingLeft="10dp"
                 android:shadowColor="#014e96"
@@ -51,12 +51,12 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/edt_employee_id"
+                android:id="@+id/emp_employee_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/normal"
-                android:hint="@string/employeeId"
+                android:hint="@string/empId"
                 android:inputType="text"
                 android:paddingLeft="10dp"
                 android:shadowColor="@color/accent"
@@ -65,7 +65,7 @@
                 android:textColorHint="#014e96"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:visibility="gone" />
+                android:visibility="visible" />
         </android.support.design.widget.TextInputLayout>
 
 
@@ -74,12 +74,12 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/edt_password"
+                android:id="@+id/emp_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/normal"
-                android:hint="@string/password"
+                android:hint="@string/Emp_password"
                 android:inputType="textPassword"
                 android:paddingLeft="10dp"
                 android:shadowColor="@color/accent"
@@ -91,14 +91,14 @@
 
 
         <Button
-            android:id="@+id/btnSignIn"
+            android:id="@+id/Emp_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/rounded_border"
             android:fontFamily="@font/medium"
-            android:text="LogIn"
+            android:text="Next"
             android:textAllCaps="false"
             android:textColor="@color/primary_text"
             android:textSize="20dp"

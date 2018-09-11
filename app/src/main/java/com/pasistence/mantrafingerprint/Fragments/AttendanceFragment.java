@@ -83,7 +83,8 @@ public class AttendanceFragment extends Fragment {
         String strtext = getArguments().getString("worker_id");
         df = new SimpleDateFormat("yyyy-MM-dd");
 
-        final List<Attendance> attendances = new Database(getActivity()).getallTempAttendace(strtext);
+       // final List<Attendance> attendances = new Database(getActivity()).getallTempAttendace(strtext);
+        final List<Attendance> attendances = new Database(getActivity()).getallAttendace(strtext);
       /*  Attendance attendance1
                 "123", =  new Attendance(
                 "1",

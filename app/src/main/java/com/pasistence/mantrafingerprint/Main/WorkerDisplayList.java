@@ -53,14 +53,15 @@ public class WorkerDisplayList extends AppCompatActivity {
     private static final String TAG = "workerdetails -->";
     RecyclerView WorkerListRecyclerView;
     RecyclerView.LayoutManager layoutManager;
-    SearchAdapter adapter;
+   // SearchAdapter adapter;
+   // WorkerListAdapter adapter;
 
 
     Context mContext;
     WorkerListAdapter workerListAdapter;
     Database database;
 
-    List<WorkerModel> WorkerDetails;
+  //  List<WorkerModel> WorkerDetails;
 
 
     MaterialSearchBar materialSearchBar;
@@ -73,9 +74,9 @@ public class WorkerDisplayList extends AppCompatActivity {
 
         mInit();
 
-        WorkerDetails = new Database(mContext).getAllWorkers();
+       // WorkerDetails = new Database(mContext).getAllWorkers();
 
-        workerListAdapter = new WorkerListAdapter(WorkerDisplayList.this, WorkerDetails);
+      //  workerListAdapter = new WorkerListAdapter(WorkerDisplayList.this, WorkerDetails);
         WorkerListRecyclerView.setAdapter(workerListAdapter);
         workerListAdapter.notifyDataSetChanged();
     }
@@ -126,7 +127,7 @@ public class WorkerDisplayList extends AppCompatActivity {
             @Override
             public void onSearchStateChanged(boolean enabled) {
                 if (!enabled) {
-                    WorkerListRecyclerView.setAdapter(adapter);
+                    WorkerListRecyclerView.setAdapter(workerListAdapter);
                 }
             }
 
@@ -142,15 +143,15 @@ public class WorkerDisplayList extends AppCompatActivity {
         });
 
         //Init Adapter default set all result
-        adapter = new SearchAdapter(WorkerDisplayList.this, this, database.getAllWorkers());
-        WorkerListRecyclerView.setAdapter(adapter);
+        workerListAdapter = new WorkerListAdapter(WorkerDisplayList.this,mContext, database.getAllWorkers());
+        WorkerListRecyclerView.setAdapter(workerListAdapter);
 
     }
 
 
     private void startSearch(String text) {
-        adapter = new SearchAdapter(WorkerDisplayList.this, this, database.getWorkerName(text));
-        WorkerListRecyclerView.setAdapter(adapter);
+        workerListAdapter = new WorkerListAdapter(WorkerDisplayList.this, mContext, database.getWorkerName(text));
+        WorkerListRecyclerView.setAdapter(workerListAdapter);
     }
 
     private void loadSuggestList() {

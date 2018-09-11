@@ -34,7 +34,7 @@
                 android:id="@+id/text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sant Vamanbhau Enterprises"
+                android:text="@string/companyName"
                 android:layout_below="@id/img_logo"
                 android:textSize="30dp"
                 android:textColor="#043b71"

@@ -54,18 +54,20 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
     IMyAPI mService;
 
 
-    public WorkerListAdapter(Activity activity, List<WorkerModel> workerList) {
+
+        public WorkerListAdapter(Activity activity,Context mContext, List<WorkerModel> workerList) {
         this.activity = activity;
+        this.mContext = mContext;
         this.workerList = workerList;
+    }
+
+    public WorkerListAdapter(WorkerDisplayList workerDisplayList, List<WorkerModel> workerDetails) {
     }
 
     @NonNull
     @Override
     public WorkerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.custom_worker_template,parent,false);
-        mContext = activity;
-        return new WorkerViewHolder(itemView);
+        return null;
     }
 
     @Override

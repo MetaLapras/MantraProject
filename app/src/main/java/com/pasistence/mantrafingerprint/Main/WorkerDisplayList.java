@@ -110,7 +110,7 @@ public class WorkerDisplayList extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 List<String> suggest = new ArrayList<>();
-                for (String search : suggestList) {
+                for (String search:suggestList) {
                     if (search.toLowerCase().contains(materialSearchBar.getText().toLowerCase()))
                         suggest.add(search);
                 }

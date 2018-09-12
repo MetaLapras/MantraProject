@@ -61,8 +61,8 @@ public class WorkerListAdapter extends RecyclerView.Adapter<WorkerViewHolder>{
         this.workerList = workerList;
     }
 
-    public WorkerListAdapter(WorkerDisplayList workerDisplayList, List<WorkerModel> workerDetails) {
-    }
+    /*public WorkerListAdapter(WorkerDisplayList workerDisplayList, List<WorkerModel> workerDetails) {
+    }*/
 
     @NonNull
     @Override
